@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BindOpen.Databases.MSSqlServer\BindOpen.Databases.MSSqlServer.csproj" />
-    <ProjectReference Include="..\BindOpen.Runtime.NetCore\BindOpen.Runtime.NetCore.csproj" />
     <ProjectReference Include="..\BindOpen.Databases.PostgreSql\BindOpen.Databases.PostgreSql.csproj" />
   </ItemGroup>
 
@@ -38,6 +37,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BindOpen.Runtime.NetCore" Version="1.0.112" />
   </ItemGroup>
 
 </Project>
