@@ -240,6 +240,7 @@ namespace BindOpen.Data.Queries
             if (query != null && !string.IsNullOrEmpty(sortQuery))
             {
                 query.OrderByClause = new DbQueryOrderByClause();
+
                 foreach (string fieldItem in sortQuery.Split(','))
                 {
                     var statement = new DbQueryOrderByStatement();
