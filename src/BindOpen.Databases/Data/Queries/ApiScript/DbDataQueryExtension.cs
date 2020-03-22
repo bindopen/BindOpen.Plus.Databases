@@ -54,6 +54,7 @@ namespace BindOpen.Data.Queries
             int i = 0)
         {
             string script = searchQuery;
+
             if (!string.IsNullOrEmpty(script))
             {
                 // boolean instructions
