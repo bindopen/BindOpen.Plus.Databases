@@ -76,16 +76,21 @@ namespace BindOpen.Data.Models
         /// <returns></returns>
         public IBdoDbModelBuilder AddTable<T>(DbTable table, params Expression<Func<T, object>>[] expressions) where T : class
         {
-            string schema = null;
-            string dataModuleName = null;
-
             Type type = typeof(T);
-            string tableName = type.Name;
-            if (type.GetCustomAttribute(typeof(BdoDbTableAttribute)) is BdoDbTableAttribute tableAttribute)
+            var tableName = type.Name;
+
+            if (table == null)
             {
-                tableName = tableAttribute.Name;
-                schema = tableAttribute.Schema;
-                dataModuleName = tableAttribute.DataModule;
+                table = new DbTable
+                {
+                    Name = tableName
+                };
+                if (type.GetCustomAttribute(typeof(BdoDbTableAttribute)) is BdoDbTableAttribute tableAttribute)
+                {
+                    table.Name = tableAttribute.Name;
+                    table.Schema = tableAttribute.Schema;
+                    table.DataModule = tableAttribute.DataModule;
+                }
             }
 
             List<DbField> fields = new List<DbField>();
@@ -94,11 +99,7 @@ namespace BindOpen.Data.Models
                 fields.Add(DbFluent.Field(expression.GetProperty().Name));
             }
 
-            table.Name = tableName;
-            table.DataModule = dataModuleName;
-            table.Schema = schema;
-
-            AddTable(table, fields.ToArray());
+            AddTable(tableName, table, fields.ToArray());
 
             return this;
         }
