@@ -3,8 +3,8 @@ using BindOpen.Data.Helpers.Serialization;
 using BindOpen.Data.Stores;
 using BindOpen.Extensions.Connectors;
 using BindOpen.System.Diagnostics;
-using BindOpen.Tests.Databases.Dtos;
-using BindOpen.Tests.Databases.Models;
+using BindOpen.Tests.Databases.Data.Dtos.Test1;
+using BindOpen.Tests.Databases.Data.Models;
 using NUnit.Framework;
 using System;
 
@@ -39,7 +39,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"update ""Mdm"".""Employee"" set ""Code""='codeC',""ContactEmail""='email@email.com',""FisrtName""='firstName',""LastName""='lastName',""StaffNumber""='123' from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on ""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""";
+            string expectedResult = @"update ""Mdm"".""Employee"" set ""Code""='codeC',""ContactEmail""='email@email.com',""FisrtName""='firstName',""LastName""='lastName',""StaffNumber""='123' from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"")";
 
             string result = _dbConnector.CreateCommandText(_model.UpdateEmployee1("codeC", true, _employee));
 

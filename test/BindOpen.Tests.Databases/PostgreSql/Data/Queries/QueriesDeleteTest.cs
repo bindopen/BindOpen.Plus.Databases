@@ -3,7 +3,7 @@ using BindOpen.Data.Helpers.Serialization;
 using BindOpen.Data.Stores;
 using BindOpen.Extensions.Connectors;
 using BindOpen.System.Diagnostics;
-using BindOpen.Tests.Databases.Models;
+using BindOpen.Tests.Databases.Data.Models;
 using NUnit.Framework;
 using System;
 
@@ -112,7 +112,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and ""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"")";
+            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))";
 
             string result = _dbConnector.CreateCommandText(_model.DeleteEmployee6("codeC"));
 
@@ -129,7 +129,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and ""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"")";
+            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))";
 
             string result = _dbConnector.CreateCommandText(_model.DeleteEmployee7("codeC"));
 
@@ -146,7 +146,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and ""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"")";
+            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))";
 
             string result = _dbConnector.CreateCommandText(_model.DeleteEmployee8("codeC"));
 
