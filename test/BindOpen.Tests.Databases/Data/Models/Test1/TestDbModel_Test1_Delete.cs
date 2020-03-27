@@ -92,7 +92,7 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .From(
-                    DbFluent.Table(DbQueryJoinKind.Left, Table("RegionalDirectorate").WithAlias("directorate"))
+                    DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
                         .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                 .Where(q => DbFluent.Eq(DbFluent.Field("code"), code));
 
@@ -108,7 +108,7 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .From(
-                    DbFluent.Table(DbQueryJoinKind.Left, Table("RegionalDirectorate").WithAlias("directorate"))
+                    DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
                         .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                 .Where(q => DataExpressionFactory.CreateAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueType.Text).AsScript()) + "}}"))
                 .WithParameters(
@@ -126,7 +126,7 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .From(
-                    DbFluent.Table(DbQueryJoinKind.Left, Table("RegionalDirectorate").WithAlias("directorate"))
+                    DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
                         .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                 .Where(q => DataExpressionFactory.CreateLiteral(@"""Code""='codeC'"))
                 .WithParameters(

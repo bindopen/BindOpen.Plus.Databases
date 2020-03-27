@@ -17,17 +17,17 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             builder
                 .AddTable("Employee", DbFluent.Table(nameof(DbEmployee).Substring(2), "Mdm"))
-                .AddTable("RegionalDirectorate", DbFluent.Table(nameof(DbRegionalDirectorate).Substring(2), "Mdm"));
+                .AddTable<DbRegionalDirectorate>(DbFluent.Table(nameof(DbRegionalDirectorate).Substring(2), "Mdm"));
 
             builder
-                .AddRelationship("Employee_RegionalDirectorate", Table("Employee"), Table("RegionalDirectorate"),
+                .AddRelationship("Employee_RegionalDirectorate", Table("Employee"), Table<DbRegionalDirectorate>(),
                     (nameof(DbEmployee.EmployeeId), nameof(DbRegionalDirectorate.RegionalDirectorateId)));
 
             builder
                 .AddTuple("Fields_SelectEmployee",
                     DbFluent.FieldAsAll(Table("Employee")),
-                    DbFluent.Field(nameof(DbRegionalDirectorate.RegionalDirectorateId), Table("RegionalDirectorate")),
-                    DbFluent.Field(nameof(DbRegionalDirectorate.Code), Table("RegionalDirectorate"))
+                    DbFluent.Field(nameof(DbRegionalDirectorate.RegionalDirectorateId), Table<DbRegionalDirectorate>()),
+                    DbFluent.Field(nameof(DbRegionalDirectorate.Code), Table<DbRegionalDirectorate>())
                 );
 
             builder
@@ -36,7 +36,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                     DbFluent.SelectQuery(Table("Employee"))
                     .From(
                         Table("Employee"),
-                        DbFluent.Table(DbQueryJoinKind.Left, Table("RegionalDirectorate"))
+                        DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
                             .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .AddIdField(p => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), p.UseParameter("code")))));

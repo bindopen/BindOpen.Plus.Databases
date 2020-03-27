@@ -26,7 +26,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                 {
                     var query = DbFluent.UpdateQuery(Table("Employee"))
                         .From(
-                            DbFluent.Table(DbQueryJoinKind.Left, Table("RegionalDirectorate"))
+                            DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
                                 .WithCondition(JoinCondition("Employee_RegionalDirectorate")));
 
                     query.AddField(
