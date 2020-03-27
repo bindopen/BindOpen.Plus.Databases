@@ -10,7 +10,7 @@ using System;
 namespace BindOpen.Tests.Databases.Data.Queries
 {
     [TestFixture]
-    public class QueriesSelectTest
+    public class QueriesDbApiTest
     {
         TestDbModel _model;
         IBdoDbConnector _dbConnector;
@@ -23,7 +23,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
         }
 
         [Test]
-        public void SimpleSelect1()
+        public void SimpleSelectWithApi1()
         {
             var log = new BdoLog();
 
@@ -40,7 +40,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
         }
 
         [Test]
-        public void SimpleSelect2()
+        public void SimpleSelectWithApi2()
         {
             var log = new BdoLog();
 
@@ -57,7 +57,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
         }
 
         [Test]
-        public void SimpleSelect3()
+        public void SimpleSelectWithApi3()
         {
             var log = new BdoLog();
 

@@ -3,8 +3,8 @@ using BindOpen.Data.Helpers.Serialization;
 using BindOpen.Data.Stores;
 using BindOpen.Extensions.Connectors;
 using BindOpen.System.Diagnostics;
-using BindOpen.Tests.Databases.Dtos;
-using BindOpen.Tests.Databases.Models;
+using BindOpen.Tests.Databases.Data.Dtos.Test1;
+using BindOpen.Tests.Databases.Data.Models;
 using NUnit.Framework;
 using System;
 

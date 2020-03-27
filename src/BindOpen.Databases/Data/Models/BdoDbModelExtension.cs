@@ -18,7 +18,7 @@ namespace BindOpen.Data.Models
         {
             if (model == null) return null;
 
-            var query = model.Query(name);
+            var query = model.Query(name, tryMode: true);
             if (query == null)
             {
                 var simpleQuery = intializer?.Invoke(model);
