@@ -2,6 +2,7 @@
 using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
 using BindOpen.Data.Helpers.Objects;
+using BindOpen.Data.Models;
 using BindOpen.Extensions.Carriers;
 using System;
 using System.Linq.Expressions;
@@ -36,13 +37,11 @@ namespace BindOpen.Data.Queries
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <typeparam name="T">The class to consider.</typeparam>
-        /// <typeparam name="TProperty">The class property to consider.</typeparam>
-        public static DbField Field<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField Field<T>(
+            Expression<Func<T, object>> expr,
             DbTable table = null) where T : class
         {
-            var memberAccess = expr.Body as MemberExpression;
-            var propertyInfo = memberAccess?.Member as PropertyInfo;
+            var propertyInfo = expr.GetProperty();
             var name = propertyInfo?.Name;
             var valueType = propertyInfo?.PropertyType.GetValueType() ?? DataValueType.None;
 
@@ -115,11 +114,11 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="value">The value to consider.</param>
-        public static DbField FieldAsLiteral<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsLiteral<T>(
+            Expression<Func<T, object>> expr,
             object value) where T : class
         {
-            return FieldAsLiteral<T, TProperty>(expr, null, value);
+            return FieldAsLiteral<T>(expr, null, value);
         }
 
         /// <summary>
@@ -128,12 +127,12 @@ namespace BindOpen.Data.Queries
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="value">The value to consider.</param>
-        public static DbField FieldAsLiteral<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsLiteral<T>(
+            Expression<Func<T, object>> expr,
             DbTable table,
             object value) where T : class
         {
-            var field = DbFluent.Field<T, TProperty>(expr, table);
+            var field = DbFluent.Field<T>(expr, table);
 
             return field.AsLiteral(value, field?.ValueType ?? DataValueType.None);
         }
@@ -199,11 +198,11 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="script">The script to consider.</param>
-        public static DbField FieldAsScript<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsScript<T>(
+            Expression<Func<T, object>> expr,
             string script) where T : class
         {
-            return FieldAsScript<T, TProperty>(expr, null, script);
+            return FieldAsScript<T>(expr, null, script);
         }
 
         /// <summary>
@@ -212,12 +211,12 @@ namespace BindOpen.Data.Queries
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="script">The script to consider.</param>
-        public static DbField FieldAsScript<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsScript<T>(
+            Expression<Func<T, object>> expr,
             DbTable table,
             string script) where T : class
         {
-            return DbFluent.Field<T, TProperty>(expr, table).AsScript(script);
+            return DbFluent.Field<T>(expr, table).AsScript(script);
         }
 
         // As query -----
@@ -271,11 +270,11 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="query">The query to consider.</param>
-        public static DbField FieldAsQuery<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsQuery<T>(
+            Expression<Func<T, object>> expr,
             IDbQuery query) where T : class
         {
-            return FieldAsQuery<T, TProperty>(expr, null, query);
+            return FieldAsQuery<T>(expr, null, query);
         }
 
         /// <summary>
@@ -284,12 +283,12 @@ namespace BindOpen.Data.Queries
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="query">The query to consider.</param>
-        public static DbField FieldAsQuery<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsQuery<T>(
+            Expression<Func<T, object>> expr,
             DbTable table,
             IDbQuery query) where T : class
         {
-            return DbFluent.Field<T, TProperty>(expr, table).AsQuery(query);
+            return DbFluent.Field<T>(expr, table).AsQuery(query);
         }
 
         // As other -----
@@ -342,11 +341,11 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="otherField">The other field to consider.</param>
-        public static DbField FieldAsOther<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsOther<T>(
+            Expression<Func<T, object>> expr,
             DbField otherField) where T : class
         {
-            return FieldAsOther<T, TProperty>(expr, null, otherField);
+            return FieldAsOther<T>(expr, null, otherField);
         }
 
         /// <summary>
@@ -355,12 +354,12 @@ namespace BindOpen.Data.Queries
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="otherField">The other field to consider.</param>
-        public static DbField FieldAsOther<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsOther<T>(
+            Expression<Func<T, object>> expr,
             DbTable table,
             DbField otherField) where T : class
         {
-            return DbFluent.Field<T, TProperty>(expr, table).AsOther(otherField);
+            return DbFluent.Field<T>(expr, table).AsOther(otherField);
         }
 
         // As All ---------------------------------
@@ -425,11 +424,11 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="parameterName">The parameter element to consider.</param>
-        public static DbField FieldAsParameter<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsParameter<T>(
+            Expression<Func<T, object>> expr,
             string parameterName) where T : class
         {
-            return FieldAsParameter<T, TProperty>(expr, null, parameterName);
+            return FieldAsParameter<T>(expr, null, parameterName);
         }
 
         /// <summary>
@@ -438,12 +437,12 @@ namespace BindOpen.Data.Queries
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameterName">The parameter element to consider.</param>
-        public static DbField FieldAsParameter<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsParameter<T>(
+            Expression<Func<T, object>> expr,
             DbTable table,
             string parameterName) where T : class
         {
-            return DbFluent.Field<T, TProperty>(expr, table).AsParameter(parameterName);
+            return DbFluent.Field<T>(expr, table).AsParameter(parameterName);
         }
 
         // As parameter with index -----
@@ -497,11 +496,11 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="parameterIndex">The parameter index to consider.</param>
-        public static DbField FieldAsParameter<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsParameter<T>(
+            Expression<Func<T, object>> expr,
             byte parameterIndex) where T : class
         {
-            return FieldAsParameter<T, TProperty>(expr, null, parameterIndex);
+            return FieldAsParameter<T>(expr, null, parameterIndex);
         }
 
         /// <summary>
@@ -510,12 +509,12 @@ namespace BindOpen.Data.Queries
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameterIndex">The parameter index to consider.</param>
-        public static DbField FieldAsParameter<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsParameter<T>(
+            Expression<Func<T, object>> expr,
             DbTable table,
             byte parameterIndex) where T : class
         {
-            return DbFluent.Field<T, TProperty>(expr, table).AsParameter(parameterIndex);
+            return DbFluent.Field<T>(expr, table).AsParameter(parameterIndex);
         }
 
         // As parameter with parameter -----
@@ -569,11 +568,11 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="parameter">The parameter to consider.</param>
-        public static DbField FieldAsParameter<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsParameter<T>(
+            Expression<Func<T, object>> expr,
             IDataElement parameter) where T : class
         {
-            return FieldAsParameter<T, TProperty>(expr, null, parameter);
+            return FieldAsParameter<T>(expr, null, parameter);
         }
 
         /// <summary>
@@ -582,12 +581,12 @@ namespace BindOpen.Data.Queries
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameter">The parameter to consider.</param>
-        public static DbField FieldAsParameter<T, TProperty>(
-            Expression<Func<T, TProperty>> expr,
+        public static DbField FieldAsParameter<T>(
+            Expression<Func<T, object>> expr,
             DbTable table,
             IDataElement parameter) where T : class
         {
-            return DbFluent.Field<T, TProperty>(expr, table).AsParameter(parameter);
+            return DbFluent.Field<T>(expr, table).AsParameter(parameter);
         }
     }
 }

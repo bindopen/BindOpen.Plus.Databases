@@ -1,20 +1,31 @@
-﻿using BindOpen.Data.Expression;
-using BindOpen.Data.Queries;
+﻿using BindOpen.Data.Queries;
 using BindOpen.Extensions.Carriers;
+using System;
+using System.Linq.Expressions;
 
 namespace BindOpen.Data.Models
 {
     public interface IBdoDbModelBuilder
     {
-        IBdoDbModelBuilder AddJoinCondition(string name, DataExpression condition);
+        IBdoDbModelBuilder AddTable(string name, DbTable table, params DbField[] fields);
 
-        IBdoDbModelBuilder AddTable(string name, DbTable table);
+        IBdoDbModelBuilder AddTable(DbTable table, params DbField[] fields);
 
-        IBdoDbModelBuilder AddTable(DbTable table);
+        IBdoDbModelBuilder AddTable<T>(DbTable table, params Expression<Func<T, object>>[] expressions) where T : class;
 
-        IBdoDbModelBuilder AddTable<T>(string name = null) where T : class;
+        IBdoDbModelBuilder AddTable<T>(params Expression<Func<T, object>>[] expressions) where T : class;
 
-        IBdoDbModelBuilder AddTuple(string name, DbField[] fields);
+
+        IBdoDbModelBuilder AddRelationship(string name, DbTable table1, DbTable table2, params (string field1Name, string field2Name)[] fieldMappings);
+
+        IBdoDbModelBuilder AddRelationship(DbTable table1, DbTable table2, params (string field1Name, string field2Name)[] fieldMappings);
+
+        IBdoDbModelBuilder AddRelationship<T1, T2>(string name, params (Expression<Func<T1, object>> field1, Expression<Func<T2, object>> field2)[] maapingsmappings);
+
+        IBdoDbModelBuilder AddRelationship<T1, T2>(params (Expression<Func<T1, object>> field1, Expression<Func<T2, object>> field2)[] mappings);
+
+
+        IBdoDbModelBuilder AddTuple(string name, params DbField[] fields);
 
         IBdoDbModelBuilder AddQuery(string name, IDbQuery query);
 
