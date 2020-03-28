@@ -20,10 +20,13 @@ namespace BindOpen.Extensions.Scriptwords
         {
 
             // we build the user filter condition string
-            String userFilterString = "";
-            foreach (String stringValue in values)
+            string userFilterString = "";
+            foreach (string stringValue in values)
+            {
                 if (stringValue == "*")
+                {
                     return "$SqlEq(1,1)";
+                }
                 else if (stringValue.Contains("-"))
                 {
                     int index = stringValue.IndexOf("-");
@@ -56,6 +59,7 @@ namespace BindOpen.Extensions.Scriptwords
                             stringValue + ")";
                     }
                 }
+            }
 
             return userFilterString;
         }

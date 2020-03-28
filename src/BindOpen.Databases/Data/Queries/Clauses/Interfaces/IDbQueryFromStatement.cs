@@ -6,7 +6,7 @@ namespace BindOpen.Data.Queries
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQueryFromStatement : IDbQueryItem
+    public interface IDbQueryFromStatement : IDbQueryStatement
     {
         /// <summary>
         /// The tables of this instance.

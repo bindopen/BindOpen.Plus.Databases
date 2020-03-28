@@ -38,5 +38,26 @@ namespace BindOpen.Data.Queries
         }
 
         #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbTupledTable;
+            clone.Tuples = Tuples?.Select(p => p.Clone<DbTuple>()).ToList();
+
+            return clone;
+        }
+
+        #endregion
     }
 }

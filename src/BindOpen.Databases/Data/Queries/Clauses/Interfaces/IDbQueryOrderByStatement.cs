@@ -6,7 +6,7 @@ namespace BindOpen.Data.Queries
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQueryOrderByStatement
+    public interface IDbQueryOrderByStatement : IDbQueryStatement
     {
         /// <summary>
         /// 

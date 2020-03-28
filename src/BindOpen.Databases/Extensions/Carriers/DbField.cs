@@ -129,6 +129,19 @@ namespace BindOpen.Extensions.Carriers
         #region Accessors
 
         /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbField;
+            clone.Expression = Expression?.Clone<DataExpression>();
+            clone.Query = Query?.Clone<DbQuery>();
+
+            return clone;
+        }
+
+        /// <summary>
         /// Get the name of this instance that is the alias if there is or the name otherwise.
         /// </summary>
         public string GetName()
@@ -156,6 +169,17 @@ namespace BindOpen.Extensions.Carriers
         // ------------------------------------------
 
         #region Mutators
+
+        /// <summary>
+        /// Updates this instance as database null value.
+        /// </summary>
+        /// <returns>Return this instance.</returns>
+        public DbField AsNull()
+        {
+            SetScriptValue(DbFluent.Null());
+
+            return this;
+        }
 
         /// <summary>
         /// Sets the expression value of this instance.

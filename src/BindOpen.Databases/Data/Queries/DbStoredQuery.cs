@@ -58,6 +58,26 @@ namespace BindOpen.Data.Queries
         #region Accessors
 
         /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbStoredQuery;
+            clone.Query = Query?.Clone<IDbQuery>();
+
+            if (QueryTexts != null)
+            {
+                foreach (var item in QueryTexts)
+                {
+                    clone.QueryTexts.Add(item.Key, item.Value);
+                }
+            }
+
+            return clone;
+        }
+
+        /// <summary>
         /// Gets the key of the item.
         /// </summary>
         /// <returns>Returns the key of the item.</returns>

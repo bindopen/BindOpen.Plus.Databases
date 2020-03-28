@@ -109,9 +109,13 @@ namespace BindOpen.Data.Queries
             DbTable table = null)
         {
             Kind = kind;
-            DataModule = table?.DataModule;
-            Schema = table?.Schema;
-            DataTable = table?.Name;
+            if (table != null)
+            {
+                DataModule = table.DataModule;
+                DataTable = table.Name;
+                DataTableAlias = table.Alias;
+                Schema = table.Schema;
+            }
         }
 
         /// <summary>
@@ -135,6 +139,23 @@ namespace BindOpen.Data.Queries
         // ------------------------------------------
 
         #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbQuery;
+            clone.CTETables = CTETables?.Select(p => p.Clone<DbTable>()).ToList();
+            clone.Description = Description?.Clone<DictionaryDataItem>();
+            clone.Expression = Expression?.Clone<DataExpression>();
+            clone.ParameterSet = ParameterSet?.Clone<DataElementSet>();
+            clone.ParameterSpecSet = ParameterSpecSet?.Clone<DataElementSpecSet>();
+            clone.Title = Title?.Clone<DictionaryDataItem>();
+
+            return clone;
+        }
 
         /// <summary>
         /// Gets the name of this instance.

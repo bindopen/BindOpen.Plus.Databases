@@ -5,7 +5,7 @@ namespace BindOpen.Data.Queries
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQueryFromClause : IDbQueryItem
+    public interface IDbQueryFromClause : IDbQueryClause
     {
         /// <summary>
         /// The statements of this instance.

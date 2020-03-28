@@ -1,12 +1,12 @@
-﻿using BindOpen.Data.Expression;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BindOpen.Data.Queries
 {
     /// <summary>
     /// This class represents the Order-By clause of a database data query.
     /// </summary>
-    public class DbQueryOrderByClause : IDbQueryOrderByClause
+    public class DbQueryOrderByClause : DbQueryItem, IDbQueryOrderByClause
     {
         // ------------------------------------------
         // PROPERTIES
@@ -18,11 +18,6 @@ namespace BindOpen.Data.Queries
         /// The statements of this instance.
         /// </summary>
         public List<DbQueryOrderByStatement> Statements { get; set; }
-
-        /// <summary>
-        /// Value of this instance.
-        /// </summary>
-        public DataExpression Expression { get; set; }
 
         #endregion
 
@@ -37,6 +32,27 @@ namespace BindOpen.Data.Queries
         /// </summary>
         public DbQueryOrderByClause()
         {
+        }
+
+        #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbQueryOrderByClause;
+            clone.Statements = Statements?.Select(p => p.Clone<DbQueryOrderByStatement>()).ToList();
+
+            return clone;
         }
 
         #endregion

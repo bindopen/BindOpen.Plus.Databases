@@ -58,11 +58,25 @@ namespace BindOpen.Data.Queries
 
         #endregion
 
+
         // ------------------------------------------
         // ACCESSORS
         // ------------------------------------------
 
         #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbJoinedTable;
+            clone.Table = Table?.Clone<DbTable>();
+            clone.Condition = Condition?.Clone<DataExpression>();
+
+            return clone;
+        }
 
         /// <summary>
         /// Sets the specified condition.
