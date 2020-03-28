@@ -26,8 +26,8 @@ namespace BindOpen.Data.Queries
             => new DbField()
             {
                 Name = name,
-                DataTable = table?.Name,
-                Schema = table?.Schema,
+                DataTable = string.IsNullOrEmpty(table?.Alias) ? table?.Name : table.Alias,
+                Schema = string.IsNullOrEmpty(table?.Alias) ? table?.Schema : null,
                 DataModule = table?.DataModule
             };
 

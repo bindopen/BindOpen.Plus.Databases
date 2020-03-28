@@ -93,7 +93,7 @@ namespace BindOpen.Tests.Databases.Data.Models
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .From(
                     DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
-                        .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
+                        .WithCondition(JoinCondition("Employee_RegionalDirectorate", null, "directorate")))
                 .Where(q => DbFluent.Eq(DbFluent.Field("code"), code));
 
             return query;

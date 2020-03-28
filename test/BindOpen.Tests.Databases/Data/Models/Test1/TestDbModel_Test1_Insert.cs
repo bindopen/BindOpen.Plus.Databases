@@ -30,7 +30,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                 })
                 .WithReturnedIdFields(new[]
                 {
-                    DbFluent.Field<DbEmployee>(p=>p.EmployeeId)
+                    Field(nameof(DbEmployee.EmployeeId), "Employee")
                 })
                 .WithParameters(
                     ElementFactory.Create("code", employee.Code),

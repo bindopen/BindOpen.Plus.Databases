@@ -1,6 +1,6 @@
-﻿using BindOpen.Data.Expression;
-using BindOpen.Extensions.Carriers;
+﻿using BindOpen.Extensions.Carriers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BindOpen.Data.Queries
 {
@@ -8,7 +8,7 @@ namespace BindOpen.Data.Queries
     /// <summary>
     /// This class represents the GroupBy clause of a database data query.
     /// </summary>
-    public class DbQueryGroupByClause : IDbQueryGroupByClause
+    public class DbQueryGroupByClause : DbQueryItem, IDbQueryGroupByClause
     {
         // ------------------------------------------
         // PROPERTIES
@@ -20,11 +20,6 @@ namespace BindOpen.Data.Queries
         /// Fields of this instance.
         /// </summary>
         public List<DbField> Fields { get; set; }
-
-        /// <summary>
-        /// Value of this instance.
-        /// </summary>
-        public DataExpression Expression { get; set; }
 
         #endregion
 
@@ -39,6 +34,27 @@ namespace BindOpen.Data.Queries
         /// </summary>
         public DbQueryGroupByClause()
         {
+        }
+
+        #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbQueryGroupByClause;
+            clone.Fields = Fields?.Select(p => p.Clone<DbField>()).ToList();
+
+            return clone;
         }
 
         #endregion

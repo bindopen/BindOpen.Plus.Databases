@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQueryHavingClause : IDbQueryStatement
+    public interface IDbQueryClause : IDbQueryItem
     {
     }
 }

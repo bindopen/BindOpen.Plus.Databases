@@ -6,7 +6,7 @@ namespace BindOpen.Data.Queries
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQueryWhereClause : IDbQueryItem
+    public interface IDbQueryWhereClause : IDbQueryClause
     {
         /// <summary>
         /// 
