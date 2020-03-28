@@ -119,6 +119,25 @@ namespace BindOpen.Data.Queries
         #region Accessors
 
         /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbSingleQuery;
+            clone.Fields = Fields?.Select(p => p.Clone<DbField>()).ToList();
+            clone.UnionClauses = UnionClauses?.Select(p => p?.Clone<DbQueryUnionClause>()).ToList();
+            clone.FromClause = FromClause?.Clone<DbQueryFromClause>();
+            clone.WhereClause = WhereClause?.Clone<DbQueryWhereClause>();
+            clone.GroupByClause = GroupByClause?.Clone<DbQueryGroupByClause>();
+            clone.HavingClause = HavingClause?.Clone<DbQueryHavingClause>();
+            clone.OrderByClause = OrderByClause?.Clone<DbQueryOrderByClause>();
+            clone.ReturnedIdFields = ReturnedIdFields?.Select(p => p.Clone<DbField>()).ToList();
+
+            return clone;
+        }
+
+        /// <summary>
         /// Gets the name of this instance.
         /// </summary>
         /// <returns>Returns the name of this instance.</returns>

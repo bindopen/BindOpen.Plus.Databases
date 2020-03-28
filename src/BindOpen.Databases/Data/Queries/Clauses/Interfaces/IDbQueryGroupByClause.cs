@@ -6,7 +6,7 @@ namespace BindOpen.Data.Queries
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQueryGroupByClause : IDbQueryItem
+    public interface IDbQueryGroupByClause : IDbQueryClause
     {
         /// <summary>
         /// 

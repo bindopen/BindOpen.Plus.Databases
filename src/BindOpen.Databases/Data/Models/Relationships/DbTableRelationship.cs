@@ -45,5 +45,28 @@ namespace BindOpen.Data.Models
         }
 
         #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbTableRelationship;
+            clone.Table1 = Table1?.Clone<DbTable>();
+            clone.Table2 = Table2?.Clone<DbTable>();
+            clone.FieldMappingDictionary = FieldMappingDictionary?.Clone<DictionaryDataItem>();
+
+            return clone;
+        }
+
+        #endregion
     }
 }

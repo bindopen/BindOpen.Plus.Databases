@@ -1,11 +1,12 @@
 ﻿using BindOpen.Data.Expression;
+using BindOpen.Data.Items;
 
 namespace BindOpen.Data.Queries
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQueryItem
+    public interface IDbQueryItem : IDataItem
     {
         /// <summary>
         /// The value to consider.

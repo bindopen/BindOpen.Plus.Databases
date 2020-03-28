@@ -1,22 +1,15 @@
-﻿using BindOpen.Data.Expression;
-
-namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Data.Queries
 {
     /// <summary>
     /// This class represents the Having clause of a database data query.
     /// </summary>
-    public class DbQueryHavingClause : IDbQueryHavingClause
+    public class DbQueryHavingClause : DbQueryItem, IDbQueryHavingClause
     {
         // ------------------------------------------
         // PROPERTIES
         // ------------------------------------------
 
         #region Properties
-
-        /// <summary>
-        /// Value of this instance.
-        /// </summary>
-        public DataExpression Expression { get; set; }
 
         #endregion
 
@@ -31,6 +24,26 @@ namespace BindOpen.Data.Queries
         /// </summary>
         public DbQueryHavingClause()
         {
+        }
+
+        #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbQueryHavingClause;
+
+            return clone;
         }
 
         #endregion

@@ -6,7 +6,7 @@ namespace BindOpen.Data.Queries
     /// <summary>
     /// This class represents the Order-By clause of a database data query.
     /// </summary>
-    public class DbQueryOrderByStatement : IDbQueryOrderByStatement
+    public class DbQueryOrderByStatement : DbQueryItem, IDbQueryOrderByStatement
     {
         // ------------------------------------------
         // PROPERTIES
@@ -37,6 +37,27 @@ namespace BindOpen.Data.Queries
         /// </summary>
         public DbQueryOrderByStatement()
         {
+        }
+
+        #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbQueryOrderByStatement;
+            clone.Field = Field?.Clone<DbField>();
+
+            return clone;
         }
 
         #endregion

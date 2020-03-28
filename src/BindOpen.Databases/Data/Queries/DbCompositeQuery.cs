@@ -56,6 +56,7 @@ namespace BindOpen.Data.Queries
 
         #endregion
 
+
         // ------------------------------------------
         // ACCESSORS
         // ------------------------------------------
@@ -68,7 +69,20 @@ namespace BindOpen.Data.Queries
         /// <returns>Returns the key of the item.</returns>
         public override string Key() => Name;
 
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbCompositeQuery;
+            clone.Queries = Queries?.Select(p => p.Clone<DbQuery>()).ToList();
+
+            return clone;
+        }
+
         #endregion
+
 
         // ------------------------------------------
         // MUTATORS

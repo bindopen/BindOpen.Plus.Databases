@@ -1,13 +1,13 @@
-﻿using BindOpen.Data.Expression;
-using BindOpen.Extensions.Carriers;
+﻿using BindOpen.Extensions.Carriers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BindOpen.Data.Queries
 {
     /// <summary>
     /// This class represents the Where clause of a database data query.
     /// </summary>
-    public class DbQueryWhereClause : IDbQueryWhereClause
+    public class DbQueryWhereClause : DbQueryItem, IDbQueryWhereClause
     {
         // ------------------------------------------
         // PROPERTIES
@@ -19,11 +19,6 @@ namespace BindOpen.Data.Queries
         /// 
         /// </summary>
         public List<DbField> IdFields { get; set; }
-
-        /// <summary>
-        /// Value of this instance.
-        /// </summary>
-        public DataExpression Expression { get; set; }
 
         #endregion
 
@@ -38,6 +33,27 @@ namespace BindOpen.Data.Queries
         /// </summary>
         public DbQueryWhereClause()
         {
+        }
+
+        #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbQueryWhereClause;
+            clone.IdFields = IdFields?.Select(p => p.Clone<DbField>()).ToList();
+
+            return clone;
         }
 
         #endregion

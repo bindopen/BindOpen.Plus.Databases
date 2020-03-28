@@ -3,7 +3,7 @@
     /// <summary>
     /// This class represents a union clause of a database data query.
     /// </summary>
-    public class DbQueryUnionClause : IDbQueryUnionClause
+    public class DbQueryUnionClause : DbQueryItem, IDbQueryUnionClause
     {
         // ------------------------------------------
         // PROPERTIES
@@ -34,6 +34,27 @@
         /// </summary>
         public DbQueryUnionClause()
         {
+        }
+
+        #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbDerivedTable;
+            clone.Query = Query.Clone<DbQuery>();
+
+            return clone;
         }
 
         #endregion

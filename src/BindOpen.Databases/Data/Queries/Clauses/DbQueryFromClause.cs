@@ -1,12 +1,12 @@
-﻿using BindOpen.Data.Expression;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BindOpen.Data.Queries
 {
     /// <summary>
     /// This class represents the From clause of a database data query.
     /// </summary>
-    public class DbQueryFromClause : IDbQueryFromClause
+    public class DbQueryFromClause : DbQueryItem, IDbQueryFromClause
     {
         // ------------------------------------------
         // PROPERTIES
@@ -18,11 +18,6 @@ namespace BindOpen.Data.Queries
         /// The statements of this instance.
         /// </summary>
         public List<DbQueryFromStatement> Statements { get; set; }
-
-        /// <summary>
-        /// Value of this instance.
-        /// </summary>
-        public DataExpression Expression { get; set; }
 
         #endregion
 
@@ -37,6 +32,27 @@ namespace BindOpen.Data.Queries
         /// </summary>
         public DbQueryFromClause()
         {
+        }
+
+        #endregion
+
+
+        // ------------------------------------------
+        // ACCESSORS
+        // ------------------------------------------
+
+        #region Accessors
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbQueryFromClause;
+            clone.Statements = Statements?.Select(p => p.Clone<DbQueryFromStatement>()).ToList();
+
+            return clone;
         }
 
         #endregion

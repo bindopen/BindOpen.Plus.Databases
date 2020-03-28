@@ -112,7 +112,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))";
+            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""directorate"".""RegionalDirectorateId""))";
 
             string result = _dbConnector.CreateCommandText(_model.DeleteEmployee6("codeC"));
 

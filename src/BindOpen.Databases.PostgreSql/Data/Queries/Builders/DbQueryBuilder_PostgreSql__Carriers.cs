@@ -295,18 +295,21 @@ namespace BindOpen.Data.Queries
             {
                 if ((viewMode == DbFieldViewMode.CompleteName) || (viewMode == DbFieldViewMode.CompleteNameAsAlias))
                 {
-
-                    if (string.IsNullOrEmpty(tableDataModule))
-                        tableDataModule = defaultDataModule;
-                    if (!string.IsNullOrEmpty(tableDataModule))
+                    if (string.IsNullOrEmpty(tableName))
                     {
-                        tableDataModule = GetDatabaseName(tableDataModule);
+                        if (string.IsNullOrEmpty(tableDataModule))
+                            tableDataModule = defaultDataModule;
+                        if (!string.IsNullOrEmpty(tableDataModule))
+                        {
+                            tableDataModule = GetDatabaseName(tableDataModule);
+                        }
+
+                        if (string.IsNullOrEmpty(tableSchema))
+                        {
+                            tableSchema = defaultSchema;
+                        }
                     }
 
-                    if (string.IsNullOrEmpty(tableSchema))
-                    {
-                        tableSchema = defaultSchema;
-                    }
                     string script = DbFluent.Table(tableName, tableSchema, tableDataModule);
                     queryString += _scope?.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log) ?? String.Empty;
                 }

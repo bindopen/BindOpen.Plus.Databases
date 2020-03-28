@@ -73,6 +73,18 @@ namespace BindOpen.Extensions.Carriers
         #region Accessors
 
         /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone()
+        {
+            var clone = base.Clone() as DbTable;
+            clone.Expression = Expression?.Clone<DataExpression>();
+
+            return clone;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
