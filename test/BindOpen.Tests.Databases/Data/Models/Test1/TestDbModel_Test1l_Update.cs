@@ -61,12 +61,12 @@ namespace BindOpen.Tests.Databases.Data.Models
                     return query;
                 })
                 .WithParameters(
-                    ElementFactory.Create("code", code),
-                    ElementFactory.Create("contactEmail", employee.ContactEmail),
-                    ElementFactory.Create("fisrtName", employee.FisrtName),
-                    ElementFactory.Create("lastName", employee.LastName),
+                    ElementFactory.CreateScalar("code", code),
+                    ElementFactory.CreateScalar("contactEmail", employee.ContactEmail),
+                    ElementFactory.CreateScalar("fisrtName", employee.FisrtName),
+                    ElementFactory.CreateScalar("lastName", employee.LastName),
                     ElementFactory.CreateScalar("directorateCode", null),
-                    ElementFactory.Create("staffNumber", employee.StaffNumber));
+                    ElementFactory.CreateScalar("staffNumber", employee.StaffNumber));
         }
 
         /// <summary>

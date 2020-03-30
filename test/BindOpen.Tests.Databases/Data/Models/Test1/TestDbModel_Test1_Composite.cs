@@ -41,11 +41,11 @@ namespace BindOpen.Tests.Databases.Data.Models
                             DbFluent.FieldAsParameter(nameof(DbEmployee.StaffNumber), q.UseParameter("staffNumber", DataValueType.Text))
                         })
                         .WithParameters(
-                            ElementFactory.Create("code", employee.Code),
-                            ElementFactory.Create("contactEmail", employee.ContactEmail),
-                            ElementFactory.Create("fisrtName", employee.FisrtName),
-                            ElementFactory.Create("lastName", employee.LastName),
-                            ElementFactory.Create("staffNumber", employee.StaffNumber)))
+                            ElementFactory.CreateScalar("code", employee.Code),
+                            ElementFactory.CreateScalar("contactEmail", employee.ContactEmail),
+                            ElementFactory.CreateScalar("fisrtName", employee.FisrtName),
+                            ElementFactory.CreateScalar("lastName", employee.LastName),
+                            ElementFactory.CreateScalar("staffNumber", employee.StaffNumber)))
                 .WithCTE(
                     DbFluent.Table(
                         DbFluent.SelectQuery(null)
@@ -55,11 +55,11 @@ namespace BindOpen.Tests.Databases.Data.Models
                             }))
                     .WithAlias("T"))
                 .WithParameters(
-                    ElementFactory.Create("code", employee.Code),
-                    ElementFactory.Create("contactEmail", employee.ContactEmail),
-                    ElementFactory.Create("fisrtName", employee.FisrtName),
-                    ElementFactory.Create("lastName", employee.LastName),
-                    ElementFactory.Create("staffNumber", employee.StaffNumber));
+                    ElementFactory.CreateScalar("code", employee.Code),
+                    ElementFactory.CreateScalar("contactEmail", employee.ContactEmail),
+                    ElementFactory.CreateScalar("fisrtName", employee.FisrtName),
+                    ElementFactory.CreateScalar("lastName", employee.LastName),
+                    ElementFactory.CreateScalar("staffNumber", employee.StaffNumber));
         }
     }
 }

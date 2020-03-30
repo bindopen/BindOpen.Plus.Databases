@@ -28,7 +28,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                     .WithLimit(100)
                     .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))
                 .WithParameters(
-                    ElementFactory.Create("code", code));
+                    ElementFactory.CreateScalar("code", code));
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                     .WithLimit(100)
                     .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))
                 .WithParameters(
-                    ElementFactory.Create("code", code));
+                    ElementFactory.CreateScalar("code", code));
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                     .WithLimit(100)
                     .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))
                 .WithParameters(
-                    ElementFactory.Create("code", code));
+                    ElementFactory.CreateScalar("code", code));
         }
     }
 }

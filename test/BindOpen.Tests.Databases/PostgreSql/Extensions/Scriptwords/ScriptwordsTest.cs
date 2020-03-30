@@ -22,14 +22,30 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
         }
 
         [Test, Order(1)]
-        public void TestInterprete_Fun_SqlEqual()
+        public void TestInterprete_Fun_SqlEq()
         {
-            string script = "$ISEQUAL(\"MYTABLE\", $Text(MYTABLE))";
-            string expectedResult = "true";
-
             var log = new BdoLog();
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(script, DataExpressionKind.Script, log: log);
+
+            string value = null;
+            string fluentScript = DbFluent.Eq(
+                DbFluent.Field("RegionalDirectorateId"), DbFluent.IfNull(value, DbFluent.Field("RegionalDirectorateId")));
+            string expectedScript = "$sqlEq($sqlField('RegionalDirectorateId'), $sqlIfNull($sqlNull(), $sqlField('RegionalDirectorateId')))";
+
             string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = log.ToXml();
+            }
+            Assert.That(expectedScript.Equals(fluentScript, StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
+
+
+            var scriptVariableSet = new ScriptVariableSet();
+            scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
+                DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(fluentScript, DataExpressionKind.Script, scriptVariableSet, log: log);
+
+            string expectedResult = @"""RegionalDirectorateId""=COALESCE(NULL,""RegionalDirectorateId"")";
+
             if (log.HasErrorsOrExceptions())
             {
                 xml = log.ToXml();
@@ -37,16 +53,56 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
         }
 
-        [Test, Order(1)]
+        [Test, Order(2)]
+        public void TestInterprete_Fun_SqlEq_Null()
+        {
+            var log = new BdoLog();
+
+            // Case: value, null
+
+            string value = null;
+            string fluentScript1 = DbFluent.Eq(
+                null, DbFluent.IfNull(value, DbFluent.Field("RegionalDirectorateId", DbFluent.Table("Table1", "Schema1"))));
+
+            var scriptVariableSet = new ScriptVariableSet();
+            scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
+                DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(fluentScript1, DataExpressionKind.Script, scriptVariableSet, log: log);
+
+            string expectedResult = @"COALESCE(NULL,""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = log.ToXml();
+            }
+            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+
+            // Case: null, value
+
+            string fluentScript2 = DbFluent.Eq(
+                DbFluent.IfNull(value, DbFluent.Field("RegionalDirectorateId", DbFluent.Table("Table1", "Schema1"))), null);
+            result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(fluentScript1, DataExpressionKind.Script, scriptVariableSet, log: log);
+
+            expectedResult = @"COALESCE(NULL,""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
+
+            xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = log.ToXml();
+            }
+            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+        }
+
+        [Test, Order(3)]
         public void TestInterprete_Fun_SqlIfNull()
         {
             string value = null;
-            string script1 = "$sqlEq($sqlIfNull($sqlField('RegionalDirectorateId'), ''), $sqlIfNull(" + DbFluent.Value(value) + ", ''))";
-            string script2 = DbFluent.Eq(
+            string script1 = DbFluent.Eq(
                 DbFluent.IfNull(DbFluent.Field("RegionalDirectorateId"), ""),
-                    DbFluent.IfNull(value, ""));
+                DbFluent.IfNull(value, ""));
 
-            string expectedResult = "true";
+            string expectedResult = @"COALESCE(""RegionalDirectorateId"",'')=COALESCE(NULL,'')";
 
             var log = new BdoLog();
 

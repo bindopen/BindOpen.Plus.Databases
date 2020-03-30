@@ -80,6 +80,6 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression IfNull(object value1, object value2)
-            => ("$sqlIfNull(" + Value(value1) + ", " + value2 + ")").CreateScript();
+            => ("$sqlIfNull(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
     }
 }

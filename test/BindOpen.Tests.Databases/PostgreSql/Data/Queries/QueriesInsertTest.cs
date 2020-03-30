@@ -41,7 +41,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"insert into ""Mdm"".""Employee"" (""Code"",""ContactEmail"",""FisrtName"",""LastName"",""StaffNumber"") values ('code1','email@email.com','firstName','lastName','123') returning ""Mdm"".""Employee"".""EmployeeId""";
 
-            string result = _dbConnector.CreateCommandText(_model.InsertEmployee1(_employee));
+            string result = _dbConnector.CreateCommandText(_model.InsertEmployee1(_employee), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())

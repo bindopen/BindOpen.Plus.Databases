@@ -154,27 +154,26 @@ namespace BindOpen.Databases.Data.Queries
                         }
                         break;
                     case DbFieldViewMode.NameEqualsValue:
-                        queryString += GetSqlText_Field(
-                            field,
-                            query, parameterSet,
-                            DbFieldViewMode.CompleteName,
-                            defaultDataModule,
-                            defaultSchema,
-                            defaultDataTable,
-                            scriptVariableSet,
-                            log);
 
-                        queryString += "=";
-
-                        queryString += GetSqlText_Field(
-                            field,
-                            query, parameterSet,
-                            DbFieldViewMode.OnlyValue,
-                            defaultDataModule,
-                            defaultSchema,
-                            defaultDataTable,
-                            scriptVariableSet,
-                            log);
+                        queryString += GetSqlText_Eq(
+                            GetSqlText_Field(
+                                field,
+                                query, parameterSet,
+                                DbFieldViewMode.CompleteName,
+                                defaultDataModule,
+                                defaultSchema,
+                                defaultDataTable,
+                                scriptVariableSet,
+                                log), 
+                            GetSqlText_Field(
+                                field,
+                                query, parameterSet,
+                                DbFieldViewMode.OnlyValue,
+                                defaultDataModule,
+                                defaultSchema,
+                                defaultDataTable,
+                                scriptVariableSet,
+                                log));
 
                         break;
                     default:

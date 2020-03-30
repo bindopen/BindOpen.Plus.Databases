@@ -20,7 +20,9 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="param1">The parameter to consider.</param>
         public static DataExpression Text(string param1)
-            => ("$sqlText(" + param1 + ")").CreateScript();
+        {
+            return $"$sqlText({(param1 == null ? Null() : (param1.Length == 0 ? "''" : param1))})".CreateScript();
+        }
 
         /// <summary>
         /// Creates a BDO script representing a text.

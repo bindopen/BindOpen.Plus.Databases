@@ -30,7 +30,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
                 FisrtName = "firstName",
                 LastName = "lastName",
                 RegionalDirectorateCode = "FR",
-                StaffNumber = "123"
+                StaffNumber = null
             };
         }
 
@@ -39,9 +39,9 @@ namespace BindOpen.Tests.Databases.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"update ""Mdm"".""Employee"" set ""Code""='codeC',""ContactEmail""='email@email.com',""FisrtName""='firstName',""LastName""='lastName',""StaffNumber""='123',""RegionalDirectorateId""=(select ""RegionalDirectorateId"" from ""Mdm"".""RegionalDirectorate"" where ""Code""=NULL) from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") returning ""Mdm"".""Employee"".""Code""";
+            string expectedResult = @"update ""Mdm"".""Employee"" set ""Code""='codeC',""ContactEmail""='email@email.com',""FisrtName""='firstName',""LastName""='lastName',""RegionalDirectorateId""=(select ""RegionalDirectorateId"" from ""Mdm"".""RegionalDirectorate"" where ""Code""=NULL) from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") returning ""Mdm"".""Employee"".""Code""";
 
-            string result = _dbConnector.CreateCommandText(_model.UpdateEmployee1("codeC", true, _employee));
+            string result = _dbConnector.CreateCommandText(_model.UpdateEmployee1("codeC", true, _employee), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -56,9 +56,9 @@ namespace BindOpen.Tests.Databases.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId""=NULL from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeC' returning ""employee"".""Code""";
+            string expectedResult = @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId"" is null from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeC' returning ""employee"".""Code""";
 
-            string result = _dbConnector.CreateCommandText(_model.UpdateEmployee2("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.UpdateEmployee2("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -73,9 +73,9 @@ namespace BindOpen.Tests.Databases.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId""=NULL from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeR' returning ""employee"".""Code""";
+            string expectedResult = @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId"" is null from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeR' returning ""employee"".""Code""";
 
-            string result = _dbConnector.CreateCommandText(_model.UpdateEmployee3("codeR"));
+            string result = _dbConnector.CreateCommandText(_model.UpdateEmployee3("codeR"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())

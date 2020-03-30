@@ -33,11 +33,11 @@ namespace BindOpen.Tests.Databases.Data.Models
                     Field(nameof(DbEmployee.EmployeeId), "Employee")
                 })
                 .WithParameters(
-                    ElementFactory.Create("code", employee.Code),
-                    ElementFactory.Create("contactEmail", employee.ContactEmail),
-                    ElementFactory.Create("fisrtName", employee.FisrtName),
-                    ElementFactory.Create("lastName", employee.LastName),
-                    ElementFactory.Create("staffNumber", employee.StaffNumber));
+                    ElementFactory.CreateScalar("code", employee.Code),
+                    ElementFactory.CreateScalar("contactEmail", employee.ContactEmail),
+                    ElementFactory.CreateScalar("fisrtName", employee.FisrtName),
+                    ElementFactory.CreateScalar("lastName", employee.LastName),
+                    ElementFactory.CreateScalar("staffNumber", employee.StaffNumber));
         }
     }
 }
