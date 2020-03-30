@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a database data query.
@@ -253,8 +253,7 @@ namespace BindOpen.Data.Queries
                 ParameterSet = new DataElementSet();
             }
 
-            ScalarElement parameter;
-            if ((parameter = ParameterSet[name] as ScalarElement) != null)
+            if (ParameterSet[name] is ScalarElement parameter)
             {
                 parameter.SetItem(value);
             }

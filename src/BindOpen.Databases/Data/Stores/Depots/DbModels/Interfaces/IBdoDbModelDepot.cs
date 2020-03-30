@@ -1,4 +1,4 @@
-﻿using BindOpen.Data.Models;
+﻿using BindOpen.Databases.Data.Models;
 using System.Collections.Generic;
 
 namespace BindOpen.Data.Stores

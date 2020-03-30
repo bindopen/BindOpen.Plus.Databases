@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This enumeration lists all the kinds of data query unions.

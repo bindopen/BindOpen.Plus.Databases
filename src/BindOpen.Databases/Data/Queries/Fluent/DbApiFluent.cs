@@ -4,7 +4,7 @@ using BindOpen.Extensions.Carriers;
 using BindOpen.System.Diagnostics;
 using System.Linq;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This static class represents a fluent factory of database API.

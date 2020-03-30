@@ -1,5 +1,5 @@
-﻿using BindOpen.Data.Models;
-using BindOpen.Data.Queries;
+﻿using BindOpen.Databases.Data.Models;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Tests.Databases.Data.Entities;
 using BindOpen.Tests.Databases.Data.Entities.Test2;
 

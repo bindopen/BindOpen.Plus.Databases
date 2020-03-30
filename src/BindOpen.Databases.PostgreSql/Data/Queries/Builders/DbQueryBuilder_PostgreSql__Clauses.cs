@@ -6,12 +6,12 @@ using BindOpen.Extensions.Carriers;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    internal partial class DbQueryBuilder_PostgreSql : DbQueryBuilder
+    public partial class DbQueryBuilder_PostgreSql : DbQueryBuilder
     {
         // Union -------------------------------------
 
@@ -62,7 +62,7 @@ namespace BindOpen.Data.Queries
                 {
                     if (clause?.Expression != null)
                     {
-                        string expression = _scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                        string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
                         queryString += expression;
                     }
                     else if (!(clause?.Statements?.Count > 0))
@@ -144,7 +144,7 @@ namespace BindOpen.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = _scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
                     queryString += expression;
                 }
                 if (clause.IdFields?.Count > 0)
@@ -183,7 +183,7 @@ namespace BindOpen.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = _scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
                     queryString += expression;
                 }
                 else if (clause.Statements?.Count > 0)
@@ -239,7 +239,7 @@ namespace BindOpen.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = _scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
                     queryString += expression;
                 }
                 else if (clause.Fields?.Count > 0)
@@ -277,7 +277,7 @@ namespace BindOpen.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = _scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
                     queryString += expression;
                 }
 

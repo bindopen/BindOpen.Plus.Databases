@@ -1,5 +1,5 @@
 ﻿using BindOpen.Data.Items;
-using BindOpen.Data.Models;
+using BindOpen.Databases.Data.Models;
 using BindOpen.System.Assemblies;
 using BindOpen.System.Diagnostics;
 using System;
@@ -105,7 +105,7 @@ namespace BindOpen.Data.Stores
                 foreach (Type type in types)
                 {
                     var model = Activator.CreateInstance(type) as BdoDbModel;
-                    var modelBuilder = new BdoDbModelBuilder(model);
+                    var modelBuilder = DbModelFactory.CreateBaseModelBuilder(model);
                     model.OnCreating(modelBuilder);
 
                     Add(model);

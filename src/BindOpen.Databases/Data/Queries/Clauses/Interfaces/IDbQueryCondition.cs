@@ -2,7 +2,7 @@
 using BindOpen.Data.Elements;
 using BindOpen.Extensions.Carriers;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// 

@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BindOpen.Data.Models
+namespace BindOpen.Databases.Data.Models
 {
     /// <summary>
     /// This class represents an object helper.

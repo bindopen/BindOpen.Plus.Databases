@@ -1,6 +1,6 @@
 ﻿using BindOpen.Data.Expression;
 using BindOpen.Data.Items;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Runtime;
 using System.Xml.Serialization;
 
@@ -147,7 +147,7 @@ namespace BindOpen.Extensions.Carriers
         /// </summary>
         /// <param name="table">The table to consider.</param>
         public static implicit operator string(DbTable table)
-            => DbQueryBuilder.GetBdoScript(table);
+            => table.ToScript();
 
         #endregion
     }

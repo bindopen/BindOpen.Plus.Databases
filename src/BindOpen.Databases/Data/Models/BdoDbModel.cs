@@ -1,17 +1,17 @@
 ﻿using BindOpen.Data.Items;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Carriers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace BindOpen.Data.Models
+namespace BindOpen.Databases.Data.Models
 {
     /// <summary>
     /// This class represents a database context.
     /// </summary>
-    public class BdoDbModel : IdentifiedDataItem, IBdoDbModel
+    public abstract class BdoDbModel : IdentifiedDataItem, IBdoDbModel
     {
         // Properties ---------------------------------------
 

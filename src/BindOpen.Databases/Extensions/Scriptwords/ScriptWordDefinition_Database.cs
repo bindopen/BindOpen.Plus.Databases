@@ -1,7 +1,6 @@
 ﻿using BindOpen.Application.Scopes;
 using BindOpen.Data.Helpers.Objects;
 using BindOpen.Data.Helpers.Strings;
-using BindOpen.Data.Queries;
 using BindOpen.Data.Stores;
 using BindOpen.Extensions.Runtime;
 using BindOpen.System.Scripting;
@@ -38,13 +37,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Count(parameters);
             }
 
@@ -67,13 +67,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Sum(parameters);
             }
 
@@ -96,13 +97,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Average(parameters);
             }
 
@@ -127,13 +129,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_CurrentDate(parameters);
             }
 
@@ -160,13 +163,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_True();
             }
 
@@ -193,13 +197,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(2);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_If(condition, value1, value2);
             }
 
@@ -224,13 +229,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value1 = parameters.GetStringAtIndex(0);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Not(value1);
             }
 
@@ -253,13 +259,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Or(parameters);
             }
 
@@ -282,13 +289,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_And(parameters);
             }
 
@@ -311,13 +319,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Xor(parameters);
             }
 
@@ -344,13 +353,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(1);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Eq(value1, value2);
             }
 
@@ -376,13 +386,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(1);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Diff(value1, value2);
             }
 
@@ -408,13 +419,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(1);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Gt(value1, value2);
             }
 
@@ -440,13 +452,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(1);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Gte(value1, value2);
             }
 
@@ -472,13 +485,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(1);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Lt(value1, value2);
             }
 
@@ -504,13 +518,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(1);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Lte(value1, value2);
             }
 
@@ -535,14 +550,48 @@ namespace BindOpen.Extensions.Scriptwords
             string value1 = parameters.GetStringAtIndex(0);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_IsNull(value1);
+            }
+
+            return text;
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLIFNULL.
+        /// </summary>
+        /// <param name="scope">The scope to consider.</param>
+        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
+        /// <param name="scriptWord">Script word to evaluate.</param>
+        /// <param name="parameters">The parameters to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlIfNull")]
+        public static string Fun_SqlIfNull(
+            IBdoScope scope,
+            IBdoScriptVariableSet scriptVariableSet,
+            IBdoScriptword scriptWord,
+            params object[] parameters)
+        {
+            string value1 = parameters.GetStringAtIndex(0);
+            string value2 = parameters.GetStringAtIndex(1);
+
+            string text = "";
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                text += queryBuilder.GetSqlText_IfNull(value1, value2);
             }
 
             return text;
@@ -568,13 +617,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value1 = parameters.GetStringAtIndex(0);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_ConvertToText(value1);
             }
 
@@ -601,13 +651,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value1 = parameters.GetStringAtIndex(0);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Text(value1);
             }
 
@@ -633,13 +684,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(1);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Like(value1, value2);
             }
 
@@ -666,13 +718,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value3 = parameters.GetStringAtIndex(2);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Replace(value1, value2, value3);
             }
 
@@ -695,13 +748,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Concatenate(parameters);
             }
 
@@ -724,13 +778,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Null();
             }
 
@@ -757,9 +812,11 @@ namespace BindOpen.Extensions.Scriptwords
             string value1 = parameters.GetStringAtIndex(0);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text = "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
@@ -769,7 +826,6 @@ namespace BindOpen.Extensions.Scriptwords
                 if (string.IsNullOrEmpty(instanceName) || instanceName == StringHelper.__NoneString)
                     instanceName = value1;
 
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Database(instanceName);
             }
 
@@ -794,14 +850,15 @@ namespace BindOpen.Extensions.Scriptwords
             string value1 = parameters.GetStringAtIndex(0);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
                 value1 = value1.GetValueFromText();
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Schema(value1, scriptWord.Parent?.StringItem);
             }
 
@@ -826,14 +883,15 @@ namespace BindOpen.Extensions.Scriptwords
             string value1 = parameters.GetStringAtIndex(0);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
                 value1 = value1.GetValueFromText();
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Table(value1, scriptWord.Parent?.StringItem);
             }
 
@@ -858,14 +916,15 @@ namespace BindOpen.Extensions.Scriptwords
             string value1 = parameters.GetStringAtIndex(0);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
                 value1 = value1.GetValueFromText();
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Field(value1, scriptWord.Parent?.StringItem);
             }
 
@@ -890,13 +949,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_NewGuid();
             }
 
@@ -919,13 +979,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_Random();
             }
 
@@ -952,13 +1013,14 @@ namespace BindOpen.Extensions.Scriptwords
             string value2 = parameters.GetStringAtIndex(1);
 
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_In(value1, value2);
             }
 
@@ -982,13 +1044,14 @@ namespace BindOpen.Extensions.Scriptwords
             params object[] parameters)
         {
             string text = "";
-            if (scriptVariableSet?.Has(ScriptVariableKey_Database.DbBuilder) != true)
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
             {
-                text += "<DatabaseBuilderMissing/>";
+                return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                DbQueryBuilder queryBuilder = (DbQueryBuilder)scriptVariableSet.GetValue(ScriptVariableKey_Database.DbBuilder);
                 text += queryBuilder.GetSqlText_List(parameters);
             }
 

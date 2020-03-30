@@ -1,4 +1,4 @@
-﻿using BindOpen.Data.Queries;
+﻿using BindOpen.Databases.Data.Queries;
 
 namespace BindOpen.Extensions.References
 

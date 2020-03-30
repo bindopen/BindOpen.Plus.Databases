@@ -1,6 +1,6 @@
 ﻿using BindOpen.Data.Expression;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.
@@ -71,6 +71,15 @@ namespace BindOpen.Data.Queries
         /// <param name="value1"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression IsNull(object value1)
-            => ("$sqlNull(" + Value(value1) + ")").CreateScript();
+            => ("$sqlIsNull(" + Value(value1) + ")").CreateScript();
+
+        /// <summary>
+        /// Evaluates the script word $SQLIFNULL.
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <returns>The interpreted object value.</returns>
+        public static DataExpression IfNull(object value1, object value2)
+            => ("$sqlIfNull(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
     }
 }

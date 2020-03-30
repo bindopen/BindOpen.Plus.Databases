@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -13,10 +13,7 @@
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Eq(string value1, string value2)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Eq(string value1, string value2);
 
         /// <summary>
         /// Evaluates the script word $SQLDIFF.
@@ -24,10 +21,7 @@
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Diff(string value1, string value2)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Diff(string value1, string value2);
 
         /// <summary>
         /// Evaluates the script word $SQLGT.
@@ -35,10 +29,7 @@
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Gt(string value1, string value2)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Gt(string value1, string value2);
 
         /// <summary>
         /// Evaluates the script word $SQLGTE.
@@ -46,10 +37,7 @@
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Gte(string value1, string value2)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Gte(string value1, string value2);
 
         /// <summary>
         /// Evaluates the script word $SQLLT.
@@ -57,10 +45,7 @@
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Lt(string value1, string value2)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Lt(string value1, string value2);
 
         /// <summary>
         /// Evaluates the script word $SQLLTE.
@@ -68,19 +53,13 @@
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Lte(string value1, string value2)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Lte(string value1, string value2);
 
         /// <summary>
         /// Evaluates the script word $SQLISNULL.
         /// </summary>
         /// <param name="value1"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_IsNull(string value1)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_IsNull(string value1);
     }
 }

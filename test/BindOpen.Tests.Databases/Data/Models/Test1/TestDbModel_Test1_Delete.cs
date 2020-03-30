@@ -1,8 +1,8 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
-using BindOpen.Data.Models;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Models;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Tests.Databases.Data.Entities.Test1;
 
 namespace BindOpen.Tests.Databases.Data.Models
@@ -35,7 +35,7 @@ namespace BindOpen.Tests.Databases.Data.Models
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text)))
                 .WithParameters(
-                    ElementFactory.Create("code", code));
+                    ElementFactory.CreateScalar("code", code));
 
             return query;
         }
@@ -50,7 +50,7 @@ namespace BindOpen.Tests.Databases.Data.Models
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .Where(q => DataExpressionFactory.CreateAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueType.Text).AsScript()) + "}}"))
                 .WithParameters(
-                    ElementFactory.Create("code", code));
+                    ElementFactory.CreateScalar("code", code));
 
             return query;
         }
@@ -65,7 +65,7 @@ namespace BindOpen.Tests.Databases.Data.Models
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .Where(q => DbFluent.Eq(DbFluent.Field("code"), q.UseParameter("code", DataValueType.Text).AsScript()))
                 .WithParameters(
-                    ElementFactory.Create("code", code));
+                    ElementFactory.CreateScalar("code", code));
 
             return query;
         }
@@ -112,7 +112,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                         .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                 .Where(q => DataExpressionFactory.CreateAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueType.Text).AsScript()) + "}}"))
                 .WithParameters(
-                    ElementFactory.Create("code", code));
+                    ElementFactory.CreateScalar("code", code));
 
             return query;
         }
@@ -130,7 +130,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                         .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                 .Where(q => DataExpressionFactory.CreateLiteral(@"""Code""='codeC'"))
                 .WithParameters(
-                    ElementFactory.Create("code", code));
+                    ElementFactory.CreateScalar("code", code));
 
             return query;
         }

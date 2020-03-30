@@ -2,7 +2,7 @@
 using BindOpen.Extensions.Carriers;
 using System.Linq;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This static class represents a factory of data table.

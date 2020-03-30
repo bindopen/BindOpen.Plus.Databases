@@ -2,13 +2,13 @@
 using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
 using BindOpen.Data.Helpers.Objects;
-using BindOpen.Data.Models;
+using BindOpen.Databases.Data.Models;
 using BindOpen.Extensions.Carriers;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This static class represents a factory of data field.

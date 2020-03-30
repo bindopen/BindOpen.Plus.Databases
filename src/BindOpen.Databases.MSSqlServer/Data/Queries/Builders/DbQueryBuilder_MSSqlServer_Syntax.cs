@@ -1,11 +1,9 @@
-﻿using BindOpen.Data.Queries;
-
-namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    internal partial class DbQueryBuilder_MSSqlServer : DbQueryBuilder
+    public partial class DbQueryBuilder_MSSqlServer : DbQueryBuilder
     {
         // Syntax
 
@@ -15,7 +13,7 @@ namespace BindOpen.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Null()
         {
-            return "NULL";
+            return "null";
         }
 
         /// <summary>

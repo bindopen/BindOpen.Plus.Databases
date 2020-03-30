@@ -1,6 +1,6 @@
 ﻿using BindOpen.Extensions.Carriers;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents the Join table of a database data query.

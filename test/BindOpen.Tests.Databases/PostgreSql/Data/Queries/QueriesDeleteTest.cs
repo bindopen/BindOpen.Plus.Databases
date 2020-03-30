@@ -29,7 +29,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee1("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee1("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -46,7 +46,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee2("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee2("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -63,7 +63,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee3("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee3("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -80,7 +80,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee4("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee4("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -97,7 +97,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee5("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee5("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -114,7 +114,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""directorate"".""RegionalDirectorateId""))";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee6("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee6("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -131,7 +131,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee7("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee7("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -148,7 +148,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee8("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee8("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())

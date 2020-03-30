@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -16,49 +14,34 @@ namespace BindOpen.Data.Queries
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_If(string condition, string value1, string value2)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_If(string condition, string value1, string value2);
 
         /// <summary>
         /// Evaluates the script word $SQLNOT.
         /// </summary>
         /// <param name="value1">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Not(string value1)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Not(string value1);
 
         /// <summary>
         /// Evaluates the script word $SQLOR.
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Or(object[] parameters)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Or(object[] parameters);
 
         /// <summary>
         /// Evaluates the script word $SQLAND.
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_And(object[] parameters)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_And(object[] parameters);
 
         /// <summary>
         /// Evaluates the script word $SQLXOR.
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Xor(object[] parameters)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Xor(object[] parameters);
     }
 }

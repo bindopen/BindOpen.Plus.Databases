@@ -1,11 +1,11 @@
 ﻿using BindOpen.System.Scripting;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    internal partial class DbQueryBuilder_PostgreSql
+    public partial class DbQueryBuilder_PostgreSql
     {
         // Aggregate
 
@@ -14,7 +14,7 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public override string GetSqlText_TextCount(params object[] parameters)
+        public override string GetSqlText_Count(params object[] parameters)
         {
             string text = "count(";
             foreach (object object1 in parameters)

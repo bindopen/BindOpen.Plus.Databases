@@ -29,7 +29,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"select ""Mdm"".""Employee"".*,""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"",""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
 
-            string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode1("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode1("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -46,7 +46,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"select ""Mdm"".""Employee"".*,""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"",""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
 
-            string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode2("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode2("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -63,7 +63,7 @@ namespace BindOpen.Tests.Databases.Data.Queries
 
             string expectedResult = @"select ""Mdm"".""Employee"".*,""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"",""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
 
-            string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode3("codeC"));
+            string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode3("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())

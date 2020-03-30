@@ -1,15 +1,13 @@
 ﻿using BindOpen.Application.Scopes;
-using BindOpen.Data.Common;
 using BindOpen.Data.Elements;
 using BindOpen.Data.Helpers.Strings;
 using BindOpen.Data.Items;
 using BindOpen.Data.Stores;
-using BindOpen.Extensions.Scriptwords;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
 using System;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -22,10 +20,24 @@ namespace BindOpen.Data.Queries
 
         #region Variables
 
+        private IBdoScope _scope;
+
+        #endregion
+
+        // ------------------------------------------
+        // PROPERTIES
+        // ------------------------------------------
+
+        #region Properties
+
         /// <summary>
         /// The application scope of this instance.
         /// </summary>
-        protected readonly IBdoScope _scope = null;
+        public IBdoScope Scope
+        {
+            get => _scope;
+            internal set { _scope = value; }
+        }
 
         #endregion
 
@@ -38,10 +50,8 @@ namespace BindOpen.Data.Queries
         /// <summary>
         /// Instantiates a new instance of the DbQueryBuilder class.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        public DbQueryBuilder(IBdoScope scope = null)
+        public DbQueryBuilder()
         {
-            _scope = scope;
         }
 
         #endregion
@@ -78,10 +88,10 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="parameterSet">The parameter set to consider.</param>
         /// <param name="query">The query to consider.</param>
-        protected void UpdateParameterSet(IDataElementSet parameterSet, IDbQuery query)
+        protected static void UpdateParameterSet(IDataElementSet parameterSet, IDbQuery query)
         {
-            parameterSet?.Update(query?.ParameterSet);
             parameterSet?.Update(query?.ParameterSpecSet);
+            parameterSet?.Update(query?.ParameterSet);
         }
 
         /// <summary>
@@ -108,12 +118,12 @@ namespace BindOpen.Data.Queries
                 {
                     if (query is DbSingleQuery singleDbQuery)
                     {
-                        (scriptVariableSet ?? (scriptVariableSet = new ScriptVariableSet())).SetValue(ScriptVariableKey_Database.DbBuilder, this);
+                        (scriptVariableSet ?? (scriptVariableSet = new ScriptVariableSet())).SetDbBuilder(this);
                         queryString = GetSqlText_Query(singleDbQuery, parameterSet, scriptVariableSet, log);
                     }
                     else if (query is DbCompositeQuery compositeDbQuery)
                     {
-                        (scriptVariableSet ?? (scriptVariableSet = new ScriptVariableSet())).SetValue(ScriptVariableKey_Database.DbBuilder, this);
+                        (scriptVariableSet ?? (scriptVariableSet = new ScriptVariableSet())).SetDbBuilder(this);
                         queryString = GetSqlText_Query(compositeDbQuery, parameterSet, scriptVariableSet, log);
                     }
                     else if (query is DbStoredQuery storedDbQuery)
@@ -174,14 +184,11 @@ namespace BindOpen.Data.Queries
         /// <param name="scriptVariableSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the built query text.</returns>
-        protected virtual string GetSqlText_Query(
+        protected abstract string GetSqlText_Query(
             IDbSingleQuery query,
             IDataElementSet parameterSet = null,
             IBdoScriptVariableSet scriptVariableSet = null,
-            IBdoLog log = null)
-        {
-            return "";
-        }
+            IBdoLog log = null);
 
         // Builds merge query ----------------------
 
@@ -193,36 +200,11 @@ namespace BindOpen.Data.Queries
         /// <param name="parameterSet">The parameter set to consider.</param>
         /// <param name="scriptVariableSet">The script variable set to consider.</param>
         /// <returns>Returns the built query text.</returns>
-        protected virtual string GetSqlText_Query(
+        protected abstract string GetSqlText_Query(
             IDbCompositeQuery query,
             IDataElementSet parameterSet = null,
             IBdoScriptVariableSet scriptVariableSet = null,
-            IBdoLog log = null)
-        {
-            return "";
-        }
-
-        // -------------------------------------------
-
-        /// <summary>
-        /// Gets the Sql string corresponding to the specified value.
-        /// </summary>
-        /// <param name="value">The value to consider.</param>
-        /// <param name="valueType">The value type to consider.</param>
-        /// <returns>Returns the Sql string.</returns>
-        protected virtual string GetSqlText_Value(string value, DataValueType valueType = DataValueType.Text)
-        {
-            switch (valueType)
-            {
-                case DataValueType.Number:
-                case DataValueType.Integer:
-                case DataValueType.None:
-                case DataValueType.Any:
-                    return (value?.Trim()?.Length == 0 ? "null" : value);
-                default:
-                    return GetSqlText_Text(value);
-            }
-        }
+            IBdoLog log = null);
 
         #endregion
 

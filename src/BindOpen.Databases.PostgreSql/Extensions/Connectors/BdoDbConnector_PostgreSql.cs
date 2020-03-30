@@ -1,7 +1,7 @@
 ﻿using BindOpen.Application.Scopes;
 using BindOpen.Data.Connections;
 using BindOpen.Data.Elements;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Runtime;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
@@ -54,7 +54,7 @@ namespace BindOpen.Extensions.Connectors
         /// <returns>Returns the database builder.</returns>
         public override IBdoConnector WithScope(IBdoScope scope)
         {
-            _queryBuilder = new DbQueryBuilder_PostgreSql(scope);
+            _queryBuilder = DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(scope);
 
             return this;
         }
