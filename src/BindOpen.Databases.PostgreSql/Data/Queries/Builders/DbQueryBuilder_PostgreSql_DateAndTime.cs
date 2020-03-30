@@ -1,9 +1,9 @@
-﻿namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    internal partial class DbQueryBuilder_PostgreSql
+    public partial class DbQueryBuilder_PostgreSql
     {
         // Date and time
 

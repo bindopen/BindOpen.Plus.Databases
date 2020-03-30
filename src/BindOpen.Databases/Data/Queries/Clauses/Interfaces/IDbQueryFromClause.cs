@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// 

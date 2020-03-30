@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Extensions.Carriers;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// 

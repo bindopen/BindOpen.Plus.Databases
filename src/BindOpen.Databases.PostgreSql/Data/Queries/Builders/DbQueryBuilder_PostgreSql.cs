@@ -1,11 +1,9 @@
-﻿using BindOpen.Application.Scopes;
-
-namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    internal partial class DbQueryBuilder_PostgreSql : DbQueryBuilder
+    public partial class DbQueryBuilder_PostgreSql : DbQueryBuilder
     {
         // ------------------------------------------
         // CONSTRUCTORS
@@ -16,10 +14,7 @@ namespace BindOpen.Data.Queries
         /// <summary>
         /// Instantiates a new instance of the DbQueryBuilder_PostgreSql class.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        public DbQueryBuilder_PostgreSql(
-            IBdoScope scope = null)
-            : base(scope)
+        public DbQueryBuilder_PostgreSql() : base()
         {
             Id = "databases.postgresql$client";
         }

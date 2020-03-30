@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents an simple database data query.

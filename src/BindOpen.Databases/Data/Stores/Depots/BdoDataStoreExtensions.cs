@@ -1,5 +1,5 @@
 ﻿using BindOpen.Application.Scopes;
-using BindOpen.Data.Models;
+using BindOpen.Databases.Data.Models;
 using BindOpen.System.Diagnostics;
 using System;
 

@@ -4,7 +4,7 @@ using BindOpen.Data.Items;
 using BindOpen.Extensions.Carriers;
 using System.Collections.Generic;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// 

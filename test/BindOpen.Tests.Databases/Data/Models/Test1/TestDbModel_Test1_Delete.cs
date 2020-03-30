@@ -1,8 +1,8 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
-using BindOpen.Data.Models;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Models;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Tests.Databases.Data.Entities.Test1;
 
 namespace BindOpen.Tests.Databases.Data.Models

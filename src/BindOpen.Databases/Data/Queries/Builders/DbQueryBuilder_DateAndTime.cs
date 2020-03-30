@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -14,9 +12,6 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_CurrentDate(object[] parameters)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_CurrentDate(object[] parameters);
     }
 }

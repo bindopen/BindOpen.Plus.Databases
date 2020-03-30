@@ -1,7 +1,7 @@
 ﻿using BindOpen.Extensions.Carriers;
 using System;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a fluent factory of database query.

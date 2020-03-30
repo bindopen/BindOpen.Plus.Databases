@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Data.Elements;
-using BindOpen.Data.Models;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Models;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.System.Diagnostics;
 using BindOpen.Tests.Databases.Data.Dtos.Test2;
 using BindOpen.Tests.Databases.Data.Entities.Test1;

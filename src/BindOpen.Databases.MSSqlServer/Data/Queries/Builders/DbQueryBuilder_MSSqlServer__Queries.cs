@@ -3,12 +3,12 @@ using BindOpen.Extensions.Carriers;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    internal partial class DbQueryBuilder_MSSqlServer : DbQueryBuilder
+    public partial class DbQueryBuilder_MSSqlServer : DbQueryBuilder
     {
         /// <summary>
         /// Builds the specified simple database data query and put the result

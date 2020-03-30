@@ -4,7 +4,7 @@ using BindOpen.System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents the database data query extension.

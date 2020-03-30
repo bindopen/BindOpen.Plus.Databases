@@ -1,5 +1,5 @@
 ﻿using BindOpen.Data.Helpers.Strings;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Carriers;
 using System;
 using System.Collections.Generic;
@@ -7,24 +7,29 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BindOpen.Data.Models
+namespace BindOpen.Databases.Data.Models
 {
     /// <summary>
     /// This class represents a database model.
     /// </summary>
     public class BdoDbModelBuilder : IBdoDbModelBuilder
     {
-        readonly IBdoDbModel _model = null;
-        readonly BdoDbModel _bdoDbModel = null;
+        BdoDbModel _model = null;
+
+        /// <summary>
+        /// The model of this instance.
+        /// </summary>
+        public IBdoDbModel Model
+        {
+            get => _model;
+            internal set { _model = value as BdoDbModel; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="model"></param>
-        public BdoDbModelBuilder(IBdoDbModel model)
+        public BdoDbModelBuilder()
         {
-            _model = model;
-            _bdoDbModel = model as BdoDbModel;
         }
 
         // Tables ---------------------------------------
@@ -45,13 +50,13 @@ namespace BindOpen.Data.Models
                     name = table.Schema.ConcatenateIfFirstNotEmpty(".") + table.Name;
                 }
 
-                _bdoDbModel.TableModelDictionary.Remove(name);
+                _model.TableModelDictionary.Remove(name);
                 var tableModel = new DbTableModel()
                 {
                     Table = table,
                     Fields = fields?.ToList()
                 };
-                _bdoDbModel.TableModelDictionary.Add(name, tableModel);
+                _model.TableModelDictionary.Add(name, tableModel);
             }
 
             return this;
@@ -129,7 +134,7 @@ namespace BindOpen.Data.Models
             DbTable table1, DbTable table2,
             params (string field1Name, string field2Name)[] fieldMappings)
         {
-            if (_bdoDbModel == null || table1 == null || table2 == null || fieldMappings?.Length == 0)
+            if (_model == null || table1 == null || table2 == null || fieldMappings?.Length == 0)
             {
                 return this;
             }
@@ -157,8 +162,8 @@ namespace BindOpen.Data.Models
                 }
             }
 
-            _bdoDbModel.TableRelationShipDictionary.Remove(name);
-            _bdoDbModel.TableRelationShipDictionary.Add(name, tableRelationship);
+            _model.TableRelationShipDictionary.Remove(name);
+            _model.TableRelationShipDictionary.Add(name, tableRelationship);
 
             return this;
         }
@@ -186,17 +191,17 @@ namespace BindOpen.Data.Models
         public IBdoDbModelBuilder AddRelationship<T1, T2>(
             string name, params (Expression<Func<T1, object>> field1, Expression<Func<T2, object>> field2)[] mappings)
         {
-            if (_bdoDbModel == null)
+            if (_model == null)
             {
                 return this;
             }
 
-            var table1 = _bdoDbModel.Table<T1>(tryMode: true);
+            var table1 = _model.Table<T1>(tryMode: true);
             if (table1 == null)
             {
                 AddTable(DbFluent.Table(typeof(T1).Name));
             }
-            var table2 = _bdoDbModel.Table<T2>(tryMode: true);
+            var table2 = _model.Table<T2>(tryMode: true);
             if (table2 == null)
             {
                 AddTable(DbFluent.Table(typeof(T2).Name));
@@ -228,8 +233,8 @@ namespace BindOpen.Data.Models
         {
             if (fields != null)
             {
-                _bdoDbModel.TupleDictionary.Remove(name);
-                _bdoDbModel.TupleDictionary.Add(name, fields);
+                _model.TupleDictionary.Remove(name);
+                _model.TupleDictionary.Add(name, fields);
             }
 
             return this;
@@ -261,8 +266,8 @@ namespace BindOpen.Data.Models
                     name = query.GetName();
                 }
 
-                _bdoDbModel.QueryDictionary.Remove(name);
-                _bdoDbModel.QueryDictionary.Add(name, new DbStoredQuery(query, name));
+                _model.QueryDictionary.Remove(name);
+                _model.QueryDictionary.Add(name, new DbStoredQuery(query, name));
             }
             return this;
         }

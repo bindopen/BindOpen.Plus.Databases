@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -14,9 +12,15 @@ namespace BindOpen.Data.Queries
         /// </summary>
         /// <param name="value1"></param>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_ConvertToText(string value1)
-        {
-            return "";
-        }
+        public abstract string GetSqlText_ConvertToText(string value1);
+
+        /// <summary>
+        /// Evaluates the script word $SQLISNULL.
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_IfNull(string value1, string value2);
+
     }
 }

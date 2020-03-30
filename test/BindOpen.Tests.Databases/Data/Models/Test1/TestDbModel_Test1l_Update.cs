@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Data.Elements;
-using BindOpen.Data.Models;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Models;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Tests.Databases.Data.Dtos.Test1;
 using BindOpen.Tests.Databases.Data.Entities.Test1;
 
@@ -50,6 +50,14 @@ namespace BindOpen.Tests.Databases.Data.Models
                         !isPartialUpdate || employee?.StaffNumber?.Length > 0,
                         q => DbFluent.FieldAsParameter(nameof(DbEmployee.StaffNumber), q.UseParameter("staffNumber", DataValueType.Text)));
 
+                    query.AddField(
+                        !isPartialUpdate || employee?.RegionalDirectorateCode?.Length > 0,
+                        q => DbFluent.FieldAsQuery(nameof(DbEmployee.RegionalDirectorateId),
+                                DbFluent.SelectQuery(Table<DbRegionalDirectorate>())
+                                    .AddField(DbFluent.Field(nameof(DbRegionalDirectorate.RegionalDirectorateId)))
+                                    .WithIdFields(
+                                        DbFluent.FieldAsParameter(nameof(DbRegionalDirectorate.Code), q.UseParameter("directorateCode", DataValueType.Text)))));
+
                     return query;
                 })
                 .WithParameters(
@@ -57,6 +65,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                     ElementFactory.Create("contactEmail", employee.ContactEmail),
                     ElementFactory.Create("fisrtName", employee.FisrtName),
                     ElementFactory.Create("lastName", employee.LastName),
+                    ElementFactory.CreateScalar("directorateCode", null),
                     ElementFactory.Create("staffNumber", employee.StaffNumber));
         }
 

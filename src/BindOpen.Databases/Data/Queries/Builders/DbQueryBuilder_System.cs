@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -11,18 +11,12 @@
         /// Evaluates the script word $SQLNEWGUID.
         /// </summary>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_NewGuid()
-        {
-            return "";
-        }
+        public abstract string GetSqlText_NewGuid();
 
         /// <summary>
         /// Evaluates the script word $SQLRANDOM.
         /// </summary>
         /// <returns>The interpreted string value.</returns>
-        public virtual string GetSqlText_Random()
-        {
-            return "";
-        }
+        public abstract string GetSqlText_Random();
     }
 }

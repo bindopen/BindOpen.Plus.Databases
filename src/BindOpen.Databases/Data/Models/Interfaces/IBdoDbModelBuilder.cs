@@ -1,12 +1,20 @@
-﻿using BindOpen.Data.Queries;
+﻿using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Carriers;
 using System;
 using System.Linq.Expressions;
 
-namespace BindOpen.Data.Models
+namespace BindOpen.Databases.Data.Models
 {
     public interface IBdoDbModelBuilder
     {
+        /// <summary>
+        /// The model of this instance.
+        /// </summary>
+        IBdoDbModel Model
+        {
+            get;
+        }
+
         IBdoDbModelBuilder AddTable(string name, DbTable table, params DbField[] fields);
 
         IBdoDbModelBuilder AddTable(DbTable table, params DbField[] fields);

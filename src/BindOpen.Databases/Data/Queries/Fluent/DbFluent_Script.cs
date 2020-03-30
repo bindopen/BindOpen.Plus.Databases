@@ -2,7 +2,7 @@
 using BindOpen.Data.Helpers.Strings;
 using System;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.
@@ -34,7 +34,11 @@ namespace BindOpen.Data.Queries
         /// <param name="param1">The parameter to consider.</param>
         public static DataExpression Value(object param1)
         {
-            if (param1 is DataExpression param1DataExpression)
+            if (param1 == null)
+            {
+                return DbFluent.Null();
+            }
+            else if (param1 is DataExpression param1DataExpression)
             {
                 if (param1DataExpression.Kind == DataExpressionKind.Auto
                     && param1DataExpression.Text?.StartsWith("{{") == true

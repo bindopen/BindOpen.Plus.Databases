@@ -1,4 +1,4 @@
-﻿using BindOpen.Data.Models;
+﻿using BindOpen.Databases.Data.Models;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Fidal.BrandManager.Tests.Infrastructure")]

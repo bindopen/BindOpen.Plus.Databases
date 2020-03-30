@@ -1,7 +1,7 @@
-﻿using BindOpen.Data.Queries;
+﻿using BindOpen.Databases.Data.Queries;
 using System;
 
-namespace BindOpen.Data.Models
+namespace BindOpen.Databases.Data.Models
 {
     /// <summary>
     /// This class represents a database context.
@@ -22,7 +22,9 @@ namespace BindOpen.Data.Models
             if (query == null)
             {
                 var simpleQuery = intializer?.Invoke(model);
-                (new BdoDbModelBuilder(model)).AddQuery(name, simpleQuery);
+                var modelBuilder = DbModelFactory.CreateBaseModelBuilder(model);
+                modelBuilder.AddQuery(name, simpleQuery);
+
                 query = model.Query(name);
             }
 

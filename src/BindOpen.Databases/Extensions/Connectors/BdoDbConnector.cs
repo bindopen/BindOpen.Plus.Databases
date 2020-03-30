@@ -2,7 +2,7 @@
 using BindOpen.Data.Connections;
 using BindOpen.Data.Elements;
 using BindOpen.Data.Items;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Runtime;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;

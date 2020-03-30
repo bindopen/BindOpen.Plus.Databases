@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace BindOpen.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    internal partial class DbQueryBuilder_MSSqlServer
+    public partial class DbQueryBuilder_MSSqlServer
     {
         // Comparison
 
@@ -17,11 +15,6 @@ namespace BindOpen.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Eq(string value1, string value2)
         {
-            if (string.Equals(value1, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value1 = "NULL";
-            if (string.Equals(value2, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value2 = "NULL";
-
             return value1 + "=" + value2;
         }
 
@@ -33,11 +26,6 @@ namespace BindOpen.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Diff(string value1, string value2)
         {
-            if (string.Equals(value1, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value1 = "NULL";
-            if (string.Equals(value2, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value2 = "NULL";
-
             return value1 + "<>" + value2;
         }
 
@@ -49,11 +37,6 @@ namespace BindOpen.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Gt(string value1, string value2)
         {
-            if (string.Equals(value1, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value1 = "NULL";
-            if (string.Equals(value2, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value2 = "NULL";
-
             return value1 + ">" + value2;
         }
 
@@ -65,11 +48,6 @@ namespace BindOpen.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Gte(string value1, string value2)
         {
-            if (string.Equals(value1, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value1 = "NULL";
-            if (string.Equals(value2, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value2 = "NULL";
-
             return value1 + ">=" + value2;
         }
 
@@ -81,11 +59,6 @@ namespace BindOpen.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Lt(string value1, string value2)
         {
-            if (string.Equals(value1, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value1 = "NULL";
-            if (string.Equals(value2, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value2 = "NULL";
-
             return value1 + "<" + value2;
         }
 
@@ -97,11 +70,6 @@ namespace BindOpen.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Lte(string value1, string value2)
         {
-            if (string.Equals(value1, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value1 = "NULL";
-            if (string.Equals(value2, "%NULL()", StringComparison.OrdinalIgnoreCase))
-                value2 = "NULL";
-
             return value1 + "<=" + value2;
         }
 

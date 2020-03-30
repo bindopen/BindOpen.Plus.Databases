@@ -6,12 +6,12 @@ using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
 using System;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    internal partial class DbQueryBuilder_PostgreSql : DbQueryBuilder
+    public partial class DbQueryBuilder_PostgreSql : DbQueryBuilder
     {
         // ------------------------------------------
         // FIELDS
@@ -111,7 +111,7 @@ namespace BindOpen.Data.Queries
                         }
                         else if (field.IsNameAsScript)
                         {
-                            string name = _scope?.Interpreter.Interprete(field.Name.CreateScript(), scriptVariableSet, log) ?? "";
+                            string name = Scope?.Interpreter.Interprete(field.Name.CreateScript(), scriptVariableSet, log) ?? "";
                             queryString += GetSqlText_Field(name);
                         }
                         else
@@ -122,7 +122,7 @@ namespace BindOpen.Data.Queries
                     case DbFieldViewMode.OnlyNameAsAlias:
                         if (field.IsNameAsScript)
                         {
-                            string name = _scope?.Interpreter.Interprete(field.Name.CreateScript(), scriptVariableSet, log) ?? "";
+                            string name = Scope?.Interpreter.Interprete(field.Name.CreateScript(), scriptVariableSet, log) ?? "";
                             queryString += GetSqlText_Field(name);
                         }
                         else
@@ -133,7 +133,7 @@ namespace BindOpen.Data.Queries
 
                         break;
                     case DbFieldViewMode.OnlyValue:
-                        string value = _scope?.Interpreter.Interprete(field.Expression, scriptVariableSet, log) ?? "";
+                        string value = Scope?.Interpreter.Interprete(field.Expression, scriptVariableSet, log) ?? "";
 
                         if (field.Query != null)
                         {
@@ -207,7 +207,7 @@ namespace BindOpen.Data.Queries
 
             if (table?.Expression != null)
             {
-                string expression = _scope?.Interpreter.Interprete(table.Expression, scriptVariableSet, log) ?? "";
+                string expression = Scope?.Interpreter.Interprete(table.Expression, scriptVariableSet, log) ?? "";
                 queryString += expression;
             }
             else if (table is DbJoinedTable joinedTable)
@@ -240,7 +240,7 @@ namespace BindOpen.Data.Queries
                 if (joinedTable.Kind != DbQueryJoinKind.None)
                 {
                     queryString += " on ";
-                    string expression = _scope?.Interpreter.Interprete(joinedTable.Condition, scriptVariableSet, log) ?? String.Empty;
+                    string expression = Scope?.Interpreter.Interprete(joinedTable.Condition, scriptVariableSet, log) ?? String.Empty;
                     queryString += expression;
                 }
             }
@@ -311,7 +311,7 @@ namespace BindOpen.Data.Queries
                     }
 
                     string script = DbFluent.Table(tableName, tableSchema, tableDataModule);
-                    queryString += _scope?.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log) ?? String.Empty;
+                    queryString += Scope?.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log) ?? String.Empty;
                 }
                 else
                 {

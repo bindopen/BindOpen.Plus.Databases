@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Data.Expression;
 using BindOpen.Data.Items;
-using BindOpen.Data.Queries;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Runtime;
 using System;
 using System.Xml.Serialization;
@@ -317,7 +317,7 @@ namespace BindOpen.Extensions.Carriers
         /// </summary>
         /// <param name="field">The field to consider.</param>
         public static implicit operator string(DbField field)
-            => DbQueryBuilder.GetBdoScript(field);
+            => field.ToScript();
 
         #endregion
     }

@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data.Expression;
 using BindOpen.Data.Items;
 
-namespace BindOpen.Data.Queries
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents the database query item.

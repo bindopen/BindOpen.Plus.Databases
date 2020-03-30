@@ -22,6 +22,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Extensions\Scriptwords\ScriptHelper_Database.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\docs\images\bindopen_icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -58,7 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Core" Version="1.0.115" />
+    <PackageReference Include="BindOpen.Core" Version="1.0.119" />
   </ItemGroup>
 
 </Project>

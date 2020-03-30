@@ -287,6 +287,22 @@
       <returnValueType>Text</returnValueType>
     </add.definition>
 
+    <!-- $SQLIFNULL(value, replacement) -->
+    <add.definition name="SQLIFNULL">
+      <creationDate>2020-03-29</creationDate>
+      <lastModificationDate>2020-03-29</lastModificationDate>
+      <description>
+        <add.value>Returns the SQL logic function that returns a replacement string if the value equals to SQL null value.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlIfNull</functionName>
+      <parameter.specification>
+        <scalar name="value" valueType="Any" />
+        <scalar name="value" valueType="Any" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
     <!-- $SQLIN(value1, value2...) -->
     <add.definition name="SQLIN">
       <creationDate>2011-01-09</creationDate>
