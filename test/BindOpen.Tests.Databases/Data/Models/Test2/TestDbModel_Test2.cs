@@ -1,9 +1,9 @@
 ﻿using BindOpen.Databases.Data.Models;
 using BindOpen.Databases.Data.Queries;
-using BindOpen.Tests.Databases.Data.Entities;
-using BindOpen.Tests.Databases.Data.Entities.Test2;
+using BindOpen.Tests.Databases.PostgreSql.Data.Entities;
+using BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test2;
 
-namespace BindOpen.Tests.Databases.Data.Models
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 {
     /// <summary>
     /// This class represents a test database model.
@@ -13,13 +13,11 @@ namespace BindOpen.Tests.Databases.Data.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="builder"></param>
-        public void OnCreating_Test2(IBdoDbModelBuilder builder)
+        public void OnCreating_Test2()
         {
             // Community
 
-            builder
-                .AddTable<DbCommunity>(
+            AddTable<DbCommunity>(
                     DbFluent.Table(nameof(DbCommunity).Substring(2), DbSchemas.Test2.ToString()),
                     q => q.CommunityId,
                     q => q.Code,
@@ -41,8 +39,7 @@ namespace BindOpen.Tests.Databases.Data.Models
 
             // Country
 
-            builder
-                .AddTable<DbCountry>(
+            AddTable<DbCountry>(
                     DbFluent.Table(nameof(DbCountry).Substring(2), DbSchemas.Test2.ToString()),
                     q => q.CountryId,
                     q => q.Code,
@@ -67,8 +64,7 @@ namespace BindOpen.Tests.Databases.Data.Models
 
             // Country_Community
 
-            builder
-                .AddTable("Country_Community", DbFluent.Table(nameof(DbCountry_Community).Substring(2), DbSchemas.Test2.ToString()))
+            AddTable("Country_Community", DbFluent.Table(nameof(DbCountry_Community).Substring(2), DbSchemas.Test2.ToString()))
                 .AddTuple(
                     "SelectCountry_Community",
                     DbFluent.Field(nameof(DbCountry_Community.CountryId), Table("Country_Community")),
@@ -80,8 +76,7 @@ namespace BindOpen.Tests.Databases.Data.Models
 
             // CountryInformation
 
-            builder
-                .AddTable<DbCountryInformation>(
+            AddTable<DbCountryInformation>(
                     DbFluent.Table(nameof(DbCountryInformation).Substring(2), DbSchemas.Test2.ToString()))
                 .AddTuple(
                     "SelectCountryInformation",
@@ -96,8 +91,7 @@ namespace BindOpen.Tests.Databases.Data.Models
 
             // Relationships
 
-            builder
-                .AddRelationship(
+            AddRelationship(
                     "Community_Country_Community",
                     Table<DbCommunity>(),
                     Table("Country_Community"),

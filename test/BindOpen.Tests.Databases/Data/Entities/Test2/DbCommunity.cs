@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BindOpen.Tests.Databases.Data.Entities.Test2
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test2
 {
     /// <summary>
     /// This class represents a community in database.

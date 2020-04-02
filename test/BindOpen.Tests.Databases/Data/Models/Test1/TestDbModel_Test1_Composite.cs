@@ -2,10 +2,10 @@
 using BindOpen.Data.Elements;
 using BindOpen.Databases.Data.Models;
 using BindOpen.Databases.Data.Queries;
-using BindOpen.Tests.Databases.Data.Dtos.Test1;
-using BindOpen.Tests.Databases.Data.Entities.Test1;
+using BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test1;
+using BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1;
 
-namespace BindOpen.Tests.Databases.Data.Models
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 {
     /// <summary>
     /// This class represents a test database model.
@@ -47,7 +47,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                             ElementFactory.CreateScalar("lastName", employee.LastName),
                             ElementFactory.CreateScalar("staffNumber", employee.StaffNumber)))
                 .WithCTE(
-                    DbFluent.Table(
+                    DbFluent.TableAsQuery(
                         DbFluent.SelectQuery(null)
                             .WithFields(q => new[]
                             {

@@ -105,8 +105,6 @@ namespace BindOpen.Data.Stores
                 foreach (Type type in types)
                 {
                     var model = Activator.CreateInstance(type) as BdoDbModel;
-                    var modelBuilder = DbModelFactory.CreateBaseModelBuilder(model);
-                    model.OnCreating(modelBuilder);
 
                     Add(model);
                 }

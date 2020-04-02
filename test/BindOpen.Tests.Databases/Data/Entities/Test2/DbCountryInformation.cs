@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Tests.Databases.Data.Entities.Test2
+﻿namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test2
 {
     /// <summary>
     /// This class represents a country information in database.

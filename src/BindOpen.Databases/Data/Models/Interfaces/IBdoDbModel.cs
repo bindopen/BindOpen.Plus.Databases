@@ -1,5 +1,4 @@
-﻿using BindOpen.Data.Items;
-using BindOpen.Databases.Data.Queries;
+﻿using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Carriers;
 using System;
 using System.Collections.Generic;
@@ -7,16 +6,15 @@ using System.Linq.Expressions;
 
 namespace BindOpen.Databases.Data.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public interface IBdoDbModel : IIdentifiedDataItem
+    public interface IBdoDbModel
     {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="builder"></param>
-        void OnCreating(IBdoDbModelBuilder builder);
+        /// <param name="name"></param>
+        /// <param name="initializer"></param>
+        /// <returns></returns>
+        IDbStoredQuery UseQuery(string name, Func<IBdoDbModel, IDbQuery> initializer);
 
         /// <summary>
         /// 

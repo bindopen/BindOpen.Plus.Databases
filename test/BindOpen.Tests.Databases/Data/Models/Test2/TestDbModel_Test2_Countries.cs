@@ -2,11 +2,11 @@
 using BindOpen.Data.Elements;
 using BindOpen.Databases.Data.Models;
 using BindOpen.Databases.Data.Queries;
-using BindOpen.Tests.Databases.Data.Dtos.Test2;
-using BindOpen.Tests.Databases.Data.Entities.Test1;
-using BindOpen.Tests.Databases.Data.Entities.Test2;
+using BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test2;
+using BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1;
+using BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test2;
 
-namespace BindOpen.Tests.Databases.Data.Models
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 {
     /// <summary>
     /// This class represents a test database model.
@@ -36,7 +36,7 @@ namespace BindOpen.Tests.Databases.Data.Models
             return this.UseQuery("GetCountryWithCode", p =>
                 DbFluent.SelectQuery(Table("Country"))
                     .From(
-                        DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
                             JoinCondition("Country_RegionalDirectorate")))
                     .WithFields(Tuple("SelectCountry"))
                     .AddIdField(DbFluent.FieldAsParameter(nameof(DbCountry.Code), "code"))
@@ -55,7 +55,7 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             return DbFluent.InsertQuery(Table("Country"), true)
                 .From(
-                    DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
                         JoinCondition("Country_RegionalDirectorate")));
             //.WithFields(p => Fields_InsertCountry(p, country));
         }
@@ -71,7 +71,7 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             var query = DbFluent.UpdateQuery(Table("Country"))
                 .From(
-                    DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
                         JoinCondition("Country_RegionalDirectorate")));
 
             if (!isPartialUpdate || country?.Code?.Length > 0)

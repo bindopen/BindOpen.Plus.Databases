@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Tests.Databases.Data.Dtos
+﻿namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos
 {
     /// <summary>
     /// This interface defines a dated and tracked DTO.

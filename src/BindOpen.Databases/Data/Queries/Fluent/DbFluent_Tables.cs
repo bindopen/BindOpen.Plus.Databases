@@ -29,7 +29,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Creates a new instance of the DbDerivedTable class.
         /// </summary>
         /// <param name="query">The query to consider.</param>
-        public static DbDerivedTable Table(IDbQuery query)
+        public static DbDerivedTable TableAsQuery(IDbQuery query)
             => new DbDerivedTable() { Query = query as DbQuery };
 
         // Tupled --------------------------------
@@ -38,7 +38,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Creates a new instance of the DbTupledTable class.
         /// </summary>
         /// <param name="query">The query to consider.</param>
-        public static DbTupledTable Table(params IDbTuple[] tuples)
+        public static DbTupledTable TableAsTuples(params IDbTuple[] tuples)
             => new DbTupledTable(tuples?.Cast<DbTuple>().ToArray());
 
         // Join --------------------------------
@@ -50,7 +50,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="table">The table to consider.</param>
         /// <param name="conditionScript">The condition script to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public static DbJoinedTable Table(DbQueryJoinKind kind, DbTable table, string conditionScript = null)
+        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript = null)
             => new DbJoinedTable() { Kind = kind, Table = table }.WithCondition(conditionScript.CreateScript());
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="table">The table to consider.</param>
         /// <param name="conditionScript">The condition script to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public static DbJoinedTable Table(DbTable table, string conditionScript = null)
-            => Table(DbQueryJoinKind.Inner, table, conditionScript);
+        public static DbJoinedTable TableAsJoin(DbTable table, string conditionScript = null)
+            => TableAsJoin(DbQueryJoinKind.Inner, table, conditionScript);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Tests.Databases.Data.Entities
+﻿namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities
 {
     /// <summary>
     /// This class represents a dated database entity.
