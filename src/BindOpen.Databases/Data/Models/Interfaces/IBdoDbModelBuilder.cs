@@ -8,12 +8,12 @@ namespace BindOpen.Databases.Data.Models
     public interface IBdoDbModelBuilder
     {
         /// <summary>
-        /// The model of this instance.
+        /// 
         /// </summary>
-        IBdoDbModel Model
-        {
-            get;
-        }
+        /// <param name="builder"></param>
+        void OnCreating();
+
+        // Mutators ------------------
 
         IBdoDbModelBuilder AddTable(string name, DbTable table, params DbField[] fields);
 

@@ -1,25 +1,23 @@
 ﻿using BindOpen.Application.Scopes;
 using BindOpen.Data.Helpers.Serialization;
-using BindOpen.Data.Stores;
-using BindOpen.Extensions.Connectors;
+using BindOpen.Databases.Data.Repositories;
 using BindOpen.System.Diagnostics;
 using BindOpen.Tests.Databases.PostgreSql.Data.Models;
 using NUnit.Framework;
 using System;
 
-namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
 {
     [TestFixture]
-    public class QueriesDeleteTest
+    public class RepositoryTest
     {
-        TestDbModel _model;
-        IBdoDbConnector _dbConnector;
+        TestRepository _repository;
 
         [SetUp]
         public void Setup()
         {
-            _model = GlobalVariables.AppHost.GetModel<TestDbModel>();
-            _dbConnector = GlobalVariables.AppHost.CreatePostgreSqlConnector();
+            _repository = GlobalVariables.AppHost.CreateDbRepository<TestRepository, TestDbModel>(
+                GlobalVariables.AppHost.CreatePostgreSqlConnector());
         }
 
         [Test]
@@ -29,7 +27,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee1("codeC"), log: log);
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee1("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -46,7 +44,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee2("codeC"), log: log);
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee2("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -63,7 +61,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee3("codeC"), log: log);
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee3("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -80,7 +78,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee4("codeC"), log: log);
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee4("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -97,7 +95,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" where ""Code""='codeC'";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee5("codeC"), log: log);
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee5("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -114,7 +112,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""directorate"".""RegionalDirectorateId""))";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee6("codeC"), log: log);
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee6("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -131,7 +129,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee7("codeC"), log: log);
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee7("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
@@ -148,7 +146,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where (""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))";
 
-            string result = _dbConnector.CreateCommandText(_model.DeleteEmployee8("codeC"), log: log);
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee8("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())

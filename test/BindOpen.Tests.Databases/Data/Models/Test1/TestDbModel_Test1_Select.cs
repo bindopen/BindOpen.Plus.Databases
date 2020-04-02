@@ -2,9 +2,9 @@
 using BindOpen.Data.Elements;
 using BindOpen.Databases.Data.Models;
 using BindOpen.Databases.Data.Queries;
-using BindOpen.Tests.Databases.Data.Entities.Test1;
+using BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1;
 
-namespace BindOpen.Tests.Databases.Data.Models
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 {
     /// <summary>
     /// This class represents a test database model.
@@ -22,7 +22,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                 DbFluent.SelectQuery(Table("Employee"))
                     .From(
                         Table("Employee"),
-                        DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
+                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
                             .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
@@ -41,7 +41,7 @@ namespace BindOpen.Tests.Databases.Data.Models
             return this.UseQuery("SelectEmployeeWithCode2", p =>
                 DbFluent.SelectQuery(Table("Employee"))
                     .From(
-                        DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
+                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
                             .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
@@ -61,7 +61,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                 DbFluent.SelectQuery(null)
                     .From(
                         Table("Employee"),
-                        DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
+                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
                             .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)

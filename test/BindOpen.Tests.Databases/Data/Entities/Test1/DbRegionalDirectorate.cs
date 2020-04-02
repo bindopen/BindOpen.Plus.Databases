@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BindOpen.Tests.Databases.Data.Entities.Test1
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1
 {
     /// <summary>
     /// This class represents a regional direction in database.

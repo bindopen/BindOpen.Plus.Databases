@@ -1,6 +1,6 @@
 ﻿using BindOpen.Extensions.Carriers;
 
-namespace BindOpen.Tests.Databases.Data.Entities.Test1
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1
 {
     /// <summary>
     /// This class represents an employee in database.

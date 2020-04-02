@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace BindOpen.Tests.Databases.Data.Dtos
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos
 {
     /// <summary>
     /// This class represents a dated DTO.

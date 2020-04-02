@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BindOpen.Tests.Databases.Data.Dtos
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos
 {
     /// <summary>
     /// This class represents a dated tracked DTO.

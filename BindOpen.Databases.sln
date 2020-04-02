@@ -21,7 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docs\images\bindopen_icon.png = docs\images\bindopen_icon.png
 		CREDITS.txt = CREDITS.txt
 		LICENSE = LICENSE
-		Readme.md = Readme.md
+		README.md = README.md
+		TODO.md = TODO.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BindOpen.Tests.Databases", "test\BindOpen.Tests.Databases\BindOpen.Tests.Databases.csproj", "{B3CD53E2-6E01-4F18-846A-D23D30E172DF}"

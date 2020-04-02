@@ -3,9 +3,9 @@ using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
 using BindOpen.Databases.Data.Models;
 using BindOpen.Databases.Data.Queries;
-using BindOpen.Tests.Databases.Data.Entities.Test1;
+using BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1;
 
-namespace BindOpen.Tests.Databases.Data.Models
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 {
     /// <summary>
     /// This class represents a test database model.
@@ -92,7 +92,7 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .From(
-                    DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
                         .WithCondition(JoinCondition("Employee_RegionalDirectorate", null, "directorate")))
                 .Where(q => DbFluent.Eq(DbFluent.Field("code"), code));
 
@@ -108,7 +108,7 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .From(
-                    DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
                         .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                 .Where(q => DataExpressionFactory.CreateAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueType.Text).AsScript()) + "}}"))
                 .WithParameters(
@@ -126,7 +126,7 @@ namespace BindOpen.Tests.Databases.Data.Models
         {
             var query = DbFluent.DeleteQuery(Table("Employee"))
                 .From(
-                    DbFluent.Table(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>().WithAlias("directorate"))
                         .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
                 .Where(q => DataExpressionFactory.CreateLiteral(@"""Code""='codeC'"))
                 .WithParameters(

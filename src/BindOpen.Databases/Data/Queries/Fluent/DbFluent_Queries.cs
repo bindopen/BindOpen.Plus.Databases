@@ -8,6 +8,31 @@ namespace BindOpen.Databases.Data.Queries
     /// </summary>
     public static partial class DbFluent
     {
+        // Stored --------------------------------
+
+        /// <summary>
+        /// Creates a new Stored advanced database query.
+        /// </summary>
+        /// <param name="name">The name to consider.</param>
+        /// <param name="query">The query to consider.</param>
+        /// <returns>Returns a new Stored advanced database query</returns>
+        public static IDbStoredQuery StoredQuery(string name, IDbQuery query)
+        {
+            return new DbStoredQuery(name)
+            {
+                Query = query
+            };
+        }
+
+        /// <summary>
+        /// Creates a new Stored advanced database query.
+        /// </summary>
+        /// <param name="name">The name to consider.</param>
+        /// <param name="query">The query to consider.</param>
+        /// <returns>Returns a new Stored advanced database query</returns>
+        public static IDbStoredQuery StoredQuery(IDbQuery query)
+            => StoredQuery(null, query);
+
         // Delete --------------------------------
 
         /// <summary>

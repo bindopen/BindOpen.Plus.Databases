@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BindOpen.Tests.Databases.Data.Dtos.Test1
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test1
 {
     /// <summary>
     /// This class represents a  employee DTO.

@@ -3,11 +3,11 @@ using BindOpen.Data.Helpers.Serialization;
 using BindOpen.Data.Stores;
 using BindOpen.Extensions.Connectors;
 using BindOpen.System.Diagnostics;
-using BindOpen.Tests.Databases.Data.Models;
+using BindOpen.Tests.Databases.PostgreSql.Data.Models;
 using NUnit.Framework;
 using System;
 
-namespace BindOpen.Tests.Databases.Data.Queries
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 {
     [TestFixture]
     public class QueriesDbApiTest

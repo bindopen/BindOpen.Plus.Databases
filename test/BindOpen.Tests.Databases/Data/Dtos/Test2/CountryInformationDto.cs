@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 
-namespace BindOpen.Tests.Databases.Data.Dtos.Test2
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test2
 {
     /// <summary>
     /// This class represents a country information DTO.

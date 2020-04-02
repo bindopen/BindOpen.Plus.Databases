@@ -2,9 +2,9 @@
 using BindOpen.Databases.Data.Models;
 using BindOpen.Databases.Data.Queries;
 using BindOpen.System.Diagnostics;
-using BindOpen.Tests.Databases.Data.Entities.Test1;
+using BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1;
 
-namespace BindOpen.Tests.Databases.Data.Models
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 {
     /// <summary>
     /// This class represents a test database model.
@@ -32,7 +32,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                     DbFluent.Field("Field2", DbFluent.Table("table")))
                 .From(
                     DbFluent.Table(nameof(DbRegionalDirectorate).Substring(2), "schema1").WithAlias("table"),
-                    DbFluent.Table(DbQueryJoinKind.Left, DbFluent.Table("DbTable1".Substring(2), "schema2").WithAlias("table1"))
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, DbFluent.Table("DbTable1".Substring(2), "schema2").WithAlias("table1"))
                         .WithCondition(
                             DbFluent.And(
                                 DbFluent.Eq(
@@ -41,7 +41,7 @@ namespace BindOpen.Tests.Databases.Data.Models
                                 DbFluent.Eq(
                                     DbFluent.Field("table2key", DbFluent.Table("table2")),
                                     DbFluent.Field(nameof(DbRegionalDirectorate.LabelEN), DbFluent.Table("table"))))),
-                    DbFluent.Table(DbQueryJoinKind.Left, DbFluent.Table("DbTable1".Substring(2), "schema2").WithAlias("table2"))
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, DbFluent.Table("DbTable1".Substring(2), "schema2").WithAlias("table2"))
                         .WithCondition(
                             DbFluent.Eq(
                                 DbFluent.Field("table1key", DbFluent.Table("table2")),

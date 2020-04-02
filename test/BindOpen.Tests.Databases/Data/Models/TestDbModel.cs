@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Fidal.BrandManager.Tests.Infrastructure")]
-namespace BindOpen.Tests.Databases.Data.Models
+namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 {
     /// <summary>
     /// This class represents a BrandManager database model.
@@ -12,11 +12,10 @@ namespace BindOpen.Tests.Databases.Data.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="builder"></param>
-        public override void OnCreating(IBdoDbModelBuilder builder)
+        public override void OnCreating()
         {
-            OnCreating_Test1(builder);
-            OnCreating_Test2(builder);
+            OnCreating_Test1();
+            OnCreating_Test2();
         }
     }
 }

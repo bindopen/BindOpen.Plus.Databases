@@ -4,7 +4,7 @@ using BindOpen.Data.Stores;
 using BindOpen.Extensions.References;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Diagnostics.Loggers;
-using BindOpen.Tests.Databases.Data.Models;
+using BindOpen.Tests.Databases.PostgreSql.Data.Models;
 using BindOpen.Tests.Databases.Settings;
 using System;
 

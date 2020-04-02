@@ -32,21 +32,18 @@ namespace BindOpen.Databases.Data.Queries
         #region Constructors
 
         /// <summary>
-        /// Instantiates a new instance of the StoredDbQuery class.
+        /// Instantiates a new instance of the DbStoredQuery class.
         /// </summary>
-        public DbStoredQuery()
+        public DbStoredQuery() : base(DbQueryKind.None)
         {
         }
 
         /// <summary>
-        /// Instantiates a new instance of the StoredDbQuery class.
+        /// Instantiates a new instance of the DbStoredQuery class.
         /// </summary>
-        /// <param name="query">The query to consider.</param>
         /// <param name="name">The name of the query to consider.</param>
-        public DbStoredQuery(IDbQuery query, string name = null)
+        public DbStoredQuery(string name) : base(name, DbQueryKind.None)
         {
-            Query = query;
-            Name = name;
         }
 
         #endregion
