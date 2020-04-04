@@ -1,5 +1,4 @@
 ﻿using BindOpen.Application.Scopes;
-using BindOpen.Application.Services;
 using BindOpen.Data.Helpers.Serialization;
 using BindOpen.Data.Helpers.Strings;
 using BindOpen.Data.Stores;
@@ -18,8 +17,8 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         public void TestSetup()
         {
             var host = GlobalVariables.AppHost;
-            _repository = host.CreateConnectedService<TestRepository>(
-                host.CreatePostgreSqlConnector(host.GetDatasourceDepot().GetStringConnection("db.test")));
+            _repository = host.CreateConnected<TestRepository>(
+                host.CreatePostgreSqlConnector(host.GetDatasourceDepot().GetConnectionString("db.test")));
         }
 
         [Test]
