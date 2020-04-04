@@ -8,7 +8,7 @@ namespace BindOpen.Data.Stores
     /// <summary>
     /// This class represents an data queries factory.
     /// </summary>
-    public static class BdoDataStoreExtensions
+    public static class BdoDbModelExtensions
     {
         /// <summary>
         /// Add a database queries depot into the specified data store executing the specified action.

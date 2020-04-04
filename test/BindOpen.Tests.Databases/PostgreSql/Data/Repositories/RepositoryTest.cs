@@ -1,8 +1,9 @@
 ﻿using BindOpen.Application.Scopes;
+using BindOpen.Application.Services;
 using BindOpen.Data.Helpers.Serialization;
-using BindOpen.Databases.Data.Repositories;
+using BindOpen.Data.Helpers.Strings;
+using BindOpen.Data.Stores;
 using BindOpen.System.Diagnostics;
-using BindOpen.Tests.Databases.PostgreSql.Data.Models;
 using NUnit.Framework;
 using System;
 
@@ -14,14 +15,22 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         TestRepository _repository;
 
         [SetUp]
-        public void Setup()
+        public void TestSetup()
         {
-            _repository = GlobalVariables.AppHost.CreateDbRepository<TestRepository, TestDbModel>(
-                GlobalVariables.AppHost.CreatePostgreSqlConnector());
+            var host = GlobalVariables.AppHost;
+            _repository = host.CreateConnectedService<TestRepository>(
+                host.CreatePostgreSqlConnector(host.GetDatasourceDepot().GetStringConnection("db.test")));
         }
 
         [Test]
-        public void SimpleDelete1()
+        public void TestRepository()
+        {
+            Assert.That(_repository?.Connector?.ConnectionString != StringHelper.__NoneString,
+                "Could not retrieve the string connection of connector");
+        }
+
+        [Test]
+        public void TestSimpleDelete1()
         {
             var log = new BdoLog();
 
@@ -38,7 +47,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         }
 
         [Test]
-        public void SimpleDelete2()
+        public void TestSimpleDelete2()
         {
             var log = new BdoLog();
 
@@ -55,7 +64,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         }
 
         [Test]
-        public void SimpleDelete3()
+        public void TestSimpleDelete3()
         {
             var log = new BdoLog();
 
@@ -72,7 +81,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         }
 
         [Test]
-        public void SimpleDelete4()
+        public void TestSimpleDelete4()
         {
             var log = new BdoLog();
 
@@ -89,7 +98,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         }
 
         [Test]
-        public void SimpleDelete5()
+        public void TestSimpleDelete5()
         {
             var log = new BdoLog();
 
@@ -106,7 +115,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         }
 
         [Test]
-        public void SimpleDelete6()
+        public void TestSimpleDelete6()
         {
             var log = new BdoLog();
 
@@ -123,7 +132,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         }
 
         [Test]
-        public void SimpleDelete7()
+        public void TestSimpleDelete7()
         {
             var log = new BdoLog();
 
@@ -140,7 +149,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         }
 
         [Test]
-        public void SimpleDelete8()
+        public void TestSimpleDelete8()
         {
             var log = new BdoLog();
 
