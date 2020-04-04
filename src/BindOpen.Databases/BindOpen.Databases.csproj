@@ -22,6 +22,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\Services\Factories\**" />
+    <EmbeddedResource Remove="Application\Services\Factories\**" />
+    <None Remove="Application\Services\Factories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Extensions\Scriptwords\ScriptHelper_Database.cs" />
   </ItemGroup>
 
@@ -62,7 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Core" Version="1.0.122" />
+    <PackageReference Include="BindOpen.Core" Version="1.0.124" />
   </ItemGroup>
 
 </Project>
