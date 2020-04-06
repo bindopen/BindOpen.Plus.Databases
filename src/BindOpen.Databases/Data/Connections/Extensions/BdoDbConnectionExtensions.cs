@@ -124,7 +124,7 @@ namespace BindOpen.Data.Connections
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             T connector = new T();
-            return connector?.CreateConnection()?.CreateCommand(query, parameterMode, parameterSet, scriptVariableSet, log);
+            return (connector?.CreateConnection() as IBdoDbConnection)?.CreateCommand(query, parameterMode, parameterSet, scriptVariableSet, log);
         }
 
         /// <summary>

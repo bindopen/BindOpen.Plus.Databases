@@ -55,7 +55,7 @@ namespace BindOpen.Databases.Data.Repositories
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <param name="isAutoConnected">Indicates whether the connection must be automatically connected.</param>
-        public new virtual void UsingConnection(Action<IBdoDbConnection> action, bool isAutoConnected = true)
+        public virtual void UsingConnection(Action<IBdoDbConnection> action, bool isAutoConnected = true)
             => UsingConnection((p, l) => action?.Invoke(p), null, isAutoConnected);
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace BindOpen.Databases.Data.Repositories
         /// <param name="action">The action to execute.</param>
         /// <param name="log">The log to consider.</param>
         /// <param name="isAutoConnected">Indicates whether the connection must be automatically connected.</param>
-        public new virtual void UsingConnection(Action<IBdoDbConnection, IBdoLog> action, IBdoLog log, bool isAutoConnected = true)
+        public virtual void UsingConnection(Action<IBdoDbConnection, IBdoLog> action, IBdoLog log, bool isAutoConnected = true)
         {
             Connector?.UsingConnection(action, log, isAutoConnected);
         }

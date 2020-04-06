@@ -22,10 +22,18 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
         }
 
         [Test]
-        public void TestRepository()
+        public void TestRepositoryUsingConnection()
         {
             Assert.That(_repository?.Connector?.ConnectionString != StringHelper.__NoneString,
                 "Could not retrieve the string connection of connector");
+
+            var log = new BdoLog();
+            _repository.UsingConnection(
+                (p, l) =>
+                {
+                }, log);
+
+            Assert.That(log.HasErrorsOrExceptions(), "Using connection method not working");
         }
 
         [Test]
