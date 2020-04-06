@@ -5,6 +5,7 @@ using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Runtime;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -64,16 +65,24 @@ namespace BindOpen.Extensions.Connectors
         /// </summary>
         /// <param name="log"></param>
         /// <returns></returns>
-        public override IBdoDbConnection CreateConnection(IBdoLog log = null)
+        public override IBdoConnection CreateConnection(IBdoLog log = null)
         {
             IBdoDbConnection connection = null;
 
             if (!Check<BdoDbConnector_MSSqlServer>().AddEventsTo(log, p => p.HasErrorsOrExceptions()).HasErrorsOrExceptions())
             {
-                var dbConnection = new SqlConnection(ConnectionString);
-                if (dbConnection != null)
+                try
                 {
-                    connection = new BdoDbConnection(this, dbConnection);
+                    var dbConnection = new SqlConnection(ConnectionString);
+                    if (dbConnection != null)
+                    {
+                        connection = new BdoDbConnection(this, dbConnection);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.AddException("An exception occured while trying to create connection",
+                        description: ex.ToString());
                 }
             }
 

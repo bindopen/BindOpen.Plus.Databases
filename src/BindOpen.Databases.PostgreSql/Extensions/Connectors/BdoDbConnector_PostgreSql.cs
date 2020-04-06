@@ -6,6 +6,7 @@ using BindOpen.Extensions.Runtime;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
 using Npgsql;
+using System;
 using System.Data;
 
 namespace BindOpen.Extensions.Connectors
@@ -64,16 +65,24 @@ namespace BindOpen.Extensions.Connectors
         /// </summary>
         /// <param name="log"></param>
         /// <returns></returns>
-        public override IBdoDbConnection CreateConnection(IBdoLog log = null)
+        public override IBdoConnection CreateConnection(IBdoLog log = null)
         {
             IBdoDbConnection connection = null;
 
             if (!Check<BdoDbConnector_PostgreSql>().AddEventsTo(log, p => p.HasErrorsOrExceptions()).HasErrorsOrExceptions())
             {
-                var dbConnection = new NpgsqlConnection(ConnectionString);
-                if (dbConnection != null)
+                try
                 {
-                    connection = new BdoDbConnection(this, dbConnection);
+                    var dbConnection = new NpgsqlConnection(ConnectionString);
+                    if (dbConnection != null)
+                    {
+                        connection = new BdoDbConnection(this, dbConnection);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.AddException("An exception occured while trying to create connection",
+                        description: ex.ToString());
                 }
             }
 

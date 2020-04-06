@@ -24,7 +24,7 @@ namespace BindOpen.Databases.Data.Repositories
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <param name="isAutoConnected">Indicates whether the connection must be automatically connected.</param>
-        new void UsingConnection(Action<IBdoDbConnection> action, bool isAutoConnected = true);
+        void UsingConnection(Action<IBdoDbConnection> action, bool isAutoConnected = true);
 
         /// <summary>
         /// Executing the specified action during a new connection.
@@ -32,6 +32,6 @@ namespace BindOpen.Databases.Data.Repositories
         /// <param name="action">The action to execute.</param>
         /// <param name="log">The log to consider.</param>
         /// <param name="isAutoConnected">Indicates whether the connection must be automatically connected.</param>
-        new void UsingConnection(Action<IBdoDbConnection, IBdoLog> action, IBdoLog log, bool isAutoConnected = true);
+        void UsingConnection(Action<IBdoDbConnection, IBdoLog> action, IBdoLog log, bool isAutoConnected = true);
     }
 }

@@ -68,7 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Core" Version="1.0.125" />
+    <PackageReference Include="BindOpen.Core" Version="1.0.126" />
   </ItemGroup>
 
 </Project>
