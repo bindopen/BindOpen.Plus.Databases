@@ -15,20 +15,20 @@ namespace BindOpen.Databases.Data.Repositories
     /// <summary>
     /// This class represents a master data repository.
     /// </summary>
-    public abstract class TBdoDbRepository<T> : BdoDbService, IBdoDbModel, ITBdoDbRepository<T>
-        where T : BdoDbModel
+    public abstract class TBdoDbRepository<M> : BdoDbService, IBdoDbModel, ITBdoDbRepository<M>
+        where M : BdoDbModel
     {
         #region Properties
 
         /// <summary>
         /// The database model of this instance.
         /// </summary>
-        protected T _model;
+        protected M _model;
 
         /// <summary>
         /// The model of this instance.
         /// </summary>
-        public T Model
+        public M Model
         {
             get => _model;
             internal set { _model = value; }
@@ -77,7 +77,7 @@ namespace BindOpen.Databases.Data.Repositories
         public override IBdoScoped WithScope(IBdoScope scope)
         {
             base.WithScope(scope);
-            _model = scope?.GetModel<T>();
+            _model = scope?.GetModel<M>();
 
             return this;
         }
@@ -100,7 +100,9 @@ namespace BindOpen.Databases.Data.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="alias"></param>
+        /// <param name="tryMode"></param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public DbTable Table<T>(string alias = null, bool tryMode = true)
             => _model?.Table<T>(alias, tryMode);
@@ -207,9 +209,9 @@ namespace BindOpen.Databases.Data.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="expression"></param>
         /// <param name="tableAlias"></param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public DbField Field<T>(Expression<Func<T, object>> expression, string tableAlias = null)
             => _model?.Field<T>(expression, tableAlias);
@@ -226,6 +228,7 @@ namespace BindOpen.Databases.Data.Repositories
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="tableAlias"></param>
         /// <returns></returns>
         public List<DbField> FieldAsAll<T>(string tableAlias = null)
