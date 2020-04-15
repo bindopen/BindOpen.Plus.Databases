@@ -1,0 +1,36 @@
+BindOpen.Databases __Release.Version__ Update - __Release.Date__
+====
+
+# New features
+
+## All
+...
+## BindOpen.Databases
+...
+## BindOpen.Databases.MSSqlServer
+...
+## BindOpen.Databases.PostgreSql
+...
+
+# Fixes
+
+## All
+...
+## BindOpen.Databases
+...
+## BindOpen.Databases.MSSqlServer
+...
+## BindOpen.Databases.PostgreSql
+...
+
+# Lifecycle News
+
+...
+
+# Downloads
+
+...
+
+# Lifecycle News
+
+...

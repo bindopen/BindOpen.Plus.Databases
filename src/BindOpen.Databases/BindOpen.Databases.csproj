@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>BindOpen.Databases</AssemblyName>
     <PackageId>BindOpen.Databases</PackageId>
     <Product>BindOpen.Framework</Product>
@@ -68,7 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Core" Version="1.0.127" />
+    <PackageReference Include="BindOpen.Core" Version="1.0.131" />
   </ItemGroup>
 
 </Project>
