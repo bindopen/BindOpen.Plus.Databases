@@ -30,7 +30,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
                 FisrtName = "firstName",
                 LastName = "lastName",
                 RegionalDirectorateCode = "FR",
-                StaffNumber = null
+                IntegrationDate = null
             };
         }
 
@@ -56,7 +56,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId"" is null from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeC' returning ""employee"".""Code""";
+            string expectedResult = @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId""=null from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeC' returning ""employee"".""Code""";
 
             string result = _dbConnector.CreateCommandText(_model.UpdateEmployee2("codeC"), log: log);
 
@@ -73,7 +73,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId"" is null from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeR' returning ""employee"".""Code""";
+            string expectedResult = @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId""=null,""Length""=2500 from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeR' returning ""employee"".""Code""";
 
             string result = _dbConnector.CreateCommandText(_model.UpdateEmployee3("codeR"), log: log);
 

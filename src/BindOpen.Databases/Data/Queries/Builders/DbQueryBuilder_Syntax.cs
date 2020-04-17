@@ -24,6 +24,12 @@ namespace BindOpen.Databases.Data.Queries
                 case DataValueType.None:
                 case DataValueType.Any:
                     return (value ?? GetSqlText_Null());
+                case DataValueType.ByteArray:
+                    if (value == null)
+                    {
+                        return GetSqlText_Null();
+                    }
+                    return value?.Replace("-", string.Empty);
                 default:
                     return (value == null ? GetSqlText_Null() : GetSqlText_Text(value));
             }

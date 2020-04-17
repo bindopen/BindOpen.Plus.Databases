@@ -16,9 +16,3 @@ Todo list for BindOpen
 
 ## Bugs to fix later on
 
-* Update : if code is not null or empty
-* Datetime issue
-* q.UseParameter("length", DataValueType.Long) issue (Image.Length)
-* DbFluent.FieldAsScript<DbImage>(q=>q.Data, "decode('data')"));
-* AddFromConfiguration. Name of datasource is empty
-* RegisterDatasources(store =>store.Add(m.CreatePostgreSqlDatasource("BrandManager.Db", "connectionstring")

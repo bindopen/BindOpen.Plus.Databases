@@ -158,7 +158,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += " and ";
                         }
                         queryString += GetSqlText_Field(
-                            field, query, parameterSet, DbFieldViewMode.NameEqualsValue,
+                            field, query, parameterSet, DbFieldViewMode.NameEqualsValueInCondition,
                             scriptVariableSet: scriptVariableSet, log: log);
                     }
                 }

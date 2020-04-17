@@ -47,8 +47,8 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         q => DbFluent.FieldAsParameter(nameof(DbEmployee.LastName), q.UseParameter("lastName", DataValueType.Text)));
 
                     query.AddField(
-                        !isPartialUpdate || employee?.StaffNumber?.Length > 0,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.StaffNumber), q.UseParameter("staffNumber", DataValueType.Text)));
+                        !isPartialUpdate || employee?.IntegrationDate?.Length > 0,
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.IntegrationDate), q.UseParameter("integrationDate", DataValueType.Date)));
 
                     query.AddField(
                         !isPartialUpdate || employee?.RegionalDirectorateCode?.Length > 0,
@@ -66,7 +66,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     ElementFactory.CreateScalar("fisrtName", employee.FisrtName),
                     ElementFactory.CreateScalar("lastName", employee.LastName),
                     ElementFactory.CreateScalar("directorateCode", null),
-                    ElementFactory.CreateScalar("staffNumber", employee.StaffNumber));
+                    ElementFactory.CreateScalar("integrationDate", employee.IntegrationDate));
         }
 
         /// <summary>
@@ -106,6 +106,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("UpdateFidalEmployee_RegionalDirectorateAsNull", p =>
                 DbFluent.UpdateQuery(Table("Employee", "employee"))
                     .AddField(q => DbFluent.Field<DbEmployee>(q => q.RegionalDirectorateId).AsNull())
+                    .AddField(q => DbFluent.FieldAsParameter<DbEmployee>(q => q.Length, ElementFactory.CreateScalar("length", DataValueType.Long)))
                     .From(Table<DbRegionalDirectorate>("regionalDirectorate"))
                     .AddIdField(q =>
                         DbFluent.FieldAsOther<DbEmployee>(
@@ -120,7 +121,8 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     .WithReturnedIdFields(Field("Code", "Employee", "employee"))
                 )
                 .WithParameters(
-                    ElementFactory.CreateScalar("regionalDirectorateCode", regionalDirectorateCode));
+                    ElementFactory.CreateScalar("regionalDirectorateCode", regionalDirectorateCode),
+                    ElementFactory.CreateScalar("length", 2500));
         }
     }
 }

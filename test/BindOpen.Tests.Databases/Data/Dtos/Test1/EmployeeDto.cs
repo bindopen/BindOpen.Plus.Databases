@@ -30,8 +30,8 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test1
         /// <summary>
         /// The staff number of this instance.
         /// </summary>
-        [JsonProperty("staffNumber")]
-        public string StaffNumber { get; set; }
+        [JsonProperty("integrationDate")]
+        public string IntegrationDate { get; set; }
 
         /// <summary>
         /// The contact email of this instance.
