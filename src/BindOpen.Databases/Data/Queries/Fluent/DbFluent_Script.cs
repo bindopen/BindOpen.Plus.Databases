@@ -1,4 +1,5 @@
-﻿using BindOpen.Data.Expression;
+﻿using BindOpen.Data.Common;
+using BindOpen.Data.Expression;
 using BindOpen.Data.Helpers.Strings;
 using System;
 
@@ -21,7 +22,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="param1">The parameter to consider.</param>
         public static DataExpression Text(string param1)
         {
-            return $"$sqlText({(param1 == null ? Null() : (param1.Length == 0 ? "''" : param1))})".CreateScript();
+            return $"$sqlText('{(param1 == null ? Null() : (param1.Length == 0 ? "''" : param1))}')".CreateScript();
         }
 
         /// <summary>
@@ -29,6 +30,20 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         public static DataExpression Null()
             => ("$sqlNull()").CreateScript();
+
+        /// <summary>
+        /// Encodes the specified text with the specified format.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        public static DataExpression EncodeBase64(string text)
+            => ("$sqlEncodeBase64(" + text + ")").CreateScript();
+
+        /// <summary>
+        /// Decodes the specified text with the specified format.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        public static DataExpression DecodeBase64(string text)
+            => ("$sqlDecodeBase64(" + text + ")").CreateScript();
 
         /// <summary>
         /// Creates a BDO script representing a value.
@@ -40,7 +55,8 @@ namespace BindOpen.Databases.Data.Queries
             {
                 return DbFluent.Null();
             }
-            else if (param1 is DataExpression param1DataExpression)
+
+            if (param1 is DataExpression param1DataExpression)
             {
                 if (param1DataExpression.Kind == DataExpressionKind.Auto
                     && param1DataExpression.Text?.StartsWith("{{") == true
@@ -48,17 +64,29 @@ namespace BindOpen.Databases.Data.Queries
                 {
 
                     var text = param1DataExpression.Text.Substring(2);
-                    return (text.Substring(0, text.Length - 2)).CreateScript();
+                    return (text[0..^2]).CreateScript();
                 }
                 return param1DataExpression;
             }
-            else if (param1 is string param1String)
+
+            var valueType = param1.GetValueType();
+            switch (valueType)
             {
-                return Text(param1String);
-            }
-            else if (param1 is DateTime param1DateTime)
-            {
-                return Text(param1DateTime.ToString(StringHelper.__DateFormat));
+                case DataValueType.Text:
+                    var param1String = param1 as string;
+                    return Text(param1String);
+                case DataValueType.Date:
+                    if (param1 is DateTime param1DateTime)
+                    {
+                        return Text(param1DateTime.ToString(StringHelper.__DateFormat));
+                    }
+                    break;
+                case DataValueType.Time:
+                    if (param1 is TimeSpan param1TimeSpan)
+                    {
+                        return Text(param1TimeSpan.ToString(StringHelper.__TimeFormat));
+                    }
+                    break;
             }
 
             return (param1?.ToString()).CreateScript();

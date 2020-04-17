@@ -37,5 +37,19 @@
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
         public abstract string GetSqlText_Concatenate(object[] parameters);
+
+        /// <summary>
+        /// Evaluates the script word $SQLDECODE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_DecodeBae64(string text);
+
+        /// <summary>
+        /// Evaluates the script word $SQLENCODE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_EncodeBase64(string text);
     }
 }

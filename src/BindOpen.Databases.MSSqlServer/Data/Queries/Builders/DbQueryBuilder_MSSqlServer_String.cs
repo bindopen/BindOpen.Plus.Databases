@@ -62,5 +62,25 @@ namespace BindOpen.Databases.Data.Queries
 
             return text;
         }
+
+        /// <summary>
+        /// Evaluates the script word $SQLDECODE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public override string GetSqlText_DecodeBae64(string text)
+        {
+            return "decode('" + text + "', 'base64')";
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLENCODE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public override string GetSqlText_EncodeBase64(string text)
+        {
+            return "encode('" + text + "', 'base64')";
+        }
     }
 }

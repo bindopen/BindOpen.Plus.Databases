@@ -154,7 +154,28 @@ namespace BindOpen.Databases.Data.Queries
                         }
                         break;
                     case DbFieldViewMode.NameEqualsValue:
+                        var value1 = GetSqlText_Field(
+                                    field,
+                                    query, parameterSet,
+                                    DbFieldViewMode.CompleteName,
+                                    defaultDataModule,
+                                    defaultSchema,
+                                    defaultDataTable,
+                                    scriptVariableSet,
+                                    log);
+                        var value2 = GetSqlText_Field(
+                                field,
+                                query, parameterSet,
+                                DbFieldViewMode.OnlyValue,
+                                defaultDataModule,
+                                defaultSchema,
+                                defaultDataTable,
+                                scriptVariableSet,
+                                log);
+                        queryString += value1 + "=" + value2;
 
+                        break;
+                    case DbFieldViewMode.NameEqualsValueInCondition:
                         queryString += GetSqlText_Eq(
                             GetSqlText_Field(
                                 field,
@@ -164,7 +185,7 @@ namespace BindOpen.Databases.Data.Queries
                                 defaultSchema,
                                 defaultDataTable,
                                 scriptVariableSet,
-                                log), 
+                                log),
                             GetSqlText_Field(
                                 field,
                                 query, parameterSet,
@@ -174,7 +195,6 @@ namespace BindOpen.Databases.Data.Queries
                                 defaultDataTable,
                                 scriptVariableSet,
                                 log));
-
                         break;
                     default:
                         break;

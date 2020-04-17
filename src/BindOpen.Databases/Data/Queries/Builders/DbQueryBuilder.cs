@@ -137,7 +137,7 @@ namespace BindOpen.Databases.Data.Queries
 
                     if (parameterMode != DbQueryParameterMode.Scripted)
                     {
-                        parameterSet = parameterSet ?? new DataElementSet();
+                        parameterSet ??= new DataElementSet();
                         UpdateParameterSet(parameterSet, query);
 
                         if (query is DbStoredQuery storedDbQuery)

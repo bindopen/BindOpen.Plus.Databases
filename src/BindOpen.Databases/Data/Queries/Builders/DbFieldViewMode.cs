@@ -31,6 +31,11 @@ namespace BindOpen.Databases.Data.Queries
         NameEqualsValue,
 
         /// <summary>
+        /// Name equals value in condition.
+        /// </summary>
+        NameEqualsValueInCondition,
+
+        /// <summary>
         /// Only value.
         /// </summary>
         OnlyValue,
