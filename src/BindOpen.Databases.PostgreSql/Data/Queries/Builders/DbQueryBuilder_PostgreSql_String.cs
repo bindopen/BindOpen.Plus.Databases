@@ -1,5 +1,4 @@
 ﻿using BindOpen.System.Scripting;
-using System;
 
 namespace BindOpen.Databases.Data.Queries
 {
@@ -56,11 +55,31 @@ namespace BindOpen.Databases.Data.Queries
                 if (object1 != null)
                 {
                     string st = object1.ToString();
-                    text += (text == String.Empty ? st : " + " + st);
+                    text += (string.IsNullOrEmpty(text) ? st : " + " + st);
                 }
             }
 
             return text;
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLDECODE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public override string GetSqlText_DecodeBae64(string text)
+        {
+            return "decode(" + text + ", 'base64')";
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLENCODE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public override string GetSqlText_EncodeBase64(string text)
+        {
+            return "encode(" + text + ", 'base64')";
         }
     }
 }

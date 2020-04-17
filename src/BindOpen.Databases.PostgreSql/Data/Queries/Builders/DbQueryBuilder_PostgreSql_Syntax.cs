@@ -13,7 +13,7 @@
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Null()
         {
-            return "NULL";
+            return "null";
         }
 
         /// <summary>
@@ -22,7 +22,7 @@
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_True()
         {
-            return "1";
+            return "true";
         }
 
         /// <summary>

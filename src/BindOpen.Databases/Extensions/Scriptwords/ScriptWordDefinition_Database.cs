@@ -666,6 +666,70 @@ namespace BindOpen.Extensions.Scriptwords
         }
 
         /// <summary>
+        /// Evaluates the script word $SQLENCODEBASE64.
+        /// </summary>
+        /// <param name="scope">The scope to consider.</param>
+        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
+        /// <param name="scriptWord">Script word to evaluate.</param>
+        /// <param name="parameters">The parameters to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlEncodeBase64")]
+        public static string Fun_SqlEncodeBase64(
+            IBdoScope scope,
+            IBdoScriptVariableSet scriptVariableSet,
+            IBdoScriptword scriptWord,
+            params object[] parameters)
+        {
+            string value1 = parameters.GetStringAtIndex(0);
+
+            string text = "";
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                text += queryBuilder.GetSqlText_EncodeBase64(value1);
+            }
+
+            return text;
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLDECODEBASE64.
+        /// </summary>
+        /// <param name="scope">The scope to consider.</param>
+        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
+        /// <param name="scriptWord">Script word to evaluate.</param>
+        /// <param name="parameters">The parameters to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlDecodeBase64")]
+        public static string Fun_SqlDecodeBase64(
+            IBdoScope scope,
+            IBdoScriptVariableSet scriptVariableSet,
+            IBdoScriptword scriptWord,
+            params object[] parameters)
+        {
+            string value1 = parameters.GetStringAtIndex(0);
+
+            string text = "";
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                text += queryBuilder.GetSqlText_DecodeBae64(value1);
+            }
+
+            return text;
+        }
+
+        /// <summary>
         /// Evaluates the script word $SQLLIKE.
         /// </summary>
         /// <param name="scope">The scope to consider.</param>

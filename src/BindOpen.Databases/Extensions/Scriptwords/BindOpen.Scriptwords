@@ -212,7 +212,37 @@
       </parameter.specification>
       <returnValueType>Text</returnValueType>
     </add.definition>
-    
+
+    <!-- $SQLDECODEBASE64(text) -->
+    <add.definition name="SQLDECODEBASE64">
+      <creationDate>2020-04-17</creationDate>
+      <lastModificationDate>2020-04-17</lastModificationDate>
+      <description>
+        <add.value>Returns the function decode function.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlDecodeBase64</functionName>
+      <parameter.specification>
+        <scalar name="text" valueType="Text" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
+    <!-- $SQLENCODEBASE64(text) -->
+    <add.definition name="SQLENCODEBASE64">
+      <creationDate>2020-04-17</creationDate>
+      <lastModificationDate>2020-04-17</lastModificationDate>
+      <description>
+        <add.value>Returns the function decode function.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlEncodeBase64</functionName>
+      <parameter.specification>
+        <scalar name="text" valueType="Text" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
     <!-- $SQLREPLACE(value1, value2) -->
     <add.definition name="SQLREPLACE">
       <creationDate>2014-03-28</creationDate>

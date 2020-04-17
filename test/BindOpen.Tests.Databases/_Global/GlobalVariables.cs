@@ -36,7 +36,9 @@ namespace BindOpen.Tests.Databases
                             .SetModule("app.test")
                             .AddExtensions(p => p.AddMSSqlServer().AddPostgreSql())
                             .AddDataStore(s => s
-                                .RegisterDatasources(m => m.AddFromConfiguration(options))
+                                .RegisterDatasources(m => m
+                                    .AddFromConfiguration(options)
+                                    .AddDatasource(m.CreatePostgreSqlDatasource("db.testA", "connectionStringA")))
                                 .RegisterDbModels((m, l) => m.AddFromAssembly<TestDbModel>(l)))
                             .AddDefaultFileLogger()
                             .ThrowExceptionOnStartFailure()

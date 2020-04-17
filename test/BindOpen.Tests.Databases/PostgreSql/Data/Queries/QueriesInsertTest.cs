@@ -30,7 +30,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
                 FisrtName = "firstName",
                 LastName = "lastName",
                 RegionalDirectorateCode = "FR",
-                StaffNumber = "123"
+                IntegrationDate = "123"
             };
         }
 
@@ -39,7 +39,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"insert into ""Mdm"".""Employee"" (""Code"",""ContactEmail"",""FisrtName"",""LastName"",""StaffNumber"") values ('code1','email@email.com','firstName','lastName','123') returning ""Mdm"".""Employee"".""EmployeeId""";
+            string expectedResult = @"insert into ""Mdm"".""Employee"" (""Code"",""ContactEmail"",""FisrtName"",""LastName"",""IntegrationDate"") values ('code1','email@email.com','firstName','lastName','123') returning ""Mdm"".""Employee"".""EmployeeId""";
 
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee1(_employee), log: log);
 

@@ -118,5 +118,42 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             }
             Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
         }
+
+        [Test, Order(3)]
+        public void TestInterprete_Fun_SqlEncode()
+        {
+            string script = DbFluent.EncodeBase64(DbFluent.Text("ABCDE"));
+            string expectedResult = @"encode('ABCDE', 'base64')";
+
+            var log = new BdoLog();
+
+            var scriptVariableSet = new ScriptVariableSet();
+            scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
+                DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log: log);
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = log.ToXml();
+            }
+            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+
+            script = DbFluent.DecodeBase64(DbFluent.Text("ABCDE"));
+            expectedResult = @"decode('ABCDE', 'base64')";
+            log = new BdoLog();
+
+            scriptVariableSet = new ScriptVariableSet();
+            scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
+                DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
+            result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log: log);
+
+            xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = log.ToXml();
+            }
+            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+        }
     }
 }

@@ -37,14 +37,19 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1
         public string LastName { get; set; }
 
         /// <summary>
-        /// The staff number of this instance.
+        /// The integration date of this instance.
         /// </summary>
-        public string StaffNumber { get; set; }
+        public string IntegrationDate { get; set; }
 
         /// <summary>
         /// The contact email of this instance.
         /// </summary>
         public string ContactEmail { get; set; }
+
+        /// <summary>
+        /// The length of this instance.
+        /// </summary>
+        public long Length { get; set; }
 
         // Bound entities ------------------------
 
