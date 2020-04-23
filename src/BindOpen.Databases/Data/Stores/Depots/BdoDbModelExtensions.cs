@@ -95,7 +95,7 @@ namespace BindOpen.Data.Stores
         /// <returns>Returns the database query with the specified name.</returns>
         public static T GetModel<T>(this IBdoScope scope) where T : BdoDbModel
         {
-            return scope?.DataStore?.Get<IBdoDbModelDepot>()?.GetModel<T>();
+            return scope?.DataStore?.Get<IBdoDbModelDepot>()?.Get<T>();
         }
     }
 }

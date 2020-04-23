@@ -1,6 +1,5 @@
 ﻿using BindOpen.Application.Scopes;
 using BindOpen.Data.Items;
-using BindOpen.Extensions.Definition;
 using BindOpen.Extensions.Runtime;
 using BindOpen.System.Diagnostics;
 
@@ -24,11 +23,12 @@ namespace BindOpen.Data.Stores
             string connectionString,
             IBdoLog log = null)
         {
-            var datasource = new Datasource(name, DatasourceKind.Database,
-                (datasourceDepot?.Scope?.CreateConnectorConfiguration("databases.postgresql$client", log)
-                    as BdoConnectorConfiguration)?.WithConnectionString(connectionString));
+            var datasource = ItemFactory.CreateDatasource(name, DatasourceKind.Database)
+                .WithConfiguration(
+                    (datasourceDepot?.Scope?.CreateConnectorConfiguration("databases.postgresql$client", log)
+                        as BdoConnectorConfiguration)?.WithConnectionString(connectionString));
 
-            return datasource;
+            return datasource as Datasource;
         }
     }
 }

@@ -76,7 +76,7 @@ namespace BindOpen.Extensions.Connectors
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null);
 
         #endregion

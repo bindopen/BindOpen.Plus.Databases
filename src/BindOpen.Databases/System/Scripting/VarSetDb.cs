@@ -18,8 +18,8 @@ namespace BindOpen.System.Scripting
         /// <param name="scriptVariableSet">The script variable set to consider.</param>
         /// <param name="queryBuilder">The query builder to consider.</param>
         /// <returns></returns>
-        public static IBdoScriptVariableSet SetDbBuilder(
-            this IBdoScriptVariableSet scriptVariableSet,
+        public static IScriptVariableSet SetDbBuilder(
+            this IScriptVariableSet scriptVariableSet,
             DbQueryBuilder queryBuilder)
         {
             scriptVariableSet?.SetValue(__DbBuilder, queryBuilder);
@@ -33,7 +33,7 @@ namespace BindOpen.System.Scripting
         /// <param name="scriptVariableSet">The script variable set to consider.</param>
         /// <returns></returns>
         public static DbQueryBuilder GetDbBuilder(
-            this IBdoScriptVariableSet scriptVariableSet)
+            this IScriptVariableSet scriptVariableSet)
         {
             return scriptVariableSet?.GetValue(__DbBuilder) as DbQueryBuilder;
         }

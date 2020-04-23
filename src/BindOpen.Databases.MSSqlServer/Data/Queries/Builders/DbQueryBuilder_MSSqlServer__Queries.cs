@@ -23,7 +23,7 @@ namespace BindOpen.Databases.Data.Queries
         protected override string GetSqlText_Query(
             IDbSingleQuery query,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             var queryString = "";
@@ -223,7 +223,7 @@ namespace BindOpen.Databases.Data.Queries
         protected override string GetSqlText_Query(
             IDbCompositeQuery query,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             var queryString = "";

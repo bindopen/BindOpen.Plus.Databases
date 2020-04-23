@@ -27,7 +27,7 @@ namespace BindOpen.Databases.Data.Queries
             string defaultDataModule = null,
             string defaultSchema = null,
             string defaultDataTable = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             string queryString = "";
@@ -200,7 +200,7 @@ namespace BindOpen.Databases.Data.Queries
             DbFieldViewMode viewMode = DbFieldViewMode.CompleteName,
             string defaultDataModule = null,
             string defaultSchema = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             var queryString = "";
@@ -282,7 +282,7 @@ namespace BindOpen.Databases.Data.Queries
             DbFieldViewMode viewMode = DbFieldViewMode.CompleteName,
             string defaultDataModule = null,
             string defaultSchema = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             string queryString = "";

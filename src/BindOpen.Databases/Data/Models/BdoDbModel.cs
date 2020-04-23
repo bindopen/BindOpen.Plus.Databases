@@ -445,7 +445,7 @@ namespace BindOpen.Databases.Data.Models
                 }
                 else
                 {
-                    tableRelationship.FieldMappingDictionary.AddValue(field1Name, field2Name);
+                    tableRelationship.FieldMappingDictionary.Add(field1Name, field2Name);
                 }
             }
 

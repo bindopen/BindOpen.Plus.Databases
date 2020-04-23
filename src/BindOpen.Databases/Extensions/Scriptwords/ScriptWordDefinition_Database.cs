@@ -32,7 +32,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlCount")]
         public static string Fun_SqlCount(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -62,7 +62,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlSum")]
         public static string Fun_SqlSum(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -92,7 +92,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlAverage")]
         public static string Fun_SqlAverage(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -124,7 +124,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlGetCurrentDate")]
         public static string Fun_SqlGetCurrentDate(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -158,7 +158,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlTrue")]
         public static string Fun_SqlTrue(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -188,7 +188,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlIf")]
         public static string Fun_SqlIf(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -222,7 +222,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlNot")]
         public static string Fun_SqlNot(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -254,7 +254,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlOr")]
         public static string Fun_SqlOr(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -284,7 +284,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlAnd")]
         public static string Fun_SqlAnd(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -314,7 +314,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlXor")]
         public static string Fun_SqlXor(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -345,7 +345,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlEq")]
         public static string Fun_SqlEq(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -378,7 +378,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlDiff")]
         public static string Fun_SqlDiff(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -411,7 +411,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlGt")]
         public static string Fun_SqlGt(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -444,7 +444,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlGte")]
         public static string Fun_SqlGte(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -477,7 +477,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlLt")]
         public static string Fun_SqlLt(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -510,7 +510,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlLte")]
         public static string Fun_SqlLte(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -543,7 +543,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlIsNull")]
         public static string Fun_SqlIsNull(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -575,7 +575,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlIfNull")]
         public static string Fun_SqlIfNull(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -610,7 +610,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlConvertToText")]
         public static string Fun_SqlConvertToText(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -644,7 +644,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlText")]
         public static string Fun_SqlText(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -676,7 +676,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlEncodeBase64")]
         public static string Fun_SqlEncodeBase64(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -708,7 +708,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlDecodeBase64")]
         public static string Fun_SqlDecodeBase64(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -740,7 +740,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlLike")]
         public static string Fun_SqlLike(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -773,7 +773,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlReplace")]
         public static string Fun_SqlReplace(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -807,7 +807,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlConcatenate")]
         public static string Fun_SqlConcatenate(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -837,7 +837,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlNull")]
         public static string Fun_SqlNull(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -869,7 +869,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlDatabase")]
         public static string Fun_SqlDatabase(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -907,7 +907,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword]
         public static string Fun_SqlDatabase_SqlSchema(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -940,7 +940,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword]
         public static string Fun_SqlDatabase_SqlTable(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -973,7 +973,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword]
         public static string Fun_SqlDatabase_SqlTable_SqlField(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -1008,7 +1008,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlNewGuid")]
         public static string Fun_SqlNewGuid(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -1038,7 +1038,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlRandom")]
         public static string Fun_SqlRandom(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -1069,7 +1069,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlIn")]
         public static string Fun_SqlIn(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {
@@ -1103,7 +1103,7 @@ namespace BindOpen.Extensions.Scriptwords
         [BdoScriptword(Name = "sqlList")]
         public static string Fun_SqlList(
             IBdoScope scope,
-            IBdoScriptVariableSet scriptVariableSet,
+            IScriptVariableSet scriptVariableSet,
             IBdoScriptword scriptWord,
             params object[] parameters)
         {

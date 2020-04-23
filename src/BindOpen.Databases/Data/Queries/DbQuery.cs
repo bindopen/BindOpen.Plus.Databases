@@ -144,7 +144,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone()
+        public override object Clone(params string[] areas)
         {
             var clone = base.Clone() as DbQuery;
             clone.CTETables = CTETables?.Select(p => p.Clone<DbTable>()).ToList();
@@ -194,7 +194,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Return this instance.</returns>
         public IDbQuery WithParameters(params IDataElement[] parameters)
         {
-            ParameterSet = new DataElementSet(parameters);
+            ParameterSet = ElementFactory.CreateSet(parameters);
 
             return this;
         }
@@ -206,7 +206,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Return this instance.</returns>
         public IDbQuery UsingParameters(params IDataElementSpec[] parameterSpecs)
         {
-            ParameterSpecSet = new DataElementSpecSet(parameterSpecs);
+            ParameterSpecSet = ElementSpecFactory.CreateSet(parameterSpecs);
 
             return this;
         }
@@ -255,7 +255,7 @@ namespace BindOpen.Databases.Data.Queries
 
             if (ParameterSet[name] is ScalarElement parameter)
             {
-                parameter.SetItem(value);
+                parameter.WithItems(value);
             }
             else
             {

@@ -57,7 +57,7 @@ namespace BindOpen.Databases.Data.Models
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone()
+        public override object Clone(params string[] areas)
         {
             var clone = base.Clone() as DbTableRelationship;
             clone.Table1 = Table1?.Clone<DbTable>();

@@ -48,7 +48,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone()
+        public override object Clone(params string[] areas)
         {
             var clone = base.Clone() as DbQueryWhereClause;
             clone.IdFields = IdFields?.Select(p => p.Clone<DbField>()).ToList();

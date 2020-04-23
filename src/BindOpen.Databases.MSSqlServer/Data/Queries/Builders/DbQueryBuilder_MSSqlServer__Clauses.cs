@@ -18,7 +18,7 @@ namespace BindOpen.Databases.Data.Queries
             IDbQueryFromClause clause,
             IDbSingleQuery query = null,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             string queryString = "";
@@ -101,7 +101,7 @@ namespace BindOpen.Databases.Data.Queries
             IDbQueryWhereClause clause,
             IDbSingleQuery query = null,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             string queryString = "";
@@ -140,7 +140,7 @@ namespace BindOpen.Databases.Data.Queries
             IDbQueryOrderByClause clause,
             IDbSingleQuery query = null,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             string queryString = "";
@@ -196,7 +196,7 @@ namespace BindOpen.Databases.Data.Queries
             IDbQueryGroupByClause clause,
             IDbSingleQuery query = null,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             string queryString = "";
@@ -234,7 +234,7 @@ namespace BindOpen.Databases.Data.Queries
             IDbQueryHavingClause clause,
             IDbSingleQuery query = null,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             string queryString = "";
