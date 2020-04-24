@@ -41,7 +41,7 @@ namespace BindOpen.Tests.Databases
                                     .AddDatasource(m.CreatePostgreSqlDatasource("db.testA", "connectionStringA")))
                                 .RegisterDbModels((m, l) => m.AddFromAssembly<TestDbModel>(l)))
                             .AddDefaultFileLogger()
-                            .ThrowExceptionOnStartFailure()
+                            //.ThrowExceptionOnStartFailure()
                             .AddLoggers(
                                 BdoLoggerFactory.Create<BdoSnapLogger>(null, BdoLoggerMode.Auto).AddConsoleOutput())
                         ));
