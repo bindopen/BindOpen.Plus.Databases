@@ -78,7 +78,7 @@ namespace BindOpen.Extensions.Carriers
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbTable;
+            var clone = base.Clone(areas) as DbTable;
             clone.Expression = Expression?.Clone<DataExpression>();
 
             return clone;

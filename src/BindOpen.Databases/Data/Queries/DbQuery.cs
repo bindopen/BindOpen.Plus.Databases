@@ -146,7 +146,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbQuery;
+            var clone = base.Clone(areas) as DbQuery;
             clone.CTETables = CTETables?.Select(p => p.Clone<DbTable>()).ToList();
             clone.Description = Description?.Clone<DictionaryDataItem>();
             clone.Expression = Expression?.Clone<DataExpression>();

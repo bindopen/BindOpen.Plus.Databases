@@ -60,7 +60,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbStoredQuery;
+            var clone = base.Clone(areas) as DbStoredQuery;
             clone.Query = Query?.Clone<IDbQuery>();
 
             if (QueryTexts != null)

@@ -48,7 +48,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbDerivedTable;
+            var clone = base.Clone(areas) as DbDerivedTable;
             clone.Query = Query?.Clone<DbQuery>();
 
             return clone;

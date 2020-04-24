@@ -54,7 +54,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbQueryOrderByStatement;
+            var clone = base.Clone(areas) as DbQueryOrderByStatement;
             clone.Field = Field?.Clone<DbField>();
 
             return clone;

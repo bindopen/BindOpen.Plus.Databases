@@ -41,7 +41,7 @@
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbQueryHavingClause;
+            var clone = base.Clone(areas) as DbQueryHavingClause;
 
             return clone;
         }
