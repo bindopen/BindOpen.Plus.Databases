@@ -66,7 +66,7 @@ namespace BindOpen.Data.Stores
         /// <returns>Returns the new item that has been added.
         /// Returns null if the new item is null or else its name is null.</returns>
         /// <remarks>The new item must have a name.</remarks>
-        protected void Add(BdoDbModel item)
+        protected override void Add(BdoDbModel item)
         {
             if (item == null)
                 return;
