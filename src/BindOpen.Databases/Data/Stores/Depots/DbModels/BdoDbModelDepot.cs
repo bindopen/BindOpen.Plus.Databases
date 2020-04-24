@@ -1,5 +1,4 @@
-﻿using BindOpen.Data.Items;
-using BindOpen.Databases.Data.Models;
+﻿using BindOpen.Databases.Data.Models;
 using BindOpen.System.Assemblies;
 using BindOpen.System.Diagnostics;
 using System;
@@ -31,8 +30,8 @@ namespace BindOpen.Data.Stores
         [XmlArrayItem("add")]
         public List<BdoDbModel> Models
         {
-            get { return _items; }
-            set { _items = value; }
+            get { return Items; }
+            set { Items = value; }
         }
 
         #endregion
@@ -47,15 +46,6 @@ namespace BindOpen.Data.Stores
         /// Instantiates a new instance of the BdoDbModelDepot class.
         /// </summary>
         public BdoDbModelDepot() : base()
-        {
-            Id = "dbModels";
-        }
-
-        /// <summary>
-        /// Instantiates a new instance of the BdoDbModelDepot class.
-        /// </summary>
-        /// <param name="queries">The queries to consider.</param>
-        public BdoDbModelDepot(params BdoDbModel[] models) : base(models)
         {
             Id = "dbModels";
         }
@@ -76,9 +66,7 @@ namespace BindOpen.Data.Stores
         /// <returns>Returns the new item that has been added.
         /// Returns null if the new item is null or else its name is null.</returns>
         /// <remarks>The new item must have a name.</remarks>
-        public override void Add(
-            BdoDbModel item,
-            IDataItemSet<BdoDbModel> referenceCollection = null)
+        protected override void Add(BdoDbModel item)
         {
             if (item == null)
                 return;
@@ -119,19 +107,11 @@ namespace BindOpen.Data.Stores
         /// <typeparam name="T"></typeparam>
         /// <param name="name"></param>
         /// <returns></returns>
-        public T GetModel<T>() where T : BdoDbModel
+        public override BdoDbModel Get<BdoDbModel>(string key = null)
         {
-            var item = _items?.FirstOrDefault(p => p is T);
-
-            return item as T;
+            var item = Items?.FirstOrDefault(p => p is BdoDbModel);
+            return item as BdoDbModel;
         }
-
-        /// <summary>
-        /// Gets the database model with the specified name.
-        /// </summary>
-        /// <param name="name">The name to consider.</param>
-        /// <returns>Returns the database model with the specified name.</returns>
-        public IBdoDbModel GetModel(string name) => GetItem(name);
 
         #endregion
     }

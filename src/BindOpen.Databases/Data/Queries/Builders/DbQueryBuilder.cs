@@ -107,7 +107,7 @@ namespace BindOpen.Databases.Data.Queries
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             var queryString = "";
@@ -145,14 +145,14 @@ namespace BindOpen.Databases.Data.Queries
                             UpdateParameterSet(parameterSet, storedDbQuery.Query);
                         }
 
-                        if (parameterSet?.Elements != null)
+                        if (parameterSet?.Items != null)
                         {
-                            foreach (var parameter in parameterSet.Elements)
+                            foreach (var parameter in parameterSet.Items)
                             {
                                 if (parameterMode == DbQueryParameterMode.ValueInjected)
                                 {
                                     queryString = queryString.Replace(parameter?.CreateParameterWildString(),
-                                        GetSqlText_Value(parameter?.GetObject(_scope, scriptVariableSet, log)?.ToString(), parameter.ValueType));
+                                        GetSqlText_Value(parameter?.GetValue(_scope, scriptVariableSet, log)?.ToString(), parameter.ValueType));
                                 }
                                 else
                                 {
@@ -187,7 +187,7 @@ namespace BindOpen.Databases.Data.Queries
         protected abstract string GetSqlText_Query(
             IDbSingleQuery query,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null);
 
         // Builds merge query ----------------------
@@ -203,7 +203,7 @@ namespace BindOpen.Databases.Data.Queries
         protected abstract string GetSqlText_Query(
             IDbCompositeQuery query,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null);
 
         #endregion

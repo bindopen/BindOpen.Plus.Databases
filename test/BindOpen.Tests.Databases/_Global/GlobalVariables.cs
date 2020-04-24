@@ -1,12 +1,11 @@
 ﻿using BindOpen.Application.Scopes;
-using BindOpen.Data.Helpers.Strings;
+using BindOpen.Data.Helpers.Files;
 using BindOpen.Data.Stores;
 using BindOpen.Extensions.References;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Diagnostics.Loggers;
 using BindOpen.Tests.Databases.PostgreSql.Data.Models;
 using BindOpen.Tests.Databases.Settings;
-using System;
 
 namespace BindOpen.Tests.Databases
 {
@@ -19,11 +18,12 @@ namespace BindOpen.Tests.Databases
         {
             get
             {
-                String workingFolder = GlobalVariables._workingFolder;
-                if (workingFolder == null)
-                    GlobalVariables._workingFolder = workingFolder = ((_appHost?.GetKnownPath(BdoHostPathKind.RuntimeFolder) ?? AppDomain.CurrentDomain.BaseDirectory.GetEndedString(@"\")) + @"temp\").ToPath();
+                if (_workingFolder == null)
+                {
+                    _workingFolder = (FileHelper.GetAppRootFolderPath() + @"bdo\temp\").ToPath();
+                }
 
-                return workingFolder;
+                return _workingFolder;
             }
         }
 
@@ -41,7 +41,7 @@ namespace BindOpen.Tests.Databases
                                     .AddDatasource(m.CreatePostgreSqlDatasource("db.testA", "connectionStringA")))
                                 .RegisterDbModels((m, l) => m.AddFromAssembly<TestDbModel>(l)))
                             .AddDefaultFileLogger()
-                            .ThrowExceptionOnStartFailure()
+                            //.ThrowExceptionOnStartFailure()
                             .AddLoggers(
                                 BdoLoggerFactory.Create<BdoSnapLogger>(null, BdoLoggerMode.Auto).AddConsoleOutput())
                         ));

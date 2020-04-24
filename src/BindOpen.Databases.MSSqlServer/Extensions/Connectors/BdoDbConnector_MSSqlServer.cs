@@ -102,16 +102,16 @@ namespace BindOpen.Extensions.Connectors
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             var command = new SqlCommand(CreateCommandText(query, parameterMode, parameterSet, scriptVariableSet, log));
 
             if (query.ParameterSet != null)
             {
-                foreach (var parameter in query.ParameterSet.Elements)
+                foreach (var parameter in query.ParameterSet.Items)
                 {
-                    command.Parameters.AddWithValue(parameter.Name, parameter.GetObject());
+                    command.Parameters.AddWithValue(parameter.Name, parameter.GetValue());
                 }
             }
 

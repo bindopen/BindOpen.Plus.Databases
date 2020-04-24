@@ -23,11 +23,12 @@ namespace BindOpen.Data.Stores
             string connectionString,
             IBdoLog log = null)
         {
-            var datasource = new Datasource(name, DatasourceKind.Database,
-                (datasourceDepot.Scope.CreateConnectorConfiguration("databases.msSqlServer$client", log)
-                    as BdoConnectorConfiguration)?.WithConnectionString(connectionString));
+            var datasource = ItemFactory.CreateDatasource(name, DatasourceKind.Database)
+                .WithConfiguration(
+                    (datasourceDepot?.Scope?.CreateConnectorConfiguration("databases.msSqlServer$client", log)
+                        as BdoConnectorConfiguration)?.WithConnectionString(connectionString));
 
-            return datasource;
+            return datasource as Datasource;
         }
     }
 }

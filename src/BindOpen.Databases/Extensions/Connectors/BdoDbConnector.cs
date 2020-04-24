@@ -144,7 +144,7 @@ namespace BindOpen.Extensions.Connectors
         public override IBdoConnector WithConnectionString(string connectionString = null)
         {
             base.WithConnectionString(connectionString);
-            DictionaryDataItem item = DictionaryDataItem.Create(connectionString);
+            DictionaryDataItem item = ItemFactory.CreateDictionary(connectionString);
 
             Provider = item.GetContent("Provider").Trim().ToLower();
             DatabaseConnectorKind = EstimateDbConnectorKind();
@@ -190,7 +190,7 @@ namespace BindOpen.Extensions.Connectors
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             string sqlText = "";
@@ -216,7 +216,7 @@ namespace BindOpen.Extensions.Connectors
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null);
 
         #endregion

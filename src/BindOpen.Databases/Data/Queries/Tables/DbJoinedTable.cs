@@ -69,9 +69,9 @@ namespace BindOpen.Databases.Data.Queries
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone()
+        public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbJoinedTable;
+            var clone = base.Clone(areas) as DbJoinedTable;
             clone.Table = Table?.Clone<DbTable>();
             clone.Condition = Condition?.Clone<DataExpression>();
 

@@ -122,9 +122,9 @@ namespace BindOpen.Databases.Data.Queries
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone()
+        public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbSingleQuery;
+            var clone = base.Clone(areas) as DbSingleQuery;
             clone.Fields = Fields?.Select(p => p.Clone<DbField>()).ToList();
             clone.UnionClauses = UnionClauses?.Select(p => p?.Clone<DbQueryUnionClause>()).ToList();
             clone.FromClause = FromClause?.Clone<DbQueryFromClause>();

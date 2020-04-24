@@ -1,7 +1,7 @@
 ﻿using BindOpen.Application.Scopes;
 using BindOpen.Data.Elements;
-using BindOpen.Databases.Data.Queries;
 using BindOpen.Data.Stores;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Connectors;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
@@ -43,7 +43,7 @@ namespace BindOpen.Data.Connections
             else if (!depot.HasItem(dataSourceName))
                 log.AddError("Data source '" + dataSourceName + "' missing in depot");
             else
-                return scope.Open<T>(depot.GetItem(dataSourceName), connectorDefinitionUniqueId, log);
+                return scope.Open<T>(depot.Get(dataSourceName), connectorDefinitionUniqueId, log);
 
             return default;
         }
@@ -98,7 +98,7 @@ namespace BindOpen.Data.Connections
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
             IDbCommand command = (connection?.Connector as BdoDbConnector)?.CreateCommand(query, parameterMode, parameterSet, scriptVariableSet, log);
@@ -120,7 +120,7 @@ namespace BindOpen.Data.Connections
             this IDbQuery query,
             DbQueryParameterMode parameterMode,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             T connector = new T();
@@ -142,7 +142,7 @@ namespace BindOpen.Data.Connections
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             T connector = new T();
@@ -166,7 +166,7 @@ namespace BindOpen.Data.Connections
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IDataElementSet parameterSet = null,
-            IBdoScriptVariableSet scriptVariableSet = null,
+            IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             IDbCommand command = transaction?.Connection?.CreateCommand<T>(query, parameterMode, parameterSet, scriptVariableSet, log);
