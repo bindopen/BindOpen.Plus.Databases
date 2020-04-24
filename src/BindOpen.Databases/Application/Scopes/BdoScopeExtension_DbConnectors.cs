@@ -39,7 +39,7 @@ namespace BindOpen.Application.Scopes
             IBdoConnectorConfiguration configuration,
             string name = null,
             IBdoLog log = null,
-            IBdoScriptVariableSet scriptVariableSet = null) where T : class, IBdoDbConnector, new()
+            IScriptVariableSet scriptVariableSet = null) where T : class, IBdoDbConnector, new()
             => scope.CreateConnector<T>(configuration, name, log, scriptVariableSet).WithScope(scope) as T;
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace BindOpen.Application.Scopes
             IBdoConnectorConfiguration configuration = null,
             string name = null,
             IBdoLog log = null,
-            IBdoScriptVariableSet scriptVariableSet = null)
+            IScriptVariableSet scriptVariableSet = null)
             => scope.CreateConnector(configuration, name, log, scriptVariableSet).WithScope(scope) as BdoDbConnector;
     }
 }

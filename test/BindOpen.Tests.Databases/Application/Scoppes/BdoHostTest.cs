@@ -24,7 +24,7 @@ namespace BindOpen.Tests.Application.Scopes
             {
                 xml = _appHost.ToXml();
             }
-            Assert.That(_appHost.IsLoaded, "Bad script interpretation. Result was '" + xml);
+            Assert.That(_appHost.IsLoaded, "Host not loaded. Result was '" + xml);
         }
     }
 }

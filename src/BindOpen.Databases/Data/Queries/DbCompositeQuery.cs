@@ -73,9 +73,9 @@ namespace BindOpen.Databases.Data.Queries
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone()
+        public override object Clone(params string[] areas)
         {
-            var clone = base.Clone() as DbCompositeQuery;
+            var clone = base.Clone(areas) as DbCompositeQuery;
             clone.Queries = Queries?.Select(p => p.Clone<DbQuery>()).ToList();
 
             return clone;
