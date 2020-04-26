@@ -152,7 +152,7 @@ namespace BindOpen.Databases.Data.Queries
                                 if (parameterMode == DbQueryParameterMode.ValueInjected)
                                 {
                                     queryString = queryString.Replace(parameter?.CreateParameterWildString(),
-                                        GetSqlText_Value(parameter?.GetValue(_scope, scriptVariableSet, log)?.ToString(), parameter.ValueType));
+                                        GetSqlText_Value(parameter?.GetValue(_scope, scriptVariableSet, log), parameter.ValueType));
                                 }
                                 else
                                 {

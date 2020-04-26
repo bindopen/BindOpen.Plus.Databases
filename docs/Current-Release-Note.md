@@ -5,26 +5,7 @@ BindOpen.Databases __Release.Version__ Update - __Release.Date__
 
 ## BindOpen.Databases
 
-- [ ] None
-- [X] BindOpen packages updated.
-
-## BindOpen.Databases.MSSqlServer
-
-- [ ] None
-- [X] MS Sql Server data source factory implemented.
-
-## BindOpen.Databases.PostgreSql
-
-- [ ] None
-- [X] Postgresql data source factory implemented.
-
-
-# Fixes
-
-## BindOpen.Databases
-
-- [ ] None
-- [X] AddFromConfiguration was throwing exception when the name of datasource was empty.
+- [X] None
 
 ## BindOpen.Databases.MSSqlServer
 
@@ -32,10 +13,24 @@ BindOpen.Databases __Release.Version__ Update - __Release.Date__
 
 ## BindOpen.Databases.PostgreSql
 
+- [X] None
+
+
+# Fixes
+
+## BindOpen.Databases
+
 - [ ] None
-- [X] Handling date time values.
-- [X] Handling long values.
-- [X] Handling byte array values.
+- [X] Date and byte array are now handled correctly.
+- [X] Exceptions are now catched within connection.
+
+## BindOpen.Databases.MSSqlServer
+
+- [X] None
+
+## BindOpen.Databases.PostgreSql
+
+- [X] None
 
 
 # Lifecycle news

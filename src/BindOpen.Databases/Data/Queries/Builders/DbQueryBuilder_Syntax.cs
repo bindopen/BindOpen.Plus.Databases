@@ -1,4 +1,5 @@
 ﻿using BindOpen.Data.Common;
+using BindOpen.Data.Helpers.Objects;
 
 namespace BindOpen.Databases.Data.Queries
 {
@@ -15,23 +16,28 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value">The value to consider.</param>
         /// <param name="valueType">The value type to consider.</param>
         /// <returns>Returns the Sql string.</returns>
-        protected virtual string GetSqlText_Value(string value, DataValueType valueType = DataValueType.Text)
+        protected virtual string GetSqlText_Value(object value, DataValueType valueType = DataValueType.Text)
         {
+            if (value == null)
+            {
+                return GetSqlText_Null();
+            }
+
             switch (valueType)
             {
+                case DataValueType.Text:
+                    return value == null ? GetSqlText_Null() : GetSqlText_Text(value as string);
+                case DataValueType.Date:
+                    return value == null ? GetSqlText_Null() : GetSqlText_Text(value.ToString(valueType));
                 case DataValueType.Number:
                 case DataValueType.Integer:
-                case DataValueType.None:
-                case DataValueType.Any:
-                    return (value ?? GetSqlText_Null());
+                case DataValueType.Long:
+                case DataValueType.ULong:
+                    return value == null ? GetSqlText_Null() : value.ToString(valueType);
                 case DataValueType.ByteArray:
-                    if (value == null)
-                    {
-                        return GetSqlText_Null();
-                    }
-                    return value?.Replace("-", string.Empty);
+                    return GetSqlText_EncodeBase64(GetSqlText_Text(value.ToString(valueType)));
                 default:
-                    return (value == null ? GetSqlText_Null() : GetSqlText_Text(value));
+                    return value == null ? GetSqlText_Null() : value.ToString();
             }
         }
 
