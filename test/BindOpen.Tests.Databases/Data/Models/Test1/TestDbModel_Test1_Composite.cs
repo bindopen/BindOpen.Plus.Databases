@@ -25,27 +25,27 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     .WithFields(q => new[]
                     {
                         DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text)),
-                        DbFluent.FieldAsParameter(nameof(DbEmployee.ContactEmail), q.UseParameter("contactEmail", DataValueType.Text)),
-                        DbFluent.FieldAsParameter(nameof(DbEmployee.FisrtName), q.UseParameter("fisrtName", DataValueType.Text)),
-                        DbFluent.FieldAsParameter(nameof(DbEmployee.FisrtName), q.UseParameter("fisrtName", DataValueType.Text)),
-                        DbFluent.FieldAsParameter(nameof(DbEmployee.LastName), q.UseParameter("lastName", DataValueType.Text)),
-                        DbFluent.FieldAsParameter(nameof(DbEmployee.IntegrationDate), q.UseParameter("integrationDate", DataValueType.Date))
+                        DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("ByteArrayField", DataValueType.Text)),
+                        DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("DoubleField", DataValueType.Text)),
+                        DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("DoubleField", DataValueType.Text)),
+                        DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("DateTimeField", DataValueType.Text)),
+                        DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("LongField", DataValueType.Date))
                     }),
                     DbFluent.InsertQuery(Table("Employee"))
                         .WithFields(q => new[]
                         {
                             DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text)),
-                            DbFluent.FieldAsParameter(nameof(DbEmployee.ContactEmail), q.UseParameter("contactEmail", DataValueType.Text)),
-                            DbFluent.FieldAsParameter(nameof(DbEmployee.FisrtName), q.UseParameter("fisrtName", DataValueType.Text)),
-                            DbFluent.FieldAsParameter(nameof(DbEmployee.LastName), q.UseParameter("lastName", DataValueType.Text)),
-                            DbFluent.FieldAsParameter(nameof(DbEmployee.IntegrationDate), q.UseParameter("integrationDate", DataValueType.Date))
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("ByteArrayField", DataValueType.Text)),
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("DoubleField", DataValueType.Text)),
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("DateTimeField", DataValueType.Text)),
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("LongField", DataValueType.Date))
                         })
                         .WithParameters(
                             ElementFactory.CreateScalar("code", employee.Code),
-                            ElementFactory.CreateScalar("contactEmail", employee.ContactEmail),
-                            ElementFactory.CreateScalar("fisrtName", employee.FisrtName),
-                            ElementFactory.CreateScalar("lastName", employee.LastName),
-                            ElementFactory.CreateScalar("integrationDate", employee.IntegrationDate)))
+                            ElementFactory.CreateScalar("ByteArrayField", employee.ByteArrayField),
+                            ElementFactory.CreateScalar("DoubleField", employee.DoubleField),
+                            ElementFactory.CreateScalar("DateTimeField", employee.DateTimeField),
+                            ElementFactory.CreateScalar("LongField", employee.LongField)))
                 .WithCTE(
                     DbFluent.TableAsQuery(
                         DbFluent.SelectQuery(null)
@@ -56,10 +56,10 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     .WithAlias("T"))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", employee.Code),
-                    ElementFactory.CreateScalar("contactEmail", employee.ContactEmail),
-                    ElementFactory.CreateScalar("fisrtName", employee.FisrtName),
-                    ElementFactory.CreateScalar("lastName", employee.LastName),
-                    ElementFactory.CreateScalar("integrationDate", employee.IntegrationDate));
+                    ElementFactory.CreateScalar("ByteArrayField", employee.ByteArrayField),
+                    ElementFactory.CreateScalar("DoubleField", employee.DoubleField),
+                    ElementFactory.CreateScalar("DateTimeField", employee.DateTimeField),
+                    ElementFactory.CreateScalar("LongField", employee.LongField));
         }
     }
 }

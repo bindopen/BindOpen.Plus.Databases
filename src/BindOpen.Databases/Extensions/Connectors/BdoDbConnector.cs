@@ -196,9 +196,13 @@ namespace BindOpen.Extensions.Connectors
             string sqlText = "";
 
             if (QueryBuilder == null)
+            {
                 log?.AddError("Data builder missing");
+            }
             else
+            {
                 sqlText = QueryBuilder.BuildQuery(query, parameterMode, parameterSet, scriptVariableSet, log);
+            }
 
             return sqlText;
         }

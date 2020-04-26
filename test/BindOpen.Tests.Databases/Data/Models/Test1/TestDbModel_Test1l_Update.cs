@@ -35,20 +35,20 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text)));
 
                     query.AddField(
-                        !isPartialUpdate || employee?.ContactEmail?.Length > 0,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.ContactEmail), q.UseParameter("contactEmail", DataValueType.Text)));
+                        !isPartialUpdate || employee?.ByteArrayField?.Length > 0,
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("byteArrayField", DataValueType.Text)));
 
                     query.AddField(
-                        !isPartialUpdate || employee?.FisrtName?.Length > 0,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.FisrtName), q.UseParameter("fisrtName", DataValueType.Text)));
+                        !isPartialUpdate || employee?.DateTimeField != null,
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("doubleField", DataValueType.Text)));
 
                     query.AddField(
-                        !isPartialUpdate || employee?.LastName?.Length > 0,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.LastName), q.UseParameter("lastName", DataValueType.Text)));
+                        !isPartialUpdate || employee?.DoubleField != null,
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("dateTimeField", DataValueType.Text)));
 
                     query.AddField(
-                        !isPartialUpdate || employee?.IntegrationDate?.Length > 0,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.IntegrationDate), q.UseParameter("integrationDate", DataValueType.Date)));
+                        true,
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("longField", DataValueType.Date)));
 
                     query.AddField(
                         !isPartialUpdate || employee?.RegionalDirectorateCode?.Length > 0,
@@ -62,11 +62,11 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                 })
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code),
-                    ElementFactory.CreateScalar("contactEmail", employee.ContactEmail),
-                    ElementFactory.CreateScalar("fisrtName", employee.FisrtName),
-                    ElementFactory.CreateScalar("lastName", employee.LastName),
+                    ElementFactory.CreateScalar("byteArrayField", employee.ByteArrayField),
+                    ElementFactory.CreateScalar("doubleField", employee.DoubleField),
+                    ElementFactory.CreateScalar("dateTimeField", employee.DateTimeField),
                     ElementFactory.CreateScalar("directorateCode", null),
-                    ElementFactory.CreateScalar("integrationDate", employee.IntegrationDate));
+                    ElementFactory.CreateScalar("longField", employee.LongField));
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("UpdateFidalEmployee_RegionalDirectorateAsNull", p =>
                 DbFluent.UpdateQuery(Table("Employee", "employee"))
                     .AddField(q => DbFluent.Field<DbEmployee>(q => q.RegionalDirectorateId).AsNull())
-                    .AddField(q => DbFluent.FieldAsParameter<DbEmployee>(q => q.Length, ElementFactory.CreateScalar("length", DataValueType.Long)))
+                    .AddField(q => DbFluent.FieldAsParameter<DbEmployee>(q => q.LongField, ElementFactory.CreateScalar("length", DataValueType.Long)))
                     .From(Table<DbRegionalDirectorate>("regionalDirectorate"))
                     .AddIdField(q =>
                         DbFluent.FieldAsOther<DbEmployee>(
