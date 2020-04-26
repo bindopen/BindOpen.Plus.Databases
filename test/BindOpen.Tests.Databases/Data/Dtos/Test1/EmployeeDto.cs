@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test1
 {
@@ -16,31 +17,31 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test1
         public string Code { get; set; }
 
         /// <summary>
-        /// The first name of this instance.
+        /// The double field of this instance.
         /// </summary>
-        [JsonProperty("fisrtName")]
-        public string FisrtName { get; set; }
+        [JsonProperty("double")]
+        public double DoubleField { get; set; }
 
         /// <summary>
-        /// The last name of this instance.
+        /// The date time field of this instance.
         /// </summary>
-        [JsonProperty("lastName")]
-        public string LastName { get; set; }
+        [JsonProperty("dateTime")]
+        public DateTime DateTimeField { get; set; }
 
         /// <summary>
-        /// The staff number of this instance.
+        /// The integration date of this instance.
         /// </summary>
-        [JsonProperty("integrationDate")]
-        public string IntegrationDate { get; set; }
+        [JsonProperty("long")]
+        public long LongField { get; set; }
 
         /// <summary>
-        /// The contact email of this instance.
+        /// The byte array of this instance.
         /// </summary>
-        [JsonProperty("contactEmail")]
-        public string ContactEmail { get; set; }
+        [JsonProperty("bytes")]
+        public Byte[] ByteArrayField { get; set; }
 
         /// <summary>
-        /// The regional direction code of this instance.
+        /// The reigonal diretorate code of this instance.
         /// </summary>
         [JsonProperty("regionalDirectorateCode")]
         public string RegionalDirectorateCode { get; set; }

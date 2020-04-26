@@ -1,4 +1,5 @@
 ﻿using BindOpen.Extensions.Carriers;
+using System;
 
 namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1
 {
@@ -20,36 +21,30 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1
         /// </summary>
         public int RegionalDirectorateId { get; set; }
 
-
         /// <summary>
         /// The code of this instance.
         /// </summary>
         public string Code { get; set; }
 
         /// <summary>
-        /// The first name of this instance.
+        /// The double field of this instance.
         /// </summary>
-        public string FisrtName { get; set; }
+        public double DoubleField { get; set; }
 
         /// <summary>
-        /// The last name of this instance.
+        /// The date time field of this instance.
         /// </summary>
-        public string LastName { get; set; }
+        public DateTime DateTimeField { get; set; }
 
         /// <summary>
         /// The integration date of this instance.
         /// </summary>
-        public string IntegrationDate { get; set; }
+        public long LongField { get; set; }
 
         /// <summary>
-        /// The contact email of this instance.
+        /// The byte array of this instance.
         /// </summary>
-        public string ContactEmail { get; set; }
-
-        /// <summary>
-        /// The length of this instance.
-        /// </summary>
-        public long Length { get; set; }
+        public Byte[] ByteArrayField { get; set; }
 
         // Bound entities ------------------------
 
