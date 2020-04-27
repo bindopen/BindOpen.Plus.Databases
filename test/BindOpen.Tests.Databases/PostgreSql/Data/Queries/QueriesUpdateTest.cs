@@ -47,7 +47,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string expectedResult =
                 @"update ""Mdm"".""Employee"" set "
                 + @"""Code""='" + code + "'"
-                + @",""ByteArrayField""=encode('" + _employee.ByteArrayField.ToString(DataValueType.ByteArray) + "', 'base64')"
+                + @",""ByteArrayField""='" + _employee.ByteArrayField.ToString(DataValueType.ByteArray).Replace("'", "''") + "'"
                 + @",""DoubleField""=" + _employee.DoubleField.ToString(DataValueType.Number)
                 + @",""DateTimeField""='" + _employee.DateTimeField.ToString(DataValueType.Date) + "'"
                 + @",""LongField""=" + _employee.LongField.ToString(DataValueType.Long)
