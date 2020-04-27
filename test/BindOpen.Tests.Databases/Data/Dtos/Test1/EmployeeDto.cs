@@ -26,7 +26,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test1
         /// The date time field of this instance.
         /// </summary>
         [JsonProperty("dateTime")]
-        public DateTime DateTimeField { get; set; }
+        public DateTime? DateTimeField { get; set; }
 
         /// <summary>
         /// The integration date of this instance.
