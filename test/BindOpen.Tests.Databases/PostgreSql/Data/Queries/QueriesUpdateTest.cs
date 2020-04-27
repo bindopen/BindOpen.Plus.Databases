@@ -8,6 +8,7 @@ using BindOpen.System.Diagnostics;
 using BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test1;
 using BindOpen.Tests.Databases.PostgreSql.Data.Models;
 using Bogus;
+using Bogus.Extensions;
 using NUnit.Framework;
 using System;
 
@@ -31,7 +32,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             {
                 Code = f.Lorem.Sentence(),
                 ByteArrayField = f.Random.Bytes(1500),
-                DateTimeField = f.Date.Soon(),
+                DateTimeField = f.Date.Soon().OrNull(f),
                 DoubleField = f.Random.Double(),
                 LongField = f.Random.Long()
             };
@@ -46,7 +47,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string expectedResult =
                 @"update ""Mdm"".""Employee"" set "
                 + @"""Code""='" + code + "'"
-                + @",""ByteArrayField""=encode('" + _employee.ByteArrayField.ToString(DataValueType.ByteArray) + "', 'base64')"
+                + @",""ByteArrayField""='" + _employee.ByteArrayField.ToString(DataValueType.ByteArray).Replace("'", "''") + "'"
                 + @",""DoubleField""=" + _employee.DoubleField.ToString(DataValueType.Number)
                 + @",""DateTimeField""='" + _employee.DateTimeField.ToString(DataValueType.Date) + "'"
                 + @",""LongField""=" + _employee.LongField.ToString(DataValueType.Long)

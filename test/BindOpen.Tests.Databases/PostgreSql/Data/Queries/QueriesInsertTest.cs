@@ -44,8 +44,8 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult =
                 @"insert into ""Mdm"".""Employee"" (""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"") "
-                + "values ('" + _employee.Code + "'"
-                + ",encode('" + _employee.ByteArrayField.ToString(DataValueType.ByteArray) + "', 'base64')"
+                + "values ('" + _employee.Code.Replace("'", "''") + "'"
+                + ",'" + _employee.ByteArrayField.ToString(DataValueType.ByteArray).Replace("'", "''") + "'"
                 + "," + _employee.DoubleField.ToString(DataValueType.Number)
                 + ",'" + _employee.DateTimeField.ToString(DataValueType.Date)
                 + "'," + _employee.LongField.ToString(DataValueType.Long) + @")"
