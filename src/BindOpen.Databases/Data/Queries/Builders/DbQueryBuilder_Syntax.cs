@@ -27,6 +27,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 case DataValueType.Text:
                     return value == null ? GetSqlText_Null() : GetSqlText_Text(value as string);
+                case DataValueType.ByteArray:
                 case DataValueType.Date:
                     return value == null ? GetSqlText_Null() : GetSqlText_Text(value.ToString(valueType));
                 case DataValueType.Number:
@@ -34,8 +35,6 @@ namespace BindOpen.Databases.Data.Queries
                 case DataValueType.Long:
                 case DataValueType.ULong:
                     return value == null ? GetSqlText_Null() : value.ToString(valueType);
-                case DataValueType.ByteArray:
-                    return GetSqlText_EncodeBase64(GetSqlText_Text(value.ToString(valueType)));
                 default:
                     return value == null ? GetSqlText_Null() : value.ToString();
             }
