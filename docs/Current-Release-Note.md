@@ -21,8 +21,11 @@ BindOpen.Databases __Release.Version__ Update - __Release.Date__
 ## BindOpen.Databases
 
 - [ ] None
-- [X] Date and byte array are now handled correctly.
-- [X] Exceptions are now catched within connection.
+- [X] DbFluent.TableAsJoin implemented
+- [X] Fixing bug: Delete query in Postgresql using table1, table2
+- [X] p.TableAsJoin<T, T1, T2>(DbQueryJoinKind)
+- [X] Remove tryMode parameter
+
 
 ## BindOpen.Databases.MSSqlServer
 

@@ -36,7 +36,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("GetCountryWithCode", p =>
                 DbFluent.SelectQuery(Table("Country"))
                     .From(
-                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table("RegionalDirectorate"),
                             JoinCondition("Country_RegionalDirectorate")))
                     .WithFields(Tuple("SelectCountry"))
                     .AddIdField(DbFluent.FieldAsParameter(nameof(DbCountry.Code), "code"))
@@ -55,7 +55,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         {
             return DbFluent.InsertQuery(Table("Country"), true)
                 .From(
-                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table("RegionalDirectorate"),
                         JoinCondition("Country_RegionalDirectorate")));
             //.WithFields(p => Fields_InsertCountry(p, country));
         }
@@ -71,7 +71,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         {
             var query = DbFluent.UpdateQuery(Table("Country"))
                 .From(
-                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table("RegionalDirectorate"),
                         JoinCondition("Country_RegionalDirectorate")));
 
             if (!isPartialUpdate || country?.Code?.Length > 0)

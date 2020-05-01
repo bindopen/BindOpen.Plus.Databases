@@ -94,8 +94,16 @@ namespace BindOpen.Databases.Data.Repositories
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public DbTable Table(string name, string alias = null, bool tryMode = false)
-            => _model?.Table(name, alias, tryMode);
+        public DbTableModel TableModel(string name)
+            => _model?.TableModel(name);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public DbTable Table(string name, string alias = null)
+            => _model?.Table(name, alias);
 
         /// <summary>
         /// 
@@ -104,8 +112,8 @@ namespace BindOpen.Databases.Data.Repositories
         /// <param name="tryMode"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public DbTable Table<T>(string alias = null, bool tryMode = true)
-            => _model?.Table<T>(alias, tryMode);
+        public DbTable Table<T>(string alias = null)
+            => _model?.Table<T>(alias);
 
         // Relationships ---------------------------------------
 
@@ -222,8 +230,8 @@ namespace BindOpen.Databases.Data.Repositories
         /// <param name="tableName"></param>
         /// <param name="tableAlias"></param>
         /// <returns></returns>
-        public List<DbField> FieldAsAll(string tableName, string tableAlias = null)
-            => _model?.FieldAsAll(tableName, tableAlias);
+        public List<DbField> AllFields(string tableName, string tableAlias = null)
+            => _model?.AllFields(tableName, tableAlias);
 
         /// <summary>
         /// 
@@ -231,8 +239,135 @@ namespace BindOpen.Databases.Data.Repositories
         /// <typeparam name="T"></typeparam>
         /// <param name="tableAlias"></param>
         /// <returns></returns>
-        public List<DbField> FieldAsAll<T>(string tableAlias = null)
-            => _model?.FieldAsAll<T>(tableAlias);
+        public List<DbField> AllFields<T>(string tableAlias = null)
+            => _model?.AllFields<T>(tableAlias);
+
+        /// <summary>
+        /// Creates a new joined table.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="kind">The kind to consider.</param>
+        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <returns>Returns a new From statement.</returns>
+        public DbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, string conditionScript)
+            => _model?.TableAsJoin(name, kind, conditionScript);
+
+        /// <summary>
+        /// Creates a new joined table.
+        /// </summary>
+        /// <param name="kind">The kind to consider.</param>
+        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <returns>Returns a new From statement.</returns>
+        public DbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, string conditionScript)
+            => _model?.TableAsJoin<T>(kind, conditionScript);
+
+        /// <summary>
+        /// Creates a new joined table.
+        /// </summary>
+        /// <param name="kind">The kind to consider.</param>
+        /// <param name="table1Alias">The alias of the table 1 to consider.</param>
+        /// <param name="table2Alias">The alias of the table 2 to consider.</param>
+        /// <returns>Returns a new From statement.</returns>
+        public DbJoinedTable TableAsJoin<T, T1, T2>(
+            DbQueryJoinKind kind,
+            string table1Alias = null, string table2Alias = null)
+            => _model?.TableAsJoin<T, T1, T2>(kind, table1Alias, table2Alias);
+
+        // Delete --------------------------------
+
+        /// <summary>
+        /// Creates a new Delete advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Delete advanced database query</returns>
+        public IDbSingleQuery DeleteQuery<T>(string name, Action<IDbSingleQuery> initAction = null)
+            => _model.DeleteQuery<T>(name, initAction);
+
+        /// <summary>
+        /// Creates a new Delete advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Delete advanced database query</returns>
+        public IDbSingleQuery DeleteQuery<T>(Action<IDbSingleQuery> initAction = null)
+            => _model.DeleteQuery<T>(initAction);
+
+        // Create --------------------------------
+
+        /// <summary>
+        /// Creates a new Create advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Create basic database query</returns>
+        public IDbSingleQuery CreateQuery<T>(string name, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
+            => _model.CreateQuery<T>(name, onlyIfNotExisting, initAction);
+
+        /// <summary>
+        /// Creates a new Create advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Create basic database query</returns>
+        public IDbSingleQuery CreateQuery<T>(bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
+            => _model.CreateQuery<T>(onlyIfNotExisting, initAction);
+
+        // Drop --------------------------------
+
+        /// <summary>
+        /// Creates a new Drop advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Drop advanced database query</returns>
+        public IDbSingleQuery DropQuery<T>(string name, bool onlyIfExisting = true, Action<IDbSingleQuery> initAction = null)
+            => _model.DropQuery<T>(name, onlyIfExisting, initAction);
+
+        /// <summary>
+        /// Creates a new Drop advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Drop advanced database query</returns>
+        public IDbSingleQuery DropQuery<T>(bool onlyIfExisting = true, Action<IDbSingleQuery> initAction = null)
+            => _model.DropQuery<T>(onlyIfExisting, initAction);
+
+        // Insert --------------------------------
+
+        /// <summary>
+        /// Creates a new Insert advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Insert advanced database query</returns>
+        public IDbSingleQuery InsertQuery<T>(string name, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
+            => _model.InsertQuery<T>(name, onlyIfNotExisting, initAction);
+
+        /// <summary>
+        /// Creates a new Insert advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Insert advanced database query</returns>
+        public IDbSingleQuery InsertQuery<T>(bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
+            => _model.InsertQuery<T>(onlyIfNotExisting, initAction);
+
+        // Select --------------------------------
+
+        /// <summary>
+        /// Creates a new Select advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Select advanced database query</returns>
+        public IDbSingleQuery SelectQuery<T>(string name, Action<IDbSingleQuery> initAction = null)
+            => _model.SelectQuery<T>(name, initAction);
+
+        /// <summary>
+        /// Creates a new Select advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Select advanced database query</returns>
+        public IDbSingleQuery SelectQuery<T>(Action<IDbSingleQuery> initAction = null)
+            => _model.SelectQuery<T>(initAction);
+
+        // Update --------------------------------
+
+        /// <summary>
+        /// Creates a new Update advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Update advanced database query</returns>
+        public IDbSingleQuery UpdateQuery<T>(string name, Action<IDbSingleQuery> initAction = null)
+            => _model.UpdateQuery<T>(name, initAction);
+
+        /// <summary>
+        /// Creates a new Update advanced database query.
+        /// </summary>
+        /// <returns>Returns a new Update advanced database query</returns>
+        public IDbSingleQuery UpdateQuery<T>(Action<IDbSingleQuery> initAction = null)
+            => _model.UpdateQuery<T>(initAction);
 
         #endregion
     }

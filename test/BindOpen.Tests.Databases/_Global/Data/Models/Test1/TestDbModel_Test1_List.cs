@@ -32,20 +32,22 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     DbFluent.Field("Field2", DbFluent.Table("table")))
                 .From(
                     DbFluent.Table(nameof(DbRegionalDirectorate).Substring(2), "schema1").WithAlias("table"),
-                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, DbFluent.Table("DbTable1".Substring(2), "schema2").WithAlias("table1"))
-                        .WithCondition(
-                            DbFluent.And(
-                                DbFluent.Eq(
-                                    DbFluent.Field("table1key", DbFluent.Table("table1")),
-                                    DbFluent.Field(nameof(DbRegionalDirectorate.Code), DbFluent.Table("table"))),
-                                DbFluent.Eq(
-                                    DbFluent.Field("table2key", DbFluent.Table("table2")),
-                                    DbFluent.Field(nameof(DbRegionalDirectorate.LabelEN), DbFluent.Table("table"))))),
-                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, DbFluent.Table("DbTable1".Substring(2), "schema2").WithAlias("table2"))
-                        .WithCondition(
+                    DbFluent.TableAsJoin(
+                        DbQueryJoinKind.Left,
+                        DbFluent.Table("DbTable1".Substring(2), "schema2").WithAlias("table1"),
+                        DbFluent.And(
                             DbFluent.Eq(
-                                DbFluent.Field("table1key", DbFluent.Table("table2")),
-                                DbFluent.Field("Field1", DbFluent.Table("table"))))
+                                DbFluent.Field("table1key", DbFluent.Table("table1")),
+                                DbFluent.Field(nameof(DbRegionalDirectorate.Code), DbFluent.Table("table"))),
+                            DbFluent.Eq(
+                                DbFluent.Field("table2key", DbFluent.Table("table2")),
+                                DbFluent.Field(nameof(DbRegionalDirectorate.LabelEN), DbFluent.Table("table"))))),
+                    DbFluent.TableAsJoin(
+                        DbQueryJoinKind.Left,
+                        DbFluent.Table("DbTable1".Substring(2), "schema2").WithAlias("table2"),
+                        DbFluent.Eq(
+                            DbFluent.Field("table1key", DbFluent.Table("table2")),
+                            DbFluent.Field("Field1", DbFluent.Table("table"))))
                 )
                 .Filter(
                     q,

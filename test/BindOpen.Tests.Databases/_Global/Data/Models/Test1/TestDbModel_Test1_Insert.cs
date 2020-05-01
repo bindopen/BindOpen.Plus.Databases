@@ -19,7 +19,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         /// <returns></returns>
         internal IDbQuery InsertEmployee1(EmployeeDto employee)
         {
-            return DbFluent.InsertQuery(Table("Employee"))
+            return DbFluent.InsertQuery(Table<DbEmployee>())
                 .WithFields(q => new[]
                 {
                     DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text)),
@@ -30,7 +30,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                 })
                 .WithReturnedIdFields(new[]
                 {
-                    Field(nameof(DbEmployee.EmployeeId), "Employee")
+                    Field<DbEmployee>(p=> p.EmployeeId)
                 })
                 .WithParameters(
                     ElementFactory.CreateScalar("code", employee.Code),

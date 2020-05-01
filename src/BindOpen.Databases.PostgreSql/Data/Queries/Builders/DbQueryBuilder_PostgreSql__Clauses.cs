@@ -89,16 +89,22 @@ namespace BindOpen.Databases.Data.Queries
                             }
                             if (statement.Tables?.Count > 0)
                             {
+                                var existingTbale = false;
+
                                 foreach (var table in statement.Tables)
                                 {
 
                                     if (query?.Kind == DbQueryKind.Delete && table is DbJoinedTable joinedTable)
                                     {
-                                        queryString += " using ";
+                                        queryString += !existingTbale ? " using " : ", ";
+
                                         queryString += GetSqlText_Table(
                                             joinedTable.Table,
                                             query, parameterSet, DbFieldViewMode.CompleteNameAsAlias,
                                             scriptVariableSet: scriptVariableSet, log: log);
+                                        existingTbale = true;
+
+                                        // we update the where clause to add relationships
 
                                         if (query?.WhereClause == null)
                                         {

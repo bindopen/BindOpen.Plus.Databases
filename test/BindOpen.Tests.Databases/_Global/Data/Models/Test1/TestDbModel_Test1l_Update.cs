@@ -24,11 +24,13 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("UpdateEmployee1",
                 p =>
                 {
-                    var query = DbFluent.UpdateQuery(Table("Employee"))
+                    var query = DbFluent.UpdateQuery(Table<DbEmployee>())
                         .From(
-                            DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
-                                .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
-                        .WithReturnedIdFields(Field("Code", "Employee"));
+                            DbFluent.TableAsJoin(
+                                DbQueryJoinKind.Left,
+                                Table("RegionalDirectorate"),
+                                JoinCondition("Employee_RegionalDirectorate")))
+                        .WithReturnedIdFields(Field("Code", "DbEmployee"));
 
                     query.AddField(
                         !isPartialUpdate || employee?.Code?.Length > 0,
@@ -53,7 +55,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     query.AddField(
                         !isPartialUpdate || employee?.RegionalDirectorateCode?.Length > 0,
                         q => DbFluent.FieldAsQuery(nameof(DbEmployee.RegionalDirectorateId),
-                                DbFluent.SelectQuery(Table<DbRegionalDirectorate>())
+                                DbFluent.SelectQuery(Table("RegionalDirectorate"))
                                     .AddField(DbFluent.Field(nameof(DbRegionalDirectorate.RegionalDirectorateId)))
                                     .WithIdFields(
                                         DbFluent.FieldAsParameter(nameof(DbRegionalDirectorate.Code), q.UseParameter("directorateCode", DataValueType.Text)))));
@@ -77,20 +79,20 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         internal IDbQuery UpdateEmployee2(string regionalDirectorateCode)
         {
             return this.UseQuery("UpdateEmployee2", p =>
-                DbFluent.UpdateQuery(Table("Employee", "employee"))
+                DbFluent.UpdateQuery(Table("DbEmployee", "employee"))
                     .AddField(q => DbFluent.Field<DbEmployee>(q => q.RegionalDirectorateId).AsNull())
-                    .From(Table<DbRegionalDirectorate>("regionalDirectorate"))
+                    .From(Table("RegionalDirectorate", "regionalDirectorate"))
                     .AddIdField(q =>
                         DbFluent.FieldAsOther<DbEmployee>(
-                            t => t.RegionalDirectorateId, Table("Employee", "employee"),
-                            Field<DbRegionalDirectorate>(
-                                t => t.RegionalDirectorateId, "regionalDirectorate")))
+                            t => t.RegionalDirectorateId, Table("DbEmployee", "employee"),
+                            DbFluent.Field<DbRegionalDirectorate>(
+                                t => t.RegionalDirectorateId, Table("RegionalDirectorate").WithAlias("regionalDirectorate"))))
                     .AddIdField(q =>
                         DbFluent.FieldAsParameter<DbEmployee>(
                             t => t.Code,
                             DbFluent.Table("employee"),
                             q.UseParameter("regionalDirectorateCode", DataValueType.Text)))
-                    .WithReturnedIdFields(Field("Code", "Employee", "employee"))
+                    .WithReturnedIdFields(Field("Code", "DbEmployee", "employee"))
                 )
                 .WithParameters(
                     ElementFactory.CreateScalar("regionalDirectorateCode", regionalDirectorateCode));
@@ -104,21 +106,21 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         internal IDbQuery UpdateEmployee3(string regionalDirectorateCode)
         {
             return this.UseQuery("UpdateFidalEmployee_RegionalDirectorateAsNull", p =>
-                DbFluent.UpdateQuery(Table("Employee", "employee"))
+                DbFluent.UpdateQuery(Table("DbEmployee", "employee"))
                     .AddField(q => DbFluent.Field<DbEmployee>(q => q.RegionalDirectorateId).AsNull())
                     .AddField(q => DbFluent.FieldAsParameter<DbEmployee>(q => q.LongField, ElementFactory.CreateScalar("length", DataValueType.Long)))
-                    .From(Table<DbRegionalDirectorate>("regionalDirectorate"))
+                    .From(Table("RegionalDirectorate", "regionalDirectorate"))
                     .AddIdField(q =>
                         DbFluent.FieldAsOther<DbEmployee>(
-                            t => t.RegionalDirectorateId, Table("Employee", "employee"),
-                            Field<DbRegionalDirectorate>(
-                                t => t.RegionalDirectorateId, "regionalDirectorate")))
+                            t => t.RegionalDirectorateId, Table("DbEmployee", "employee"),
+                            DbFluent.Field<DbRegionalDirectorate>(
+                                t => t.RegionalDirectorateId, Table("RegionalDirectorate").WithAlias("regionalDirectorate"))))
                     .AddIdField(q =>
                         DbFluent.FieldAsParameter<DbEmployee>(
                             t => t.Code,
                             DbFluent.Table("employee"),
                             q.UseParameter("regionalDirectorateCode", DataValueType.Text)))
-                    .WithReturnedIdFields(Field("Code", "Employee", "employee"))
+                    .WithReturnedIdFields(Field("Code", "DbEmployee", "employee"))
                 )
                 .WithParameters(
                     ElementFactory.CreateScalar("regionalDirectorateCode", regionalDirectorateCode),

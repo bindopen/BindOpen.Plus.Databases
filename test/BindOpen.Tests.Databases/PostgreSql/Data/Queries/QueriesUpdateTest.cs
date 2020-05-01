@@ -8,7 +8,6 @@ using BindOpen.System.Diagnostics;
 using BindOpen.Tests.Databases.PostgreSql.Data.Dtos.Test1;
 using BindOpen.Tests.Databases.PostgreSql.Data.Models;
 using Bogus;
-using Bogus.Extensions;
 using NUnit.Framework;
 using System;
 
@@ -32,7 +31,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             {
                 Code = f.Lorem.Sentence(),
                 ByteArrayField = f.Random.Bytes(1500),
-                DateTimeField = f.Date.Soon().OrNull(f),
+                DateTimeField = f.Date.Soon(),
                 DoubleField = f.Random.Double(),
                 LongField = f.Random.Long()
             };
