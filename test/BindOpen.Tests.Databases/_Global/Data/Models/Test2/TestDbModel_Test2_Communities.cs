@@ -30,7 +30,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("GetCommunityWithCode", p =>
                 DbFluent.SelectQuery(Table<DbCommunity>("community"))
                     .From(
-                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table("RegionalDirectorate"),
                             JoinCondition("Community_RegionalDirectorate")))
                     .WithFields(Tuple("SelectCommunity"))
                     .Filter(
@@ -59,7 +59,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("GetCommunityWithCode", p =>
                 DbFluent.SelectQuery(Table<DbCommunity>("community"))
                     .From(
-                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table("RegionalDirectorate"),
                             JoinCondition("Community_RegionalDirectorate")))
                     .WithFields(Tuple("SelectCommunity"))
                     .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbCommunity.Code), q.UseParameter("code", DataValueType.Text))))
@@ -76,7 +76,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         {
             return DbFluent.InsertQuery(Table("Community"), true)
                 .From(
-                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>(),
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table("RegionalDirectorate"),
                         JoinCondition<DbCommunity, DbRegionalDirectorate>("community", null)));
             //.WithFields(p => Fields_InsertCommunity(p, community));
         }

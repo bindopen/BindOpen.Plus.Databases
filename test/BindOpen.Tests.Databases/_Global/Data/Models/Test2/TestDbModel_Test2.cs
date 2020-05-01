@@ -27,7 +27,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     q => q.LastModificationDate)
                 .AddTuple(
                     "SelectCommunity",
-                    FieldAsAll<DbCommunity>().ToArray()
+                    AllFields<DbCommunity>().ToArray()
                 )
                 .AddTuple(
                     "UpdateCommunity",

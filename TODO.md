@@ -16,6 +16,7 @@ Todo list for BindOpen
 * Apply data value type of the field from Field<T> methods
 * DbFluent.FieldAsScript<DbImage>(expr1, expr2) expr2 = Fun<field>
 * Update MSSqlServer database query builder
+* Bug with JoinCondition<expr1, expr2>(name)
 
 ## Bugs to fix later on
 
