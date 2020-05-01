@@ -19,11 +19,13 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         internal IDbQuery SelectEmployeeWithCode1(string code)
         {
             return this.UseQuery("SelectEmployeeWithCode1", p =>
-                DbFluent.SelectQuery(Table("Employee"))
+                DbFluent.SelectQuery(Table<DbEmployee>())
                     .From(
-                        Table("Employee"),
-                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
-                            .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
+                        Table<DbEmployee>(),
+                        DbFluent.TableAsJoin(
+                            DbQueryJoinKind.Left,
+                            Table("RegionalDirectorate"),
+                            JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
                     .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))
@@ -39,10 +41,12 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         internal IDbQuery SelectEmployeeWithCode2(string code)
         {
             return this.UseQuery("SelectEmployeeWithCode2", p =>
-                DbFluent.SelectQuery(Table("Employee"))
+                DbFluent.SelectQuery(Table<DbEmployee>())
                     .From(
-                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
-                            .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
+                        DbFluent.TableAsJoin(
+                            DbQueryJoinKind.Left,
+                            Table("RegionalDirectorate"),
+                            JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
                     .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))
@@ -60,9 +64,11 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("SelectEmployeeWithCode3", p =>
                 DbFluent.SelectQuery(null)
                     .From(
-                        Table("Employee"),
-                        DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table<DbRegionalDirectorate>())
-                            .WithCondition(JoinCondition("Employee_RegionalDirectorate")))
+                        Table<DbEmployee>(),
+                        DbFluent.TableAsJoin(
+                            DbQueryJoinKind.Left,
+                            Table("RegionalDirectorate"),
+                            JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
                     .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))

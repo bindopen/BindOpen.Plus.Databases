@@ -23,6 +23,18 @@ namespace BindOpen.Databases.Data.Queries
                 Schema = schema,
             };
 
+        // Join --------------------------------
+
+        /// <summary>
+        /// Creates a new joined table.
+        /// </summary>
+        /// <param name="kind">The kind to consider.</param>
+        /// <param name="table">The table to consider.</param>
+        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <returns>Returns a new From statement.</returns>
+        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript)
+            => new DbJoinedTable() { Kind = kind, Table = table }.WithCondition(conditionScript.CreateScript());
+
         // Derived --------------------------------
 
         /// <summary>
@@ -40,26 +52,5 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="query">The query to consider.</param>
         public static DbTupledTable TableAsTuples(params IDbTuple[] tuples)
             => new DbTupledTable(tuples?.Cast<DbTuple>().ToArray());
-
-        // Join --------------------------------
-
-        /// <summary>
-        /// Creates a new joined table.
-        /// </summary>
-        /// <param name="kind">The kind to consider.</param>
-        /// <param name="table">The table to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
-        /// <returns>Returns a new From statement.</returns>
-        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript = null)
-            => new DbJoinedTable() { Kind = kind, Table = table }.WithCondition(conditionScript.CreateScript());
-
-        /// <summary>
-        /// Creates a new joined table.
-        /// </summary>
-        /// <param name="table">The table to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
-        /// <returns>Returns a new From statement.</returns>
-        public static DbJoinedTable TableAsJoin(DbTable table, string conditionScript = null)
-            => TableAsJoin(DbQueryJoinKind.Inner, table, conditionScript);
     }
 }

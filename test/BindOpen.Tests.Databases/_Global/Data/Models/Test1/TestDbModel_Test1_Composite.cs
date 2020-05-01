@@ -19,9 +19,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         /// <returns></returns>
         internal IDbQuery UpsertEmployee(EmployeeDto employee)
         {
-            return DbFluent.Upsert(Table("Employee"))
+            return DbFluent.Upsert(Table<DbEmployee>())
                 .WithQueries(
-                    DbFluent.UpdateQuery(Table("Employee"))
+                    DbFluent.UpdateQuery(Table<DbEmployee>())
                     .WithFields(q => new[]
                     {
                         DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text)),
@@ -31,7 +31,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("DateTimeField", DataValueType.Text)),
                         DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("LongField", DataValueType.Date))
                     }),
-                    DbFluent.InsertQuery(Table("Employee"))
+                    DbFluent.InsertQuery(Table<DbEmployee>())
                         .WithFields(q => new[]
                         {
                             DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text)),

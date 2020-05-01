@@ -2,7 +2,6 @@
 using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
 using BindOpen.Data.Helpers.Objects;
-using BindOpen.Databases.Data.Models;
 using BindOpen.Extensions.Carriers;
 using System;
 using System.Linq.Expressions;
@@ -184,12 +183,8 @@ namespace BindOpen.Databases.Data.Queries
             string script)
         {
             var field = DbFluent.Field(name, table);
+            field.AsScript(script);
 
-            field.ValueType = DataValueType.None;
-            if (script != null)
-            {
-                field.Expression = script.CreateScript();
-            }
             return field;
         }
 
@@ -587,6 +582,59 @@ namespace BindOpen.Databases.Data.Queries
             IDataElement parameter) where T : class
         {
             return DbFluent.Field<T>(expr, table).AsParameter(parameter);
+        }
+
+        // As Null -----
+
+        /// <summary>
+        /// Updates the specified field as null.
+        /// </summary>
+        /// <param name="field">The field to consider.</param>
+        public static DbField AsNull(this DbField field)
+        {
+            return field?.AsScript(DbFluent.Null());
+        }
+
+        /// <summary>
+        /// Creates a new instance of the DbField class.
+        /// </summary>
+        /// <param name="name">The name to consider.</param>
+        public static DbField FieldAsNull(string name)
+        {
+            return FieldAsNull(name, null);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the DbField class.
+        /// </summary>
+        /// <param name="name">The name to consider.</param>
+        /// <param name="table">The data table to consider.</param>
+        public static DbField FieldAsNull(
+            string name, DbTable table)
+        {
+            return DbFluent.Field(name, table).AsNull();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the DbField class.
+        /// </summary>
+        /// <param name="expr">The expression to consider.</param>
+        public static DbField FieldAsNull<T>(
+            Expression<Func<T, object>> expr) where T : class
+        {
+            return FieldAsNull<T>(expr, null);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the DbField class.
+        /// </summary>
+        /// <param name="expr">The expression to consider.</param>
+        /// <param name="table">The data table to consider.</param>
+        public static DbField FieldAsNull<T>(
+            Expression<Func<T, object>> expr,
+            DbTable table) where T : class
+        {
+            return DbFluent.Field<T>(expr, table).AsNull();
         }
     }
 }

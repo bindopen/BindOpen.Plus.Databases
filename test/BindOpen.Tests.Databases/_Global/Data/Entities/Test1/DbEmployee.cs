@@ -17,9 +17,19 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1
         public int EmployeeId { get; set; }
 
         /// <summary>
-        /// The OD of the regional direction of this instance.
+        /// The ID of the regional direction of this instance.
         /// </summary>
         public int RegionalDirectorateId { get; set; }
+
+        /// <summary>
+        /// The ID of the main contact of this instance.
+        /// </summary>
+        public int MainContactId { get; set; }
+
+        /// <summary>
+        /// The ID of the secondary contact of this instance.
+        /// </summary>
+        public int SecondaryContactId { get; set; }
 
         /// <summary>
         /// The code of this instance.
@@ -52,6 +62,16 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Entities.Test1
         /// 
         /// </summary>
         public DbRegionalDirectorate RegionalDirectorate { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbContact MainContact { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbContact SecondaryContact { get; set; }
 
         #endregion
 
