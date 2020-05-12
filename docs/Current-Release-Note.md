@@ -21,15 +21,12 @@ BindOpen.Databases __Release.Version__ Update - __Release.Date__
 ## BindOpen.Databases
 
 - [ ] None
-- [X] DbFluent.TableAsJoin implemented
-- [X] Fixing bug: Delete query in Postgresql using table1, table2
-- [X] p.TableAsJoin<T, T1, T2>(DbQueryJoinKind)
-- [X] Remove tryMode parameter
-
+- [X] Improving database table building
 
 ## BindOpen.Databases.MSSqlServer
 
-- [X] None
+- [ ] None
+- [X] Handling CTEs
 
 ## BindOpen.Databases.PostgreSql
 

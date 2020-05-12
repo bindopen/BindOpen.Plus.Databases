@@ -24,7 +24,7 @@ namespace BindOpen.Extensions.Carriers
         /// <summary>
         /// The value type of this instance.
         /// </summary>
-        public DataValueType ValueType { get; set; }
+        public DataValueTypes ValueType { get; set; }
 
         /// <summary>
         /// The constraint statement of this instance.
@@ -44,7 +44,7 @@ namespace BindOpen.Extensions.Carriers
         /// </summary>
         /// <param name="valueType">The value type to consider.</param>
         /// <param name="constraintStatement">The constraint statement to consider.</param>
-        public BdoDbFieldAttribute(DataValueType valueType,
+        public BdoDbFieldAttribute(DataValueTypes valueType,
             DataConstraintStatement constraintStatement = null) : base()
         {
             ValueType = valueType;
@@ -58,7 +58,7 @@ namespace BindOpen.Extensions.Carriers
         /// <param name="valueType">The value type to consider.</param>
         /// <param name="constraintStatement">The constraint statement to consider.</param>
         public BdoDbFieldAttribute(string name,
-            DataValueType valueType = DataValueType.Any,
+            DataValueTypes valueType = DataValueTypes.Any,
             DataConstraintStatement constraintStatement = null) : base()
         {
             Name = name;

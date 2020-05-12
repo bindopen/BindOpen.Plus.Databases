@@ -72,16 +72,16 @@ namespace BindOpen.Databases.Data.Queries
             var valueType = param1.GetValueType();
             switch (valueType)
             {
-                case DataValueType.Text:
+                case DataValueTypes.Text:
                     var param1String = param1 as string;
                     return Text(param1String);
-                case DataValueType.Date:
+                case DataValueTypes.Date:
                     if (param1 is DateTime param1DateTime)
                     {
                         return Text(param1DateTime.ToString(StringHelper.__DateFormat));
                     }
                     break;
-                case DataValueType.Time:
+                case DataValueTypes.Time:
                     if (param1 is TimeSpan param1TimeSpan)
                     {
                         return Text(param1TimeSpan.ToString(StringHelper.__TimeFormat));

@@ -40,7 +40,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                             JoinCondition("Country_RegionalDirectorate")))
                     .WithFields(Tuple("SelectCountry"))
                     .AddIdField(DbFluent.FieldAsParameter(nameof(DbCountry.Code), "code"))
-                    .UsingParameters(ElementSpecFactory.Create("code", DataValueType.Text))
+                    .UsingParameters(ElementSpecFactory.Create("code", DataValueTypes.Text))
                 )
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
@@ -91,7 +91,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         {
             return this.UseQuery("DeleteCountry", p =>
                 DbFluent.DeleteQuery(Table("Country"))
-                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbCountry.Code), q.UseParameter("code", DataValueType.Text))))
+                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbCountry.Code), q.UseParameter("code", DataValueTypes.Text))))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
         }

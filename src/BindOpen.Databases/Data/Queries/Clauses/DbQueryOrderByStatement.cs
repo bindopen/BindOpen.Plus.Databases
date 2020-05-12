@@ -17,7 +17,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// The sorting order of this instance.
         /// </summary>
-        public DataSortingMode Sorting { get; set; }
+        public DataSortingModes Sorting { get; set; }
 
         /// <summary>
         /// The field of this instance.

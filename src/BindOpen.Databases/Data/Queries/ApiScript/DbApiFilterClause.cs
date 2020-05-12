@@ -11,11 +11,11 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// The operators of this instance.
         /// </summary>
-        public List<DataOperator> Operators
+        public List<DataOperators> Operators
         {
             get;
             set;
-        } = new List<DataOperator>();
+        } = new List<DataOperators>();
 
         /// <summary>
         /// The filter definition of this instance.

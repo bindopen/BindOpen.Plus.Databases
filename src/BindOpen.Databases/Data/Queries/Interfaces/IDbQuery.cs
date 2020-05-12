@@ -105,7 +105,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Return this added parameter.</returns>
         ScalarElement UseParameter(
             string name,
-            DataValueType valueType,
+            DataValueTypes valueType,
             object value = null);
 
         /// <summary>
@@ -114,6 +114,5 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="tables">The CTE tables to consider.</param>
         /// <returns>Returns this instance.</returns>
         IDbQuery WithCTE(params DbTable[] tables);
-
     }
 }

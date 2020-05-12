@@ -16,7 +16,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value">The value to consider.</param>
         /// <param name="valueType">The value type to consider.</param>
         /// <returns>Returns the Sql string.</returns>
-        protected virtual string GetSqlText_Value(object value, DataValueType valueType = DataValueType.Text)
+        protected virtual string GetSqlText_Value(object value, DataValueTypes valueType = DataValueTypes.Text)
         {
             if (value == null)
             {
@@ -25,15 +25,15 @@ namespace BindOpen.Databases.Data.Queries
 
             switch (valueType)
             {
-                case DataValueType.Text:
+                case DataValueTypes.Text:
                     return value == null ? GetSqlText_Null() : GetSqlText_Text(value as string);
-                case DataValueType.ByteArray:
-                case DataValueType.Date:
+                case DataValueTypes.ByteArray:
+                case DataValueTypes.Date:
                     return value == null ? GetSqlText_Null() : GetSqlText_Text(value.ToString(valueType));
-                case DataValueType.Number:
-                case DataValueType.Integer:
-                case DataValueType.Long:
-                case DataValueType.ULong:
+                case DataValueTypes.Number:
+                case DataValueTypes.Integer:
+                case DataValueTypes.Long:
+                case DataValueTypes.ULong:
                     return value == null ? GetSqlText_Null() : value.ToString(valueType);
                 default:
                     return value == null ? GetSqlText_Null() : value.ToString();

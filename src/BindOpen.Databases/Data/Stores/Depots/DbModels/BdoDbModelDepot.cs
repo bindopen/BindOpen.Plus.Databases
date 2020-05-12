@@ -13,8 +13,8 @@ namespace BindOpen.Data.Stores
     /// This class represents a database model depot.
     /// </summary>
     [Serializable()]
-    [XmlType("DbModelDepot", Namespace = "https://bindopen.org/xsd")]
-    [XmlRoot(ElementName = "dbModel.depot", Namespace = "https://bindopen.org/xsd", IsNullable = false)]
+    [XmlType("DbModelDepot", Namespace = "https://docs.bindopen.org/xsd")]
+    [XmlRoot(ElementName = "dbModel.depot", Namespace = "https://docs.bindopen.org/xsd", IsNullable = false)]
     public class BdoDbModelDepot : TBdoDepot<BdoDbModel>, IBdoDbModelDepot
     {
         // ------------------------------------------
