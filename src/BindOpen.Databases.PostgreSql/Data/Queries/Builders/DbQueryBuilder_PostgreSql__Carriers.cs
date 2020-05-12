@@ -23,7 +23,7 @@ namespace BindOpen.Databases.Data.Queries
             DbField field,
             IDbQuery query = null,
             IDataElementSet parameterSet = null,
-            DbFieldViewMode viewMode = DbFieldViewMode.CompleteName,
+            DbQueryFieldMode viewMode = DbQueryFieldMode.CompleteName,
             string defaultDataModule = null,
             string defaultSchema = null,
             string defaultDataTable = null,
@@ -36,9 +36,9 @@ namespace BindOpen.Databases.Data.Queries
             {
                 switch (viewMode)
                 {
-                    case DbFieldViewMode.CompleteName:
-                    case DbFieldViewMode.CompleteNameOrValue:
-                    case DbFieldViewMode.CompleteNameAsAlias:
+                    case DbQueryFieldMode.CompleteName:
+                    case DbQueryFieldMode.CompleteNameOrValue:
+                    case DbQueryFieldMode.CompleteNameAsAlias:
                         if (field.IsAll)
                         {
                             string tableName = GetSqlText_Table(
@@ -46,8 +46,7 @@ namespace BindOpen.Databases.Data.Queries
                                 field.Schema,
                                 field.DataTable,
                                 field.DataTableAlias,
-                                query, parameterSet,
-                                viewMode,
+                                DbQueryTableMode.CompleteName,
                                 defaultDataModule,
                                 defaultSchema,
                                 scriptVariableSet: scriptVariableSet, log: log);
@@ -58,15 +57,14 @@ namespace BindOpen.Databases.Data.Queries
                         }
                         else
                         {
-                            if ((viewMode != DbFieldViewMode.CompleteNameOrValue) || (field.Expression == null))
+                            if ((viewMode != DbQueryFieldMode.CompleteNameOrValue) || (field.Expression == null))
                             {
                                 string tableName = GetSqlText_Table(
                                     field.DataModule,
                                     field.Schema,
                                     field.DataTable ?? defaultDataTable,
                                     field.DataTableAlias,
-                                    query, parameterSet,
-                                    viewMode,
+                                    DbQueryTableMode.CompleteName,
                                     defaultDataModule,
                                     defaultSchema,
                                     scriptVariableSet: scriptVariableSet, log: log);
@@ -76,9 +74,9 @@ namespace BindOpen.Databases.Data.Queries
                                 queryString += GetSqlText_Field(
                                     field,
                                     query, parameterSet,
-                                    viewMode == DbFieldViewMode.CompleteNameAsAlias ?
-                                        DbFieldViewMode.OnlyNameAsAlias :
-                                        DbFieldViewMode.OnlyName,
+                                    viewMode == DbQueryFieldMode.CompleteNameAsAlias ?
+                                        DbQueryFieldMode.OnlyNameAsAlias :
+                                        DbQueryFieldMode.OnlyName,
                                     defaultDataModule,
                                     defaultSchema,
                                     defaultDataTable,
@@ -90,21 +88,21 @@ namespace BindOpen.Databases.Data.Queries
                                 queryString += GetSqlText_Field(
                                     field,
                                     query, parameterSet,
-                                    DbFieldViewMode.OnlyValue,
+                                    DbQueryFieldMode.OnlyValue,
                                     defaultDataModule,
                                     defaultSchema,
                                     defaultDataTable,
                                     scriptVariableSet,
                                     log);
 
-                                if (viewMode == DbFieldViewMode.CompleteNameAsAlias)
+                                if (viewMode == DbQueryFieldMode.CompleteNameAsAlias)
                                 {
                                     queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(field.Alias), " as " + GetSqlText_Field(field.Alias));
                                 }
                             }
                         }
                         break;
-                    case DbFieldViewMode.OnlyName:
+                    case DbQueryFieldMode.OnlyName:
                         if (!string.IsNullOrEmpty(field.Alias))
                         {
                             queryString += GetSqlText_Field(field.Alias);
@@ -119,7 +117,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += GetSqlText_Field(field.Name);
                         }
                         break;
-                    case DbFieldViewMode.OnlyNameAsAlias:
+                    case DbQueryFieldMode.OnlyNameAsAlias:
                         if (field.IsNameAsScript)
                         {
                             string name = Scope?.Interpreter.Interprete(field.Name.CreateScript(), scriptVariableSet, log) ?? "";
@@ -132,7 +130,7 @@ namespace BindOpen.Databases.Data.Queries
                         queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(field.Alias), " as " + GetSqlText_Field(field.Alias));
 
                         break;
-                    case DbFieldViewMode.OnlyValue:
+                    case DbQueryFieldMode.OnlyValue:
                         string value = Scope?.Interpreter.Interprete(field.Expression, scriptVariableSet, log) ?? "";
 
                         if (field.Query != null)
@@ -153,11 +151,11 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += GetSqlText_Value(value, field.ValueType);
                         }
                         break;
-                    case DbFieldViewMode.NameEqualsValue:
+                    case DbQueryFieldMode.NameEqualsValue:
                         var value1 = GetSqlText_Field(
                                     field,
                                     query, parameterSet,
-                                    DbFieldViewMode.CompleteName,
+                                    DbQueryFieldMode.CompleteName,
                                     defaultDataModule,
                                     defaultSchema,
                                     defaultDataTable,
@@ -166,7 +164,7 @@ namespace BindOpen.Databases.Data.Queries
                         var value2 = GetSqlText_Field(
                                 field,
                                 query, parameterSet,
-                                DbFieldViewMode.OnlyValue,
+                                DbQueryFieldMode.OnlyValue,
                                 defaultDataModule,
                                 defaultSchema,
                                 defaultDataTable,
@@ -175,12 +173,12 @@ namespace BindOpen.Databases.Data.Queries
                         queryString += value1 + "=" + value2;
 
                         break;
-                    case DbFieldViewMode.NameEqualsValueInCondition:
+                    case DbQueryFieldMode.NameEqualsValueInCondition:
                         queryString += GetSqlText_Eq(
                             GetSqlText_Field(
                                 field,
                                 query, parameterSet,
-                                DbFieldViewMode.CompleteName,
+                                DbQueryFieldMode.CompleteName,
                                 defaultDataModule,
                                 defaultSchema,
                                 defaultDataTable,
@@ -189,7 +187,7 @@ namespace BindOpen.Databases.Data.Queries
                             GetSqlText_Field(
                                 field,
                                 query, parameterSet,
-                                DbFieldViewMode.OnlyValue,
+                                DbQueryFieldMode.OnlyValue,
                                 defaultDataModule,
                                 defaultSchema,
                                 defaultDataTable,
@@ -216,7 +214,7 @@ namespace BindOpen.Databases.Data.Queries
             DbTable table,
             IDbQuery query = null,
             IDataElementSet parameterSet = null,
-            DbFieldViewMode viewMode = DbFieldViewMode.CompleteName,
+            DbQueryTableMode mode = DbQueryTableMode.CompleteName,
             string defaultDataModule = null,
             string defaultSchema = null,
             IScriptVariableSet scriptVariableSet = null,
@@ -252,7 +250,7 @@ namespace BindOpen.Databases.Data.Queries
 
                 queryString += GetSqlText_Table(
                     joinedTable.Table,
-                    query, parameterSet, DbFieldViewMode.CompleteNameAsAlias,
+                    query, parameterSet, DbQueryTableMode.CompleteNameAsAlias,
                     query.DataModule, query.Schema,
                     scriptVariableSet: scriptVariableSet, log: log);
 
@@ -265,13 +263,29 @@ namespace BindOpen.Databases.Data.Queries
             }
             else if (table is DbDerivedTable derivedTable)
             {
-                string subQuery = BuildQuery(derivedTable.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
-                UpdateParameterSet(query.ParameterSet, derivedTable.Query);
-                queryString += "(" + subQuery + ")";
-
-                if ((viewMode == DbFieldViewMode.CompleteName) || (viewMode == DbFieldViewMode.CompleteNameAsAlias))
+                switch (mode)
                 {
-                    queryString += " as " + derivedTable.Alias;
+                    case DbQueryTableMode.AliasAsQuery:
+                        {
+                            queryString += GetSqlText_Table(derivedTable.Alias) + " as ";
+
+                            string subQuery = BuildQuery(derivedTable.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
+                            UpdateParameterSet(query.ParameterSet, derivedTable.Query);
+                            queryString += "(" + subQuery + ")";
+                            break;
+                        }
+                    default:
+                        {
+                            string subQuery = BuildQuery(derivedTable.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
+                            UpdateParameterSet(query.ParameterSet, derivedTable.Query);
+                            queryString += "(" + subQuery + ")";
+
+                            if ((mode == DbQueryTableMode.CompleteName) || (mode == DbQueryTableMode.CompleteNameAsAlias))
+                            {
+                                queryString += " as " + GetSqlText_Table(derivedTable.Alias);
+                            }
+                            break;
+                        }
                 }
             }
             else if (table != null)
@@ -281,8 +295,7 @@ namespace BindOpen.Databases.Data.Queries
                     table.Schema,
                     table.Name,
                     table.Alias,
-                    query, parameterSet,
-                    viewMode,
+                    mode,
                     defaultDataModule,
                     defaultSchema,
                     scriptVariableSet: scriptVariableSet, log: log);
@@ -296,9 +309,7 @@ namespace BindOpen.Databases.Data.Queries
             string tableSchema,
             string tableName,
             string tableAlias,
-            IDbQuery query = null,
-            IDataElementSet parameterSet = null,
-            DbFieldViewMode viewMode = DbFieldViewMode.CompleteName,
+            DbQueryTableMode mode = DbQueryTableMode.CompleteName,
             string defaultDataModule = null,
             string defaultSchema = null,
             IScriptVariableSet scriptVariableSet = null,
@@ -306,13 +317,13 @@ namespace BindOpen.Databases.Data.Queries
         {
             string queryString = "";
 
-            if ((viewMode == DbFieldViewMode.CompleteName) && (!string.IsNullOrEmpty(tableAlias)))
+            if ((mode == DbQueryTableMode.CompleteName) && (!string.IsNullOrEmpty(tableAlias)))
             {
                 queryString += GetSqlText_Table(tableAlias);
             }
             else if (!string.IsNullOrEmpty(tableName))
             {
-                if ((viewMode == DbFieldViewMode.CompleteName) || (viewMode == DbFieldViewMode.CompleteNameAsAlias))
+                if ((mode == DbQueryTableMode.CompleteName) || (mode == DbQueryTableMode.CompleteNameAsAlias))
                 {
                     if (string.IsNullOrEmpty(tableName))
                     {
@@ -337,7 +348,7 @@ namespace BindOpen.Databases.Data.Queries
                     queryString += GetSqlText_Table(tableName);
                 }
 
-                if (viewMode == DbFieldViewMode.CompleteNameAsAlias)
+                if (mode == DbQueryTableMode.CompleteNameAsAlias)
                 {
                     queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(tableAlias), " as " + GetSqlText_Table(tableAlias));
                 }

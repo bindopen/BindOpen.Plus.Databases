@@ -9,8 +9,8 @@ namespace BindOpen.Extensions.Carriers
     /// <summary>
     /// This class represents a database data table.
     /// </summary>
-    [XmlType("DbTable", Namespace = "https://bindopen.org/xsd")]
-    [XmlRoot(ElementName = "dbTable", Namespace = "https://bindopen.org/xsd", IsNullable = false)]
+    [XmlType("DbTable", Namespace = "https://docs.bindopen.org/xsd")]
+    [XmlRoot(ElementName = "dbTable", Namespace = "https://docs.bindopen.org/xsd", IsNullable = false)]
     [BdoCarrier(
         Name = "databases$dbTable",
         DatasourceKind = DatasourceKind.Database,

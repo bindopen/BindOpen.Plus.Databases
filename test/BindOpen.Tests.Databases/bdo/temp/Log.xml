@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<log xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="log_637178474128256694" xmlns="https://bindopen.org/xsd">
+<log xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="log_637178474128256694" xmlns="https://docs.bindopen.org/xsd">
   <events>
     <event name="Event_637178474128256952" kind="Error" date="2020-02-21T02:03:32">
       <title>Error0</title>

@@ -28,7 +28,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                             JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
-                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))
+                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text))))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
         }
@@ -49,7 +49,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                             JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
-                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))
+                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text))))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
         }
@@ -71,7 +71,32 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                             JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
-                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text))))
+                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text))))
+                .WithParameters(
+                    ElementFactory.CreateScalar("code", code));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        internal IDbQuery SelectEmployeeWithCode4(string code)
+        {
+            return this.UseQuery("SelectEmployeeWithCode4", p =>
+                SelectQuery<DbEmployee>()
+                    .From(
+                        DbFluent.TableAsJoin(
+                            DbQueryJoinKind.Left,
+                            DbFluent.Table("directorate"),
+                            JoinCondition("Employee_RegionalDirectorate", null, "directorate")))
+                    .WithFields(Tuple("Fields_SelectEmployee"))
+                    .WithLimit(100)
+                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text)))
+                    .WithCTE(
+                        DbFluent.TableAsQuery(
+                            DbFluent.SelectQuery(Table("RegionalDirectorate"))).WithAlias("directorate")
+                    ))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
         }

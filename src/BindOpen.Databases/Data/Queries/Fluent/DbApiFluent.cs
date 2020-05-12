@@ -22,7 +22,7 @@ namespace BindOpen.Databases.Data.Queries
         public static DbApiFilterClause CreateFilterClause(
             string fieldAlias,
             DbField field,
-            params DataOperator[] operators)
+            params DataOperators[] operators)
         {
             return new DbApiFilterClause()
             {
@@ -42,7 +42,7 @@ namespace BindOpen.Databases.Data.Queries
         public static DbApiFilterClause CreateFilterClause(
             string fieldAlias,
             DbField field,
-            DataOperator aOperator,
+            DataOperators aOperator,
             DbApiFilterDefinition filterDefinition)
         {
             var clause = CreateFilterClause(fieldAlias, field, new[] { aOperator });
@@ -183,14 +183,14 @@ namespace BindOpen.Databases.Data.Queries
                         else
                         {
                             statement.Field = definition?[fieldName]?.Field ?? DbFluent.Field(fieldName);
-                            statement.Sorting = DataSortingMode.Ascending;
+                            statement.Sorting = DataSortingModes.Ascending;
 
                             if (fieldItemParams.Length > 1)
                             {
                                 string direction = fieldItemParams[1]?.Trim();
                                 if (string.Equals(direction, "desc"))
                                 {
-                                    statement.Sorting = DataSortingMode.Descending;
+                                    statement.Sorting = DataSortingModes.Descending;
                                     query.OrderByClause.Statements.Add(statement);
                                 }
                                 else if (!string.Equals(direction, "asc"))

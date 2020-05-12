@@ -29,13 +29,38 @@ namespace BindOpen.Databases.Data.Queries
             var queryString = "";
             int index;
 
+            if (query == null)
+            {
+                return null;
+            }
+
+            queryString = "";
+
+            if (query.CTETables?.Count > 0)
+            {
+                index = 0;
+                queryString += "with ";
+                foreach (DbTable table in query.CTETables)
+                {
+                    if (index > 0)
+                        queryString += ", ";
+
+                    queryString += GetSqlText_Table(
+                        table, query, parameterSet, DbQueryTableMode.AliasAsQuery,
+                        query.DataModule, query.Schema,
+                        scriptVariableSet: scriptVariableSet, log: log) + " ";
+
+                    index++;
+                }
+            }
+
             // we build the query
             switch (query.Kind)
             {
                 // Select
                 case DbQueryKind.Select:
                     {
-                        queryString = "select ";
+                        queryString += "select ";
                         if (query.IsDistinct)
                             queryString += " distinct ";
                         index = 0;
@@ -47,7 +72,7 @@ namespace BindOpen.Databases.Data.Queries
                                     queryString += ",";
 
                                 queryString += GetSqlText_Field(
-                                    field, query, parameterSet, DbFieldViewMode.CompleteNameAsAlias,
+                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
                                     query.DataModule, query.Schema,
                                     scriptVariableSet: scriptVariableSet, log: log);
 
@@ -86,10 +111,10 @@ namespace BindOpen.Databases.Data.Queries
                 // Update
                 case DbQueryKind.Update:
                     {
-                        queryString = "update ";
+                        queryString += "update ";
                         queryString += GetSqlText_Table(
                             query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
-                            query, parameterSet, DbFieldViewMode.CompleteNameAsAlias, query.DataModule, query.Schema,
+                            DbQueryTableMode.CompleteNameAsAlias, query.DataModule, query.Schema,
                             scriptVariableSet: scriptVariableSet, log: log);
                         queryString += " set ";
                         index = 0;
@@ -99,7 +124,7 @@ namespace BindOpen.Databases.Data.Queries
                                 queryString += ",";
 
                             queryString += GetSqlText_Field(
-                                field, query, parameterSet, DbFieldViewMode.NameEqualsValue,
+                                field, query, parameterSet, DbQueryFieldMode.NameEqualsValue,
                                 scriptVariableSet: scriptVariableSet, log: log);
 
                             index++;
@@ -121,7 +146,7 @@ namespace BindOpen.Databases.Data.Queries
                                 if (index > 0)
                                     queryString += ", ";
                                 queryString += GetSqlText_Field(
-                                    field, query, parameterSet, DbFieldViewMode.CompleteNameAsAlias,
+                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
                                     scriptVariableSet: scriptVariableSet, log: log);
 
@@ -133,7 +158,7 @@ namespace BindOpen.Databases.Data.Queries
                 // Delete
                 case DbQueryKind.Delete:
                     {
-                        queryString = "delete";
+                        queryString += "delete";
 
                         queryString += GetSqlText_FromClause(query.FromClause, query, parameterSet, scriptVariableSet, log);
 
@@ -148,7 +173,7 @@ namespace BindOpen.Databases.Data.Queries
                                 if (index > 0)
                                     queryString += ", ";
                                 queryString += GetSqlText_Field(
-                                    field, query, parameterSet, DbFieldViewMode.CompleteNameAsAlias,
+                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
                                     scriptVariableSet: scriptVariableSet, log: log);
 
@@ -160,10 +185,10 @@ namespace BindOpen.Databases.Data.Queries
                 // Insert
                 case DbQueryKind.Insert:
                     {
-                        queryString = "insert into ";
+                        queryString += "insert into ";
                         queryString += GetSqlText_Table(
                             query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
-                            query, parameterSet, DbFieldViewMode.CompleteName, query.DataModule, query.Schema,
+                            DbQueryTableMode.CompleteName, query.DataModule, query.Schema,
                             scriptVariableSet: scriptVariableSet, log: log);
                         queryString += " (";
                         index = 0;
@@ -173,7 +198,7 @@ namespace BindOpen.Databases.Data.Queries
                                 queryString += ",";
 
                             queryString += GetSqlText_Field(
-                                field, query, parameterSet, DbFieldViewMode.OnlyName,
+                                field, query, parameterSet, DbQueryFieldMode.OnlyName,
                                 query.DataModule, query.Schema,
                                 scriptVariableSet: scriptVariableSet, log: log);
 
@@ -189,7 +214,7 @@ namespace BindOpen.Databases.Data.Queries
                                     queryString += ",";
 
                                 queryString += GetSqlText_Field(
-                                    field, query, parameterSet, DbFieldViewMode.OnlyValue,
+                                    field, query, parameterSet, DbQueryFieldMode.OnlyValue,
                                     query.DataModule, query.Schema,
                                     scriptVariableSet: scriptVariableSet, log: log);
 
@@ -206,7 +231,7 @@ namespace BindOpen.Databases.Data.Queries
                                 if (index > 0)
                                     queryString += ", ";
                                 queryString += GetSqlText_Field(
-                                    field, query, parameterSet, DbFieldViewMode.CompleteNameAsAlias,
+                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
                                     scriptVariableSet: scriptVariableSet, log: log);
 

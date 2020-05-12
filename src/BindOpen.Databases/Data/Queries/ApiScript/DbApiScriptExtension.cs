@@ -11,27 +11,27 @@ namespace BindOpen.Databases.Data.Queries
     /// </summary>
     public static partial class DbQueryExtension
     {
-        private static string GetScriptFunction(DataOperator aOperator)
+        private static string GetScriptFunction(DataOperators aOperator)
         {
             switch (aOperator)
             {
-                case DataOperator.Contains:
+                case DataOperators.Contains:
                     return "$sqlLike";
-                case DataOperator.Different:
+                case DataOperators.Different:
                     return "$sqlDiff";
-                case DataOperator.Equal:
+                case DataOperators.Equal:
                     return "$sqlEq";
-                case DataOperator.Greater:
+                case DataOperators.Greater:
                     return "$sqlGt";
-                case DataOperator.GreaterOrEqual:
+                case DataOperators.GreaterOrEqual:
                     return "$sqlGte";
-                case DataOperator.Has:
+                case DataOperators.Has:
                     return "";
-                case DataOperator.In:
+                case DataOperators.In:
                     return "$sqlIn";
-                case DataOperator.Lesser:
+                case DataOperators.Lesser:
                     return "$sqlLt";
-                case DataOperator.LesserOrEqual:
+                case DataOperators.LesserOrEqual:
                     return "$sqlLte";
             }
 
@@ -85,17 +85,17 @@ namespace BindOpen.Databases.Data.Queries
 
                 if (i == 0)
                 {
-                    DataOperator aOperator = DataOperator.None;
+                    DataOperators aOperator = DataOperators.None;
 
                     int k = script.Length;
                     string scriptOperator = null;
-                    foreach (DataOperator currentOperator in new DataOperator[] {
-                        DataOperator.Exists,
-                        DataOperator.Contains,
-                        DataOperator.Different, DataOperator.Equal,
-                        DataOperator.GreaterOrEqual, DataOperator.Greater,
-                        DataOperator.LesserOrEqual, DataOperator.Lesser,
-                        DataOperator.Has, DataOperator.In })
+                    foreach (DataOperators currentOperator in new DataOperators[] {
+                        DataOperators.Exists,
+                        DataOperators.Contains,
+                        DataOperators.Different, DataOperators.Equal,
+                        DataOperators.GreaterOrEqual, DataOperators.Greater,
+                        DataOperators.LesserOrEqual, DataOperators.Lesser,
+                        DataOperators.Has, DataOperators.In })
                     {
                         int k1 = 0;
                         string currentScriptOperator = DbQueryExtension.GetInstruction(currentOperator);
@@ -138,7 +138,7 @@ namespace BindOpen.Databases.Data.Queries
                             {
                                 if (clause.Field == null) clause.Field = DbFluent.Field(fieldName);
 
-                                if (aOperator == DataOperator.Has)
+                                if (aOperator == DataOperators.Has)
                                 {
                                     if (value.Length > 2 && value.StartsWith("{") && value.EndsWith("}"))
                                         value = value.Substring(1, value.Length - 2);
@@ -157,27 +157,27 @@ namespace BindOpen.Databases.Data.Queries
             return script;
         }
 
-        private static string GetInstruction(DataOperator aOperator)
+        private static string GetInstruction(DataOperators aOperator)
         {
             switch (aOperator)
             {
-                case DataOperator.Contains:
+                case DataOperators.Contains:
                     return "constains";
-                case DataOperator.Different:
+                case DataOperators.Different:
                     return "!=";
-                case DataOperator.Equal:
+                case DataOperators.Equal:
                     return "=";
-                case DataOperator.Greater:
+                case DataOperators.Greater:
                     return ">";
-                case DataOperator.GreaterOrEqual:
+                case DataOperators.GreaterOrEqual:
                     return ">=";
-                case DataOperator.Has:
+                case DataOperators.Has:
                     return "has";
-                case DataOperator.In:
+                case DataOperators.In:
                     return "in";
-                case DataOperator.Lesser:
+                case DataOperators.Lesser:
                     return "<";
-                case DataOperator.LesserOrEqual:
+                case DataOperators.LesserOrEqual:
                     return "<=";
             }
 

@@ -9,8 +9,8 @@ namespace BindOpen.Data.Connections
     /// <summary>
     /// This class represents a database connection.
     /// </summary>
-    [XmlType("DatabaseConnection", Namespace = "https://bindopen.org/xsd")]
-    [XmlRoot(ElementName = "databaseConnection", Namespace = "https://bindopen.org/xsd", IsNullable = false)]
+    [XmlType("DatabaseConnection", Namespace = "https://docs.bindopen.org/xsd")]
+    [XmlRoot(ElementName = "databaseConnection", Namespace = "https://docs.bindopen.org/xsd", IsNullable = false)]
     public class BdoDbConnection : BdoConnection, IBdoDbConnection
     {
         // -----------------------------------------------

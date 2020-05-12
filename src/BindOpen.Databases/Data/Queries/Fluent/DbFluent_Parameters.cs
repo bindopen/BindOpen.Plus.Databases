@@ -21,7 +21,7 @@ namespace BindOpen.Databases.Data.Queries
             string name,
             object value = null)
         {
-            return DbFluent.Parameter(name, DataValueType.Any, value);
+            return DbFluent.Parameter(name, DataValueTypes.Any, value);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value">The data table to consider.</param>
         public static IDataElement Parameter(
             string name,
-            DataValueType valueType,
+            DataValueTypes valueType,
             object value)
         {
             return ElementFactory.CreateScalar(name, valueType, value);
