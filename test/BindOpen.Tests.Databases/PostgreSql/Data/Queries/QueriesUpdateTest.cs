@@ -46,10 +46,10 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string expectedResult =
                 @"update ""Mdm"".""Employee"" set "
                 + @"""Code""='" + code + "'"
-                + @",""ByteArrayField""='" + _employee.ByteArrayField.ToString(DataValueType.ByteArray).Replace("'", "''") + "'"
-                + @",""DoubleField""=" + _employee.DoubleField.ToString(DataValueType.Number)
-                + @",""DateTimeField""='" + _employee.DateTimeField.ToString(DataValueType.Date) + "'"
-                + @",""LongField""=" + _employee.LongField.ToString(DataValueType.Long)
+                + @",""ByteArrayField""='" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
+                + @",""DoubleField""=" + _employee.DoubleField.ToString(DataValueTypes.Number)
+                + @",""DateTimeField""='" + _employee.DateTimeField.ToString(DataValueTypes.Date) + "'"
+                + @",""LongField""=" + _employee.LongField.ToString(DataValueTypes.Long)
                 + @" from ""Mdm"".""Employee"" "
                 + @"left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"")"
                 + @" returning ""Mdm"".""Employee"".""Code""";

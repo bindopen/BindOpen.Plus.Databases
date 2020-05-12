@@ -52,9 +52,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                 .Filter(
                     q,
                     DbApiFluent.CreateFilterDefinition(
-                        DbApiFluent.CreateFilterClause("startDate", DbFluent.Field("CreationDate", DbFluent.Table("table")), DataOperator.GreaterOrEqual),
-                        DbApiFluent.CreateFilterClause("endDate", DbFluent.Field("LastModificationDate", DbFluent.Table("table")), DataOperator.LesserOrEqual),
-                        DbApiFluent.CreateFilterClause("code", DbFluent.Field("Code", DbFluent.Table("table")), DataOperator.Equal)),
+                        DbApiFluent.CreateFilterClause("startDate", DbFluent.Field("CreationDate", DbFluent.Table("table")), DataOperators.GreaterOrEqual),
+                        DbApiFluent.CreateFilterClause("endDate", DbFluent.Field("LastModificationDate", DbFluent.Table("table")), DataOperators.LesserOrEqual),
+                        DbApiFluent.CreateFilterClause("code", DbFluent.Field("Code", DbFluent.Table("table")), DataOperators.Equal)),
                     log)
                 .Sort(
                     orderBy,

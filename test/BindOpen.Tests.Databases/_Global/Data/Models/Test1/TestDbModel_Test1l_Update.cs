@@ -34,23 +34,23 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 
                     query.AddField(
                         !isPartialUpdate || employee?.Code?.Length > 0,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueType.Text)));
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text)));
 
                     query.AddField(
                         !isPartialUpdate || employee?.ByteArrayField?.Length > 0,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("byteArrayField", DataValueType.ByteArray)));
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("byteArrayField", DataValueTypes.ByteArray)));
 
                     query.AddField(
                         !isPartialUpdate || employee?.DateTimeField != null,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("doubleField", DataValueType.Number)));
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("doubleField", DataValueTypes.Number)));
 
                     query.AddField(
                         !isPartialUpdate || employee?.DoubleField != null,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("dateTimeField", DataValueType.Date)));
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("dateTimeField", DataValueTypes.Date)));
 
                     query.AddField(
                         true,
-                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("longField", DataValueType.Long)));
+                        q => DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("longField", DataValueTypes.Long)));
 
                     query.AddField(
                         !isPartialUpdate || employee?.RegionalDirectorateCode?.Length > 0,
@@ -58,7 +58,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                                 DbFluent.SelectQuery(Table("RegionalDirectorate"))
                                     .AddField(DbFluent.Field(nameof(DbRegionalDirectorate.RegionalDirectorateId)))
                                     .WithIdFields(
-                                        DbFluent.FieldAsParameter(nameof(DbRegionalDirectorate.Code), q.UseParameter("directorateCode", DataValueType.Text)))));
+                                        DbFluent.FieldAsParameter(nameof(DbRegionalDirectorate.Code), q.UseParameter("directorateCode", DataValueTypes.Text)))));
 
                     return query;
                 })
@@ -91,7 +91,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         DbFluent.FieldAsParameter<DbEmployee>(
                             t => t.Code,
                             DbFluent.Table("employee"),
-                            q.UseParameter("regionalDirectorateCode", DataValueType.Text)))
+                            q.UseParameter("regionalDirectorateCode", DataValueTypes.Text)))
                     .WithReturnedIdFields(Field("Code", "DbEmployee", "employee"))
                 )
                 .WithParameters(
@@ -108,7 +108,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("UpdateFidalEmployee_RegionalDirectorateAsNull", p =>
                 DbFluent.UpdateQuery(Table("DbEmployee", "employee"))
                     .AddField(q => DbFluent.Field<DbEmployee>(q => q.RegionalDirectorateId).AsNull())
-                    .AddField(q => DbFluent.FieldAsParameter<DbEmployee>(q => q.LongField, ElementFactory.CreateScalar("length", DataValueType.Long)))
+                    .AddField(q => DbFluent.FieldAsParameter<DbEmployee>(q => q.LongField, ElementFactory.CreateScalar("length", DataValueTypes.Long)))
                     .From(Table("RegionalDirectorate", "regionalDirectorate"))
                     .AddIdField(q =>
                         DbFluent.FieldAsOther<DbEmployee>(
@@ -119,7 +119,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         DbFluent.FieldAsParameter<DbEmployee>(
                             t => t.Code,
                             DbFluent.Table("employee"),
-                            q.UseParameter("regionalDirectorateCode", DataValueType.Text)))
+                            q.UseParameter("regionalDirectorateCode", DataValueTypes.Text)))
                     .WithReturnedIdFields(Field("Code", "DbEmployee", "employee"))
                 )
                 .WithParameters(

@@ -36,9 +36,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     .Filter(
                         q,
                         DbApiFluent.CreateFilterDefinition(
-                            DbApiFluent.CreateFilterClause("startDate", Field<DbCommunity>(p => p.CreationDate), DataOperator.GreaterOrEqual),
-                            DbApiFluent.CreateFilterClause("endDate", Field<DbCommunity>(p => p.LastModificationDate), DataOperator.LesserOrEqual),
-                            DbApiFluent.CreateFilterClause("code", Field<DbCommunity>(p => p.Code), DataOperator.Equal)),
+                            DbApiFluent.CreateFilterClause("startDate", Field<DbCommunity>(p => p.CreationDate), DataOperators.GreaterOrEqual),
+                            DbApiFluent.CreateFilterClause("endDate", Field<DbCommunity>(p => p.LastModificationDate), DataOperators.LesserOrEqual),
+                            DbApiFluent.CreateFilterClause("code", Field<DbCommunity>(p => p.Code), DataOperators.Equal)),
                         log)
                     .Sort(
                         orderBy,
@@ -62,7 +62,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         DbFluent.TableAsJoin(DbQueryJoinKind.Left, Table("RegionalDirectorate"),
                             JoinCondition("Community_RegionalDirectorate")))
                     .WithFields(Tuple("SelectCommunity"))
-                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbCommunity.Code), q.UseParameter("code", DataValueType.Text))))
+                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbCommunity.Code), q.UseParameter("code", DataValueTypes.Text))))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
         }
@@ -112,7 +112,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         {
             return this.UseQuery("DeleteCommunity", p =>
                 DbFluent.DeleteQuery(Table("Community"))
-                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbCommunity.Code), q.UseParameter("code", DataValueType.Text))))
+                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbCommunity.Code), q.UseParameter("code", DataValueTypes.Text))))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
         }

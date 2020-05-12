@@ -11,8 +11,8 @@ namespace BindOpen.Extensions.Carriers
     /// <summary>
     /// This class represents a database data field.
     /// </summary>
-    [XmlType("DbField", Namespace = "https://bindopen.org/xsd")]
-    [XmlRoot(ElementName = "dbField", Namespace = "https://bindopen.org/xsd", IsNullable = false)]
+    [XmlType("DbField", Namespace = "https://docs.bindopen.org/xsd")]
+    [XmlRoot(ElementName = "dbField", Namespace = "https://docs.bindopen.org/xsd", IsNullable = false)]
     [BdoCarrier(
         Name = "databases$dbField",
         DatasourceKind = DatasourceKind.Database,
@@ -103,7 +103,7 @@ namespace BindOpen.Extensions.Carriers
         /// Type of value of this instance.
         /// </summary>
         [DetailProperty(Name = "valueType")]
-        public DataValueType ValueType { get; set; }
+        public DataValueTypes ValueType { get; set; }
 
         #endregion
 
@@ -298,7 +298,7 @@ namespace BindOpen.Extensions.Carriers
         /// </summary>
         /// <param name="valueType">The value type to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public DbField WithValueType(DataValueType valueType)
+        public DbField WithValueType(DataValueTypes valueType)
         {
             ValueType = valueType;
             return this;

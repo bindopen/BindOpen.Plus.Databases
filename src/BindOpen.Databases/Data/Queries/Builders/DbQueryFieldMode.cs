@@ -4,11 +4,11 @@ using System.Xml.Serialization;
 namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
-    /// This enumerates the possible modes of database field.
+    /// This enumerates the possible modes of database query field.
     /// </summary>
     [Serializable()]
-    [XmlType("DbFieldViewMode", Namespace = "https://bindopen.org/xsd")]
-    public enum DbFieldViewMode
+    [XmlType("DbQueryFieldMode", Namespace = "https://docs.bindopen.org/xsd")]
+    public enum DbQueryFieldMode
     {
         /// <summary>
         /// Only name.

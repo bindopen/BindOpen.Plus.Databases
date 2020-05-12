@@ -3,12 +3,7 @@ Todo list for BindOpen
 
 ## Next tasks
 
-- [X] Clone Table, Field, Queries, Clauses
 - [ ] MS Sql Server builder
-- [ ] Update element, element spec
-- [ ] ScriptVariableSet fluent
-- [ ] Script words: Overloading de fonctions
-- [ ] Integrate .net core configuration
 
 ## Stuff to check out later on
 
@@ -17,6 +12,9 @@ Todo list for BindOpen
 * DbFluent.FieldAsScript<DbImage>(expr1, expr2) expr2 = Fun<field>
 * Update MSSqlServer database query builder
 * Bug with JoinCondition<expr1, expr2>(name)
+* Table<DbAddress>() -> In Update, fields does not repeat table if the same as the query
+* FieldAsParameter<DbClient> in IdValue : if value is null, ISNULL(value)
+* Implement Merge methods
 
 ## Bugs to fix later on
 

@@ -42,7 +42,7 @@ namespace BindOpen.Databases.Data.Queries
         {
             var propertyInfo = expr.GetProperty();
             var name = propertyInfo?.Name;
-            var valueType = propertyInfo?.PropertyType.GetValueType() ?? DataValueType.None;
+            var valueType = propertyInfo?.PropertyType.GetValueType() ?? DataValueTypes.None;
 
             if (propertyInfo?.GetCustomAttribute(typeof(BdoDbFieldAttribute)) is BdoDbFieldAttribute fieldAttribute)
             {
@@ -64,7 +64,7 @@ namespace BindOpen.Databases.Data.Queries
         public static DbField AsLiteral(
             this DbField field,
             object value,
-            DataValueType valueType = DataValueType.Any)
+            DataValueTypes valueType = DataValueTypes.Any)
         {
             if (field != null)
             {
@@ -87,7 +87,7 @@ namespace BindOpen.Databases.Data.Queries
         public static DbField FieldAsLiteral(
             string name,
             object value,
-            DataValueType valueType = DataValueType.Any)
+            DataValueTypes valueType = DataValueTypes.Any)
         {
             return DbFluent.FieldAsLiteral(name, null, value, valueType);
         }
@@ -103,7 +103,7 @@ namespace BindOpen.Databases.Data.Queries
             string name,
             DbTable table,
             object value,
-            DataValueType valueType = DataValueType.Any)
+            DataValueTypes valueType = DataValueTypes.Any)
         {
             return DbFluent.Field(name, table).AsLiteral(value, valueType);
         }
@@ -133,7 +133,7 @@ namespace BindOpen.Databases.Data.Queries
         {
             var field = DbFluent.Field<T>(expr, table);
 
-            return field.AsLiteral(value, field?.ValueType ?? DataValueType.None);
+            return field.AsLiteral(value, field?.ValueType ?? DataValueTypes.None);
         }
 
         // As script -----
@@ -149,7 +149,7 @@ namespace BindOpen.Databases.Data.Queries
         {
             if (field != null)
             {
-                field.ValueType = DataValueType.None;
+                field.ValueType = DataValueTypes.None;
                 if (script != null)
                 {
                     field.Expression = script.CreateScript();
@@ -227,7 +227,7 @@ namespace BindOpen.Databases.Data.Queries
         {
             if (field != null)
             {
-                field.ValueType = DataValueType.None;
+                field.ValueType = DataValueTypes.None;
                 field.Query = query as DbQuery;
             }
 
@@ -381,7 +381,7 @@ namespace BindOpen.Databases.Data.Queries
         {
             if (field != null)
             {
-                field.ValueType = DataValueType.None;
+                field.ValueType = DataValueTypes.None;
                 field.Expression = CreateParameterWildString(ElementFactory.CreateScalar(parameterName)).CreateLiteral();
             }
 
@@ -453,7 +453,7 @@ namespace BindOpen.Databases.Data.Queries
         {
             if (field != null)
             {
-                field.ValueType = DataValueType.None;
+                field.ValueType = DataValueTypes.None;
                 field.Expression = CreateParameterWildString(new ScalarElement() { Index = parameterIndex }).CreateLiteral();
             }
 
@@ -525,7 +525,7 @@ namespace BindOpen.Databases.Data.Queries
         {
             if (field != null)
             {
-                field.ValueType = DataValueType.None;
+                field.ValueType = DataValueTypes.None;
                 field.Expression = CreateParameterWildString(parameter).CreateLiteral();
             }
 

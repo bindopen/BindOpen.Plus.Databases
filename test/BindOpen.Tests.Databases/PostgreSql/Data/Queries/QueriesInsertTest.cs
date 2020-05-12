@@ -45,10 +45,10 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string expectedResult =
                 @"insert into ""Mdm"".""Employee"" (""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"") "
                 + "values ('" + _employee.Code.Replace("'", "''") + "'"
-                + ",'" + _employee.ByteArrayField.ToString(DataValueType.ByteArray).Replace("'", "''") + "'"
-                + "," + _employee.DoubleField.ToString(DataValueType.Number)
-                + ",'" + _employee.DateTimeField.ToString(DataValueType.Date)
-                + "'," + _employee.LongField.ToString(DataValueType.Long) + @")"
+                + ",'" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
+                + "," + _employee.DoubleField.ToString(DataValueTypes.Number)
+                + ",'" + _employee.DateTimeField.ToString(DataValueTypes.Date)
+                + "'," + _employee.LongField.ToString(DataValueTypes.Long) + @")"
                 + @" returning ""Mdm"".""Employee"".""EmployeeId""";
 
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee1(_employee), log: log);

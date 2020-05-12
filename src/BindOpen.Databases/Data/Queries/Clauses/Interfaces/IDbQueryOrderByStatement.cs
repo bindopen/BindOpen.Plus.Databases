@@ -16,6 +16,6 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// 
         /// </summary>
-        DataSortingMode Sorting { get; set; }
+        DataSortingModes Sorting { get; set; }
     }
 }

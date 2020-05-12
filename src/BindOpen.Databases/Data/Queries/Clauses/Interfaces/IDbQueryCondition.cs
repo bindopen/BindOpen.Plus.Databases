@@ -28,7 +28,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// The operator of this instance.
         /// </summary>
-        DataOperator Operator { get; set; }
+        DataOperators Operator { get; set; }
 
         /// <summary>
         /// The set of parameters of this instance.

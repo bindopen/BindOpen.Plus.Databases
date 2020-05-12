@@ -233,7 +233,7 @@ namespace BindOpen.Databases.Data.Queries
             string name,
             object value = null)
         {
-            return UseParameter(name, DataValueType.Any, value);
+            return UseParameter(name, DataValueTypes.Any, value);
         }
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Return this added parameter.</returns>
         public ScalarElement UseParameter(
             string name,
-            DataValueType valueType,
+            DataValueTypes valueType,
             object value = null)
         {
             if (ParameterSet == null)
