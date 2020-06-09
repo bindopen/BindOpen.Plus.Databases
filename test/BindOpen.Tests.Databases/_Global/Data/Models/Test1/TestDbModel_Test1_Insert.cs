@@ -39,5 +39,38 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     ElementFactory.CreateScalar("DateTimeField", employee.DateTimeField),
                     ElementFactory.CreateScalar("LongField", employee.LongField));
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        internal IDbQuery InsertEmployee2(EmployeeDto employee)
+        {
+            return DbFluent.InsertQuery(Table<DbEmployee>())
+                .WithFields(q => new[]
+                {
+                    DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text)),
+                    DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("ByteArrayField", DataValueTypes.Text)),
+                    DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("DoubleField", DataValueTypes.Text)),
+                    DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("DateTimeField", DataValueTypes.Text)),
+                    DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("LongField", DataValueTypes.Date))
+                })
+                .From(Table<DbEmployee>())
+                .WithIdFields(q => new[]
+                {
+                    DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("oldCode", DataValueTypes.Text))
+                })
+                .WithReturnedIdFields(new[]
+                {
+                    Field<DbEmployee>(p=> p.EmployeeId)
+                })
+                .WithParameters(
+                    ElementFactory.CreateScalar("newCode", employee.Code),
+                    ElementFactory.CreateScalar("oldCode", "oldCode"),
+                    ElementFactory.CreateScalar("ByteArrayField", employee.ByteArrayField),
+                    ElementFactory.CreateScalar("DoubleField", employee.DoubleField),
+                    ElementFactory.CreateScalar("DateTimeField", employee.DateTimeField),
+                    ElementFactory.CreateScalar("LongField", employee.LongField));
+        }
     }
 }

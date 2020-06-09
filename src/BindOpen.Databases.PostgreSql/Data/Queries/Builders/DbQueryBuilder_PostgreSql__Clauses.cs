@@ -209,7 +209,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += GetSqlText_Field(
                                 statement.Field, query,
                                 parameterSet,
-                                DbQueryFieldMode.OnlyName,
+                                DbQueryFieldMode.CompleteName,
                                 scriptVariableSet: scriptVariableSet, log: log);
 
                             switch (statement.Sorting)
