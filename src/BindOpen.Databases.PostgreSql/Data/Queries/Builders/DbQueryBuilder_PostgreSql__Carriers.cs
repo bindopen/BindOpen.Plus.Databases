@@ -280,7 +280,8 @@ namespace BindOpen.Databases.Data.Queries
                             UpdateParameterSet(query.ParameterSet, derivedTable.Query);
                             queryString += "(" + subQuery + ")";
 
-                            if ((mode == DbQueryTableMode.CompleteName) || (mode == DbQueryTableMode.CompleteNameAsAlias))
+                            if (((mode == DbQueryTableMode.CompleteName) || (mode == DbQueryTableMode.CompleteNameAsAlias))
+                                && (!string.IsNullOrEmpty(derivedTable.Alias)))
                             {
                                 queryString += " as " + GetSqlText_Table(derivedTable.Alias);
                             }
@@ -325,10 +326,12 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if ((mode == DbQueryTableMode.CompleteName) || (mode == DbQueryTableMode.CompleteNameAsAlias))
                 {
-                    if (string.IsNullOrEmpty(tableName))
+                    if (string.IsNullOrEmpty(tableName) && string.IsNullOrEmpty(tableAlias))
                     {
                         if (string.IsNullOrEmpty(tableDataModule))
+                        {
                             tableDataModule = defaultDataModule;
+                        }
                         if (!string.IsNullOrEmpty(tableDataModule))
                         {
                             tableDataModule = GetDatabaseName(tableDataModule);
@@ -345,6 +348,11 @@ namespace BindOpen.Databases.Data.Queries
                 }
                 else
                 {
+                    if (string.IsNullOrEmpty(tableName))
+                    {
+                        tableName = tableAlias;
+                    }
+
                     queryString += GetSqlText_Table(tableName);
                 }
 

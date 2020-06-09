@@ -2,6 +2,8 @@
 using BindOpen.Extensions.Carriers;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BindOpen.Databases.Data.Queries
 {
@@ -204,24 +206,54 @@ namespace BindOpen.Databases.Data.Queries
 
                             index++;
                         }
-                        queryString += ") values (";
-                        if (query.Fields?.Count > 0)
+                        queryString += ") ";
+                        if (query.FromClause != null)
                         {
-                            index = 0;
-                            foreach (DbField field in query.Fields)
+                            if ((query.FromClause?.Statements?.Count == 1 &&
+                                query.FromClause?.Statements[0]?.Tables.Any(p => p is DbDerivedTable) != true)
+                                || (query.WhereClause != null))
                             {
-                                if (index > 0)
-                                    queryString += ",";
+                                var subQuery = DbFluent.SelectQuery(DbFluent.Table(query.DataTable, query.Schema, query.DataModule))
+                                    .WithFields(query.Fields?.ToArray());
+                                subQuery.FromClause = query.FromClause;
+                                subQuery.WhereClause = query.WhereClause;
 
-                                queryString += GetSqlText_Field(
-                                    field, query, parameterSet, DbQueryFieldMode.OnlyValue,
-                                    query.DataModule, query.Schema,
-                                    scriptVariableSet: scriptVariableSet, log: log);
-
-                                index++;
+                                query.FromClause = new DbQueryFromClause
+                                {
+                                    Statements = new List<DbQueryFromStatement>()
+                                };
+                                query.FromClause.Statements.Add(new DbQueryFromStatement()
+                                {
+                                    Tables = new List<DbTable>()
+                                    {
+                                        DbFluent.TableAsQuery(subQuery)
+                                    }
+                                });
                             }
+
+                            queryString += GetSqlText_FromClause(query.FromClause, query, parameterSet, scriptVariableSet, log);
                         }
-                        queryString += ")";
+                        else
+                        {
+                            queryString += "values (";
+                            if (query.Fields?.Count > 0)
+                            {
+                                index = 0;
+                                foreach (DbField field in query.Fields)
+                                {
+                                    if (index > 0)
+                                        queryString += ",";
+
+                                    queryString += GetSqlText_Field(
+                                        field, query, parameterSet, DbQueryFieldMode.OnlyValue,
+                                        query.DataModule, query.Schema,
+                                        scriptVariableSet: scriptVariableSet, log: log);
+
+                                    index++;
+                                }
+                            }
+                            queryString += ")";
+                        }
                         if (query.ReturnedIdFields?.Count > 0)
                         {
                             queryString += " returning ";
