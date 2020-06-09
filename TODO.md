@@ -3,10 +3,12 @@ Todo list for BindOpen
 
 ## Next tasks
 
-- [ ] MS Sql Server builder
+- [X] Orderby, sorting statements
+- [X] PostgreSql: For fields, table alias is displayed if the table name is null
 
 ## Stuff to check out later on
 
+* Add Getting Help + Contributors sections in README.md
 * Api filter and sort clauses
 * Apply data value type of the field from Field<T> methods
 * DbFluent.FieldAsScript<DbImage>(expr1, expr2) expr2 = Fun<field>
@@ -15,6 +17,7 @@ Todo list for BindOpen
 * Table<DbAddress>() -> In Update, fields does not repeat table if the same as the query
 * FieldAsParameter<DbClient> in IdValue : if value is null, ISNULL(value)
 * Implement Merge methods
+* To be able to remove stored query. Remove all also.
 
 ## Bugs to fix later on
 

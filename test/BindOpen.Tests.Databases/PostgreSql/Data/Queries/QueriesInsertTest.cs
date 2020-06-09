@@ -60,5 +60,23 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             }
             Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
         }
+
+        [Test]
+        public void SimpleInsert2()
+        {
+            var log = new BdoLog();
+
+            string expectedResult =
+                @"insert into ""Mdm"".""Employee"" (""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"")  from (select ""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"" from ""Mdm"".""Employee"" where ""Code""='oldCode') returning ""Mdm"".""Employee"".""EmployeeId""";
+
+            string result = _dbConnector.CreateCommandText(_model.InsertEmployee2(_employee), log: log);
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = log.ToXml();
+            }
+            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+        }
     }
 }

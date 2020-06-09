@@ -71,6 +71,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                             JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
+                    .OrderBy(
+                        DbFluent.OrderBy(Field<DbEmployee>(p => p.Code, "employee")),
+                        DbFluent.OrderBy(Field<DbEmployee>(p => p.DateTimeField, "regionalDirectorate"), DataSortingModes.Descending))
                     .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text))))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
