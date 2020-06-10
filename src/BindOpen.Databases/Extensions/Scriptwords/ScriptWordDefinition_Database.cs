@@ -1058,6 +1058,7 @@ namespace BindOpen.Extensions.Scriptwords
         }
 
         // Comparison
+
         /// <summary>
         /// Evaluates the script word $SQLIN.
         /// </summary>
@@ -1091,7 +1092,38 @@ namespace BindOpen.Extensions.Scriptwords
             return text;
         }
 
-        // Comparison
+        /// <summary>
+        /// Evaluates the script word $SQLEXISTS.
+        /// </summary>
+        /// <param name="scope">The scope to consider.</param>
+        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
+        /// <param name="scriptWord">Script word to evaluate.</param>
+        /// <param name="parameters">The parameters to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlExists")]
+        public static string Fun_SqlExists(
+            IBdoScope scope,
+            IScriptVariableSet scriptVariableSet,
+            IBdoScriptword scriptWord,
+            params object[] parameters)
+        {
+            string value = parameters.GetStringAtIndex(0);
+
+            string text = "";
+
+            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                text += queryBuilder.GetSqlText_Exists(value);
+            }
+
+            return text;
+        }
+
         /// <summary>
         /// Evaluates the script word $SQLLIST.
         /// </summary>

@@ -333,6 +333,20 @@
       <returnValueType>Text</returnValueType>
     </add.definition>
 
+    <!-- $SQLEXISTS(value) -->
+    <add.definition name="SQLEXISTS">
+      <creationDate>2020-06-10</creationDate>
+      <lastModificationDate>2020-06-10</lastModificationDate>
+      <description>
+        <add.value>Returns the SQL In function.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlExists</functionName>
+      <returnValueType>Text</returnValueType>
+      <repeatedParameterValueType>Any</repeatedParameterValueType>
+      <repeatedParameterName>value</repeatedParameterName>
+    </add.definition>
+
     <!-- $SQLIN(value1, value2...) -->
     <add.definition name="SQLIN">
       <creationDate>2011-01-09</creationDate>

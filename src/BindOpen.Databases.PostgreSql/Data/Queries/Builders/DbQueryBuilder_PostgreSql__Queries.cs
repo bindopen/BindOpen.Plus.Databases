@@ -2,8 +2,6 @@
 using BindOpen.Extensions.Carriers;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BindOpen.Databases.Data.Queries
 {
@@ -48,7 +46,7 @@ namespace BindOpen.Databases.Data.Queries
                         queryString += ", ";
 
                     queryString += GetSqlText_Table(
-                        table, query, parameterSet, DbQueryTableMode.AliasAsQuery,
+                        table, query, parameterSet, DbQueryTableMode.AliasAsCompleteName,
                         query.DataModule, query.Schema,
                         scriptVariableSet: scriptVariableSet, log: log) + " ";
 
@@ -86,7 +84,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += " * ";
                         }
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log); ;
 
                         queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log);
 
@@ -132,10 +130,7 @@ namespace BindOpen.Databases.Data.Queries
                             index++;
                         }
 
-                        if (query.FromClause != null)
-                        {
-                            queryString += GetSqlText_FromClause(query.FromClause, query, parameterSet, scriptVariableSet, log);
-                        }
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log);
 
                         queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log);
 
@@ -162,7 +157,7 @@ namespace BindOpen.Databases.Data.Queries
                     {
                         queryString += "delete";
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log);
 
                         queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log);
 
@@ -207,53 +202,9 @@ namespace BindOpen.Databases.Data.Queries
                             index++;
                         }
                         queryString += ") ";
-                        if (query.FromClause != null)
-                        {
-                            if ((query.FromClause?.Statements?.Count == 1 &&
-                                query.FromClause?.Statements[0]?.Tables.Any(p => p is DbDerivedTable) != true)
-                                || (query.WhereClause != null))
-                            {
-                                var subQuery = DbFluent.SelectQuery(DbFluent.Table(query.DataTable, query.Schema, query.DataModule))
-                                    .WithFields(query.Fields?.ToArray());
-                                subQuery.FromClause = query.FromClause;
-                                subQuery.WhereClause = query.WhereClause;
 
-                                query.FromClause = new DbQueryFromClause
-                                {
-                                    Statements = new List<DbQueryFromStatement>()
-                                };
-                                query.FromClause.Statements.Add(new DbQueryFromStatement()
-                                {
-                                    Tables = new List<DbTable>()
-                                    {
-                                        DbFluent.TableAsQuery(subQuery)
-                                    }
-                                });
-                            }
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.NoPreffix, parameterSet, scriptVariableSet, log);
 
-                            queryString += GetSqlText_FromClause(query.FromClause, query, parameterSet, scriptVariableSet, log);
-                        }
-                        else
-                        {
-                            queryString += "values (";
-                            if (query.Fields?.Count > 0)
-                            {
-                                index = 0;
-                                foreach (DbField field in query.Fields)
-                                {
-                                    if (index > 0)
-                                        queryString += ",";
-
-                                    queryString += GetSqlText_Field(
-                                        field, query, parameterSet, DbQueryFieldMode.OnlyValue,
-                                        query.DataModule, query.Schema,
-                                        scriptVariableSet: scriptVariableSet, log: log);
-
-                                    index++;
-                                }
-                            }
-                            queryString += ")";
-                        }
                         if (query.ReturnedIdFields?.Count > 0)
                         {
                             queryString += " returning ";

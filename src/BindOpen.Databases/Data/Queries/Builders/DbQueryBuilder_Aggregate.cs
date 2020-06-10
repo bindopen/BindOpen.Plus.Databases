@@ -27,12 +27,5 @@
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
         public abstract string GetSqlText_Average(params object[] parameters);
-
-        /// <summary>
-        /// Evaluates the script word $SQLIN.
-        /// </summary>
-        /// <param name="parameters">The parameters to consider.</param>
-        /// <returns>The interpreted string value.</returns>
-        public abstract string GetSqlText_In(params object[] parameters);
     }
 }

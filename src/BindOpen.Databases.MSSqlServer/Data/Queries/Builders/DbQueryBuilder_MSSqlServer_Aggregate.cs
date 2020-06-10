@@ -74,28 +74,5 @@ namespace BindOpen.Databases.Data.Queries
 
             return text;
         }
-
-        /// <summary>
-        /// Evaluates the script word $SQLIN.
-        /// </summary>
-        /// <param name="parameters">The parameters to consider.</param>
-        /// <returns>The interpreted string value.</returns>
-        public override string GetSqlText_In(params object[] parameters)
-        {
-            string text = "[";
-            foreach (object object1 in parameters)
-            {
-                if (object1 != null)
-                {
-                    string st = object1.ToString();
-                    text += "'" + st.GetValueFromText() + "'" + (text == "[" ? "," : "");
-                }
-            }
-
-            text += "]";
-
-            return text;
-        }
-
     }
 }

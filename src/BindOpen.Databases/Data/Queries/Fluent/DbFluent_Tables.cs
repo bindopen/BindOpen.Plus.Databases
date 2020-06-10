@@ -51,6 +51,13 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="query">The query to consider.</param>
         public static DbTupledTable TableAsTuples(params IDbTuple[] tuples)
-            => new DbTupledTable(tuples?.Cast<DbTuple>().ToArray());
+            => new DbTupledTable() { Tuples = tuples?.Cast<DbTuple>().ToList() };
+
+        /// <summary>
+        /// Creates a new instance of the DbTuple class.
+        /// </summary>
+        /// <param name="query">The query to consider.</param>
+        public static DbTuple Tuple(params DbField[] fields)
+            => new DbTuple() { Fields = fields?.ToList() };
     }
 }

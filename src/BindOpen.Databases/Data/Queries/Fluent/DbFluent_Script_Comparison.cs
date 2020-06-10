@@ -81,5 +81,13 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>The interpreted object value.</returns>
         public static DataExpression IfNull(object value1, object value2)
             => ("$sqlIfNull(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
+
+        /// <summary>
+        /// Evaluates the script word $SQLEXISTS.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>The interpreted object value.</returns>
+        public static DataExpression Exists(object value)
+            => ("$sqlExists(" + Value(value) + ")").CreateScript();
     }
 }

@@ -78,9 +78,26 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"with ""directorate"" as (select  *  from ""Mdm"".""RegionalDirectorate"") select ""Mdm"".""Employee"".*,""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"",""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""directorate"" on (""Mdm"".""Employee"".""EmployeeId""=""directorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
+            string expectedResult = @"with ""directorate"" as (select  *  from ""Mdm"".""RegionalDirectorate"") select ""Mdm"".""Employee"".*,""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"",""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" as ""directorate"" on (""Mdm"".""Employee"".""EmployeeId""=""directorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
 
             string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode4("codeC"), log: log);
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = log.ToXml();
+            }
+            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+        }
+
+        [Test]
+        public void SimpleSelect5()
+        {
+            var log = new BdoLog();
+
+            string expectedResult = @"where ex";
+
+            string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode5("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())

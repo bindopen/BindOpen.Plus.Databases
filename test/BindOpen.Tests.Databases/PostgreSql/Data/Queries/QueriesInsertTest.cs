@@ -44,11 +44,11 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
 
             string expectedResult =
                 @"insert into ""Mdm"".""Employee"" (""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"") "
-                + "values ('" + _employee.Code.Replace("'", "''") + "'"
+                + "(values ('" + _employee.Code.Replace("'", "''") + "'"
                 + ",'" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
                 + "," + _employee.DoubleField.ToString(DataValueTypes.Number)
                 + ",'" + _employee.DateTimeField.ToString(DataValueTypes.Date)
-                + "'," + _employee.LongField.ToString(DataValueTypes.Long) + @")"
+                + "'," + _employee.LongField.ToString(DataValueTypes.Long) + @"))"
                 + @" returning ""Mdm"".""Employee"".""EmployeeId""";
 
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee1(_employee), log: log);
@@ -67,7 +67,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             var log = new BdoLog();
 
             string expectedResult =
-                @"insert into ""Mdm"".""Employee"" (""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"")  from (select ""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"" from ""Mdm"".""Employee"" where ""Code""='oldCode') returning ""Mdm"".""Employee"".""EmployeeId""";
+                @"insert into ""Mdm"".""Employee"" (""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"") (select ""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"" from ""Mdm"".""Employee"" where ""Code""='oldCode') returning ""Mdm"".""Employee"".""EmployeeId""";
 
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee2(_employee), log: log);
 

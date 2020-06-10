@@ -25,9 +25,10 @@ namespace BindOpen.Databases.Data.Queries
             => new DbField()
             {
                 Name = name,
-                DataTable = string.IsNullOrEmpty(table?.Alias) ? table?.Name : table.Alias,
-                Schema = string.IsNullOrEmpty(table?.Alias) ? table?.Schema : null,
-                DataModule = table?.DataModule
+                DataTableAlias = table?.Alias,
+                DataTable = table?.Name,
+                Schema = table?.Schema,
+                DataModule = table?.DataModule,
             };
 
         /// <summary>

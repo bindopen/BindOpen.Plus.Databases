@@ -3,8 +3,7 @@ Todo list for BindOpen
 
 ## Next tasks
 
-- [X] Orderby, sorting statements
-- [X] PostgreSql: For fields, table alias is displayed if the table name is null
+- [X] Fixing bug in database table building
 
 ## Stuff to check out later on
 
@@ -18,6 +17,10 @@ Todo list for BindOpen
 * FieldAsParameter<DbClient> in IdValue : if value is null, ISNULL(value)
 * Implement Merge methods
 * To be able to remove stored query. Remove all also.
+* Converting table (derived, query, tuple) in script
+* Converting tuple in script
+* Make Where clause as a tree of function(string)/expression
+
 
 ## Bugs to fix later on
 

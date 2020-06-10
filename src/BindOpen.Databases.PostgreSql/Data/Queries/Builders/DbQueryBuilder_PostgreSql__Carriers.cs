@@ -227,6 +227,10 @@ namespace BindOpen.Databases.Data.Queries
                 string expression = Scope?.Interpreter.Interprete(table.Expression, scriptVariableSet, log) ?? "";
                 queryString += expression;
             }
+            else if (mode == DbQueryTableMode.CompleteName && !string.IsNullOrEmpty(table?.Alias))
+            {
+                queryString += GetSqlText_Table(table.Alias);
+            }
             else if (table is DbJoinedTable joinedTable)
             {
                 switch (joinedTable.Kind)
@@ -261,45 +265,86 @@ namespace BindOpen.Databases.Data.Queries
                     queryString += expression;
                 }
             }
-            else if (table is DbDerivedTable derivedTable)
+            else
             {
-                switch (mode)
+                if (table is DbDerivedTable derivedTable)
                 {
-                    case DbQueryTableMode.AliasAsQuery:
-                        {
-                            queryString += GetSqlText_Table(derivedTable.Alias) + " as ";
-
-                            string subQuery = BuildQuery(derivedTable.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
-                            UpdateParameterSet(query.ParameterSet, derivedTable.Query);
-                            queryString += "(" + subQuery + ")";
-                            break;
-                        }
-                    default:
-                        {
-                            string subQuery = BuildQuery(derivedTable.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
-                            UpdateParameterSet(query.ParameterSet, derivedTable.Query);
-                            queryString += "(" + subQuery + ")";
-
-                            if (((mode == DbQueryTableMode.CompleteName) || (mode == DbQueryTableMode.CompleteNameAsAlias))
-                                && (!string.IsNullOrEmpty(derivedTable.Alias)))
-                            {
-                                queryString += " as " + GetSqlText_Table(derivedTable.Alias);
-                            }
-                            break;
-                        }
+                    string subQuery = BuildQuery(derivedTable.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
+                    UpdateParameterSet(query.ParameterSet, derivedTable.Query);
+                    queryString = "(" + subQuery + ")";
                 }
-            }
-            else if (table != null)
-            {
-                queryString += GetSqlText_Table(
-                    table.DataModule,
-                    table.Schema,
-                    table.Name,
-                    table.Alias,
-                    mode,
-                    defaultDataModule,
-                    defaultSchema,
-                    scriptVariableSet: scriptVariableSet, log: log);
+                else if (table is DbTupledTable tupledTable)
+                {
+                    if (tupledTable?.Tuples?.Count > 0)
+                    {
+                        if (!string.IsNullOrEmpty(queryString))
+                        {
+                            queryString += ",";
+                        }
+
+                        foreach (var tuple in tupledTable.Tuples)
+                        {
+                            var tupleString = "";
+                            foreach (var field in tuple.Fields)
+                            {
+                                if (!string.IsNullOrEmpty(tupleString))
+                                {
+                                    tupleString += ",";
+                                }
+
+                                tupleString += GetSqlText_Field(
+                                    field, query, parameterSet, DbQueryFieldMode.OnlyValue,
+                                    query.DataModule, query.Schema,
+                                    scriptVariableSet: scriptVariableSet, log: log);
+                            }
+
+                            queryString += "(" + tupleString + ")";
+                        }
+                    }
+                    queryString = queryString.If(!string.IsNullOrEmpty(queryString),
+                        "(values " + queryString + ")");
+                }
+                else if (!string.IsNullOrEmpty(table?.Name))
+                {
+                    var tableName = table.Name;
+                    var tableSchema = table.Schema;
+                    var tableDataModule = table.DataModule;
+
+                    if (string.IsNullOrEmpty(tableDataModule))
+                    {
+                        tableDataModule = defaultDataModule;
+                    }
+                    if (string.IsNullOrEmpty(tableSchema))
+                    {
+                        tableSchema = defaultSchema;
+                    }
+                    if (!string.IsNullOrEmpty(tableDataModule))
+                    {
+                        tableDataModule = GetDatabaseName(tableDataModule);
+                    }
+
+                    string script = DbFluent.Table(tableName, tableSchema, tableDataModule);
+                    queryString = Scope?.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log) ?? String.Empty;
+                }
+
+                if (!string.IsNullOrEmpty(table.Alias))
+                {
+                    switch (mode)
+                    {
+                        case DbQueryTableMode.AliasAsCompleteName:
+                            {
+                                queryString = GetSqlText_Table(table.Alias) + " as " + queryString;
+                                break;
+                            }
+                        case DbQueryTableMode.CompleteNameAsAlias:
+                            {
+                                queryString = queryString + " as " + GetSqlText_Table(table.Alias);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                }
             }
 
             return queryString;
@@ -316,53 +361,9 @@ namespace BindOpen.Databases.Data.Queries
             IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
         {
-            string queryString = "";
-
-            if ((mode == DbQueryTableMode.CompleteName) && (!string.IsNullOrEmpty(tableAlias)))
-            {
-                queryString += GetSqlText_Table(tableAlias);
-            }
-            else if (!string.IsNullOrEmpty(tableName))
-            {
-                if ((mode == DbQueryTableMode.CompleteName) || (mode == DbQueryTableMode.CompleteNameAsAlias))
-                {
-                    if (string.IsNullOrEmpty(tableName) && string.IsNullOrEmpty(tableAlias))
-                    {
-                        if (string.IsNullOrEmpty(tableDataModule))
-                        {
-                            tableDataModule = defaultDataModule;
-                        }
-                        if (!string.IsNullOrEmpty(tableDataModule))
-                        {
-                            tableDataModule = GetDatabaseName(tableDataModule);
-                        }
-
-                        if (string.IsNullOrEmpty(tableSchema))
-                        {
-                            tableSchema = defaultSchema;
-                        }
-                    }
-
-                    string script = DbFluent.Table(tableName, tableSchema, tableDataModule);
-                    queryString += Scope?.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log) ?? String.Empty;
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(tableName))
-                    {
-                        tableName = tableAlias;
-                    }
-
-                    queryString += GetSqlText_Table(tableName);
-                }
-
-                if (mode == DbQueryTableMode.CompleteNameAsAlias)
-                {
-                    queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(tableAlias), " as " + GetSqlText_Table(tableAlias));
-                }
-            }
-
-            return queryString;
+            return GetSqlText_Table(
+                DbFluent.Table(tableName, tableSchema, tableDataModule).WithAlias(tableAlias),
+                null, null, mode, defaultDataModule, defaultSchema, scriptVariableSet, log);
         }
 
         #endregion
