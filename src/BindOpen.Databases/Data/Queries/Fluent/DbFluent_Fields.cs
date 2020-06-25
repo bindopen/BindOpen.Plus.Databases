@@ -25,9 +25,10 @@ namespace BindOpen.Databases.Data.Queries
             => new DbField()
             {
                 Name = name,
-                DataTable = string.IsNullOrEmpty(table?.Alias) ? table?.Name : table.Alias,
-                Schema = string.IsNullOrEmpty(table?.Alias) ? table?.Schema : null,
-                DataModule = table?.DataModule
+                DataTableAlias = table?.Alias,
+                DataTable = table?.Name,
+                Schema = table?.Schema,
+                DataModule = table?.DataModule,
             };
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace BindOpen.Databases.Data.Queries
                 field.ValueType = valueType;
                 if (value != null)
                 {
-                    field.Expression = value.ToString(field.ValueType).CreateLiteral();
+                    field.Expression = value.ToString(field.ValueType).CreateExpAsLiteral();
                 }
             }
 
@@ -152,7 +153,7 @@ namespace BindOpen.Databases.Data.Queries
                 field.ValueType = DataValueTypes.None;
                 if (script != null)
                 {
-                    field.Expression = script.CreateScript();
+                    field.Expression = script.CreateExpAsScript();
                 }
             }
 
@@ -299,7 +300,7 @@ namespace BindOpen.Databases.Data.Queries
         {
             if (field != null)
             {
-                field.Expression = ((string)otherField).CreateScript();
+                field.Expression = ((string)otherField).CreateExpAsScript();
             }
 
             return field;
@@ -382,7 +383,7 @@ namespace BindOpen.Databases.Data.Queries
             if (field != null)
             {
                 field.ValueType = DataValueTypes.None;
-                field.Expression = CreateParameterWildString(ElementFactory.CreateScalar(parameterName)).CreateLiteral();
+                field.Expression = ElementFactory.CreateScalar(parameterName).AsExp();
             }
 
             return field;
@@ -454,7 +455,7 @@ namespace BindOpen.Databases.Data.Queries
             if (field != null)
             {
                 field.ValueType = DataValueTypes.None;
-                field.Expression = CreateParameterWildString(new ScalarElement() { Index = parameterIndex }).CreateLiteral();
+                field.Expression = (new ScalarElement() { Index = parameterIndex }).AsExp();
             }
 
             return field;
@@ -521,12 +522,12 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="parameter">The parameter to consider.</param>
         public static DbField AsParameter(
             this DbField field,
-            IDataElement parameter)
+            ScalarElement parameter)
         {
             if (field != null)
             {
                 field.ValueType = DataValueTypes.None;
-                field.Expression = CreateParameterWildString(parameter).CreateLiteral();
+                field.Expression = parameter.AsExp();
             }
 
             return field;
@@ -539,7 +540,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="parameter">The parameter to consider.</param>
         public static DbField FieldAsParameter(
             string name,
-            IDataElement parameter)
+            ScalarElement parameter)
         {
             return DbFluent.FieldAsParameter(name, null, parameter);
         }
@@ -553,7 +554,7 @@ namespace BindOpen.Databases.Data.Queries
         public static DbField FieldAsParameter(
             string name,
             DbTable table,
-            IDataElement parameter)
+            ScalarElement parameter)
         {
             return Field(name, table).AsParameter(parameter);
         }
@@ -565,7 +566,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="parameter">The parameter to consider.</param>
         public static DbField FieldAsParameter<T>(
             Expression<Func<T, object>> expr,
-            IDataElement parameter) where T : class
+            ScalarElement parameter) where T : class
         {
             return FieldAsParameter<T>(expr, null, parameter);
         }
@@ -579,7 +580,7 @@ namespace BindOpen.Databases.Data.Queries
         public static DbField FieldAsParameter<T>(
             Expression<Func<T, object>> expr,
             DbTable table,
-            IDataElement parameter) where T : class
+            ScalarElement parameter) where T : class
         {
             return DbFluent.Field<T>(expr, table).AsParameter(parameter);
         }

@@ -111,7 +111,7 @@ namespace BindOpen.Databases.Data.Queries
                         }
                         else if (field.IsNameAsScript)
                         {
-                            string name = Scope?.Interpreter.Interprete(field.Name.CreateScript(), scriptVariableSet, log) ?? "";
+                            string name = Scope?.Interpreter.Evaluate(field.Name.CreateExpAsScript(), scriptVariableSet, log)?.ToString() ?? "";
                             queryString += GetSqlText_Field(name);
                         }
                         else
@@ -122,7 +122,7 @@ namespace BindOpen.Databases.Data.Queries
                     case DbQueryFieldMode.OnlyNameAsAlias:
                         if (field.IsNameAsScript)
                         {
-                            string name = Scope?.Interpreter.Interprete(field.Name.CreateScript(), scriptVariableSet, log) ?? "";
+                            string name = Scope?.Interpreter.Evaluate(field.Name.CreateExpAsScript(), scriptVariableSet, log)?.ToString() ?? "";
                             queryString += GetSqlText_Field(name);
                         }
                         else
@@ -133,7 +133,7 @@ namespace BindOpen.Databases.Data.Queries
 
                         break;
                     case DbQueryFieldMode.OnlyValue:
-                        string value = Scope?.Interpreter.Interprete(field.Expression, scriptVariableSet, log) ?? "";
+                        string value = Scope?.Interpreter.Evaluate(field.Expression, scriptVariableSet, log)?.ToString() ?? "";
 
                         if (field.Query != null)
                         {
@@ -207,7 +207,7 @@ namespace BindOpen.Databases.Data.Queries
 
             if (table?.Expression != null)
             {
-                string expression = Scope?.Interpreter.Interprete(table.Expression, scriptVariableSet, log) ?? "";
+                string expression = Scope?.Interpreter.Evaluate(table.Expression, scriptVariableSet, log)?.ToString() ?? "";
                 queryString += expression;
             }
             else if (table is DbJoinedTable joinedTable)
@@ -240,7 +240,7 @@ namespace BindOpen.Databases.Data.Queries
                 if (joinedTable.Kind != DbQueryJoinKind.None)
                 {
                     queryString += " on ";
-                    string expression = Scope?.Interpreter.Interprete(joinedTable.Condition, scriptVariableSet, log) ?? String.Empty;
+                    string expression = Scope?.Interpreter.Evaluate(joinedTable.Condition, scriptVariableSet, log)?.ToString() ?? String.Empty;
                     queryString += expression;
                 }
             }
@@ -308,7 +308,7 @@ namespace BindOpen.Databases.Data.Queries
                         tableSchema = defaultSchema;
                     }
                     string script = DbFluent.Table(tableName, tableSchema, tableDataModule);
-                    queryString += Scope?.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log) ?? String.Empty;
+                    queryString += Scope?.Interpreter.Evaluate(script, DataExpressionKind.Script, scriptVariableSet, log) ?? String.Empty;
                 }
                 else
                 {

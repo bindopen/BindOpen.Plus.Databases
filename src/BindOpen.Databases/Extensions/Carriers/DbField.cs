@@ -196,7 +196,7 @@ namespace BindOpen.Extensions.Carriers
         /// <param name="text">The literal value.</param>
         public void SetLiteralValue(string text)
         {
-            Expression = text.CreateLiteral();
+            Expression = text.CreateExpAsLiteral();
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace BindOpen.Extensions.Carriers
         /// <param name="text">The script value.</param>
         public void SetScriptValue(string text)
         {
-            Expression = text.CreateScript();
+            Expression = text.CreateExpAsScript();
         }
 
         /// <summary>

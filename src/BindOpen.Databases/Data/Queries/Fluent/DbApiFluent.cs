@@ -143,7 +143,7 @@ namespace BindOpen.Databases.Data.Queries
                             dbQuery.WhereClause = new DbQueryWhereClause();
                         }
 
-                        dbQuery.WhereClause.Expression = scriptText.CreateScript();
+                        dbQuery.WhereClause.Expression = scriptText.CreateExpAsScript();
                     }
                 }
             }

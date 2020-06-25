@@ -1,4 +1,6 @@
-﻿namespace BindOpen.Databases.Data.Queries
+﻿using BindOpen.System.Scripting;
+
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -81,6 +83,38 @@
         public override string GetSqlText_IsNull(string value1)
         {
             return value1 + " IS NULL";
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLIN.
+        /// </summary>
+        /// <param name="parameters">The parameters to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public override string GetSqlText_In(params object[] parameters)
+        {
+            string text = "[";
+            foreach (object object1 in parameters)
+            {
+                if (object1 != null)
+                {
+                    string st = object1.ToString();
+                    text += "'" + st.GetValueFromScript() + "'" + (text == "[" ? "," : "");
+                }
+            }
+
+            text += "]";
+
+            return text;
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLEXISTS.
+        /// </summary>
+        /// <param name="value">The value to consider.</param>
+        /// <returns>The existsterpreted strexistsg value.</returns>
+        public override string GetSqlText_Exists(string value)
+        {
+            return "exists(" + value + ")";
         }
     }
 }

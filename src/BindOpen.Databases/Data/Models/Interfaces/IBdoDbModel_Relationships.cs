@@ -1,4 +1,6 @@
-﻿namespace BindOpen.Databases.Data.Models
+﻿using BindOpen.Data.Expression;
+
+namespace BindOpen.Databases.Data.Models
 {
     public partial interface IBdoDbModel
     {
@@ -11,7 +13,7 @@
         /// <param name="table1alias"></param>
         /// <param name="table2alias"></param>
         /// <returns></returns>
-        string JoinCondition(
+        DataExpression JoinCondition(
             string name,
             string table1Alias = null,
             string table2Alias = null);
@@ -24,7 +26,7 @@
         /// <param name="table1alias"></param>
         /// <param name="table2alias"></param>
         /// <returns></returns>
-        string JoinCondition<T1, T2>(
+        DataExpression JoinCondition<T1, T2>(
             string table1Alias = null,
             string table2Alias = null);
 

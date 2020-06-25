@@ -2,8 +2,6 @@
 using BindOpen.Data.Helpers.Files;
 using BindOpen.Data.Stores;
 using BindOpen.Extensions.References;
-using BindOpen.System.Diagnostics;
-using BindOpen.System.Diagnostics.Loggers;
 using BindOpen.Tests.Databases.PostgreSql.Data.Models;
 using BindOpen.Tests.Databases.Settings;
 
@@ -40,10 +38,10 @@ namespace BindOpen.Tests.Databases
                                     .AddFromConfiguration(options)
                                     .AddDatasource(m.CreatePostgreSqlDatasource("db.testA", "connectionStringA")))
                                 .RegisterDbModels((m, l) => m.AddFromAssembly<TestDbModel>(l)))
-                            .AddDefaultFileLogger()
+                            //.AddDefaultFileLogger()
                             //.ThrowExceptionOnStartFailure()
-                            .AddLoggers(
-                                BdoLoggerFactory.Create<BdoSnapLogger>(null, BdoLoggerMode.Auto).AddConsoleOutput())
+                            //.AddLoggers(
+                            //    BdoLoggerFactory.Create<BdoSnapLogger>(null, BdoLoggerMode.Auto).AddConsoleOutput())
                         ));
             }
         }

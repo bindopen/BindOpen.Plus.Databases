@@ -1,6 +1,7 @@
 ﻿using BindOpen.Application.Scopes;
 using BindOpen.Application.Services;
 using BindOpen.Data.Connections;
+using BindOpen.Data.Expression;
 using BindOpen.Data.Stores;
 using BindOpen.Databases.Data.Models;
 using BindOpen.Databases.Data.Queries;
@@ -143,7 +144,7 @@ namespace BindOpen.Databases.Data.Repositories
         /// <param name="table1Alias"></param>
         /// <param name="table2Alias"></param>
         /// <returns></returns>
-        public string JoinCondition(
+        public DataExpression JoinCondition(
             string name,
             string table1Alias = null,
             string table2Alias = null)
@@ -156,7 +157,7 @@ namespace BindOpen.Databases.Data.Repositories
         /// <typeparam name="T2"></typeparam>
         /// <param name="aliases"></param>
         /// <returns></returns>
-        public string JoinCondition<T1, T2>(
+        public DataExpression JoinCondition<T1, T2>(
             string table1Alias = null,
             string table2Alias = null)
             => _model?.JoinCondition<T1, T2>(table1Alias, table2Alias);
@@ -247,19 +248,19 @@ namespace BindOpen.Databases.Data.Repositories
         /// </summary>
         /// <param name="name"></param>
         /// <param name="kind">The kind to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public DbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, string conditionScript)
-            => _model?.TableAsJoin(name, kind, conditionScript);
+        public DbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, DataExpression condition)
+            => _model?.TableAsJoin(name, kind, condition);
 
         /// <summary>
         /// Creates a new joined table.
         /// </summary>
         /// <param name="kind">The kind to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public DbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, string conditionScript)
-            => _model?.TableAsJoin<T>(kind, conditionScript);
+        public DbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, DataExpression condition)
+            => _model?.TableAsJoin<T>(kind, condition);
 
         /// <summary>
         /// Creates a new joined table.

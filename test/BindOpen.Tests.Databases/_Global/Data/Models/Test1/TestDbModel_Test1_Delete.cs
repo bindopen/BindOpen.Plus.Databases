@@ -48,7 +48,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         internal IDbQuery DeleteEmployee3(string code)
         {
             var query = DbFluent.DeleteQuery(Table<DbEmployee>())
-                .Where(q => DataExpressionFactory.CreateAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueTypes.Text).AsScript()) + "}}"))
+                .Where(q => DataExpressionFactory.CreateExpAsAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueTypes.Text).AsExp()) + "}}"))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
 
@@ -63,7 +63,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         internal IDbQuery DeleteEmployee4(string code)
         {
             var query = DbFluent.DeleteQuery(Table<DbEmployee>())
-                .Where(q => DbFluent.Eq(DbFluent.Field("code"), q.UseParameter("code", DataValueTypes.Text).AsScript()))
+                .Where(q => DbFluent.Eq(DbFluent.Field("code"), q.UseParameter("code", DataValueTypes.Text)))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
 
@@ -114,7 +114,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         DbQueryJoinKind.Left,
                         JoinCondition<DbEmployee, DbContact>())
                         .WithAlias("mainCountry"))
-                .Where(q => DataExpressionFactory.CreateAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueTypes.Text).AsScript()) + "}}"))
+                .Where(q => DataExpressionFactory.CreateExpAsAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueTypes.Text).AsExp()) + "}}"))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
 
@@ -140,7 +140,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         DbQueryJoinKind.Left,
                         Table<DbContact>().WithAlias("secondaryCountry"),
                         JoinCondition<DbEmployee, DbContact>("secondary")))
-                .Where(q => DataExpressionFactory.CreateLiteral(@"""Code""='codeC'"))
+                .Where(q => DataExpressionFactory.CreateExpAsLiteral(@"""Code""='codeC'"))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
 

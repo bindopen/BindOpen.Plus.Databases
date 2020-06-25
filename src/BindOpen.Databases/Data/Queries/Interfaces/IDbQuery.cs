@@ -1,5 +1,6 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Data.Elements;
+using BindOpen.Data.Expression;
 using BindOpen.Data.Items;
 using BindOpen.Extensions.Carriers;
 using System.Collections.Generic;
@@ -52,6 +53,11 @@ namespace BindOpen.Databases.Data.Queries
         List<DbTable> CTETables { get; set; }
 
         /// <summary>
+        /// The sub queries of this instance.
+        /// </summary>
+        List<DbQuery> SubQueries { get; set; }
+
+        /// <summary>
         /// Indicates that this instance checks the existence of table or data according to the kind of queries.
         /// </summary>
         /// <param name="isExistenceChecked">Indicates whether this instance checks the existence of table or data.</param>
@@ -85,6 +91,13 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Returns the name of this instance.</returns>
         /// <remarks>If the name of this instance is empty or null then the returned name is determined from this instance's properties.</remarks>
         string GetName();
+
+        /// <summary>
+        /// Adds the specified sub query.
+        /// </summary>
+        /// <param name="subQuery">The sub query to consider.</param>
+        /// <returns>Return this added parameter.</returns>
+        DataExpression UseSubQuery(IDbQuery subQuery);
 
         /// <summary>
         /// Adds the specified parameter to this instance.

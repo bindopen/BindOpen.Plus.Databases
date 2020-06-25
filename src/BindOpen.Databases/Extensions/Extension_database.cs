@@ -20,7 +20,7 @@ namespace BindOpen.Databases.Extensions
         /// <returns>The result object.</returns>
         public static string GetUniqueName_database(this string uniqueName)
         {
-            return uniqueName.GetStartedString("database.") +"$client";
+            return uniqueName.StartingWith("database.") + "$client";
         }
     }
 

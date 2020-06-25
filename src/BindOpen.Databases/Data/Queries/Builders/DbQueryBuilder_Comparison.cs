@@ -61,5 +61,19 @@
         /// <param name="value1"></param>
         /// <returns>The interpreted string value.</returns>
         public abstract string GetSqlText_IsNull(string value1);
+
+        /// <summary>
+        /// Evaluates the script word $SQLIN.
+        /// </summary>
+        /// <param name="parameters">The parameters to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_In(params object[] parameters);
+
+        /// <summary>
+        /// Evaluates the script word $SQLEXISTS.
+        /// </summary>
+        /// <param name="value">The value to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_Exists(string value);
     }
 }

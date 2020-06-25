@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public abstract string GetSqlText_Count(object[] parameters);
+        public abstract string GetSqlText_Count(params object[] parameters);
 
         /// <summary>
         /// Evaluates the script word $SQLSUM.
@@ -27,12 +27,5 @@
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
         public abstract string GetSqlText_Average(params object[] parameters);
-
-        /// <summary>
-        /// Evaluates the script word $SQLIN.
-        /// </summary>
-        /// <param name="parameters">The parameters to consider.</param>
-        /// <returns>The interpreted string value.</returns>
-        public abstract string GetSqlText_In(params object[] parameters);
     }
 }

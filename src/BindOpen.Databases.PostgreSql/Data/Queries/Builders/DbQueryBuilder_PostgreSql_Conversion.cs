@@ -14,7 +14,7 @@
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_ConvertToText(string value1)
         {
-            return "convert(varchar," + value1 + ")";
+            return "convert(varchar, " + value1 + ")";
         }
 
         /// <summary>
@@ -25,7 +25,7 @@
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_IfNull(string value1, string value2)
         {
-            return "COALESCE(" + value1 + "," + value2 + ")";
+            return "coalesce(" + value1 + ", " + value2 + ")";
         }
     }
 }
