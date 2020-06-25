@@ -5,7 +5,7 @@ BindOpen.Databases __Publication.Version__ Update - __Publication.Date__
 
 ## BindOpen.Databases
 
-- [x] None
+- [x] Allowing the use of sub queries in functions. Ex. Exists(a_query)
 
 ## BindOpen.Databases.MSSqlServer
 
@@ -20,8 +20,7 @@ BindOpen.Databases __Publication.Version__ Update - __Publication.Date__
 
 ## BindOpen.Databases
 
-- [ ] None
-- [x] Improving database table building
+- [x] None
 
 ## BindOpen.Databases.MSSqlServer
 

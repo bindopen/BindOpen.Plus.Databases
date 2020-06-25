@@ -1,7 +1,7 @@
-﻿using BindOpen.Application.Scopes;
-using BindOpen.Data.Helpers.Objects;
+﻿using BindOpen.Data.Helpers.Objects;
 using BindOpen.Data.Helpers.Strings;
 using BindOpen.Data.Stores;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Runtime;
 using BindOpen.System.Scripting;
 
@@ -24,91 +24,58 @@ namespace BindOpen.Extensions.Scriptwords
         /// <summary>
         /// Evaluates the script word $SQLCOUNT.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlCount")]
-        public static string Fun_SqlCount(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlCount(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Count(parameters);
+                return queryBuilder.GetSqlText_Count(scope?.Scriptword?.Parameters?.ToArray());
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLSUM.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlSum")]
-        public static string Fun_SqlSum(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlSum(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Sum(parameters);
+                return queryBuilder.GetSqlText_Sum(scope?.Scriptword?.Parameters?.ToArray());
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLAVG.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlAverage")]
-        public static string Fun_SqlAverage(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlAverage(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Average(parameters);
+                return queryBuilder.GetSqlText_Average(scope?.Scriptword?.Parameters?.ToArray());
             }
-
-            return text;
         }
 
         // Date and time
@@ -116,31 +83,20 @@ namespace BindOpen.Extensions.Scriptwords
         /// <summary>
         /// Evaluates the script word $SQLGETCURRENTDATE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlGetCurrentDate")]
-        public static string Fun_SqlGetCurrentDate(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlGetCurrentDate(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_CurrentDate(parameters);
+                return queryBuilder.GetSqlText_CurrentDate();
             }
-
-            return text;
         }
 
         // Date type
@@ -150,451 +106,296 @@ namespace BindOpen.Extensions.Scriptwords
         /// <summary>
         /// Evaluates the script word $SQLTRUE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlTrue")]
-        public static string Fun_SqlTrue(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlTrue(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_True();
+                return queryBuilder.GetSqlText_Value(true);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLIF.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlIf")]
-        public static string Fun_SqlIf(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlIf(BdoScriptwordFunctionScope scope)
         {
-            string condition = parameters.GetStringAtIndex(0);
-            string value1 = parameters.GetStringAtIndex(1);
-            string value2 = parameters.GetStringAtIndex(2);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_If(condition, value1, value2);
-            }
+                string condition = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(2)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_If(condition, value1, value2);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLNOT.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">The set of variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">The script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlNot")]
-        public static string Fun_SqlNot(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlNot(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Not(value1);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                return queryBuilder.GetSqlText_Not(value1);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLOR.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlOr")]
-        public static string Fun_SqlOr(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlOr(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Or(parameters);
+                return queryBuilder.GetSqlText_Or(scope?.Scriptword?.Parameters?.ToArray());
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLAND.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlAnd")]
-        public static string Fun_SqlAnd(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlAnd(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_And(parameters);
+                return queryBuilder.GetSqlText_And(scope?.Scriptword?.Parameters?.ToArray());
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLXOR.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlXor")]
-        public static string Fun_SqlXor(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlXor(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Xor(parameters);
+                return queryBuilder.GetSqlText_Xor(scope?.Scriptword?.Parameters?.ToArray());
             }
-
-            return text;
         }
 
         // Comparison
         /// <summary>
         /// Evaluates the script word $SQLEQ.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlEq")]
-        public static string Fun_SqlEq(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlEq(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Eq(value1, value2);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_Eq(value1, value2);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLDIFF.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlDiff")]
-        public static string Fun_SqlDiff(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlDiff(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Diff(value1, value2);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_Diff(value1, value2);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLGT.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlGt")]
-        public static string Fun_SqlGt(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlGt(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Gt(value1, value2);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_Gt(value1, value2);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLGTE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlGte")]
-        public static string Fun_SqlGte(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlGte(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Gte(value1, value2);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_Gte(value1, value2);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLLT.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlLt")]
-        public static string Fun_SqlLt(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlLt(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Lt(value1, value2);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_Lt(value1, value2);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLLTE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlLte")]
-        public static string Fun_SqlLte(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlLte(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Lte(value1, value2);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_Lte(value1, value2);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLISNULL.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlIsNull")]
-        public static string Fun_SqlIsNull(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlIsNull(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_IsNull(value1);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_IsNull(value1);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLIFNULL.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlIfNull")]
-        public static string Fun_SqlIfNull(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlIfNull(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_IfNull(value1, value2);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_IfNull(value1, value2);
+            }
         }
 
         // Conversion
@@ -602,33 +403,21 @@ namespace BindOpen.Extensions.Scriptwords
         /// <summary>
         /// Evaluates the script word $SQLCONVERTTOTEXT.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlConvertToText")]
-        public static string Fun_SqlConvertToText(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlConvertToText(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_ConvertToText(value1);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                return queryBuilder.GetSqlText_ConvertToText(value1);
             }
-
-            return text;
         }
 
         // String
@@ -636,224 +425,142 @@ namespace BindOpen.Extensions.Scriptwords
         /// <summary>
         /// Evaluates the script word $SQLTEXT.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlText")]
-        public static string Fun_SqlText(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlText(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Text(value1);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                return queryBuilder.GetSqlText_Text(value1);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLENCODEBASE64.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlEncodeBase64")]
-        public static string Fun_SqlEncodeBase64(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlEncodeBase64(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_EncodeBase64(value1);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                return queryBuilder.GetSqlText_EncodeBase64(value1);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLDECODEBASE64.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlDecodeBase64")]
-        public static string Fun_SqlDecodeBase64(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlDecodeBase64(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_DecodeBae64(value1);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                return queryBuilder.GetSqlText_DecodeBae64(value1);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLLIKE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlLike")]
-        public static string Fun_SqlLike(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlLike(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Like(value1, value2);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
+                return queryBuilder.GetSqlText_Like(value1, value2);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLREPLACE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlReplace")]
-        public static string Fun_SqlReplace(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlReplace(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-            string value3 = parameters.GetStringAtIndex(2);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Replace(value1, value2, value3);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
+                string value3 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(2)?.ToString();
+                return queryBuilder.GetSqlText_Replace(value1, value2, value3);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLCONCATENATE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlConcatenate")]
-        public static string Fun_SqlConcatenate(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlConcatenate(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Concatenate(parameters);
+                return queryBuilder.GetSqlText_Concatenate(scope?.Scriptword?.Parameters?.ToArray());
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLNULL.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlNull")]
-        public static string Fun_SqlNull(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlNull(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Null();
+                return queryBuilder.GetSqlText_Null();
             }
-
-            return text;
         }
 
         // Syntax
@@ -861,138 +568,89 @@ namespace BindOpen.Extensions.Scriptwords
         /// <summary>
         /// Evaluates the script word %SQLDATABASE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlDatabase")]
-        public static string Fun_SqlDatabase(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlDatabase(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                value1 = value1.GetValueFromText();
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
 
-                string instanceName = scope?.DataStore?.Get<IBdoDatasourceDepot>()?.GetInstanceName(value1);
+                string instanceName = scope?.Scope?.DataStore?.Get<IBdoDatasourceDepot>()?.GetInstanceName(value1);
                 if (string.IsNullOrEmpty(instanceName) || instanceName == StringHelper.__NoneString)
                     instanceName = value1;
 
-                text += queryBuilder.GetSqlText_Database(instanceName);
+                return queryBuilder.GetSqlText_Database(instanceName);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word [%DATABASE->]%SCHEMA.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword]
-        public static string Fun_SqlDatabase_SqlSchema(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlDatabase_SqlSchema(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                value1 = value1.GetValueFromText();
-                text += queryBuilder.GetSqlText_Schema(value1, scriptWord.Parent?.StringItem);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parent?.Item?.ToString();
+                return queryBuilder.GetSqlText_Schema(value1, value2);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word [%DATABASE->]%TABLE.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword]
-        public static string Fun_SqlDatabase_SqlTable(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlDatabase_SqlTable(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                value1 = value1.GetValueFromText();
-                text += queryBuilder.GetSqlText_Table(value1, scriptWord.Parent?.StringItem);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parent?.Item?.ToString();
+                return queryBuilder.GetSqlText_Table(value1, value2);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word [[%DATABASE->]%TABLE->]%FIELD.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword]
-        public static string Fun_SqlDatabase_SqlTable_SqlField(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlDatabase_SqlTable_SqlField(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                value1 = value1.GetValueFromText();
-                text += queryBuilder.GetSqlText_Field(value1, scriptWord.Parent?.StringItem);
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parent?.Item?.ToString();
+                return queryBuilder.GetSqlText_Field(value1, value2);
             }
-
-            return text;
         }
 
         // System
@@ -1000,61 +658,39 @@ namespace BindOpen.Extensions.Scriptwords
         /// <summary>
         /// Evaluates the script word $SQLNEWGUID.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlNewGuid")]
-        public static string Fun_SqlNewGuid(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlNewGuid(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_NewGuid();
+                return queryBuilder.GetSqlText_NewGuid();
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLRANDOM.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlRandom")]
-        public static string Fun_SqlRandom(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlRandom(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Random();
+                return queryBuilder.GetSqlText_Random();
             }
-
-            return text;
         }
 
         // Comparison
@@ -1062,96 +698,86 @@ namespace BindOpen.Extensions.Scriptwords
         /// <summary>
         /// Evaluates the script word $SQLIN.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlIn")]
-        public static string Fun_SqlIn(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlIn(BdoScriptwordFunctionScope scope)
         {
-            string value1 = parameters.GetStringAtIndex(0);
-            string value2 = parameters.GetStringAtIndex(1);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_In(value1, value2);
-            }
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
 
-            return text;
+                return queryBuilder.GetSqlText_In(value1, value2);
+            }
         }
 
         /// <summary>
         /// Evaluates the script word $SQLEXISTS.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlExists")]
-        public static string Fun_SqlExists(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlExists(BdoScriptwordFunctionScope scope)
         {
-            string value = parameters.GetStringAtIndex(0);
-
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_Exists(value);
+                string value = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                return queryBuilder.GetSqlText_Exists(value);
             }
-
-            return text;
         }
 
         /// <summary>
         /// Evaluates the script word $SQLLIST.
         /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        /// <param name="scriptVariableSet">Variables that can be used for interpretation.</param>
-        /// <param name="scriptWord">Script word to evaluate.</param>
-        /// <param name="parameters">The parameters to consider.</param>
+        /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoScriptword(Name = "sqlList")]
-        public static string Fun_SqlList(
-            IBdoScope scope,
-            IScriptVariableSet scriptVariableSet,
-            IBdoScriptword scriptWord,
-            params object[] parameters)
+        public static object Fun_SqlList(BdoScriptwordFunctionScope scope)
         {
-            string text = "";
-
-            var queryBuilder = scriptVariableSet.GetDbBuilder();
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                text += queryBuilder.GetSqlText_List(parameters);
+                return queryBuilder.GetSqlText_List(scope?.Scriptword?.Parameters?.ToArray());
             }
+        }
 
-            return text;
+        /// <summary>
+        /// Evaluates the script word $SQLPARAMETER.
+        /// </summary>
+        /// <param name="scope">The script word function scope to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlParameter")]
+        public static object Fun_SqlParameter(BdoScriptwordFunctionScope scope)
+        {
+            string value = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+            return value.AsParameterWildString();
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLQUERY.
+        /// </summary>
+        /// <param name="scope">The script word function scope to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlQuery")]
+        public static object Fun_SqlQuery(BdoScriptwordFunctionScope scope)
+        {
+            string value = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+            return "(" + value.AsQueryWildString() + ")";
         }
 
         #endregion

@@ -1,6 +1,4 @@
-﻿using BindOpen.System.Scripting;
-
-namespace BindOpen.Databases.Data.Queries
+﻿namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -16,7 +14,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Text(string value1)
         {
-            return "'" + BdoScriptParsingHelper.GetValueFromText(value1)?.Replace("'", "''") + "'";
+            return "'" + value1?.Replace("'", "''") + "'";
         }
 
         /// <summary>

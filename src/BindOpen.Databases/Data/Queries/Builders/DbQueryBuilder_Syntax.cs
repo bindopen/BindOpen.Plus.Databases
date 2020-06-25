@@ -50,7 +50,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Evaluates the script word $SQLTRUE.
         /// </summary>
         /// <returns>The interpreted string value.</returns>
-        public abstract string GetSqlText_True();
+        public abstract string GetSqlText_Value(object value);
 
         /// <summary>
         /// Evaluates the script word %SQLDATABASE.

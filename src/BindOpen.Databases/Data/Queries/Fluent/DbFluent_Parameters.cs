@@ -2,6 +2,7 @@
 using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
 using BindOpen.Data.Helpers.Strings;
+using BindOpen.System.Scripting;
 
 namespace BindOpen.Databases.Data.Queries
 {
@@ -39,28 +40,21 @@ namespace BindOpen.Databases.Data.Queries
         }
 
         /// <summary>
-        /// Creates a new instance of the DataElement class.
+        /// Converts this instance as a word.
         /// </summary>
-        /// <param name="element">The element to consider.</param>
-        public static DataExpression AsScript(this ScalarElement parameter)
+        /// <param name="element">The parameter to consider.</param>
+        public static DataExpression AsExp(this ScalarElement parameter)
         {
-            return CreateParameterWildString(parameter).CreateScript();
+            return BdoScript.Function("sqlParameter", parameter?.Name ?? parameter.Index.ToString())
+                .CreateExp();
         }
 
         /// <summary>
-        /// Creates a parameter wild string from the specified parameter.
+        /// Creates a parameter wild string from the specified parameter name.
         /// </summary>
-        /// <param name="parameter">The parameter to consider.</param>
+        /// <param name="value">The value to consider.</param>
         /// <returns>Returns the string corresponding to the specified parameter.</returns>
-        internal static string CreateParameterWildString(this IDataElement parameter)
-            => StringHelper.__UniqueToken + (parameter?.Name ?? parameter.Index.ToString()) + StringHelper.__UniqueToken;
-
-        /// <summary>
-        /// Creates a parameter string from the specified parameter.
-        /// </summary>
-        /// <param name="parameter">The parameter to consider.</pram>
-        /// <returns>Returns the string corresponding to the specified parameter.</returns>
-        internal static string CreateParameterString(this IDataElement parameter)
-            => "@" + parameter?.Name ?? parameter.Index.ToString();
+        internal static string AsParameterWildString(this string value)
+            => StringHelper.__UniqueToken + "p:" + value + StringHelper.__UniqueToken;
     }
 }

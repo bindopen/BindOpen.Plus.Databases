@@ -37,7 +37,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
                 else if (!(clause?.Statements?.Count > 0))
@@ -110,7 +110,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
                 if (clause.IdFields?.Count > 0)
@@ -149,7 +149,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
                 else if (clause.Statements?.Count > 0)
@@ -205,7 +205,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
                 else if (clause.Fields?.Count > 0)
@@ -243,7 +243,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
 

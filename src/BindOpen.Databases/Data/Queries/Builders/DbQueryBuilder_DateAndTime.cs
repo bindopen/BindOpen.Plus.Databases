@@ -12,6 +12,6 @@
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public abstract string GetSqlText_CurrentDate(object[] parameters);
+        public abstract string GetSqlText_CurrentDate();
     }
 }

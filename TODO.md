@@ -7,6 +7,9 @@ Todo list for BindOpen
 
 ## Stuff to check out later on
 
+* Review the CreateParameterWildString method
+* See whether AsScript extension must return a ScriptWord or a DataExpression
+
 * Add Getting Help + Contributors sections in README.md
 * Api filter and sort clauses
 * Apply data value type of the field from Field<T> methods

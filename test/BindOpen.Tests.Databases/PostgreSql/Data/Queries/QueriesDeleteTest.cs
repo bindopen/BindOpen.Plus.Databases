@@ -34,9 +34,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -51,9 +51,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -68,9 +68,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -85,9 +85,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -102,9 +102,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -119,9 +119,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -136,9 +136,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -153,9 +153,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
     }
 }

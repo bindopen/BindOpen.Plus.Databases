@@ -1,7 +1,8 @@
 ﻿using BindOpen.Data.Elements;
-using BindOpen.Extensions.Carriers;
+using BindOpen.Data.Helpers.Strings;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
+using System.Linq;
 
 namespace BindOpen.Databases.Data.Queries
 {
@@ -27,31 +28,20 @@ namespace BindOpen.Databases.Data.Queries
             IBdoLog log = null)
         {
             var queryString = "";
-            int index;
 
             if (query == null)
             {
                 return null;
             }
 
-            queryString = "";
-
             if (query.CTETables?.Count > 0)
             {
-                index = 0;
                 queryString += "with ";
-                foreach (DbTable table in query.CTETables)
-                {
-                    if (index > 0)
-                        queryString += ", ";
-
-                    queryString += GetSqlText_Table(
-                        table, query, parameterSet, DbQueryTableMode.AliasAsCompleteName,
-                        query.DataModule, query.Schema,
-                        scriptVariableSet: scriptVariableSet, log: log) + " ";
-
-                    index++;
-                }
+                queryString += string.Join(", ", query.CTETables.Select(table => GetSqlText_Table(
+                    table, query, parameterSet, DbQueryTableMode.AliasAsCompleteName,
+                    query.DataModule, query.Schema,
+                    scriptVariableSet: scriptVariableSet, log: log)))
+                    .ConcatenateIfFirstNotEmpty(" ");
             }
 
             // we build the query
@@ -62,41 +52,41 @@ namespace BindOpen.Databases.Data.Queries
                     {
                         queryString += "select ";
                         if (query.IsDistinct)
-                            queryString += " distinct ";
-                        index = 0;
+                        {
+                            queryString += "distinct ";
+                        }
+
                         if (query.Fields?.Count > 0)
                         {
-                            foreach (DbField field in query.Fields)
-                            {
-                                if (index > 0)
-                                    queryString += ",";
-
-                                queryString += GetSqlText_Field(
-                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
-                                    query.DataModule, query.Schema,
-                                    scriptVariableSet: scriptVariableSet, log: log);
-
-                                index++;
-                            }
+                            queryString += string.Join(", ", query.Fields.Select(field => GetSqlText_Field(
+                                field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                                query.DataModule, query.Schema,
+                                scriptVariableSet: scriptVariableSet, log: log)))
+                                .ConcatenateIfFirstNotEmpty(" ");
                         }
                         else
                         {
-                            queryString += " * ";
+                            queryString += "* ";
                         }
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log); ;
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_GroupByClause(query.GroupByClause, query, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_GroupByClause(query.GroupByClause, query, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_HavingClause(query.HavingClause, query, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_HavingClause(query.HavingClause, query, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_OrderByClause(query.OrderByClause, query, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_OrderByClause(query.OrderByClause, query, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
                         if (query.Limit > -1)
                         {
-                            queryString += " limit " + query.Limit.ToString();
+                            queryString += "limit " + query.Limit.ToString();
                         }
 
                         if (query.UnionClauses?.Count > 0)
@@ -115,67 +105,53 @@ namespace BindOpen.Databases.Data.Queries
                         queryString += GetSqlText_Table(
                             query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
                             DbQueryTableMode.CompleteNameAsAlias, query.DataModule, query.Schema,
-                            scriptVariableSet: scriptVariableSet, log: log);
-                        queryString += " set ";
-                        index = 0;
-                        foreach (DbField field in query.Fields)
-                        {
-                            if (index > 0)
-                                queryString += ",";
+                            scriptVariableSet: scriptVariableSet, log: log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
-                            queryString += GetSqlText_Field(
+                        queryString += "set ";
+
+                        queryString += string.Join(", ", query.Fields.Select(field =>
+                            GetSqlText_Field(
                                 field, query, parameterSet, DbQueryFieldMode.NameEqualsValue,
-                                scriptVariableSet: scriptVariableSet, log: log);
+                                scriptVariableSet: scriptVariableSet, log: log)))
+                            .ConcatenateIfFirstNotEmpty(" ");
 
-                            index++;
-                        }
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log);
-
-                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
                         if (query.ReturnedIdFields?.Count > 0)
                         {
-                            queryString += " returning ";
-                            index = 0;
-                            foreach (DbField field in query.ReturnedIdFields)
-                            {
-                                if (index > 0)
-                                    queryString += ", ";
-                                queryString += GetSqlText_Field(
+                            queryString += "returning ";
+                            queryString += string.Join(", ", query.ReturnedIdFields.Select(field =>
+                                GetSqlText_Field(
                                     field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
-                                    scriptVariableSet: scriptVariableSet, log: log);
-
-                                index++;
-                            }
+                                    scriptVariableSet: scriptVariableSet, log: log)));
                         }
                     }
                     break;
                 // Delete
                 case DbQueryKind.Delete:
                     {
-                        queryString += "delete";
+                        queryString += "delete ";
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
                         if (query.ReturnedIdFields?.Count > 0)
                         {
-                            queryString += " returning ";
-                            index = 0;
-                            foreach (DbField field in query.ReturnedIdFields)
-                            {
-                                if (index > 0)
-                                    queryString += ", ";
-                                queryString += GetSqlText_Field(
+                            queryString += "returning ";
+                            queryString += string.Join(", ", query.ReturnedIdFields.Select(field =>
+                                GetSqlText_Field(
                                     field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
-                                    scriptVariableSet: scriptVariableSet, log: log);
-
-                                index++;
-                            }
+                                    scriptVariableSet: scriptVariableSet, log: log)));
                         }
                     }
                     break;
@@ -186,40 +162,29 @@ namespace BindOpen.Databases.Data.Queries
                         queryString += GetSqlText_Table(
                             query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
                             DbQueryTableMode.CompleteName, query.DataModule, query.Schema,
-                            scriptVariableSet: scriptVariableSet, log: log);
-                        queryString += " (";
-                        index = 0;
-                        foreach (DbField field in query.Fields)
-                        {
-                            if (index > 0)
-                                queryString += ",";
+                            scriptVariableSet: scriptVariableSet, log: log)
+                            .ConcatenateIfFirstNotEmpty(" ");
+                        queryString += "(";
 
-                            queryString += GetSqlText_Field(
+                        queryString += string.Join(", ", query.Fields.Select(field =>
+                            GetSqlText_Field(
                                 field, query, parameterSet, DbQueryFieldMode.OnlyName,
                                 query.DataModule, query.Schema,
-                                scriptVariableSet: scriptVariableSet, log: log);
+                                scriptVariableSet: scriptVariableSet, log: log)));
 
-                            index++;
-                        }
                         queryString += ") ";
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.NoPreffix, parameterSet, scriptVariableSet, log);
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.NoPreffix, parameterSet, scriptVariableSet, log)
+                            .ConcatenateIfFirstNotEmpty(" ");
 
                         if (query.ReturnedIdFields?.Count > 0)
                         {
-                            queryString += " returning ";
-                            index = 0;
-                            foreach (DbField field in query.ReturnedIdFields)
-                            {
-                                if (index > 0)
-                                    queryString += ", ";
-                                queryString += GetSqlText_Field(
+                            queryString += "returning ";
+                            queryString += string.Join(", ", query.ReturnedIdFields.Select(field =>
+                                GetSqlText_Field(
                                     field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
-                                    scriptVariableSet: scriptVariableSet, log: log);
-
-                                index++;
-                            }
+                                    scriptVariableSet: scriptVariableSet, log: log)));
                         }
                     }
                     break;

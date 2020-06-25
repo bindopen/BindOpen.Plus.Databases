@@ -94,7 +94,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_IsNull(string value1)
         {
-            return value1 + " IS NULL";
+            return value1 + " is null";
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace BindOpen.Databases.Data.Queries
                 if (object1 != null)
                 {
                     string st = object1.ToString();
-                    text += "'" + st.GetValueFromText() + "'" + (text == "[" ? "," : "");
+                    text += "'" + st.GetValueFromScript() + "'" + (text == "[" ? ", " : "");
                 }
             }
 

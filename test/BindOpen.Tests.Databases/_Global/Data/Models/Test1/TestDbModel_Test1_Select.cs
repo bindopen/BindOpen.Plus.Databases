@@ -114,9 +114,10 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("SelectEmployeeWithCode5", p =>
                 SelectQuery<DbEmployee>()
                     .WithFields(Tuple("Fields_SelectEmployee"))
-                    .Where(DbFluent.Exists(
-                        DbFluent.SelectQuery(DbFluent.Table("Employee", "Mdm"))
-                        .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text)))))
+                    .Where(q => DbFluent.Exists(
+                        q.UseSubQuery(
+                            DbFluent.SelectQuery(DbFluent.Table("Employee", "Mdm"))
+                            .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text))))))
                 )
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));

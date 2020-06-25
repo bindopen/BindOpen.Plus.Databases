@@ -62,14 +62,14 @@ namespace BindOpen.Databases.Data.Queries
                 {
                     int j = i;
                     List<string> clauses = new List<string>();
-                    script.GetIndexOfNextString(" " + instruction + " ", ref j);
+                    script.IndexOfNextString(" " + instruction + " ", ref j);
                     while (j < script.Length - 1)
                     {
                         string clause = script.Substring(i, j - i + 1);
                         clause = clause.ConvertToExtensionScript(log, definition, 0);
                         clauses.Add(clause);
                         j = i = j + (" " + instruction + " ").Length;
-                        script.GetIndexOfNextString(" " + instruction + " ", ref j);
+                        script.IndexOfNextString(" " + instruction + " ", ref j);
                         if (j == script.Length)
                         {
                             clause = script.Substring(i);
@@ -99,7 +99,7 @@ namespace BindOpen.Databases.Data.Queries
                     {
                         int k1 = 0;
                         string currentScriptOperator = DbQueryExtension.GetInstruction(currentOperator);
-                        script.GetIndexOfNextString(currentScriptOperator, ref k1);
+                        script.IndexOfNextString(currentScriptOperator, ref k1);
                         if (k1 < k)
                         {
                             scriptOperator = currentScriptOperator;

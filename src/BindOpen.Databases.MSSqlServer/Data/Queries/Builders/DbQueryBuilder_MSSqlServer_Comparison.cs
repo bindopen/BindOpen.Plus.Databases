@@ -98,7 +98,7 @@ namespace BindOpen.Databases.Data.Queries
                 if (object1 != null)
                 {
                     string st = object1.ToString();
-                    text += "'" + st.GetValueFromText() + "'" + (text == "[" ? "," : "");
+                    text += "'" + st.GetValueFromScript() + "'" + (text == "[" ? "," : "");
                 }
             }
 

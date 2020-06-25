@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public abstract string GetSqlText_Count(object[] parameters);
+        public abstract string GetSqlText_Count(params object[] parameters);
 
         /// <summary>
         /// Evaluates the script word $SQLSUM.

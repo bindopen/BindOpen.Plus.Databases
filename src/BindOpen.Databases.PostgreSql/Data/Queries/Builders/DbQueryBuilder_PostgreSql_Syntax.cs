@@ -1,4 +1,9 @@
-﻿namespace BindOpen.Databases.Data.Queries
+﻿using BindOpen.Data.Common;
+using BindOpen.Data.Helpers.Strings;
+using System;
+using System.Net;
+
+namespace BindOpen.Databases.Data.Queries
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -17,12 +22,40 @@
         }
 
         /// <summary>
-        /// Evaluates the script word $SQLTRUE.
+        /// Evaluates the script word $SQLVALUE.
         /// </summary>
         /// <returns>The interpreted string value.</returns>
-        public override string GetSqlText_True()
+        public override string GetSqlText_Value(object value)
         {
-            return "true";
+            if (value == null)
+            {
+                return DbFluent.Null();
+            }
+            else if (value is DbQuery)
+            {
+
+            }
+
+            var valueType = value.GetValueType();
+            switch (valueType)
+            {
+                case DataValueTypes.Text:
+                    var param1String = value as string;
+                    return GetSqlText_Text(param1String);
+                case DataValueTypes.Date:
+                    if (value is DateTime param1DateTime)
+                    {
+                        return GetSqlText_Text(param1DateTime.ToString(StringHelper.__DateFormat));
+                    }
+                    break;
+                case DataValueTypes.Time:
+                    if (value is TimeSpan param1TimeSpan)
+                    {
+                        return GetSqlText_Text(param1TimeSpan.ToString(StringHelper.__TimeFormat));
+                    }
+                    break;
+            }
+            return value?.ToString() ?? "";
         }
 
         /// <summary>

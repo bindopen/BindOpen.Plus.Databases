@@ -327,8 +327,8 @@
       <kind>Function</kind>
       <functionName>Fun_SqlIfNull</functionName>
       <parameter.specification>
-        <scalar name="value" valueType="Any" />
-        <scalar name="value" valueType="Any" />
+        <scalar name="value1" valueType="Any" />
+        <scalar name="value2" valueType="Any" />
       </parameter.specification>
       <returnValueType>Text</returnValueType>
     </add.definition>
@@ -342,9 +342,10 @@
       </description>
       <kind>Function</kind>
       <functionName>Fun_SqlExists</functionName>
+      <parameter.specification>
+        <scalar name="value" valueType="Text" />
+      </parameter.specification>
       <returnValueType>Text</returnValueType>
-      <repeatedParameterValueType>Any</repeatedParameterValueType>
-      <repeatedParameterName>value</repeatedParameterName>
     </add.definition>
 
     <!-- $SQLIN(value1, value2...) -->
@@ -545,6 +546,35 @@
       <returnValueType>Text</returnValueType>
     </add.definition>
 
+    <!-- $SQLPARAMETER(value) -->
+    <add.definition name="SQLPARAMETER">
+      <creationDate>2020-06-22</creationDate>
+      <lastModificationDate>2020-06-22</lastModificationDate>
+      <description>
+        <add.value>Returns the Parameter function.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlParameter</functionName>
+      <parameter.specification>
+        <scalar name="name" valueType="Text" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
+    <!-- $SQLQUERY(value) -->
+    <add.definition name="SQLQUERY">
+      <creationDate>2020-06-22</creationDate>
+      <lastModificationDate>2020-06-22</lastModificationDate>
+      <description>
+        <add.value>Returns the Query function.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlQuery</functionName>
+      <parameter.specification>
+        <scalar name="name" valueType="Text" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
   </definitions>
   
   <definitionClass>.Scriptwords.ScriptwordDefinition_Database</definitionClass>

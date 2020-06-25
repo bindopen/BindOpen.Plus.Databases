@@ -1,4 +1,5 @@
-﻿using BindOpen.Databases.Data.Queries;
+﻿using BindOpen.Data.Expression;
+using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Carriers;
 
 namespace BindOpen.Databases.Data.Models
@@ -30,17 +31,17 @@ namespace BindOpen.Databases.Data.Models
         /// </summary>
         /// <param name="name"></param>
         /// <param name="kind">The kind to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        DbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, string conditionScript);
+        public DbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, DataExpression condition);
 
         /// <summary>
         /// Creates a new joined table.
         /// </summary>
         /// <param name="kind">The kind to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        DbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, string conditionScript);
+        public DbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, DataExpression condition);
 
         /// <summary>
         /// Creates a new joined table.
@@ -49,7 +50,7 @@ namespace BindOpen.Databases.Data.Models
         /// <param name="table1Alias">The alias of the table 1 to consider.</param>
         /// <param name="table2Alias">The alias of the table 2 to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        DbJoinedTable TableAsJoin<T, T1, T2>(
+        public DbJoinedTable TableAsJoin<T, T1, T2>(
             DbQueryJoinKind kind,
             string table1Alias = null, string table2Alias = null);
     }

@@ -25,16 +25,16 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             var expression = DbFluent.Value(_value_datetime);
             var log = new BdoLog();
 
-            string expectedResult = @"$sqlText('2020-12-20T00:00:00')";
+            string expectedResult = @"$sqlValue('2020-12-20T00:00:00')";
 
-            string result = expression;
+            string result = (string)expression;
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
     }
 }

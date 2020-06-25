@@ -1,7 +1,11 @@
 ﻿using BindOpen.Data.Common;
+using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
-using BindOpen.Data.Helpers.Strings;
-using System;
+using BindOpen.Data.Helpers.Objects;
+using BindOpen.Extensions.Carriers;
+using BindOpen.Extensions.Runtime;
+using BindOpen.System.Scripting;
+using System.Linq;
 
 namespace BindOpen.Databases.Data.Queries
 {
@@ -11,85 +15,86 @@ namespace BindOpen.Databases.Data.Queries
     public static partial class DbFluent
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        internal static BdoScriptword DbFunction(string name, params object[] parameters)
+        {
+            return BdoScript.Function(name, parameters.Select(p => p.AsSqlValue()).ToArray());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        internal static object AsSqlValue(this object obj)
+        {
+            if (obj == null)
+            {
+                return Null();
+            }
+            else if (obj is DbField field)
+            {
+                return (field?.ToScript()).CreateExpAsScript();
+            }
+            else if (obj is DbTable table)
+            {
+                return (table?.ToScript()).CreateExpAsScript();
+            }
+            else if (obj is ScalarElement param)
+            {
+                return BdoScript.Function("sqlParameter", param?.Name ?? param.Index.ToString())
+                    .CreateExp();
+            }
+            else if (obj is DataExpression || obj is BdoScriptword)
+            {
+                return obj;
+            }
+
+            return obj?.ToString(DataValueTypes.Any, true);
+        }
+
+        /// <summary>
         /// Creates a BDO script representing the current date in SQL.
         /// </summary>
         public static DataExpression CurrentDate()
-            => "$sqlGetCurrentDate()".CreateScript();
+            => BdoScript.Function("sqlGetCurrentDate").CreateExp();
 
         /// <summary>
         /// Creates a BDO script representing a text.
         /// </summary>
         /// <param name="param1">The parameter to consider.</param>
-        public static DataExpression Text(string param1)
-        {
-            return $"$sqlText('{(param1 == null ? Null() : (param1.Length == 0 ? "''" : param1))}')".CreateScript();
-        }
+        public static DataExpression Text(object param1)
+            => BdoScript.Function("sqlText", param1).CreateExp();
 
         /// <summary>
         /// Creates a BDO script representing a text.
         /// </summary>
         public static DataExpression Null()
-            => ("$sqlNull()").CreateScript();
+            => BdoScript.Function("sqlNull").CreateExp();
 
         /// <summary>
         /// Encodes the specified text with the specified format.
         /// </summary>
-        /// <param name="text">The text to consider.</param>
-        public static DataExpression EncodeBase64(string text)
-            => ("$sqlEncodeBase64(" + text + ")").CreateScript();
+        /// <param name="value">The value to consider.</param>
+        public static DataExpression EncodeBase64(object value)
+            => BdoScript.Function("sqlEncodeBase64", value).CreateExp();
 
         /// <summary>
         /// Decodes the specified text with the specified format.
         /// </summary>
-        /// <param name="text">The text to consider.</param>
-        public static DataExpression DecodeBase64(string text)
-            => ("$sqlDecodeBase64(" + text + ")").CreateScript();
+        /// <param name="value">The value to consider.</param>
+        public static DataExpression DecodeBase64(object value)
+            => BdoScript.Function("sqlDecodeBase64", value).CreateExp();
 
         /// <summary>
-        /// Creates a BDO script representing a value.
+        /// Gets the Sql value of the specified object.
         /// </summary>
-        /// <param name="param1">The parameter to consider.</param>
-        public static DataExpression Value(object param1)
-        {
-            if (param1 == null)
-            {
-                return DbFluent.Null();
-            }
-
-            if (param1 is DataExpression param1DataExpression)
-            {
-                if (param1DataExpression.Kind == DataExpressionKind.Auto
-                    && param1DataExpression.Text?.StartsWith("{{") == true
-                    && param1DataExpression.Text?.EndsWith("}}") == true)
-                {
-
-                    var text = param1DataExpression.Text.Substring(2);
-                    return (text[0..^2]).CreateScript();
-                }
-                return param1DataExpression;
-            }
-
-            var valueType = param1.GetValueType();
-            switch (valueType)
-            {
-                case DataValueTypes.Text:
-                    var param1String = param1 as string;
-                    return Text(param1String);
-                case DataValueTypes.Date:
-                    if (param1 is DateTime param1DateTime)
-                    {
-                        return Text(param1DateTime.ToString(StringHelper.__DateFormat));
-                    }
-                    break;
-                case DataValueTypes.Time:
-                    if (param1 is TimeSpan param1TimeSpan)
-                    {
-                        return Text(param1TimeSpan.ToString(StringHelper.__TimeFormat));
-                    }
-                    break;
-            }
-
-            return (param1?.ToString()).CreateScript();
-        }
+        /// <param name="value">The value to consider.</param>
+        public static DataExpression Value(object value)
+            => BdoScript.Function("sqlValue", value).CreateExp();
     }
 }

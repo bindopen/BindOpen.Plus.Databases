@@ -31,7 +31,7 @@ namespace BindOpen.Databases.Data.Queries
                 string subQuery = BuildQuery(clause.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
                 UpdateParameterSet(query.ParameterSet, clause.Query);
                 queryString += "(" + subQuery + ")";
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " union " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "union " + queryString);
             }
 
             return queryString;
@@ -101,7 +101,7 @@ namespace BindOpen.Databases.Data.Queries
                 {
                     if (clause?.Expression != null)
                     {
-                        string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                        string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                         queryString += expression;
                     }
                     else if (!(clause?.Statements?.Count > 0))
@@ -170,7 +170,7 @@ namespace BindOpen.Databases.Data.Queries
                 }
             }
             queryString = queryString.If(!string.IsNullOrEmpty(queryString),
-                (kind == DbQueryFromClauseKind.FromPreffix ? " from " : "") + queryString);
+                (kind == DbQueryFromClauseKind.FromPreffix ? "from " : "") + queryString);
 
             return queryString;
         }
@@ -190,12 +190,12 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
-                if (clause.IdFields?.Count > 0)
+                else if (clause.IdFields?.Count > 0)
                 {
-                    queryString = queryString.If(!string.IsNullOrEmpty(queryString), " (" + queryString + ") ");
+                    queryString = queryString.If(!string.IsNullOrEmpty(queryString), "(" + queryString + ")");
 
                     foreach (DbField field in clause.IdFields)
                     {
@@ -208,7 +208,7 @@ namespace BindOpen.Databases.Data.Queries
                             scriptVariableSet: scriptVariableSet, log: log);
                     }
                 }
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " where " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "where " + queryString);
             }
 
             return queryString;
@@ -229,7 +229,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
                 else if (clause.Statements?.Count > 0)
@@ -264,7 +264,7 @@ namespace BindOpen.Databases.Data.Queries
                         }
                     }
                 }
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " order by " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "order by " + queryString);
             }
 
             return queryString;
@@ -285,7 +285,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
                 else if (clause.Fields?.Count > 0)
@@ -302,7 +302,7 @@ namespace BindOpen.Databases.Data.Queries
                             scriptVariableSet: scriptVariableSet, log: log);
                     }
                 }
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " group by " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "group by " + queryString);
             }
 
             return queryString;
@@ -323,12 +323,12 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
 
 
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " having " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "having " + queryString);
             }
 
             return queryString;

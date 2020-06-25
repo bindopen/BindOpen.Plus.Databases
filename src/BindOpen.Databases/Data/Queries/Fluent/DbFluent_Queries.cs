@@ -1,4 +1,5 @@
-﻿using BindOpen.Extensions.Carriers;
+﻿using BindOpen.Data.Helpers.Strings;
+using BindOpen.Extensions.Carriers;
 using System;
 
 namespace BindOpen.Databases.Data.Queries
@@ -8,6 +9,14 @@ namespace BindOpen.Databases.Data.Queries
     /// </summary>
     public static partial class DbFluent
     {
+        /// <summary>
+        /// Creates a query wild string from the specified query name.
+        /// </summary>
+        /// <param name="value">The value to consider.</param>
+        /// <returns>Returns the string corresponding to the specified query.</returns>
+        internal static string AsQueryWildString(this string value)
+            => StringHelper.__UniqueToken + "q:" + value + StringHelper.__UniqueToken;
+
         // Stored --------------------------------
 
         /// <summary>

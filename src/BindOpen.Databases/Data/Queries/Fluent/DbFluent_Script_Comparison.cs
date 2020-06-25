@@ -16,8 +16,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression Eq(object value1, object value2)
-            => ("$sqlEq(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
-
+            => DbFunction("sqlEq", value1, value2).CreateExp();
 
         /// <summary>
         /// Evaluates the script word $SQLDIFF.
@@ -26,8 +25,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression Diff(object value1, object value2)
-            => ("$sqlDiff(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
-
+            => DbFunction("sqlDiff", value1, value2).CreateExp();
 
         /// <summary>
         /// Evaluates the script word $SQLGT.
@@ -36,7 +34,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression Gt(object value1, object value2)
-            => ("$sqlGt(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
+            => DbFunction("sqlGt", value1, value2).CreateExp();
 
         /// <summary>
         /// Evaluates the script word $SQLGTE.
@@ -45,7 +43,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression Gte(object value1, object value2)
-            => ("$sqlGte(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
+            => DbFunction("sqlGte", value1, value2).CreateExp();
 
         /// <summary>
         /// Evaluates the script word $SQLLT.
@@ -54,7 +52,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression Lt(object value1, object value2)
-            => ("$sqlLt(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
+            => DbFunction("sqlLt", value1, value2).CreateExp();
 
         /// <summary>
         /// Evaluates the script word $SQLLTE.
@@ -63,7 +61,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression Lte(object value1, object value2)
-            => ("$sqlLte(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
+            => DbFunction("sqlLte", value1, value2).CreateExp();
 
         /// <summary>
         /// Evaluates the script word $SQLISNULL.
@@ -71,7 +69,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value1"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression IsNull(object value1)
-            => ("$sqlIsNull(" + Value(value1) + ")").CreateScript();
+            => DbFunction("sqlIsNull", value1).CreateExp();
 
         /// <summary>
         /// Evaluates the script word $SQLIFNULL.
@@ -80,7 +78,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression IfNull(object value1, object value2)
-            => ("$sqlIfNull(" + Value(value1) + ", " + Value(value2) + ")").CreateScript();
+            => DbFunction("sqlIfNull", value1, value2).CreateExp();
 
         /// <summary>
         /// Evaluates the script word $SQLEXISTS.
@@ -88,6 +86,6 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value"></param>
         /// <returns>The interpreted object value.</returns>
         public static DataExpression Exists(object value)
-            => ("$sqlExists(" + Value(value) + ")").CreateScript();
+            => DbFunction("sqlExists", value).CreateExp();
     }
 }

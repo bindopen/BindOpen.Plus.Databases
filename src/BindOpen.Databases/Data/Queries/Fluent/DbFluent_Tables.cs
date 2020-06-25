@@ -30,10 +30,20 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="kind">The kind to consider.</param>
         /// <param name="table">The table to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <param name="expression">The expression to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript)
-            => new DbJoinedTable() { Kind = kind, Table = table }.WithCondition(conditionScript.CreateScript());
+        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, DataExpression expression)
+            => new DbJoinedTable() { Kind = kind, Table = table }.WithCondition(expression);
+
+        ///// <summary>
+        ///// Creates a new joined table.
+        ///// </summary>
+        ///// <param name="kind">The kind to consider.</param>
+        ///// <param name="table">The table to consider.</param>
+        ///// <param name="conditionScript">The condition script to consider.</param>
+        ///// <returns>Returns a new From statement.</returns>
+        //public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript)
+        //    => TableAsJoin(kind, table, conditionScript.CreateExpAsScript());
 
         // Derived --------------------------------
 

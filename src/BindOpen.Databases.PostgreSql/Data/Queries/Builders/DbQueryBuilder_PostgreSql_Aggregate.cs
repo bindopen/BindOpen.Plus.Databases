@@ -22,7 +22,7 @@ namespace BindOpen.Databases.Data.Queries
                 if (object1 != null)
                 {
                     string st = object1.ToString();
-                    text += st.GetValueFromText() + (text == "count(" ? "," : "");
+                    text += st.GetValueFromScript() + (text == "count(" ? ", " : "");
                 }
             }
 
@@ -44,7 +44,7 @@ namespace BindOpen.Databases.Data.Queries
                 if (object1 != null)
                 {
                     string st = object1.ToString();
-                    text += st.GetValueFromText() + (text == "sum(" ? "," : "");
+                    text += st.GetValueFromScript() + (text == "sum(" ? ", " : "");
                 }
             }
 
@@ -66,7 +66,7 @@ namespace BindOpen.Databases.Data.Queries
                 if (object1 != null)
                 {
                     string st = object1.ToString();
-                    text += st.GetValueFromText() + (text == "avg(" ? "," : "");
+                    text += st.GetValueFromScript() + (text == "avg(" ? ", " : "");
                 }
             }
 

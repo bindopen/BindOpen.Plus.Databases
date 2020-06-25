@@ -43,12 +43,12 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             var log = new BdoLog();
 
             string expectedResult =
-                @"insert into ""Mdm"".""Employee"" (""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"") "
+                @"insert into ""Mdm"".""Employee"" (""Code"", ""ByteArrayField"", ""DoubleField"", ""DateTimeField"", ""LongField"") "
                 + "(values ('" + _employee.Code.Replace("'", "''") + "'"
-                + ",'" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
-                + "," + _employee.DoubleField.ToString(DataValueTypes.Number)
-                + ",'" + _employee.DateTimeField.ToString(DataValueTypes.Date)
-                + "'," + _employee.LongField.ToString(DataValueTypes.Long) + @"))"
+                + ", '" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
+                + ", " + _employee.DoubleField.ToString(DataValueTypes.Number)
+                + ", '" + _employee.DateTimeField.ToString(DataValueTypes.Date) + "'"
+                + ", " + _employee.LongField.ToString(DataValueTypes.Long) + @"))"
                 + @" returning ""Mdm"".""Employee"".""EmployeeId""";
 
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee1(_employee), log: log);
@@ -56,9 +56,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -67,16 +67,16 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             var log = new BdoLog();
 
             string expectedResult =
-                @"insert into ""Mdm"".""Employee"" (""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"") (select ""Code"",""ByteArrayField"",""DoubleField"",""DateTimeField"",""LongField"" from ""Mdm"".""Employee"" where ""Code""='oldCode') returning ""Mdm"".""Employee"".""EmployeeId""";
+                @"insert into ""Mdm"".""Employee"" (""Code"", ""ByteArrayField"", ""DoubleField"", ""DateTimeField"", ""LongField"") (select ""Code"", ""ByteArrayField"", ""DoubleField"", ""DateTimeField"", ""LongField"" from ""Mdm"".""Employee"" where ""Code""='oldCode' ) returning ""Mdm"".""Employee"".""EmployeeId""";
 
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee2(_employee), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
     }
 }

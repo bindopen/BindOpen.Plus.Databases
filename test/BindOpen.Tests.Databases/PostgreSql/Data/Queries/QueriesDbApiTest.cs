@@ -27,16 +27,16 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"select ""Mdm"".""Employee"".*,""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"",""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
+            string expectedResult = @"select ""Mdm"".""Employee"".*, ""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"", ""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
 
             string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode1("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -44,16 +44,16 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"select ""Mdm"".""Employee"".*,""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"",""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
+            string expectedResult = @"select ""Mdm"".""Employee"".*, ""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"", ""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' limit 100";
 
             string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode2("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -61,16 +61,16 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"select ""Mdm"".""Employee"".*,""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"",""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' order by ""employee"".""Code"" asc, ""regionalDirectorate"".""DateTimeField"" desc limit 100";
+            string expectedResult = @"select ""Mdm"".""Employee"".*, ""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"", ""Mdm"".""RegionalDirectorate"".""Code"" from ""Mdm"".""Employee"" left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"") where ""Code""='codeC' order by ""employee"".""Code"" asc, ""regionalDirectorate"".""DateTimeField"" desc limit 100";
 
             string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode3("codeC"), log: log);
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
     }
 }
