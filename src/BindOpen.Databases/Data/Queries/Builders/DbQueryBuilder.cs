@@ -15,16 +15,6 @@ namespace BindOpen.Databases.Data.Queries
     public abstract partial class DbQueryBuilder : IdentifiedDataItem
     {
         // ------------------------------------------
-        // VARIABLES
-        // ------------------------------------------
-
-        #region Variables
-
-        private IBdoScope _scope;
-
-        #endregion
-
-        // ------------------------------------------
         // PROPERTIES
         // ------------------------------------------
 
@@ -33,11 +23,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// The application scope of this instance.
         /// </summary>
-        public IBdoScope Scope
-        {
-            get => _scope;
-            internal set { _scope = value; }
-        }
+        public IBdoScope Scope { get; internal set; }
 
         #endregion
 
@@ -50,7 +36,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// Instantiates a new instance of the DbQueryBuilder class.
         /// </summary>
-        public DbQueryBuilder()
+        protected DbQueryBuilder()
         {
         }
 
@@ -69,7 +55,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <remarks>If not found, it returns the specified data module name.</remarks>
         protected string GetDatabaseName(string dataModuleName)
         {
-            var dataSourceDepot = _scope?.DataStore?.Get<IBdoDatasourceDepot>();
+            var dataSourceDepot = Scope?.DataStore?.Get<IBdoDatasourceDepot>();
             if (dataSourceDepot == null)
                 return dataModuleName;
             else
@@ -118,12 +104,12 @@ namespace BindOpen.Databases.Data.Queries
                 {
                     if (query is DbSingleQuery singleDbQuery)
                     {
-                        (scriptVariableSet ?? (scriptVariableSet = new ScriptVariableSet())).SetDbBuilder(this);
+                        (scriptVariableSet ??= new ScriptVariableSet()).SetDbBuilder(this);
                         queryString = GetSqlText_Query(singleDbQuery, parameterSet, scriptVariableSet, log);
                     }
                     else if (query is DbCompositeQuery compositeDbQuery)
                     {
-                        (scriptVariableSet ?? (scriptVariableSet = new ScriptVariableSet())).SetDbBuilder(this);
+                        (scriptVariableSet ??= new ScriptVariableSet()).SetDbBuilder(this);
                         queryString = GetSqlText_Query(compositeDbQuery, parameterSet, scriptVariableSet, log);
                     }
                     else if (query is DbStoredQuery storedDbQuery)
@@ -132,6 +118,17 @@ namespace BindOpen.Databases.Data.Queries
                         {
                             queryString = BuildQuery(storedDbQuery.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
                             storedDbQuery.QueryTexts.Add(Id, queryString);
+                        }
+                    }
+
+                    if (query.SubQueries != null)
+                    {
+                        for (int i = 0; i < query.SubQueries.Count; i++)
+                        {
+                            var subQuery = query.SubQueries[i];
+                            var subQueryString = BuildQuery(subQuery, parameterMode, parameterSet, scriptVariableSet, log);
+
+                            queryString = queryString.Replace((i + 1).ToString().AsQueryWildString(), subQueryString);
                         }
                     }
 
@@ -151,13 +148,13 @@ namespace BindOpen.Databases.Data.Queries
                             {
                                 if (parameterMode == DbQueryParameterMode.ValueInjected)
                                 {
-                                    queryString = queryString.Replace(parameter?.CreateParameterWildString(),
-                                        GetSqlText_Value(parameter?.GetValue(_scope, scriptVariableSet, log), parameter.ValueType));
+                                    queryString = queryString.Replace((parameter?.Name ?? parameter.Index.ToString())?.AsParameterWildString(),
+                                        GetSqlText_Value(parameter?.GetValue(Scope, scriptVariableSet, log), parameter.ValueType));
                                 }
                                 else
                                 {
-                                    queryString = queryString.Replace(parameter?.CreateParameterWildString(),
-                                        parameter?.CreateParameterString());
+                                    queryString = queryString.Replace((parameter?.Name ?? parameter.Index.ToString())?.AsParameterWildString(),
+                                        "@" + parameter?.Name ?? parameter.Index.ToString());
                                 }
                             }
                         }
@@ -224,7 +221,7 @@ namespace BindOpen.Databases.Data.Queries
 
             if (isDisposing)
             {
-                _scope?.Dispose();
+                Scope?.Dispose();
             }
         }
 

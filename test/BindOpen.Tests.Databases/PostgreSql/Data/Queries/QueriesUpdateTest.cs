@@ -46,10 +46,10 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string expectedResult =
                 @"update ""Mdm"".""Employee"" set "
                 + @"""Code""='" + code + "'"
-                + @",""ByteArrayField""='" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
-                + @",""DoubleField""=" + _employee.DoubleField.ToString(DataValueTypes.Number)
-                + @",""DateTimeField""='" + _employee.DateTimeField.ToString(DataValueTypes.Date) + "'"
-                + @",""LongField""=" + _employee.LongField.ToString(DataValueTypes.Long)
+                + @", ""ByteArrayField""='" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
+                + @", ""DoubleField""=" + _employee.DoubleField.ToString(DataValueTypes.Number)
+                + @", ""DateTimeField""='" + _employee.DateTimeField.ToString(DataValueTypes.Date) + "'"
+                + @", ""LongField""=" + _employee.LongField.ToString(DataValueTypes.Long)
                 + @" from ""Mdm"".""Employee"" "
                 + @"left join ""Mdm"".""RegionalDirectorate"" on (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId"")"
                 + @" returning ""Mdm"".""Employee"".""Code""";
@@ -59,9 +59,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -77,9 +77,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string expectedResult =
                 @"update ""Mdm"".""Employee"" as ""employee"" set "
                 + @"""RegionalDirectorateId""=null"
-                + @",""LongField""=2500"
+                + @", ""LongField""=2500"
                 + @" from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"""
                 + @" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeR' returning ""employee"".""Code""";
 
@@ -99,9 +99,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(result.Equals(expectedResult, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
     }
 }

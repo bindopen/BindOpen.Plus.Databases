@@ -96,7 +96,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns this instance.</returns>
         public DbJoinedTable WithCondition(string condition)
-            => WithCondition(condition?.CreateScript());
+            => WithCondition(condition?.CreateExpAsScript());
 
         #endregion
     }

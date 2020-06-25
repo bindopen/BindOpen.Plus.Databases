@@ -1,4 +1,5 @@
-﻿using BindOpen.Data.Helpers.Objects;
+﻿using BindOpen.Data.Expression;
+using BindOpen.Data.Helpers.Objects;
 using BindOpen.Data.Items;
 using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Carriers;
@@ -25,7 +26,7 @@ namespace BindOpen.Databases.Data.Models
         /// <param name="table1Alias"></param>
         /// <param name="table2Alias"></param>
         /// <returns></returns>
-        public string JoinCondition(
+        public DataExpression JoinCondition(
             string name,
             string table1Alias = null,
             string table2Alias = null)
@@ -62,7 +63,7 @@ namespace BindOpen.Databases.Data.Models
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <returns></returns>
-        public string JoinCondition<T1, T2>(
+        public DataExpression JoinCondition<T1, T2>(
             string table1Alias = null,
             string table2Alias = null)
         {

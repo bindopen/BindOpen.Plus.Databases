@@ -1,4 +1,5 @@
-﻿using BindOpen.Data.Helpers.Objects;
+﻿using BindOpen.Data.Expression;
+using BindOpen.Data.Helpers.Objects;
 using BindOpen.Data.Helpers.Strings;
 using BindOpen.Data.Items;
 using BindOpen.Databases.Data.Queries;
@@ -77,22 +78,22 @@ namespace BindOpen.Databases.Data.Models
         /// </summary>
         /// <param name="name"></param>
         /// <param name="kind">The kind to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public DbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, string conditionScript)
+        public DbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, DataExpression condition)
         {
-            return DbFluent.TableAsJoin(kind, Table(name), conditionScript);
+            return DbFluent.TableAsJoin(kind, Table(name), condition);
         }
 
         /// <summary>
         /// Creates a new joined table.
         /// </summary>
         /// <param name="kind">The kind to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public DbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, string conditionScript)
+        public DbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, DataExpression condition)
         {
-            return TableAsJoin(typeof(T).Name, kind, conditionScript);
+            return TableAsJoin(typeof(T).Name, kind, condition);
         }
 
         /// <summary>

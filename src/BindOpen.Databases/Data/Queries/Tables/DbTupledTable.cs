@@ -31,10 +31,8 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// Instantiates a new instance of the DbTupledTable class.
         /// </summary>
-        /// <param name="tuples">The tuples to consider.</param>
-        public DbTupledTable(params DbTuple[] tuples)
+        public DbTupledTable()
         {
-            Tuples = tuples?.ToList();
         }
 
         #endregion

@@ -11,33 +11,18 @@ namespace BindOpen.Databases.Data.Queries
     public enum DbQueryTableMode
     {
         /// <summary>
-        /// Only name.
-        /// </summary>
-        OnlyName,
-
-        /// <summary>
         /// Complete name.
         /// </summary>
         CompleteName,
 
         /// <summary>
-        /// Complete name as alias.
+        /// Name as alias.
         /// </summary>
         CompleteNameAsAlias,
 
         /// <summary>
-        /// Only name as alias.
+        /// Alias as.
         /// </summary>
-        OnlyNameAsAlias,
-
-        /// <summary>
-        /// Only query.
-        /// </summary>
-        OnlyQuery,
-
-        /// <summary>
-        /// Alias as query.
-        /// </summary>
-        AliasAsQuery
+        AliasAsCompleteName
     }
 }

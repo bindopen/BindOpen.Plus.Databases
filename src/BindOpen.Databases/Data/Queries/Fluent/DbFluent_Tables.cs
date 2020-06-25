@@ -30,10 +30,20 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="kind">The kind to consider.</param>
         /// <param name="table">The table to consider.</param>
-        /// <param name="conditionScript">The condition script to consider.</param>
+        /// <param name="expression">The expression to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript)
-            => new DbJoinedTable() { Kind = kind, Table = table }.WithCondition(conditionScript.CreateScript());
+        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, DataExpression expression)
+            => new DbJoinedTable() { Kind = kind, Table = table }.WithCondition(expression);
+
+        ///// <summary>
+        ///// Creates a new joined table.
+        ///// </summary>
+        ///// <param name="kind">The kind to consider.</param>
+        ///// <param name="table">The table to consider.</param>
+        ///// <param name="conditionScript">The condition script to consider.</param>
+        ///// <returns>Returns a new From statement.</returns>
+        //public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript)
+        //    => TableAsJoin(kind, table, conditionScript.CreateExpAsScript());
 
         // Derived --------------------------------
 
@@ -51,6 +61,13 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="query">The query to consider.</param>
         public static DbTupledTable TableAsTuples(params IDbTuple[] tuples)
-            => new DbTupledTable(tuples?.Cast<DbTuple>().ToArray());
+            => new DbTupledTable() { Tuples = tuples?.Cast<DbTuple>().ToList() };
+
+        /// <summary>
+        /// Creates a new instance of the DbTuple class.
+        /// </summary>
+        /// <param name="query">The query to consider.</param>
+        public static DbTuple Tuple(params DbField[] fields)
+            => new DbTuple() { Fields = fields?.ToList() };
     }
 }

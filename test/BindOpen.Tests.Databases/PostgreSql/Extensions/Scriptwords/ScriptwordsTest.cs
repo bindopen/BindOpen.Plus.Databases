@@ -34,7 +34,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
             Assert.That(expectedScript.Equals(fluentScript, StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
 
@@ -42,15 +42,15 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             var scriptVariableSet = new ScriptVariableSet();
             scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
                 DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(fluentScript, DataExpressionKind.Script, scriptVariableSet, log: log);
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
 
-            string expectedResult = @"""RegionalDirectorateId""=COALESCE(NULL,""RegionalDirectorateId"")";
+            string expectedResult = @"""RegionalDirectorateId""=COALESCE(NULL, ""RegionalDirectorateId"")";
 
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test, Order(2)]
@@ -67,31 +67,31 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             var scriptVariableSet = new ScriptVariableSet();
             scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
                 DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(fluentScript1, DataExpressionKind.Script, scriptVariableSet, log: log);
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript1, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
 
-            string expectedResult = @"COALESCE(NULL,""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
+            string expectedResult = @"COALESCE(NULL, ""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
 
             // Case: null, value
 
             string fluentScript2 = DbFluent.Eq(
                 DbFluent.IfNull(value, DbFluent.Field("RegionalDirectorateId", DbFluent.Table("Table1", "Schema1"))), null);
-            result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(fluentScript1, DataExpressionKind.Script, scriptVariableSet, log: log);
+            result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript2, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
 
-            expectedResult = @"COALESCE(NULL,""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
+            expectedResult = @"COALESCE(NULL, ""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
 
             xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test, Order(3)]
@@ -102,21 +102,21 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
                 DbFluent.IfNull(DbFluent.Field("RegionalDirectorateId"), ""),
                 DbFluent.IfNull(value, ""));
 
-            string expectedResult = @"COALESCE(""RegionalDirectorateId"",'')=COALESCE(NULL,'')";
+            string expectedResult = @"COALESCE(""RegionalDirectorateId"", '')=COALESCE(NULL, '')";
 
             var log = new BdoLog();
 
             var scriptVariableSet = new ScriptVariableSet();
             scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
                 DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(script1, DataExpressionKind.Script, scriptVariableSet, log: log);
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script1, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
         [Test, Order(3)]
@@ -130,14 +130,14 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             var scriptVariableSet = new ScriptVariableSet();
             scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
                 DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log: log);
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
 
             string xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
 
             script = DbFluent.DecodeBase64(DbFluent.Text("ABCDE"));
             expectedResult = @"decode('ABCDE', 'base64')";
@@ -146,14 +146,14 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             scriptVariableSet = new ScriptVariableSet();
             scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
                 DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            result = GlobalVariables.AppHost.Scope.Interpreter.Interprete(script, DataExpressionKind.Script, scriptVariableSet, log: log);
+            result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
 
             xml = "";
             if (log.HasErrorsOrExceptions())
             {
-                xml = log.ToXml();
+                xml = ". Result was '" + log.ToXml();
             }
-            Assert.That(expectedResult.Equals(result, StringComparison.OrdinalIgnoreCase), "Bad script interpretation. Result was '" + xml);
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
     }
 }

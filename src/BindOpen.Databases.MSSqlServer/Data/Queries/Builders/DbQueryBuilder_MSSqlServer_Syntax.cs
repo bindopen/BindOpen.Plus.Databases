@@ -20,7 +20,7 @@
         /// Evaluates the script word $SQLTRUE.
         /// </summary>
         /// <returns>The interpreted string value.</returns>
-        public override string GetSqlText_True()
+        public override string GetSqlText_Value(object value)
         {
             return "1";
         }

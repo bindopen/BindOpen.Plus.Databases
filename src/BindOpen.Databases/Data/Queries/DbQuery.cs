@@ -4,6 +4,7 @@ using BindOpen.Data.Expression;
 using BindOpen.Data.Helpers.Strings;
 using BindOpen.Data.Items;
 using BindOpen.Extensions.Carriers;
+using BindOpen.System.Scripting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +79,11 @@ namespace BindOpen.Databases.Data.Queries
         /// The CTE tables of this instance.
         /// </summary>
         public List<DbTable> CTETables { get; set; }
+
+        /// <summary>
+        /// The sub queries of this instance.
+        /// </summary>
+        public List<DbQuery> SubQueries { get; set; }
 
         /// <summary>
         /// Value of this instance.
@@ -221,6 +227,19 @@ namespace BindOpen.Databases.Data.Queries
             ParameterSet?.Add(parameter as DataElement);
 
             return this;
+        }
+
+        /// <summary>
+        /// Adds the specified sub query.
+        /// </summary>
+        /// <param name="subQuery">The sub query to consider.</param>
+        /// <returns>Return this added parameter.</returns>
+        public DataExpression UseSubQuery(IDbQuery subQuery)
+        {
+            if (SubQueries == null) SubQueries = new List<DbQuery>();
+            SubQueries.Add((DbQuery)subQuery);
+
+            return BdoScript.Function("sqlQuery", SubQueries.Count.ToString()).CreateExp();
         }
 
         /// <summary>

@@ -5,6 +5,8 @@ using BindOpen.Data.Helpers.Strings;
 using BindOpen.Extensions.Carriers;
 using BindOpen.System.Diagnostics;
 using BindOpen.System.Scripting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BindOpen.Databases.Data.Queries
 {
@@ -29,7 +31,7 @@ namespace BindOpen.Databases.Data.Queries
                 string subQuery = BuildQuery(clause.Query, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
                 UpdateParameterSet(query.ParameterSet, clause.Query);
                 queryString += "(" + subQuery + ")";
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " union " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "union " + queryString);
             }
 
             return queryString;
@@ -40,6 +42,7 @@ namespace BindOpen.Databases.Data.Queries
         private string GetSqlText_FromClause(
             IDbQueryFromClause clause,
             IDbSingleQuery query = null,
+            DbQueryFromClauseKind kind = DbQueryFromClauseKind.FromPreffix,
             IDataElementSet parameterSet = null,
             IScriptVariableSet scriptVariableSet = null,
             IBdoLog log = null)
@@ -48,21 +51,57 @@ namespace BindOpen.Databases.Data.Queries
 
             if (query != null)
             {
+                if (query.Kind == DbQueryKind.Insert)
+                {
+                    if ((clause?.Statements?.Count == 1 &&
+                        clause?.Statements[0]?.Tables.Any(p => p is DbDerivedTable) != true)
+                        || (query.WhereClause != null))
+                    {
+                        var subQuery = DbFluent.SelectQuery(DbFluent.Table(query.DataTable, query.Schema, query.DataModule))
+                            .WithFields(query.Fields?.ToArray());
+                        subQuery.FromClause = query.FromClause;
+                        subQuery.WhereClause = query.WhereClause;
+
+                        clause = new DbQueryFromClause
+                        {
+                            Statements = new List<DbQueryFromStatement>()
+                        };
+                        clause.Statements.Add(new DbQueryFromStatement()
+                        {
+                            Tables = new List<DbTable>()
+                            {
+                                DbFluent.TableAsQuery(subQuery)
+                            }
+                        });
+                    }
+                }
+
                 if (clause == null)
                 {
-                    // we add the query's default table
-
-                    queryString += GetSqlText_Table(
-                        query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
-                        DbQueryTableMode.CompleteName,
-                        query.DataModule, query.Schema,
-                        scriptVariableSet: scriptVariableSet, log: log);
+                    if (query.Kind == DbQueryKind.Insert)
+                    {
+                        var table = DbFluent.TableAsTuples(
+                            DbFluent.Tuple(query.Fields?.ToArray()));
+                        queryString += GetSqlText_Table(
+                            table, query, parameterSet,
+                            DbQueryTableMode.CompleteName,
+                            query.DataModule, query.Schema,
+                            scriptVariableSet: scriptVariableSet, log: log);
+                    }
+                    else
+                    {
+                        queryString += GetSqlText_Table(
+                            query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
+                            DbQueryTableMode.CompleteName,
+                            query.DataModule, query.Schema,
+                            scriptVariableSet: scriptVariableSet, log: log);
+                    }
                 }
                 else
                 {
                     if (clause?.Expression != null)
                     {
-                        string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                        string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                         queryString += expression;
                     }
                     else if (!(clause?.Statements?.Count > 0))
@@ -119,10 +158,10 @@ namespace BindOpen.Databases.Data.Queries
                                     else
                                     {
                                         queryString += GetSqlText_Table(
-                                                    table,
-                                                    query, parameterSet, DbQueryTableMode.CompleteNameAsAlias,
-                                                    query.DataModule, query.Schema,
-                                                    scriptVariableSet: scriptVariableSet, log: log);
+                                            table,
+                                            query, parameterSet, DbQueryTableMode.CompleteNameAsAlias,
+                                            query.DataModule, query.Schema,
+                                            scriptVariableSet: scriptVariableSet, log: log);
                                     }
                                 }
                             }
@@ -130,7 +169,8 @@ namespace BindOpen.Databases.Data.Queries
                     }
                 }
             }
-            queryString = queryString.If(!string.IsNullOrEmpty(queryString), " from " + queryString);
+            queryString = queryString.If(!string.IsNullOrEmpty(queryString),
+                (kind == DbQueryFromClauseKind.FromPreffix ? "from " : "") + queryString);
 
             return queryString;
         }
@@ -150,12 +190,12 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
-                if (clause.IdFields?.Count > 0)
+                else if (clause.IdFields?.Count > 0)
                 {
-                    queryString = queryString.If(!string.IsNullOrEmpty(queryString), " (" + queryString + ") ");
+                    queryString = queryString.If(!string.IsNullOrEmpty(queryString), "(" + queryString + ")");
 
                     foreach (DbField field in clause.IdFields)
                     {
@@ -168,7 +208,7 @@ namespace BindOpen.Databases.Data.Queries
                             scriptVariableSet: scriptVariableSet, log: log);
                     }
                 }
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " where " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "where " + queryString);
             }
 
             return queryString;
@@ -189,7 +229,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
                 else if (clause.Statements?.Count > 0)
@@ -224,7 +264,7 @@ namespace BindOpen.Databases.Data.Queries
                         }
                     }
                 }
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " order by " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "order by " + queryString);
             }
 
             return queryString;
@@ -245,7 +285,7 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
                 else if (clause.Fields?.Count > 0)
@@ -262,7 +302,7 @@ namespace BindOpen.Databases.Data.Queries
                             scriptVariableSet: scriptVariableSet, log: log);
                     }
                 }
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " group by " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "group by " + queryString);
             }
 
             return queryString;
@@ -283,12 +323,12 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (clause?.Expression != null)
                 {
-                    string expression = Scope?.Interpreter.Interprete(clause.Expression, scriptVariableSet, log) ?? "";
+                    string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
 
 
-                queryString = queryString.If(!string.IsNullOrEmpty(queryString), " having " + queryString);
+                queryString = queryString.If(!string.IsNullOrEmpty(queryString), "having " + queryString);
             }
 
             return queryString;
