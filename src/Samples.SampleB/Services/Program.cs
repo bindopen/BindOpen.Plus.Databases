@@ -1,4 +1,5 @@
-﻿using BindOpen.Data.Stores;
+﻿using BindOpen.Application.Scopes;
+using BindOpen.Data.Stores;
 using BindOpen.Extensions.References;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,7 +27,8 @@ namespace Samples.SampleA
                             .AddExtensions(q => q.AddPostgreSql())
                             .SetHostSettingsFile(false)
                             .SetHostSettings(p => p.WithAppConfigFileRequired(false))
-                            .AddDefaultConsoleLogger()
+                            .SetConsoleLoggerAtStartup()
+                            .SetLogger(p => p.AddConsole().AddFile(options))
                             //.AddDefaultFileLogger("testA.txt")
                             .ThrowExceptionOnStartFailure()
                     )
