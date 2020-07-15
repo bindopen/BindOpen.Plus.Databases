@@ -29,7 +29,6 @@ namespace Samples.SampleA
                             .SetHostSettings(p => p.WithAppConfigFileRequired(false))
                             .SetConsoleLoggerAtStartup()
                             .SetLogger(p => p.AddConsole().AddFile(options))
-                            //.AddDefaultFileLogger("testA.txt")
                             .ThrowExceptionOnStartFailure()
                     )
                     //.AddBdoConnectedService<IBdoDbService, TestDbRepository>(
