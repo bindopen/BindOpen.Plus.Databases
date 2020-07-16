@@ -27,8 +27,7 @@ namespace Samples.SampleA
                             .AddExtensions(q => q.AddPostgreSql())
                             .SetHostSettingsFile(false)
                             .SetHostSettings(p => p.WithAppConfigFileRequired(false))
-                            .SetConsoleLoggerAtStartup()
-                            .SetLogger(p => p.AddConsole().AddFile(options))
+                            .SetLogger(p => p.AddTrace().AddFile(options), true)
                             .ThrowExceptionOnStartFailure()
                     )
                     //.AddBdoConnectedService<IBdoDbService, TestDbRepository>(
