@@ -47,7 +47,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Creates a BDO script representing and Sql Xor condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static DataExpression Like(string param1, string param2)
+        public static DataExpression Like(object param1, object param2)
             => DbFunction("sqlLike", param1, param2).CreateExp();
     }
 }
