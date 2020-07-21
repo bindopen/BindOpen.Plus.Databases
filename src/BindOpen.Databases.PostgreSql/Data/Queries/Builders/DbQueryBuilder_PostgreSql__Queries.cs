@@ -59,7 +59,7 @@ namespace BindOpen.Databases.Data.Queries
                         if (query.Fields?.Count > 0)
                         {
                             queryString += string.Join(", ", query.Fields.Select(field => GetSqlText_Field(
-                                field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                                field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                 query.DataModule, query.Schema,
                                 scriptVariableSet: scriptVariableSet, log: log)))
                                 .ConcatenateIfFirstNotEmpty(" ");
@@ -127,7 +127,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += "returning ";
                             queryString += string.Join(", ", query.ReturnedIdFields.Select(field =>
                                 GetSqlText_Field(
-                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
                                     scriptVariableSet: scriptVariableSet, log: log)));
                         }
@@ -149,7 +149,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += "returning ";
                             queryString += string.Join(", ", query.ReturnedIdFields.Select(field =>
                                 GetSqlText_Field(
-                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
                                     scriptVariableSet: scriptVariableSet, log: log)));
                         }
@@ -182,7 +182,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += "returning ";
                             queryString += string.Join(", ", query.ReturnedIdFields.Select(field =>
                                 GetSqlText_Field(
-                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                                    field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
                                     scriptVariableSet: scriptVariableSet, log: log)));
                         }
