@@ -43,7 +43,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// Complete name as alias.
         /// </summary>
-        CompleteNameAsAlias,
+        CompleteNameOrValueAsAlias,
 
         /// <summary>
         /// Only name as alias.

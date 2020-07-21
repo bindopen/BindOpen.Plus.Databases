@@ -39,6 +39,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     ElementFactory.CreateScalar("DateTimeField", employee.DateTimeField),
                     ElementFactory.CreateScalar("LongField", employee.LongField));
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -49,7 +50,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return DbFluent.InsertQuery(Table<DbEmployee>())
                 .WithFields(q => new[]
                 {
-                    DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text)),
+                    DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("newCode", DataValueTypes.Text)),
                     DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("ByteArrayField", DataValueTypes.Text)),
                     DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("DoubleField", DataValueTypes.Text)),
                     DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("DateTimeField", DataValueTypes.Text)),
@@ -71,6 +72,49 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     ElementFactory.CreateScalar("DoubleField", employee.DoubleField),
                     ElementFactory.CreateScalar("DateTimeField", employee.DateTimeField),
                     ElementFactory.CreateScalar("LongField", employee.LongField));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        internal IDbQuery InsertEmployee3(EmployeeDto employee)
+        {
+            return DbFluent.InsertQuery(Table<DbEmployee>())
+                .WithFields(q => new[]
+                {
+                    DbFluent.Field(nameof(DbEmployee.Code)),
+                    DbFluent.Field(nameof(DbEmployee.ByteArrayField)),
+                    DbFluent.Field(nameof(DbEmployee.DoubleField)),
+                    DbFluent.Field(nameof(DbEmployee.DateTimeField)),
+                    DbFluent.Field(nameof(DbEmployee.LongField))
+                })
+                .WithReturnedIdFields(new[]
+                {
+                    Field<DbEmployee>(p=> p.EmployeeId)
+                })
+                .From(p => p.UseSubQuery(
+                    DbFluent.SelectQuery(Table<DbEmployee>())
+                        .WithFields(q => new[]
+                        {
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("newCode", DataValueTypes.Text)),
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("ByteArrayField", DataValueTypes.Text)),
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("DoubleField", DataValueTypes.Text)),
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("DateTimeField", DataValueTypes.Text)),
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("LongField", DataValueTypes.Date))
+                        })
+                        .WithIdFields(q => new[]
+                        {
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("oldCode", DataValueTypes.Text))
+                        })
+                        .WithParameters(
+                            ElementFactory.CreateScalar("newCode", employee.Code),
+                            ElementFactory.CreateScalar("oldCode", "oldCode"),
+                            ElementFactory.CreateScalar("ByteArrayField", employee.ByteArrayField),
+                            ElementFactory.CreateScalar("DoubleField", employee.DoubleField),
+                            ElementFactory.CreateScalar("DateTimeField", employee.DateTimeField),
+                            ElementFactory.CreateScalar("LongField", employee.LongField))));
         }
     }
 }
