@@ -39,7 +39,7 @@ namespace BindOpen.Databases.Data.Queries
                 {
                     case DbQueryFieldMode.CompleteName:
                     case DbQueryFieldMode.CompleteNameOrValue:
-                    case DbQueryFieldMode.CompleteNameAsAlias:
+                    case DbQueryFieldMode.CompleteNameOrValueAsAlias:
                         if (field.IsAll)
                         {
                             string tableName = GetSqlText_Table(
@@ -58,48 +58,73 @@ namespace BindOpen.Databases.Data.Queries
                         }
                         else
                         {
-                            if ((viewMode != DbQueryFieldMode.CompleteNameOrValue) || (field.Expression == null))
+                            switch (viewMode)
                             {
-                                string tableName = GetSqlText_Table(
-                                    field.DataModule,
-                                    field.Schema,
-                                    field.DataTable ?? defaultDataTable,
-                                    field.DataTableAlias,
-                                    DbQueryTableMode.CompleteName,
-                                    defaultDataModule,
-                                    defaultSchema,
-                                    scriptVariableSet: scriptVariableSet, log: log);
+                                case DbQueryFieldMode.CompleteName:
+                                    string tableName = GetSqlText_Table(
+                                        field.DataModule,
+                                        field.Schema,
+                                        field.DataTable ?? defaultDataTable,
+                                        field.DataTableAlias,
+                                        DbQueryTableMode.CompleteName,
+                                        defaultDataModule,
+                                        defaultSchema,
+                                        scriptVariableSet: scriptVariableSet, log: log);
 
-                                queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(tableName), tableName + ".");
+                                    queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(tableName), tableName + ".");
 
-                                queryString += GetSqlText_Field(
-                                    field,
-                                    query, parameterSet,
-                                    viewMode == DbQueryFieldMode.CompleteNameAsAlias ?
-                                        DbQueryFieldMode.OnlyNameAsAlias :
+                                    queryString += GetSqlText_Field(
+                                        field,
+                                        query, parameterSet,
                                         DbQueryFieldMode.OnlyName,
-                                    defaultDataModule,
-                                    defaultSchema,
-                                    defaultDataTable,
-                                    scriptVariableSet,
-                                    log);
-                            }
-                            else
-                            {
-                                queryString += GetSqlText_Field(
-                                    field,
-                                    query, parameterSet,
-                                    DbQueryFieldMode.OnlyValue,
-                                    defaultDataModule,
-                                    defaultSchema,
-                                    defaultDataTable,
-                                    scriptVariableSet,
-                                    log);
+                                        defaultDataModule,
+                                        defaultSchema,
+                                        defaultDataTable,
+                                        scriptVariableSet,
+                                        log);
+                                    break;
+                                case DbQueryFieldMode.CompleteNameOrValue:
+                                    if (field.Query != null || field.Expression != null)
+                                    {
+                                        queryString += GetSqlText_Field(
+                                            field,
+                                            query, parameterSet,
+                                            DbQueryFieldMode.OnlyValue,
+                                            defaultDataModule,
+                                            defaultSchema,
+                                            defaultDataTable,
+                                            scriptVariableSet,
+                                            log);
+                                    }
+                                    else
+                                    {
+                                        queryString += GetSqlText_Field(
+                                            field,
+                                            query, parameterSet,
+                                            DbQueryFieldMode.CompleteName,
+                                            defaultDataModule,
+                                            defaultSchema,
+                                            defaultDataTable,
+                                            scriptVariableSet,
+                                            log);
+                                    }
+                                    break;
+                                case DbQueryFieldMode.CompleteNameOrValueAsAlias:
+                                    queryString += GetSqlText_Field(
+                                        field,
+                                        query, parameterSet,
+                                        DbQueryFieldMode.CompleteNameOrValue,
+                                        defaultDataModule,
+                                        defaultSchema,
+                                        defaultDataTable,
+                                        scriptVariableSet,
+                                        log);
 
-                                if (viewMode == DbQueryFieldMode.CompleteNameAsAlias)
-                                {
-                                    queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(field.Alias), " as " + GetSqlText_Field(field.Alias));
-                                }
+                                    if (viewMode == DbQueryFieldMode.CompleteNameOrValueAsAlias)
+                                    {
+                                        queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(field.Alias), " as " + GetSqlText_Field(field.Alias));
+                                    }
+                                    break;
                             }
                         }
                         break;

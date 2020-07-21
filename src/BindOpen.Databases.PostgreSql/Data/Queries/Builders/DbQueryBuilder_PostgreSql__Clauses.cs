@@ -297,7 +297,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += ", ";
                         }
                         queryString += GetSqlText_Field(
-                            field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                            field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                             query.DataModule, query.Schema, query.DataTable,
                             scriptVariableSet: scriptVariableSet, log: log);
                     }

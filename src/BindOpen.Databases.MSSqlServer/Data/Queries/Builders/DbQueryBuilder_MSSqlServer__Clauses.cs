@@ -44,7 +44,7 @@ namespace BindOpen.Databases.Data.Queries
                 {
                     queryString += GetSqlText_Table(
                         query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
-                        query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                        query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                         query.DataModule, query.Schema,
                         scriptVariableSet: scriptVariableSet, log: log);
                 }
@@ -58,7 +58,7 @@ namespace BindOpen.Databases.Data.Queries
                         {
                             queryString += GetSqlText_Table(
                                 query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
-                                query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                                query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                 query.DataModule, query.Schema,
                                 scriptVariableSet: scriptVariableSet, log: log);
                         }
@@ -70,7 +70,7 @@ namespace BindOpen.Databases.Data.Queries
                                 {
                                     queryString += GetSqlText_Table(
                                         table,
-                                        query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                                        query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                         query.DataModule, query.Schema,
                                         scriptVariableSet: scriptVariableSet, log: log);
                                 }
@@ -81,7 +81,7 @@ namespace BindOpen.Databases.Data.Queries
                                 {
                                     queryString += GetSqlText_Table(
                                         table,
-                                        query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                                        query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                         query.DataModule, query.Schema,
                                         scriptVariableSet: scriptVariableSet, log: log);
                                 }
@@ -217,7 +217,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += ", ";
                         }
                         queryString += GetSqlText_Field(
-                            field, query, parameterSet, DbQueryFieldMode.CompleteNameAsAlias,
+                            field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                             query.DataModule, query.Schema, query.DataTable,
                             scriptVariableSet: scriptVariableSet, log: log);
                     }
