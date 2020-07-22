@@ -102,7 +102,14 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                             DbFluent.FieldAsParameter(nameof(DbEmployee.ByteArrayField), q.UseParameter("ByteArrayField", DataValueTypes.Text)),
                             DbFluent.FieldAsParameter(nameof(DbEmployee.DoubleField), q.UseParameter("DoubleField", DataValueTypes.Text)),
                             DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("DateTimeField", DataValueTypes.Text)),
-                            DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("LongField", DataValueTypes.Date))
+                            DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("LongField", DataValueTypes.Date)),
+
+                            DbFluent.FieldAsQuery<DbContact>(p => p.ContactId,
+                                DbFluent.SelectQuery(Table<DbContact>())
+                                    .WithLimit(1)
+                                    .AddField(Field<DbContact>(f=>f.ContactId))
+                                    .AddIdField(
+                                        DbFluent.FieldAsParameter<DbContact>(f => f.Code, q.UseParameter("contactCode", DataValueTypes.Text)))),
                         })
                         .WithIdFields(q => new[]
                         {
@@ -110,6 +117,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                         })
                         .WithParameters(
                             ElementFactory.CreateScalar("newCode", employee.Code),
+                            ElementFactory.CreateScalar("contactCode", "contactCodeA"),
                             ElementFactory.CreateScalar("oldCode", "oldCode"),
                             ElementFactory.CreateScalar("ByteArrayField", employee.ByteArrayField),
                             ElementFactory.CreateScalar("DoubleField", employee.DoubleField),
