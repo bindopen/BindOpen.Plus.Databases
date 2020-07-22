@@ -98,7 +98,9 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
                 + ", '" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
                 + ", " + _employee.DoubleField.ToString(DataValueTypes.Number)
                 + ", '" + _employee.DateTimeField.ToString(DataValueTypes.Date) + "'"
-                + ", " + _employee.LongField.ToString(DataValueTypes.Long) + @" from ""Mdm"".""Employee"" where ""Code""='oldCode' )"
+                + ", " + _employee.LongField.ToString(DataValueTypes.Long)
+                + @", (select ""Mdm"".""Contact"".""ContactId"" from ""Mdm"".""Contact"" where ""Code""='contactCodeA' limit 1)"
+                + @"  from ""Mdm"".""Employee"" where ""Code""='oldCode' )"
                 + @" returning ""Mdm"".""Employee"".""EmployeeId""";
 
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee3(_employee), log: log);

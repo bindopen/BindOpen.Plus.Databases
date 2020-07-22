@@ -201,7 +201,14 @@ namespace BindOpen.Extensions.Connectors
             }
             else
             {
-                sqlText = QueryBuilder.BuildQuery(query, parameterMode, parameterSet, scriptVariableSet, log);
+                var subLog = new BdoLog();
+                sqlText = QueryBuilder.BuildQuery(query, parameterMode, parameterSet, scriptVariableSet, subLog);
+                log.AddEvents(subLog);
+
+                if (subLog.HasErrorsOrExceptions())
+                {
+                    return null;
+                }
             }
 
             return sqlText;
