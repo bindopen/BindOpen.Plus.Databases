@@ -53,10 +53,11 @@ namespace BindOpen.Databases.Data.Queries
             {
                 if (query.Kind == DbQueryKind.Insert)
                 {
-                    if (clause?.Statements?.Count == 1 &&
+                    if ((clause?.Statements?.Count == 1 &&
                         clause?.Statements[0]?.Tables.Any(p => p is DbDerivedTable) != true)
+                        || (query.WhereClause != null))
                     {
-                        var subQuery = DbFluent.SelectQuery(DbFluent.Table(query.DataTable, query.Schema, query.DataModule))
+                        var subQuery = DbFluent.SelectQuery(null)
                             .WithFields(query.Fields?.ToArray());
                         subQuery.FromClause = query.FromClause;
                         subQuery.WhereClause = query.WhereClause;

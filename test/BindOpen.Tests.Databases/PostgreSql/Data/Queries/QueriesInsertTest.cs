@@ -38,7 +38,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         }
 
         [Test]
-        public void SimpleInsert1()
+        public void SimpleInsertWithValues()
         {
             var log = new BdoLog();
 
@@ -62,7 +62,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         }
 
         [Test]
-        public void SimpleInsert2()
+        public void SimpleInsertWithSelect()
         {
             var log = new BdoLog();
 
@@ -73,7 +73,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
                 + ", '" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
                 + ", " + _employee.DoubleField.ToString(DataValueTypes.Number)
                 + ", '" + _employee.DateTimeField.ToString(DataValueTypes.Date) + "'"
-                + ", " + _employee.LongField.ToString(DataValueTypes.Long) + @" from ""Mdm"".""Employee"" where ""Code""='oldCode' )"
+                + ", " + _employee.LongField.ToString(DataValueTypes.Long) + @" where ""Code""='oldCode' )"
                 + @" returning ""Mdm"".""Employee"".""EmployeeId""";
 
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee2(_employee), log: log);
@@ -87,7 +87,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         }
 
         [Test]
-        public void SimpleInsert3()
+        public void SimpleInsertWithSelectWithSubQuery()
         {
             var log = new BdoLog();
 
