@@ -56,7 +56,6 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     DbFluent.FieldAsParameter(nameof(DbEmployee.DateTimeField), q.UseParameter("DateTimeField", DataValueTypes.Text)),
                     DbFluent.FieldAsParameter(nameof(DbEmployee.LongField), q.UseParameter("LongField", DataValueTypes.Date))
                 })
-                .From(Table<DbEmployee>())
                 .WithIdFields(q => new[]
                 {
                     DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("oldCode", DataValueTypes.Text))
