@@ -1,6 +1,7 @@
 ﻿using BindOpen.Application.Scopes;
 using BindOpen.Data.Connections;
 using BindOpen.Data.Elements;
+using BindOpen.Data.Helpers.Strings;
 using BindOpen.Data.Items;
 using BindOpen.Databases.Data.Queries;
 using BindOpen.Extensions.Runtime;
@@ -207,7 +208,7 @@ namespace BindOpen.Extensions.Connectors
 
                 if (subLog.HasErrorsOrExceptions())
                 {
-                    return null;
+                    return StringHelper.__NoneString;
                 }
             }
 
