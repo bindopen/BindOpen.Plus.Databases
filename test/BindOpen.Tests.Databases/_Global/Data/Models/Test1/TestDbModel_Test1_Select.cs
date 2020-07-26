@@ -87,7 +87,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         internal IDbQuery SelectEmployeeWithCode4(string code)
         {
             return this.UseQuery("SelectEmployeeWithCode4", p =>
-                SelectQuery<DbEmployee>()
+                p.SelectQuery<DbEmployee>()
                     .From(
                         DbFluent.TableAsJoin(
                             DbQueryJoinKind.Left,
@@ -112,7 +112,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
         internal IDbQuery SelectEmployeeWithCode5(string code)
         {
             return this.UseQuery("SelectEmployeeWithCode5", p =>
-                SelectQuery<DbEmployee>()
+                p.SelectQuery<DbEmployee>()
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .Where(q => DbFluent.Exists(
                         q.UseSubQuery(

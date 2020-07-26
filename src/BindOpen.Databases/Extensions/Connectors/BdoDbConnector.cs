@@ -204,7 +204,7 @@ namespace BindOpen.Extensions.Connectors
             {
                 var subLog = new BdoLog();
                 sqlText = QueryBuilder.BuildQuery(query, parameterMode, parameterSet, scriptVariableSet, subLog);
-                log.AddEvents(subLog);
+                log?.AddEvents(subLog);
 
                 if (subLog.HasErrorsOrExceptions())
                 {
