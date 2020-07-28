@@ -105,30 +105,10 @@ namespace BindOpen.Databases.Data.Queries
                         }
                         break;
                     case DbQueryFieldMode.OnlyName:
-                        if (!string.IsNullOrEmpty(field.Alias))
-                        {
-                            queryString += GetSqlText_Field(field.Alias);
-                        }
-                        else if (field.IsNameAsScript)
-                        {
-                            string name = Scope?.Interpreter.Evaluate(field.Name.CreateExpAsScript(), scriptVariableSet, log)?.ToString() ?? "";
-                            queryString += GetSqlText_Field(name);
-                        }
-                        else
-                        {
-                            queryString += GetSqlText_Field(field.Name);
-                        }
+                        queryString += GetSqlText_Field(field.Name);
                         break;
                     case DbQueryFieldMode.OnlyNameAsAlias:
-                        if (field.IsNameAsScript)
-                        {
-                            string name = Scope?.Interpreter.Evaluate(field.Name.CreateExpAsScript(), scriptVariableSet, log)?.ToString() ?? "";
-                            queryString += GetSqlText_Field(name);
-                        }
-                        else
-                        {
-                            queryString += GetSqlText_Field(field.Name);
-                        }
+                        queryString += GetSqlText_Field(field.Name);
                         queryString = queryString.ConcatenateIf(!string.IsNullOrEmpty(field.Alias), " as " + GetSqlText_Field(field.Alias));
 
                         break;

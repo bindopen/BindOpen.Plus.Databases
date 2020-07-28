@@ -31,6 +31,12 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                 DbFluent.Field(nameof(DbRegionalDirectorate.RegionalDirectorateId), Table("RegionalDirectorate")),
                 DbFluent.Field(nameof(DbRegionalDirectorate.Code), Table("RegionalDirectorate")))
 
+            .AddTuple("Fields_SelectEmployee2",
+                DbFluent.FieldAsAll(Table<DbEmployee>("employee")),
+                DbFluent.Field<DbContact>(p => p.Code, Table<DbContact>("contact")).WithAlias("contactCode"),
+                DbFluent.Field(nameof(DbRegionalDirectorate.RegionalDirectorateId), Table("RegionalDirectorate", "regionalDirectorate")),
+                DbFluent.Field(nameof(DbRegionalDirectorate.Code), Table("RegionalDirectorate", "regionalDirectorate")))
+
             .AddQuery(
                 DbFluent.StoredQuery(
                     DbFluent.SelectQuery(Table<DbEmployee>())

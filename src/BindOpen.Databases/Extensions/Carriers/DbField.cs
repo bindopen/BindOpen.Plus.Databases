@@ -94,12 +94,6 @@ namespace BindOpen.Extensions.Carriers
         public bool IsForeignKey { get; set; }
 
         /// <summary>
-        /// Indicates wheteher the name of this instance can be defined by a script.
-        /// </summary>
-        [DetailProperty(Name = "isNameAsScript")]
-        public bool IsNameAsScript { get; set; }
-
-        /// <summary>
         /// Type of value of this instance.
         /// </summary>
         [DetailProperty(Name = "valueType")]
@@ -280,16 +274,6 @@ namespace BindOpen.Extensions.Carriers
         public DbField AsKey()
         {
             IsKey = true;
-            return this;
-        }
-
-        /// <summary>
-        /// Indicates that the name of this instance is as script.
-        /// </summary>
-        /// <returns>Returns this instance.</returns>
-        public DbField WithNameAsScript()
-        {
-            IsNameAsScript = true;
             return this;
         }
 

@@ -42,9 +42,6 @@
         <scalar name="isForeignKey" valueType="Boolean" >
           <title>Indicates whether it is a foreign key field</title>
         </scalar>
-        <scalar name="isNameAsScript" valueType="Boolean" >
-          <title>Indicates whether the name is expressed as script</title>
-        </scalar>
         <scalar name="valueType" valueType="Text" >
           <title>Value type</title>
         </scalar>

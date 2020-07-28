@@ -9,6 +9,7 @@ Todo list for BindOpen
 
 * Review the CreateParameterWildString method
 * See whether AsScript extension must return a ScriptWord or a DataExpression
+* Null exception in .DataElementSet.Repair: UsingParameters without parameters
 
 * Add Getting Help + Contributors sections in README.md
 * Api filter and sort clauses
