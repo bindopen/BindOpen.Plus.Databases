@@ -126,5 +126,33 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                     ElementFactory.CreateScalar("regionalDirectorateCode", regionalDirectorateCode),
                     ElementFactory.CreateScalar("length", 2500));
         }
+
+        /// <summary>
+        /// Updates the regional directorate of the specified Fidal employee.
+        /// </summary>
+        /// <param name="regionalDirectorateCode">The code of the regional directorate to consider.</param>
+        /// <returns>Returns the query.</returns>
+        internal IDbQuery UpdateEmployee4(string regionalDirectorateCode)
+        {
+            return this.UseQuery("UpdateFidalEmployee_Simple", p =>
+                DbFluent.UpdateQuery(Table("DbEmployee", "employee"))
+                    .AddField(q => DbFluent.Field<DbEmployee>(q => q.RegionalDirectorateId).AsNull())
+                    .AddField(q => DbFluent.FieldAsParameter<DbEmployee>(q => q.LongField, ElementFactory.CreateScalar("length", DataValueTypes.Long)))
+                    .AddIdField(q =>
+                        DbFluent.FieldAsOther<DbEmployee>(
+                            t => t.RegionalDirectorateId, Table("DbEmployee", "employee"),
+                            DbFluent.Field<DbRegionalDirectorate>(
+                                t => t.RegionalDirectorateId, Table("RegionalDirectorate").WithAlias("regionalDirectorate"))))
+                    .AddIdField(q =>
+                        DbFluent.FieldAsParameter<DbEmployee>(
+                            t => t.Code,
+                            DbFluent.Table("employee"),
+                            q.UseParameter("regionalDirectorateCode", DataValueTypes.Text)))
+                    .WithReturnedIdFields(Field("Code", "DbEmployee", "employee"))
+                )
+                .WithParameters(
+                    ElementFactory.CreateScalar("regionalDirectorateCode", regionalDirectorateCode),
+                    ElementFactory.CreateScalar("length", 2500));
+        }
     }
 }
