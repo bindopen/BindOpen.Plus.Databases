@@ -88,7 +88,7 @@ namespace BindOpen.Databases.Data.Queries
                             query.DataModule, query.Schema,
                             scriptVariableSet: scriptVariableSet, log: log);
                     }
-                    else
+                    else if (query.Kind != DbQueryKind.Update)
                     {
                         queryString += GetSqlText_Table(
                             query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
