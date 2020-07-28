@@ -103,5 +103,26 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
+
+        [Test]
+        public void SimpleUpdate4()
+        {
+            var log = new BdoLog();
+
+            string expectedResult =
+                @"update ""Mdm"".""Employee"" as ""employee"" set "
+                + @"""RegionalDirectorateId""=null"
+                + @", ""LongField""=2500"
+                + @" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeR' returning ""employee"".""Code""";
+
+            string result = _dbConnector.CreateCommandText(_model.UpdateEmployee4("codeR"), log: log);
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
+        }
     }
 }
