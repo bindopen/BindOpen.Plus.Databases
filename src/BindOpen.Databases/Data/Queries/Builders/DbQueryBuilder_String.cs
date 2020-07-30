@@ -43,7 +43,7 @@
         /// </summary>
         /// <param name="text">The text to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public abstract string GetSqlText_DecodeBae64(string text);
+        public abstract string GetSqlText_DecodeBase64(string text);
 
         /// <summary>
         /// Evaluates the script word $SQLENCODE.
