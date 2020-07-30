@@ -139,8 +139,8 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
 
-            script = DbFluent.DecodeBase64(DbFluent.Text("ABCDE"));
-            expectedResult = @"decode('ABCDE', 'base64')";
+            script = DbFluent.DecodeBase64(DbFluent.Field("ABCDE"));
+            expectedResult = @"decode(""ABCDE"", 'base64')";
             log = new BdoLog();
 
             scriptVariableSet = new ScriptVariableSet();

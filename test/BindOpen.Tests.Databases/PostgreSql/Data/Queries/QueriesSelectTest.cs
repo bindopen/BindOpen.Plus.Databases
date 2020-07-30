@@ -112,7 +112,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
         {
             var log = new BdoLog();
 
-            string expectedResult = @"select ""employee"".*, ""contact"".""Code"" as ""contactCode"", ""regionalDirectorate"".""RegionalDirectorateId"", ""regionalDirectorate"".""Code"" from ""Mdm"".""Employee""";
+            string expectedResult = @"select ""employee"".*, ""contact"".""Code"" as ""contactCode"", ""regionalDirectorate"".""RegionalDirectorateId"", ""regionalDirectorate"".""Code"", now() from ""Mdm"".""Employee""";
 
             string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode6("codeC"), log: log);
 

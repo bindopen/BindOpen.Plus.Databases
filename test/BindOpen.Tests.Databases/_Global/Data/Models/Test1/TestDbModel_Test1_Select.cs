@@ -133,6 +133,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
             return this.UseQuery("SelectEmployeeWithCode6", p =>
                 p.SelectQuery<DbEmployee>()
                     .WithFields(Tuple("Fields_SelectEmployee2"))
+                    .AddField(DbFluent.FieldAsScript<DbEmployee>(p => p.DateTimeField, "$sqlGetCurrentDate()"))
                 )
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));

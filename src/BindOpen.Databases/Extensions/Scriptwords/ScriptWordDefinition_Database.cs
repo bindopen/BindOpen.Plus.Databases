@@ -478,7 +478,7 @@ namespace BindOpen.Extensions.Scriptwords
             else
             {
                 string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
-                return queryBuilder.GetSqlText_DecodeBae64(value1);
+                return queryBuilder.GetSqlText_DecodeBase64(value1);
             }
         }
 
