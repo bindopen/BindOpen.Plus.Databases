@@ -65,7 +65,7 @@
         /// </summary>
         /// <param name="text">The text to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public override string GetSqlText_DecodeBae64(string text)
+        public override string GetSqlText_DecodeBase64(string text)
         {
             return "decode(" + text + ", 'base64')";
         }
