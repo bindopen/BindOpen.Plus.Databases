@@ -146,5 +146,25 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
 
             return query;
         }
+
+        /// <summary>
+        /// Delete the specified employee.
+        /// </summary>
+        /// <param name="code">The code to consider.</param>
+        /// <returns>Returns the generated query.</returns>
+        internal IDbQuery DeleteEmployee9(string code)
+        {
+            var query = DbFluent.DeleteQuery(Table<DbEmployee>())
+                .From(
+                    DbFluent.TableAsJoin(DbQueryJoinKind.Left,
+                        Table("RegionalDirectorate").WithAlias("directorate"),
+                        JoinCondition("Employee_RegionalDirectorate")))
+                .Where(q => DbFluent.Eq(DbFluent.Field("code"), q.UseParameter("code", DataValueTypes.Text)))
+                .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text)))
+                .WithParameters(
+                    ElementFactory.CreateScalar("code", code));
+
+            return query;
+        }
     }
 }

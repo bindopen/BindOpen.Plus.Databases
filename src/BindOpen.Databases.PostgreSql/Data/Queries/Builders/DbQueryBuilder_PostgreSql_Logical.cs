@@ -24,7 +24,7 @@
         /// </summary>
         /// <param name="value1">The value 1 to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public override string GetSqlText_Not(string value1)
+        public override string GetSqlText_Not(object value1)
         {
             return "not (" + value1 + ")";
         }
