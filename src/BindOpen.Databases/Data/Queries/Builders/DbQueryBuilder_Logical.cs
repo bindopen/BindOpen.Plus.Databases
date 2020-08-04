@@ -21,7 +21,7 @@
         /// </summary>
         /// <param name="value1">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public abstract string GetSqlText_Not(string value1);
+        public abstract string GetSqlText_Not(object value1);
 
         /// <summary>
         /// Evaluates the script word $SQLOR.

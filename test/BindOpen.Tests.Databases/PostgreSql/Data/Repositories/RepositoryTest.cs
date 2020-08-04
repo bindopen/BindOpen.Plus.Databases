@@ -171,5 +171,22 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Repositories
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
+
+        [Test]
+        public void TestSimpleDelete9()
+        {
+            var log = new BdoLog();
+
+            string expectedResult = @"delete from ""Mdm"".""Employee"" using ""Mdm"".""RegionalDirectorate"" as ""directorate"" where ((""code""='codeC' and (""Mdm"".""Employee"".""EmployeeId""=""Mdm"".""RegionalDirectorate"".""RegionalDirectorateId""))) and ""Code""='codeC'";
+
+            string result = _repository.Connector.CreateCommandText(_repository.Model.DeleteEmployee9("codeC"), log: log);
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
+        }
     }
 }
