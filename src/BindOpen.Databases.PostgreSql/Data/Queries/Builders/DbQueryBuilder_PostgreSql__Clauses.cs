@@ -1,6 +1,5 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Data.Elements;
-using BindOpen.Data.Expression;
 using BindOpen.Data.Helpers.Strings;
 using BindOpen.Extensions.Carriers;
 using BindOpen.System.Diagnostics;
@@ -149,11 +148,14 @@ namespace BindOpen.Databases.Data.Queries
                                         {
                                             query.WhereClause = new DbQueryWhereClause();
                                         }
-                                        if (query?.WhereClause?.Expression == null)
+                                        if (query.WhereClause.Expression == null)
                                         {
-                                            query.WhereClause.Expression = new DataExpression();
+                                            query.WhereClause.Expression = joinedTable.Condition;
                                         }
-                                        query.WhereClause.Expression = DbFluent.And(query.WhereClause.Expression, joinedTable.Condition);
+                                        else
+                                        {
+                                            query.WhereClause.Expression = DbFluent.And(query.WhereClause.Expression, joinedTable.Condition);
+                                        }
                                     }
                                     else
                                     {
@@ -193,7 +195,7 @@ namespace BindOpen.Databases.Data.Queries
                     string expression = Scope?.Interpreter.Evaluate(clause.Expression, scriptVariableSet, log)?.ToString() ?? "";
                     queryString += expression;
                 }
-                else if (clause.IdFields?.Count > 0)
+                if (clause.IdFields?.Count > 0)
                 {
                     queryString = queryString.If(!string.IsNullOrEmpty(queryString), "(" + queryString + ")");
 
