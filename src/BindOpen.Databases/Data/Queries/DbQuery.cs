@@ -76,6 +76,11 @@ namespace BindOpen.Databases.Data.Queries
         }
 
         /// <summary>
+        /// Indicates whether this instance.
+        /// </summary>
+        public bool IsCTERecursive { get; set; }
+
+        /// <summary>
         /// The CTE tables of this instance.
         /// </summary>
         public List<DbTable> CTETables { get; set; }
@@ -295,6 +300,18 @@ namespace BindOpen.Databases.Data.Queries
         {
             CTETables = tables?.ToList();
             return this;
+        }
+
+        /// <summary>
+        /// Sets the specified CTE tables.
+        /// </summary>
+        /// <param name="isRecursive">Indicates whether the WITH clause is recursive.</param>
+        /// <param name="tables">The CTE tables to consider.</param>
+        /// <returns>Returns this instance.</returns>
+        public IDbQuery WithCTE(bool isRecursive, params DbTable[] tables)
+        {
+            IsCTERecursive = isRecursive;
+            return WithCTE(tables);
         }
 
         #endregion

@@ -138,5 +138,21 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        internal IDbQuery SelectEmployeeWithCode7(string code)
+        {
+            return this.UseQuery("SelectEmployeeWithCode7", p =>
+                p.SelectQuery<DbEmployee>()
+                    .WithFields(Tuple("Fields_SelectEmployee2"))
+                    .AddField(DbFluent.FieldAsScript<DbEmployee>(p => p.DateTimeField, "$sqlGetCurrentDate()"))
+                )
+                .WithParameters(
+                    ElementFactory.CreateScalar("code", code));
+        }
     }
 }

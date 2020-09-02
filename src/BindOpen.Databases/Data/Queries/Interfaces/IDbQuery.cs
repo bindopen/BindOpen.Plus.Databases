@@ -122,10 +122,23 @@ namespace BindOpen.Databases.Data.Queries
             object value = null);
 
         /// <summary>
+        /// Indicates whether this instance.
+        /// </summary>
+        bool IsCTERecursive { get; set; }
+
+        /// <summary>
         /// Sets the specified CTE tables.
         /// </summary>
         /// <param name="tables">The CTE tables to consider.</param>
         /// <returns>Returns this instance.</returns>
         IDbQuery WithCTE(params DbTable[] tables);
+
+        /// <summary>
+        /// Sets the specified CTE tables.
+        /// </summary>
+        /// <param name="isRecursive">Indicates whether the WITH clause is recursive.</param>
+        /// <param name="tables">The CTE tables to consider.</param>
+        /// <returns>Returns this instance.</returns>
+        IDbQuery WithCTE(bool isRecursive, params DbTable[] tables);
     }
 }
