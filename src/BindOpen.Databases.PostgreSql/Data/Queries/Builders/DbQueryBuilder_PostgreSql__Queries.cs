@@ -37,6 +37,10 @@ namespace BindOpen.Databases.Data.Queries
             if (query.CTETables?.Count > 0)
             {
                 queryString += "with ";
+                if (query?.IsCTERecursive == true)
+                {
+                    queryString += "recursive ";
+                }
                 queryString += string.Join(", ", query.CTETables.Select(table => GetSqlText_Table(
                     table, query, parameterSet, DbQueryTableMode.AliasAsCompleteName,
                     query.DataModule, query.Schema,

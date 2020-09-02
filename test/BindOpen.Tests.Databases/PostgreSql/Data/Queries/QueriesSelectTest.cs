@@ -123,5 +123,22 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
+
+        [Test]
+        public void SimpleSelect7()
+        {
+            var log = new BdoLog();
+
+            string expectedResult = @"select ""employee"".*, ""contact"".""Code"" as ""contactCode"", ""regionalDirectorate"".""RegionalDirectorateId"", ""regionalDirectorate"".""Code"", now() from ""Mdm"".""Employee""";
+
+            string result = _dbConnector.CreateCommandText(_model.SelectEmployeeWithCode6("codeC"), log: log);
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
+        }
     }
 }
