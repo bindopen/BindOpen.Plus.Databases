@@ -47,5 +47,12 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="value">The value to consider.</param>
         public static DataExpression Value(object value)
             => BdoScript.Function("sqlValue", value).CreateExp();
+
+        /// <summary>
+        /// Gets the Sql contenation of the specified object.
+        /// </summary>
+        /// <param name="values">The values to consider.</param>
+        public static DataExpression Concat(params object[] values)
+            => BdoScript.Function("sqlConcatenate", values).CreateExp();
     }
 }

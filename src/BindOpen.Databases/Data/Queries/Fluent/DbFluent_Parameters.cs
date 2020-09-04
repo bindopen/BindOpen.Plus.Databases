@@ -18,7 +18,7 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="value">The data table to consider.</para>
-        public static IDataElement Parameter(
+        public static IScalarElement Parameter(
             string name,
             object value = null)
         {
@@ -31,7 +31,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="name">The name to consider.</param>
         /// <param name="valueType">The data value type to consider.</param>
         /// <param name="value">The data table to consider.</param>
-        public static IDataElement Parameter(
+        public static IScalarElement Parameter(
             string name,
             DataValueTypes valueType,
             object value)
@@ -43,7 +43,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Converts this instance as a word.
         /// </summary>
         /// <param name="element">The parameter to consider.</param>
-        public static DataExpression AsExp(this ScalarElement parameter)
+        public static DataExpression AsExp(this IScalarElement parameter)
         {
             return BdoScript.Function("sqlParameter", parameter?.Name ?? parameter.Index.ToString())
                 .CreateExp();

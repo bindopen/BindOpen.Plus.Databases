@@ -24,6 +24,10 @@ Todo list for BindOpen
 * Converting table (derived, query, tuple) in script
 * Converting tuple in script
 * Make Where clause as a tree of function(string)/expression
+* Make DbFluent easier.
+	- Create interface IDbParameter that inherites IScalarELement.
+	- Implement AsDbExp to handle.
+	- BdoScript -> ScriptFactory
 
 
 ## Bugs to fix later on
