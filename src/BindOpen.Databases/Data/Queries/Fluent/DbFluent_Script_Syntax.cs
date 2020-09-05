@@ -53,6 +53,13 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="values">The values to consider.</param>
         public static DataExpression Concat(params object[] values)
-            => DbFunction("sqlConcatenate", values).CreateExp();
+            => DbFunction("sqlConcat", values).CreateExp();
+
+        /// <summary>
+        /// Gets the Sql string contenation of the specified object.
+        /// </summary>
+        /// <param name="values">The values to consider.</param>
+        public static DataExpression StringConcat(params object[] values)
+            => DbFunction("sqlStringConcat", values).CreateExp();
     }
 }

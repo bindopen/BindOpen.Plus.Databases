@@ -275,15 +275,30 @@
       <returnValueType>Text</returnValueType>
     </add.definition>
 
-    <!-- $SQLCONCATENATE(value1, value2...) -->
-    <add.definition name="SQLCONCATENATE">
+    <!-- $SQLCONCAT(value1, value2...) -->
+    <add.definition name="SQLCONCAT">
       <creationDate>2010-08-05</creationDate>
       <lastModificationDate>2016-08-19</lastModificationDate>
       <description>
         <add.value>Returns the SQL function that allows to concatenate all the parameters.</add.value>
       </description>
       <kind>Function</kind>
-      <functionName>Fun_SqlConcatenate</functionName>
+      <functionName>Fun_SqlConcat</functionName>
+      <returnValueType>Text</returnValueType>
+      <isRepeatedParameters>true</isRepeatedParameters>
+      <repeatedParameterValueType>Any</repeatedParameterValueType>
+      <repeatedParameterName>value</repeatedParameterName>
+    </add.definition>
+
+    <!-- $SQLSTRINGCONCAT(value1, value2...) -->
+    <add.definition name="SQLSTRINGCONCAT">
+      <creationDate>2020-09-05</creationDate>
+      <lastModificationDate>2020-09-05</lastModificationDate>
+      <description>
+        <add.value>Returns the SQL function that allows to concatenate all the parameters.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlStringConcatenate</functionName>
       <returnValueType>Text</returnValueType>
       <isRepeatedParameters>true</isRepeatedParameters>
       <repeatedParameterValueType>Any</repeatedParameterValueType>

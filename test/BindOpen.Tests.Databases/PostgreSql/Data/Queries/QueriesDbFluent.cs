@@ -46,7 +46,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
                 DbFluent.Concat("%", DbFluent.Parameter("myText").AsExp(), "%"));
             var log = new BdoLog();
 
-            string expectedResult = @"$sqlLike($sqlTable('MyTable'), $sqlConcatenate($sqlText('%'), $sqlParameter('myText'), $sqlText('%')))";
+            string expectedResult = @"$sqlLike($sqlTable('MyTable'), $sqlConcat($sqlText('%'), $sqlParameter('myText'), $sqlText('%')))";
 
             string result = (string)expression;
 
@@ -98,5 +98,25 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
+        [Test]
+        public void TestSqlStringConcat()
+        {
+            var expression = DbFluent.StringConcat("X", "O", "A");
+            var log = new BdoLog();
+
+            string expectedResult = @"'X' || 'O' || 'A'";
+
+            var result = _appHost.Interpreter.Evaluate<string>(
+                expression,
+                new ScriptVariableSet().SetDbBuilder(new DbQueryBuilder_PostgreSql()),
+                log: log);
+
+            var xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
+        }
     }
 }
