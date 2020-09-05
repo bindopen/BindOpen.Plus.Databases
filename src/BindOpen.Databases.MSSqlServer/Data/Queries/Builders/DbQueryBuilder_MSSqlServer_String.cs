@@ -44,11 +44,11 @@ namespace BindOpen.Databases.Data.Queries
         }
 
         /// <summary>
-        /// Evaluates the script word $SQLCONCATENATE.
+        /// Evaluates the script word $SQLCONCAT.
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public override string GetSqlText_Concatenate(object[] parameters)
+        public override string GetSqlText_Concat(object[] parameters)
         {
             string text = "";
             foreach (object object1 in parameters)
@@ -61,6 +61,21 @@ namespace BindOpen.Databases.Data.Queries
             }
 
             return text;
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLSTRINGCONCATENATE.
+        /// </summary>
+        /// <param name="parameters">The parameters to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public override string GetSqlText_StringConcat(object[] parameters)
+        {
+            if (parameters.Length == 1)
+            {
+                return parameters[0]?.ToString();
+            }
+
+            return string.Join(" || ", parameters);
         }
 
         /// <summary>

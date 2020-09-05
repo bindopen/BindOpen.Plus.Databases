@@ -526,12 +526,12 @@ namespace BindOpen.Extensions.Scriptwords
         }
 
         /// <summary>
-        /// Evaluates the script word $SQLCONCATENATE.
+        /// Evaluates the script word $SQLCONCAT.
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlConcatenate")]
-        public static object Fun_SqlConcatenate(BdoScriptwordFunctionScope scope)
+        [BdoScriptword(Name = "sqlConcat")]
+        public static object Fun_SqlConcat(BdoScriptwordFunctionScope scope)
         {
             var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
             if (queryBuilder == null)
@@ -540,7 +540,26 @@ namespace BindOpen.Extensions.Scriptwords
             }
             else
             {
-                return queryBuilder.GetSqlText_Concatenate(scope?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_Concat(scope?.Scriptword?.Parameters?.ToArray());
+            }
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLSTRINGCONCAT.
+        /// </summary>
+        /// <param name="scope">The script word function scope to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlStringConcat")]
+        public static object Fun_SqlStringConcat(BdoScriptwordFunctionScope scope)
+        {
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                return queryBuilder.GetSqlText_StringConcat(scope?.Scriptword?.Parameters?.ToArray());
             }
         }
 
