@@ -32,11 +32,18 @@
         public abstract string GetSqlText_Replace(string value1, string value2, string value3);
 
         /// <summary>
-        /// Evaluates the script word $SQLCONCATENATE.
+        /// Evaluates the script word $SQLCONCAT.
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        public abstract string GetSqlText_Concatenate(object[] parameters);
+        public abstract string GetSqlText_Concat(object[] parameters);
+
+        /// <summary>
+        /// Evaluates the script word $SQLSTRINGCONCATENATE.
+        /// </summary>
+        /// <param name="parameters">The parameters to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_StringConcat(object[] parameters);
 
         /// <summary>
         /// Evaluates the script word $SQLDECODE.
