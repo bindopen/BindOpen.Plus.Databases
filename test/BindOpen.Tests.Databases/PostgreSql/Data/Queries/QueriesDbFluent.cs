@@ -63,7 +63,7 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
                 expression,
                 new ScriptVariableSet().SetDbBuilder(new DbQueryBuilder_PostgreSql()),
                 log: log);
-            expectedResult = @"(""MyTable"" like concatenate('%', |*|p:myText|*|, '%'))";
+            expectedResult = @"(""MyTable"" like concat('%', |*|p:myText|*|, '%'))";
             xml = "";
             if (log.HasErrorsOrExceptions())
             {
@@ -72,5 +72,31 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Queries
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
 
         }
+
+        [Test]
+        public void TestSqlIfNull()
+        {
+            var expression = DbFluent.Eq(
+                    DbFluent.Field("fieldA"),
+                    DbFluent.IfNull(
+                        DbFluent.Parameter("myText"),
+                        DbFluent.Field("fieldA")));
+            var log = new BdoLog();
+
+            string expectedResult = @"""fieldA""=coalesce(|*|p:myText|*|, ""fieldA"")";
+
+            var result = _appHost.Interpreter.Evaluate<string>(
+                expression,
+                new ScriptVariableSet().SetDbBuilder(new DbQueryBuilder_PostgreSql()),
+                log: log);
+
+            var xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
+        }
+
     }
 }

@@ -47,7 +47,7 @@
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Concatenate(object[] parameters)
         {
-            string text = "concatenate(";
+            string text = "concat(";
             if (parameters.Length == 1)
             {
                 text += parameters[0];
