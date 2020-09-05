@@ -47,15 +47,17 @@
         /// <returns>The interpreted string value.</returns>
         public override string GetSqlText_Concatenate(object[] parameters)
         {
-            string text = "";
-            foreach (object object1 in parameters)
+            string text = "concatenate(";
+            if (parameters.Length == 1)
             {
-                if (object1 != null)
-                {
-                    string st = object1.ToString();
-                    text += (string.IsNullOrEmpty(text) ? st : " + " + st);
-                }
+                text += parameters[0];
             }
+            else
+            {
+                text += string.Join(", ", parameters);
+            }
+
+            text += ")";
 
             return text;
         }
