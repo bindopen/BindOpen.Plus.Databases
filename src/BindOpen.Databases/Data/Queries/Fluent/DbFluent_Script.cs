@@ -36,6 +36,10 @@ namespace BindOpen.Databases.Data.Queries
             {
                 return Null();
             }
+            else if (obj is string text)
+            {
+                return BdoScript.Function("sqlText", text);
+            }
             else if (obj is DbField field)
             {
                 return (field?.ToScript()).CreateExpAsScript();
@@ -44,10 +48,9 @@ namespace BindOpen.Databases.Data.Queries
             {
                 return (table?.ToScript()).CreateExpAsScript();
             }
-            else if (obj is ScalarElement param)
+            else if (obj is IScalarElement param)
             {
-                return BdoScript.Function("sqlParameter", param?.Name ?? param.Index.ToString())
-                    .CreateExp();
+                return param.AsExp();
             }
             else if (obj is DataExpression || obj is BdoScriptword)
             {
