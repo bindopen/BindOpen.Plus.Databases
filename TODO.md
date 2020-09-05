@@ -3,6 +3,8 @@ Todo list for BindOpen
 
 ## Next tasks
 
+- [ ] Fix bug 
+- [ ] Add sqlValue script function
 - [X] Fixing bug in database table building
 
 ## Stuff to check out later on

@@ -12,7 +12,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Creates a BDO script representing the current date in SQL.
         /// </summary>
         public static DataExpression CurrentDate()
-            => BdoScript.Function("sqlGetCurrentDate").CreateExp();
+            => DbFunction("sqlGetCurrentDate").CreateExp();
 
         /// <summary>
         /// Creates a BDO script representing a text.
@@ -25,7 +25,7 @@ namespace BindOpen.Databases.Data.Queries
         /// Creates a BDO script representing a text.
         /// </summary>
         public static DataExpression Null()
-            => BdoScript.Function("sqlNull").CreateExp();
+            => DbFunction("sqlNull").CreateExp();
 
         /// <summary>
         /// Encodes the specified text with the specified format.
@@ -53,6 +53,6 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="values">The values to consider.</param>
         public static DataExpression Concat(params object[] values)
-            => BdoScript.Function("sqlConcatenate", values).CreateExp();
+            => DbFunction("sqlConcatenate", values).CreateExp();
     }
 }
