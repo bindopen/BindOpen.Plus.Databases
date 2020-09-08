@@ -26,7 +26,7 @@ namespace BindOpen.Extensions.Connectors
         /// <summary>
         /// Instantiates a new instance of the BdoDbConnector_MSSqlServer class.
         /// </summary>
-        public BdoDbConnector_MSSqlServer() : base()
+        public BdoDbConnector_MSSqlServer() : this(null, null)
         {
         }
 
@@ -36,7 +36,8 @@ namespace BindOpen.Extensions.Connectors
         /// <param name="name">The name of this instance.</param>
         /// <param name="connectionString">The connection string to consider.</param>
         public BdoDbConnector_MSSqlServer(
-            string name, string connectionString = null) : base(name, connectionString)
+            string name, string connectionString = null)
+            : base(BdoDbConnectorKind.MSSqlServer, name, connectionString)
         {
         }
 

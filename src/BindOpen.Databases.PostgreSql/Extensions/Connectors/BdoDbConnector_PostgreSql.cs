@@ -26,7 +26,7 @@ namespace BindOpen.Extensions.Connectors
         /// <summary>
         /// Instantiates a new instance of the BdoDbConnector_PostgreSql class.
         /// </summary>
-        public BdoDbConnector_PostgreSql() : base()
+        public BdoDbConnector_PostgreSql() : this(null, null)
         {
         }
 
@@ -36,7 +36,8 @@ namespace BindOpen.Extensions.Connectors
         /// <param name="name">The name of this instance.</param>
         /// <param name="connectionString">The connection string to consider.</param>
         public BdoDbConnector_PostgreSql(
-            string name, string connectionString = null) : base(name, connectionString)
+            string name, string connectionString = null)
+            : base(BdoDbConnectorKind.PostgreSql, name, connectionString)
         {
         }
 
