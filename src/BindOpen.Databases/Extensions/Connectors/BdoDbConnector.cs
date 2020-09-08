@@ -116,18 +116,22 @@ namespace BindOpen.Extensions.Connectors
         /// <summary>
         /// Instantiates a new instance of the DatabaseConnector class.
         /// </summary>
-        protected BdoDbConnector() : base()
+        protected BdoDbConnector() : this(BdoDbConnectorKind.Any, null, null)
         {
         }
 
         /// <summary>
         /// Instantiates a new instance of the DatabaseConnector class.
         /// </summary>
+        /// <param name="kind">The database kind of this instance.</param>
         /// <param name="name">The name of this instance.</param>
         /// <param name="connectionString">The connection string to consider.</param>
         protected BdoDbConnector(
-            string name, string connectionString = null) : base(name, connectionString)
+            BdoDbConnectorKind kind,
+            string name,
+            string connectionString = null) : base(name, connectionString)
         {
+            DatabaseConnectorKind = kind;
         }
 
         #endregion
