@@ -305,6 +305,48 @@
       <repeatedParameterName>value</repeatedParameterName>
     </add.definition>
 
+    <!-- $SQLEMPTY() -->
+    <add.definition name="SQLEMPTY">
+      <creationDate>2020-09-21</creationDate>
+      <lastModificationDate>2020-09-21</lastModificationDate>
+      <description>
+        <add.value>Returns the SQL function that returns empty text value.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlStringEmpty</functionName>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
+    <!-- $SQLLCASE() -->
+    <add.definition name="SQLLCASE">
+      <creationDate>2020-09-21</creationDate>
+      <lastModificationDate>2020-09-21</lastModificationDate>
+      <description>
+        <add.value>Returns the SQL function that returns lower case text.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlLCase</functionName>
+      <parameter.specification>
+        <scalar name="text" valueType="Any" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
+    <!-- $SQLUCASE() -->
+    <add.definition name="SQLUCASE">
+      <creationDate>2020-09-21</creationDate>
+      <lastModificationDate>2020-09-21</lastModificationDate>
+      <description>
+        <add.value>Returns the SQL function that returns upper case text.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlUCase</functionName>
+      <parameter.specification>
+        <scalar name="text" valueType="Any" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
     <!-- $SQLNULL() -->
     <add.definition name="SQLNULL">
       <creationDate>2010-08-05</creationDate>

@@ -96,5 +96,34 @@
         {
             return "encode(" + text + ", 'base64')";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string GetSqlText_Empty()
+        {
+            return "''";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public override string GetSqlText_LCase(string text)
+        {
+            return "lower(" + text + ")";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public override string GetSqlText_UCase(string text)
+        {
+            return "upper(" + text + ")";
+        }
     }
 }
