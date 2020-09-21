@@ -3,9 +3,10 @@ Todo list for BindOpen
 
 ## Next tasks
 
-- [ ] Fix bug 
+- [ ] Fix bug
 - [ ] Add sqlValue script function
 - [X] Fixing bug in database table building
+- [ ] UseQuery si SelectTuple is null
 
 ## Stuff to check out later on
 
