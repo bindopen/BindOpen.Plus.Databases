@@ -97,5 +97,34 @@ namespace BindOpen.Databases.Data.Queries
         {
             return "encode('" + text + "', 'base64')";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string GetSqlText_Empty()
+        {
+            return "''";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public override string GetSqlText_LCase(string text)
+        {
+            return "lcase(" + text + ")";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public override string GetSqlText_UCase(string text)
+        {
+            return "ucase(" + text + ")";
+        }
     }
 }

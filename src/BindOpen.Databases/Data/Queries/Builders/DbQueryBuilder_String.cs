@@ -46,6 +46,26 @@
         public abstract string GetSqlText_StringConcat(object[] parameters);
 
         /// <summary>
+        /// Evaluates the script word $SQLEMPTY.
+        /// </summary>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_Empty();
+
+        /// <summary>
+        /// Evaluates the script word $SQLLCASE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_LCase(string text);
+
+        /// <summary>
+        /// Evaluates the script word $SQLUCASE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_UCase(string text);
+
+        /// <summary>
         /// Evaluates the script word $SQLDECODE.
         /// </summary>
         /// <param name="text">The text to consider.</param>

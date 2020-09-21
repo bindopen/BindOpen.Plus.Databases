@@ -582,6 +582,65 @@ namespace BindOpen.Extensions.Scriptwords
             }
         }
 
+        /// <summary>
+        /// Evaluates the script word $SQLEMPTY.
+        /// </summary>
+        /// <param name="scope">The script word function scope to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlEmpty")]
+        public static object Fun_SqlEmpty(BdoScriptwordFunctionScope scope)
+        {
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                return queryBuilder.GetSqlText_Empty();
+            }
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLCASE.
+        /// </summary>
+        /// <param name="scope">The script word function scope to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlLCase")]
+        public static object Fun_SqlLower(BdoScriptwordFunctionScope scope)
+        {
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                return queryBuilder.GetSqlText_LCase(value1);
+            }
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLUCASE.
+        /// </summary>
+        /// <param name="scope">The script word function scope to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlUCase")]
+        public static object Fun_SqlUpper(BdoScriptwordFunctionScope scope)
+        {
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                return queryBuilder.GetSqlText_UCase(value1);
+            }
+        }
+
         // Syntax
 
         /// <summary>
