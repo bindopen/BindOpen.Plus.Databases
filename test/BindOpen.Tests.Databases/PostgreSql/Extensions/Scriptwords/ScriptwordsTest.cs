@@ -155,5 +155,35 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
+
+        [Test, Order(4)]
+        public void TestInterprete_Fun_SqlULCase()
+        {
+            var log = new BdoLog();
+
+            string fluentScript = DbFluent.LowerCase(DbFluent.Field("RegionalDirectorateId"));
+            string expectedScript = "$sqlLCase($sqlField('RegionalDirectorateId'))";
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(expectedScript.Equals(fluentScript, StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
+
+
+            var scriptVariableSet = new ScriptVariableSet();
+            scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
+                DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
+
+            string expectedResult = @"lower(""RegionalDirectorateId"")";
+
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
+        }
     }
 }
