@@ -1,5 +1,6 @@
 ﻿using BindOpen.Data.Items;
 using BindOpen.Extensions.Carriers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,6 +56,21 @@ namespace BindOpen.Databases.Data.Queries
             clone.Fields = Fields?.Select(p => p.Clone<DbField>()).ToList();
 
             return clone;
+        }
+
+        /// <summary>
+        /// Sets the specified fields.
+        /// </summary>
+        public IDbTuple AddFields(params DbField[] fields)
+        {
+            // first we remove common fields
+            Fields.RemoveAll(q =>
+                fields.Any(
+                    p => (q.Alias ?? q.Name).Equals((p.Alias ?? p.Name), StringComparison.OrdinalIgnoreCase)));
+
+            Fields.AddRange(fields);
+
+            return this;
         }
 
         #endregion

@@ -12,5 +12,10 @@ namespace BindOpen.Databases.Data.Queries
         /// The fields of this instance.
         /// </summary>
         List<DbField> Fields { get; set; }
+
+        /// <summary>
+        /// Sets the specified fields.
+        /// </summary>
+        IDbTuple AddFields(params DbField[] fields);
     }
 }
