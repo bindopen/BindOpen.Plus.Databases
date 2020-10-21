@@ -10,6 +10,17 @@ namespace BindOpen.Databases.Data.Queries
         // Condition --------------------------------
 
         /// <summary>
+        /// Creates a BDO script representing and Sql If.
+        /// </summary>
+        /// <param name="condition">The condition to consider.</param>
+        /// <param name="thenResult">The then-result to consider.</param>
+        /// <param name="elseResult">The else-result to consider.</param>
+        public static DataExpression If(object condition, object thenResult, object elseResult)
+        {
+            return DbFunction("sqlIf", condition, thenResult, elseResult).CreateExp();
+        }
+
+        /// <summary>
         /// Creates a BDO script representing and Sql And condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
