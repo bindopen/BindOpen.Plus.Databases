@@ -185,5 +185,28 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
+
+        [Test, Order(3)]
+        public void TestInterprete_Fun_SqlIf()
+        {
+            string value = null;
+            string script1 = DbFluent.If(DbFluent.IsNull(value), DbFluent.Field("RegionalDirectorateId"), DbFluent.Field("RegionalDirectorateId2"));
+
+            string expectedResult = @"case when (null is null) then ""RegionalDirectorateId"" else ""RegionalDirectorateId2"" end";
+
+            var log = new BdoLog();
+
+            var scriptVariableSet = new ScriptVariableSet();
+            scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
+                DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script1, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
+        }
     }
 }

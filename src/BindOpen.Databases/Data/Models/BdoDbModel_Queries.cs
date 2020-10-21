@@ -146,13 +146,18 @@ namespace BindOpen.Databases.Data.Models
         /// <returns></returns>
         public IDbStoredQuery UseQuery(string name, Func<IBdoDbModel, IDbQuery> initializer)
         {
-            var query = Query(name, tryMode: true);
-            if (query == null)
-            {
-                var simpleQuery = initializer?.Invoke(this);
-                AddQuery(name, simpleQuery);
+            IDbStoredQuery query = null;
 
-                query = Query(name);
+            lock (QueryDictionary)
+            {
+                query = Query(name, tryMode: true);
+                if (query == null)
+                {
+                    var simpleQuery = initializer?.Invoke(this);
+                    AddQuery(name, simpleQuery);
+
+                    query = Query(name);
+                }
             }
 
             return query;
