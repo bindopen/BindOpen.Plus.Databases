@@ -59,7 +59,7 @@ namespace BindOpen.Databases.Data.Queries
         }
 
         /// <summary>
-        /// Sets the specified fields.
+        /// Adds the specified fields.
         /// </summary>
         public IDbTuple AddFields(params DbField[] fields)
         {
