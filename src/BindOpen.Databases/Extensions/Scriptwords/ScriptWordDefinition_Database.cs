@@ -641,6 +641,50 @@ namespace BindOpen.Extensions.Scriptwords
             }
         }
 
+        /// <summary>
+        /// Evaluates the script word $SQLLPAD.
+        /// </summary>
+        /// <param name="scope">The script word function scope to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlLPad")]
+        public static object Fun_SqlLeftPadding(BdoScriptwordFunctionScope scope)
+        {
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
+                string value3 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(2)?.ToString();
+                return queryBuilder.GetSqlText_LPad(value1, value2, value3);
+            }
+        }
+
+        /// <summary>
+        /// Evaluates the script word $SQLRPAD.
+        /// </summary>
+        /// <param name="scope">The script word function scope to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        [BdoScriptword(Name = "sqlRPad")]
+        public static object Fun_SqlRightPadding(BdoScriptwordFunctionScope scope)
+        {
+            var queryBuilder = scope?.ScriptVariableSet?.GetDbBuilder();
+            if (queryBuilder == null)
+            {
+                return "<DatabaseBuilderMissing/>";
+            }
+            else
+            {
+                string value1 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(0)?.ToString();
+                string value2 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(1)?.ToString();
+                string value3 = scope?.Scriptword?.Parameters?.GetObjectAtIndex(2)?.ToString();
+                return queryBuilder.GetSqlText_RPad(value1, value2, value3);
+            }
+        }
+
         // Syntax
 
         /// <summary>

@@ -66,6 +66,24 @@
         public abstract string GetSqlText_UCase(string text);
 
         /// <summary>
+        /// Evaluates the script word $SQLLCASE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <param name="charCount">The number of characters to consider.</param>
+        /// <param name="replaceText">The replacing text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_LPad(string text, string charCount, string replaceText);
+
+        /// <summary>
+        /// Evaluates the script word $SQLRCASE.
+        /// </summary>
+        /// <param name="text">The text to consider.</param>
+        /// <param name="charCount">The number of characters to consider.</param>
+        /// <param name="replaceText">The replacing text to consider.</param>
+        /// <returns>The interpreted string value.</returns>
+        public abstract string GetSqlText_RPad(string text, string charCount, string replaceText);
+
+        /// <summary>
         /// Evaluates the script word $SQLDECODE.
         /// </summary>
         /// <param name="text">The text to consider.</param>
