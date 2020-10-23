@@ -186,6 +186,28 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Scriptwords
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
 
+        [Test, Order(5)]
+        public void TestInterprete_Fun_SqlULPad()
+        {
+            var log = new BdoLog();
+
+            string fluentScript = DbFluent.LeftPadding(DbFluent.Field("RegionalDirectorateId"), 10, DbFluent.Text("A"));
+
+            var scriptVariableSet = new ScriptVariableSet();
+            scriptVariableSet.SetValue(VarSetDb.__DbBuilder,
+                DbQueryFactory.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
+            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript, DataExpressionKind.Script, scriptVariableSet, log: log)?.ToString();
+
+            string expectedResult = @"lpad(""RegionalDirectorateId"", 10, 'A')";
+
+            string xml = "";
+            if (log.HasErrorsOrExceptions())
+            {
+                xml = ". Result was '" + log.ToXml();
+            }
+            Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
+        }
+
         [Test, Order(3)]
         public void TestInterprete_Fun_SqlIf()
         {

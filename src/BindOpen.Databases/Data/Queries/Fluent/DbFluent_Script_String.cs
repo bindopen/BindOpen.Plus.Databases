@@ -42,5 +42,23 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="values">The values to consider.</param>
         public static DataExpression StringConcat(params object[] values)
             => DbFunction("sqlStringConcat", values).CreateExp();
+
+        /// <summary>
+        /// Creates a BDO script representing a text.
+        /// </summary>
+        /// <param name="param1">The parameter 1 to consider.</param>
+        /// <param name="param2">The parameter 2 to consider.</param>
+        /// <param name="param3">The parameter 3 to consider.</param>
+        public static DataExpression LeftPadding(object param1, object param2, object param3)
+            => DbFunction("sqlLPad", param1, param2, param3).CreateExp();
+
+        /// <summary>
+        /// Creates a BDO script representing a text.
+        /// </summary>
+        /// <param name="param1">The parameter 1 to consider.</param>
+        /// <param name="param2">The parameter 2 to consider.</param>
+        /// <param name="param3">The parameter 3 to consider.</param>
+        public static DataExpression RightPadding(object param1, object param2, object param3)
+            => DbFunction("sqlRPad", param1, param2, param3).CreateExp();
     }
 }

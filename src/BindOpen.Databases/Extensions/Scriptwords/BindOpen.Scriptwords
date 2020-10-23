@@ -347,6 +347,40 @@
       <returnValueType>Text</returnValueType>
     </add.definition>
 
+    <!-- $SQLLPAD() -->
+    <add.definition name="SQLLPAD">
+      <creationDate>2020-10-23</creationDate>
+      <lastModificationDate>2020-10-23</lastModificationDate>
+      <description>
+        <add.value>Returns the SQL function that returns left padded text.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlLPad</functionName>
+      <parameter.specification>
+        <scalar name="text" valueType="Any" />
+        <scalar name="charCount" valueType="Any" />
+        <scalar name="replaceText" valueType="Any" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
+    <!-- $SQLRPAD() -->
+    <add.definition name="SQLRPAD">
+      <creationDate>2020-10-23</creationDate>
+      <lastModificationDate>2020-10-23</lastModificationDate>
+      <description>
+        <add.value>Returns the SQL function that returns right padded text.</add.value>
+      </description>
+      <kind>Function</kind>
+      <functionName>Fun_SqlRPad</functionName>
+      <parameter.specification>
+        <scalar name="text" valueType="Any" />
+        <scalar name="charCount" valueType="Any" />
+        <scalar name="replaceText" valueType="Any" />
+      </parameter.specification>
+      <returnValueType>Text</returnValueType>
+    </add.definition>
+
     <!-- $SQLNULL() -->
     <add.definition name="SQLNULL">
       <creationDate>2010-08-05</creationDate>

@@ -1,6 +1,7 @@
 ﻿using BindOpen.Data.Common;
 using BindOpen.Data.Elements;
 using BindOpen.Data.Expression;
+using BindOpen.Data.Helpers;
 using BindOpen.Data.Helpers.Objects;
 using BindOpen.Extensions.Carriers;
 using BindOpen.Extensions.Runtime;
@@ -53,6 +54,10 @@ namespace BindOpen.Databases.Data.Queries
                 return param.AsExp();
             }
             else if (obj is DataExpression || obj is BdoScriptword)
+            {
+                return obj;
+            }
+            else if (obj.GetType().IsNumeric())
             {
                 return obj;
             }
