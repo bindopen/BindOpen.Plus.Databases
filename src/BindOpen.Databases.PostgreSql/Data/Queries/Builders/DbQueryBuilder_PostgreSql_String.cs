@@ -125,5 +125,29 @@
         {
             return "upper(" + text + ")";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="charCount"></param>
+        /// <param name="replaceText"></param>
+        /// <returns></returns>
+        public override string GetSqlText_LPad(string text, string charCount, string replaceText)
+        {
+            return $"lpad({text}, {charCount}, {replaceText})";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="charCount"></param>
+        /// <param name="replaceText"></param>
+        /// <returns></returns>
+        public override string GetSqlText_RPad(string text, string charCount, string replaceText)
+        {
+            return $"rpad({text}, {charCount}, {replaceText})";
+        }
     }
 }
