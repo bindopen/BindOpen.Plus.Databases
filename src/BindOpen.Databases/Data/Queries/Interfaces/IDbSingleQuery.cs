@@ -204,6 +204,11 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// 
         /// </summary>
+        IDbSingleQuery From(Func<IDbSingleQuery, DbTable[]> initializer);
+
+        /// <summary>
+        /// 
+        /// </summary>
         IDbSingleQuery From(IDataExpression expression);
 
         /// <summary>
