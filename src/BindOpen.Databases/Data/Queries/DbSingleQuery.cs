@@ -392,6 +392,14 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// 
         /// </summary>
+        public IDbSingleQuery From(Func<IDbSingleQuery, DbTable[]> initializer)
+        {
+            return From(initializer?.Invoke(this));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IDbSingleQuery From(IDataExpression expression)
         {
             FromClause = new DbQueryFromClause() { Expression = expression as DataExpression };
@@ -413,7 +421,9 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         public IDbSingleQuery Where(IDataExpression expression)
         {
+            var idFields = WhereClause?.IdFields;
             WhereClause = new DbQueryWhereClause() { Expression = expression as DataExpression };
+            WhereClause.IdFields = idFields;
             return this;
         }
 
