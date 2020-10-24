@@ -49,7 +49,8 @@ namespace BindOpen.Tests.Databases.PostgreSql.Data.Models
                             JoinCondition("Employee_RegionalDirectorate")))
                     .WithFields(Tuple("Fields_SelectEmployee"))
                     .WithLimit(100)
-                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text))))
+                    .AddIdField(q => DbFluent.FieldAsParameter(nameof(DbEmployee.Code), q.UseParameter("code", DataValueTypes.Text)))
+                    .Where(DbFluent.Eq(DbFluent.Field("field1"), DbFluent.Field("field2"))))
                 .WithParameters(
                     ElementFactory.CreateScalar("code", code));
         }
