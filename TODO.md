@@ -37,3 +37,4 @@ Todo list for BindOpen
 ## Bugs to fix later on
 
 * Handle fields in select as script: DbFluent.FieldAsScript<DbImage>(p => p.Data, DbFluent.DecodeBase64(DbFluent.Field("Data")))
+
