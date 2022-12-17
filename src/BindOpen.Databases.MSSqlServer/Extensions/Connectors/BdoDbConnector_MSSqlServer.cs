@@ -1,15 +1,17 @@
-﻿using BindOpen.Application.Scopes;
-using BindOpen.Data.Connections;
-using BindOpen.Data.Elements;
-using BindOpen.Databases.Data.Queries;
-using BindOpen.Extensions.Runtime;
-using BindOpen.System.Diagnostics;
+﻿using BindOpen.Framework.Runtime.Scopes;
+using BindOpen.Framework.MetaData.Connections;
+using BindOpen.Framework.MetaData.Elements;
+using BindOpen.Databases.Data;
+using BindOpen.Framework.Runtime;
+using BindOpen.Logging;
 using BindOpen.System.Scripting;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using BindOpen.Databases.Connecting.Interfaces;
+using BindOpen.Databases.Connecting.Connectors;
 
-namespace BindOpen.Extensions.Connectors
+namespace BindOpen.Framework.Extensions.Connectors
 {
     /// <summary>
     /// This class represents a OleDb database connector.
@@ -96,17 +98,17 @@ namespace BindOpen.Extensions.Connectors
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
         /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="scriptVariableSet">The script variable set to consider.</param>
+        /// <param name="varElementSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the database command.</returns>
         public override IDbCommand CreateCommand(
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IDataElementSet parameterSet = null,
-            IScriptVariableSet scriptVariableSet = null,
+            IDataElementSet varElementSet = null,
             IBdoLog log = null)
         {
-            var command = new SqlCommand(CreateCommandText(query, parameterMode, parameterSet, scriptVariableSet, log));
+            var command = new SqlCommand(CreateCommandText(query, parameterMode, parameterSet, varElementSet, log));
 
             if (query.ParameterSet != null)
             {

@@ -1,6 +1,6 @@
-﻿using BindOpen.Application.Scopes;
+﻿using BindOpen.Framework.Runtime.Scopes;
 using BindOpen.Application.Services;
-using BindOpen.System.Diagnostics;
+using BindOpen.Logging;
 
 namespace Samples.SampleA.Services
 {

@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>BindOpen.Databases</AssemblyName>
+    <PackageId>BindOpen.Databases</PackageId>
+    <Product>BindOpen.Databases</Product>
+    <Company>BindOpen</Company>
+    <Copyright>Copyright ©BindOpen 2011-2022</Copyright>
+    <Description>BindOpen is a framework that allows you to build widely-extended applications. This package handles database connections.</Description>
+    <Authors>Sumer Team</Authors>
+    <RootNamespace>BindOpen.Databases</RootNamespace>
+    <PackageProjectUrl>https://github.com/bindopen</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bindopen/BindOpen.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>bindopen_icon.png</PackageIcon>
+    <SignAssembly>true</SignAssembly>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>BindOpen.Databases.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Connecting\BindOpen.Connectors" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\docs\images\bindopen_icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\Readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="BindOpen.Extension" />
+    <EmbeddedResource Include="Data\BindOpen.Carriers" />
+    <EmbeddedResource Include="Connecting\BindOpen.Connectors" />
+    <EmbeddedResource Include="Scripting\BindOpen.Scriptwords" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BindOpen.Framework.Runtime" Version="1.1.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BindOpen.Databases.Abstractions\Databases.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

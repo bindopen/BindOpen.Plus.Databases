@@ -1,27 +1,13 @@
-﻿using BindOpen.Extensions.Carriers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents a merge data query.
     /// </summary>
     public class DbCompositeQuery : DbQuery, IDbCompositeQuery
     {
-        // ------------------------------------------
-        // PROPERTIES
-        // ------------------------------------------
-
-        #region Properties
-
-        /// <summary>
-        /// The queries of this instance.
-        /// </summary>
-        public List<DbQuery> Queries { get; set; }
-
-        #endregion
-
         // ------------------------------------------
         // CONSTRUCTORS
         // ------------------------------------------
@@ -39,56 +25,24 @@ namespace BindOpen.Databases.Data.Queries
         /// Instantiates a new instance of the DbCTEQuery class.
         /// </summary>
         /// <param name="kind">The kind to consider.</param>
-        /// <param name="table">The table to consider.</param>
-        public DbCompositeQuery(DbQueryKind kind, DbTable table) : this(null, kind, table)
-        {
-        }
-
-        /// <summary>
-        /// Instantiates a new instance of the DbCTEQuery class.
-        /// </summary>
-        /// <param name="name">The name of the query to consider.</param>
-        /// <param name="kind">The kind to consider.</param>
-        /// <param name="table">The table to consider.</param>
-        public DbCompositeQuery(string name, DbQueryKind kind, DbTable table) : base(name, kind, table)
+        public DbCompositeQuery(
+            DbQueryKind kind,
+            IDbTable table) : base(kind, table)
         {
         }
 
         #endregion
 
-
         // ------------------------------------------
-        // ACCESSORS
+        // IDbCompositeQuery Implementation
         // ------------------------------------------
 
-        #region Accessors
+        #region IDbCompositeQuery
 
         /// <summary>
-        /// Gets the key of the item.
+        /// The queries of this instance.
         /// </summary>
-        /// <returns>Returns the key of the item.</returns>
-        public override string Key() => Name;
-
-        /// <summary>
-        /// Clones this instance.
-        /// </summary>
-        /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
-        {
-            var clone = base.Clone(areas) as DbCompositeQuery;
-            clone.Queries = Queries?.Select(p => p.Clone<DbQuery>()).ToList();
-
-            return clone;
-        }
-
-        #endregion
-
-
-        // ------------------------------------------
-        // MUTATORS
-        // ------------------------------------------
-
-        #region Mutators
+        public List<IDbQuery> Queries { get; set; }
 
         /// <summary>
         /// Sets the specified queries.
@@ -97,8 +51,28 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Returns this instance.</returns>
         public IDbCompositeQuery WithQueries(params IDbQuery[] queries)
         {
-            Queries = queries?.Cast<DbQuery>().ToList();
+            Queries = queries?.Cast<IDbQuery>().ToList();
             return this;
+        }
+
+        #endregion
+
+        // ------------------------------------------
+        // IDataItem Implementation
+        // ------------------------------------------
+
+        #region IDataItem
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone(params string[] areas)
+        {
+            var clone = base.Clone(areas) as DbCompositeQuery;
+            clone.Queries = Queries?.Select(p => p.Clone<IDbQuery>()).ToList();
+
+            return clone;
         }
 
         #endregion

@@ -1,78 +1,16 @@
-﻿using BindOpen.Data.Expression;
-using BindOpen.Data.Helpers.Strings;
-using BindOpen.Extensions.Carriers;
+﻿using BindOpen.Framework.MetaData;
+using BindOpen.Framework.MetaData.Expression;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents an advanced database data query.
     /// </summary>
     public class DbSingleQuery : DbQuery, IDbSingleQuery
     {
-        // ------------------------------------------
-        // PROPERTIES
-        // ------------------------------------------
-
-        #region Properties
-
-        /// <summary>
-        /// Indicates whether this instance is distinct. When distinct an advanced Select 
-        /// database data query only returns distinct records.
-        /// </summary>
-        public bool IsDistinct { get; set; }
-
-        /// <summary>
-        /// Number of top items of this instance. Top items are the items a advanced Select 
-        /// database data query will return.
-        /// </summary>
-        /// <remarks>By default it is -1 meaning no limit.</remarks>
-        public int Limit { get; set; } = -1;
-
-        /// <summary>
-        /// Fields of this instance.
-        /// </summary>
-        public List<DbField> Fields { get; set; } = new List<DbField>();
-
-        /// <summary>
-        /// The union tables of this instance.
-        /// </summary>
-        public List<DbQueryUnionClause> UnionClauses { get; set; }
-
-        /// <summary>
-        /// From clause of this instance.
-        /// </summary>
-        public DbQueryFromClause FromClause { get; set; }
-
-        /// <summary>
-        /// Where clause of this instance.
-        /// </summary>
-        public DbQueryWhereClause WhereClause { get; set; }
-
-        /// <summary>
-        /// Group by statement of this instance.
-        /// </summary>
-        public DbQueryGroupByClause GroupByClause { get; set; }
-
-        /// <summary>
-        /// Having statement of this instance.
-        /// </summary>
-        public DbQueryHavingClause HavingClause { get; set; }
-
-        /// <summary>
-        /// Order by clause of this instance.
-        /// </summary>
-        public DbQueryOrderByClause OrderByClause { get; set; }
-
-        /// <summary>
-        /// The returned IDs to consider.
-        /// </summary>
-        public List<DbField> ReturnedIdFields { get; set; }
-
-        #endregion
-
         // ------------------------------------------
         // CONSTRUCTORS
         // ------------------------------------------
@@ -90,33 +28,19 @@ namespace BindOpen.Databases.Data.Queries
         /// Instantiates a new instance of the AdvancedDbQuery class.
         /// </summary>
         /// <param name="kind">Type of database data query.</param>
-        /// <param name="table">The table to consider.</param>
         public DbSingleQuery(
             DbQueryKind kind,
-            DbTable table = null) : base(kind, table)
-        {
-        }
-
-        /// <summary>
-        /// Instantiates a new instance of the AdvancedDbQuery class.
-        /// </summary>
-        /// <param name="name">Name of the query.</param>
-        /// <param name="kind">Type of database data query.</param>
-        /// <param name="table">The table to consider.</param>
-        public DbSingleQuery(
-            string name,
-            DbQueryKind kind,
-            DbTable table = null) : base(name, kind, table)
+            IDbTable table) : base(kind, table)
         {
         }
 
         #endregion
 
         // ------------------------------------------
-        // ACCESSORS
+        // IDataItem Implementation
         // ------------------------------------------
 
-        #region Accessors
+        #region IDataItem
 
         /// <summary>
         /// Clones this instance.
@@ -124,15 +48,15 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone(areas) as DbSingleQuery;
-            clone.Fields = Fields?.Select(p => p.Clone<DbField>()).ToList();
-            clone.UnionClauses = UnionClauses?.Select(p => p?.Clone<DbQueryUnionClause>()).ToList();
-            clone.FromClause = FromClause?.Clone<DbQueryFromClause>();
-            clone.WhereClause = WhereClause?.Clone<DbQueryWhereClause>();
-            clone.GroupByClause = GroupByClause?.Clone<DbQueryGroupByClause>();
-            clone.HavingClause = HavingClause?.Clone<DbQueryHavingClause>();
-            clone.OrderByClause = OrderByClause?.Clone<DbQueryOrderByClause>();
-            clone.ReturnedIdFields = ReturnedIdFields?.Select(p => p.Clone<DbField>()).ToList();
+            var clone = base.Clone<IDbSingleQuery>(areas);
+            clone.Fields = Fields?.Select(p => p.Clone<IDbField>()).ToList();
+            //clone.UnionClauses = UnionClauses?.Select(p => p?.Clone<DbQueryUnionClause>()).ToList();
+            //clone.FromClause = FromClause?.Clone<DbQueryFromClause>();
+            //clone.WhereClause = WhereClause?.Clone<DbQueryWhereClause>();
+            //clone.GroupByClause = GroupByClause?.Clone<DbQueryGroupByClause>();
+            //clone.HavingClause = HavingClause?.Clone<DbQueryHavingClause>();
+            //clone.OrderByClause = OrderByClause?.Clone<DbQueryOrderByClause>();
+            //clone.ReturnedIdFields = ReturnedIdFields?.Select(p => p.Clone<DbField>()).ToList();
 
             return clone;
         }
@@ -171,34 +95,15 @@ namespace BindOpen.Databases.Data.Queries
         }
 
         /// <summary>
-        /// Gets the data field with the specified bound data field name.
-        /// </summary>
-        /// <param name="boundFieldName">Name of the bound data field.</param>
-        /// <returns>The data field with the specified bound data field name.</returns>
-        public DbField GetFieldWithBoundFieldName(string boundFieldName)
-        {
-            if ((boundFieldName != null) && (Fields != null))
-            {
-                foreach (DbField field in Fields)
-                {
-                    if (field.GetName().Equals(boundFieldName, StringComparison.OrdinalIgnoreCase))
-                        return field;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Gets the data field with the specified data field name.
         /// </summary>
         /// <param name="name">Name of the field.</param>
         /// <returns>The data field with the specified data field name.</returns>
-        public DbField GetFieldWithName(string name)
+        public IDbField GetFieldWithName(string name)
         {
             if (Fields != null)
             {
-                foreach (DbField field in Fields)
+                foreach (var field in Fields)
                 {
                     if (field.Alias.Equals(name, StringComparison.OrdinalIgnoreCase))
                         return field;
@@ -209,66 +114,59 @@ namespace BindOpen.Databases.Data.Queries
             return null;
         }
 
-        /// <summary>
-        /// Gets the data field with the specified bound data field name.
-        /// </summary>
-        /// <param name="boundFieldName">Name of the bound data field.</param>
-        /// <returns>The data field with the specified bound data field name.</returns>
-        public DbField GetIdFieldWithBoundFieldName(string boundFieldName)
-        {
-            if ((boundFieldName != null) && (WhereClause?.IdFields != null))
-            {
-                foreach (DbField rField in WhereClause?.IdFields)
-                {
-                    if (rField.Alias?.Equals(boundFieldName, StringComparison.OrdinalIgnoreCase) == true)
-                    {
-                        return rField;
-                    }
-                    if (rField.Name?.Equals(boundFieldName, StringComparison.OrdinalIgnoreCase) == true)
-                    {
-                        return rField;
-                    }
-                }
-            }
-
-            return null;
-        }
-
         #endregion
 
         // ------------------------------------------
-        // MUTATORS
+        // IDbSingleQuery Implementation
         // ------------------------------------------
 
-        #region Mutators
+        #region IDbSingleQuery
+
+        /// <summary>
+        /// Indicates whether this instance is distinct. When distinct an advanced Select 
+        /// database data query only returns distinct records.
+        /// </summary>
+        public bool IsDistinct { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public IDbSingleQuery AsDistinct()
+        public IDbSingleQuery AsDistinct(bool isDistinct = false)
         {
-            IsDistinct = true;
+            IsDistinct = isDistinct;
             return this;
         }
+
+        /// <summary>
+        /// Number of top items of this instance. Top items are the items a advanced Select 
+        /// database data query will return.
+        /// </summary>
+        /// <remarks>By default it is -1 meaning no limit.</remarks>
+        public int? Limit { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="top"></param>
         /// <returns></returns>
-        public IDbSingleQuery WithLimit(int limit)
+        public IDbSingleQuery WithLimit(int? limit)
         {
             Limit = limit;
             return this;
         }
 
         /// <summary>
+        /// Fields of this instance.
+        /// </summary>
+        public List<IDbField> Fields { get; set; }
+
+        /// <summary>
         /// Sets the specified fields.
         /// </summary>
         /// <param name="fields">The fields to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery WithFields(params DbField[] fields)
+        public IDbSingleQuery WithFields(params IDbField[] fields)
         {
             Fields = fields?.ToList();
 
@@ -276,11 +174,16 @@ namespace BindOpen.Databases.Data.Queries
         }
 
         /// <summary>
+        /// The returned IDs to consider.
+        /// </summary>
+        public List<IDbField> ReturnedIdFields { get; set; }
+
+        /// <summary>
         /// Sets the specified returned ID fields.
         /// </summary>
         /// <param name="fields">The fields to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery WithReturnedIdFields(params DbField[] fields)
+        public IDbSingleQuery WithReturnedIdFields(params IDbField[] fields)
         {
             ReturnedIdFields = fields?.ToList();
 
@@ -292,7 +195,7 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="initializer">The initiliazation function to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery WithFields(Func<IDbSingleQuery, DbField[]> initializer)
+        public IDbSingleQuery WithFields(Func<IDbSingleQuery, IDbField[]> initializer)
         {
             return WithFields(initializer?.Invoke(this));
         }
@@ -302,7 +205,7 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="field">The field to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery AddField(DbField field)
+        public IDbSingleQuery AddField(IDbField field)
         {
             Fields?.Add(field);
 
@@ -315,7 +218,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="canBeAdded">Indicates whether the field can be added.</param>
         /// <param name="field">The field to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery AddField(bool canBeAdded, DbField field)
+        public IDbSingleQuery AddField(bool canBeAdded, IDbField field)
         {
             if (canBeAdded)
             {
@@ -330,7 +233,7 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="initializer">The initiliazation function to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery AddField(Func<IDbSingleQuery, DbField> initializer)
+        public IDbSingleQuery AddField(Func<IDbSingleQuery, IDbField> initializer)
         {
             return AddField(initializer?.Invoke(this));
         }
@@ -341,7 +244,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="canBeAdded">Indicates whether the field can be added.</param>
         /// <param name="initializer">The initiliazation function to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery AddField(bool canBeAdded, Func<IDbSingleQuery, DbField> initializer)
+        public IDbSingleQuery AddField(bool canBeAdded, Func<IDbSingleQuery, IDbField> initializer)
         {
             if (canBeAdded)
             {
@@ -354,15 +257,17 @@ namespace BindOpen.Databases.Data.Queries
         // Union -------------------------------------
 
         /// <summary>
+        /// The union tables of this instance.
+        /// </summary>
+        public List<IDbQueryUnionClause> UnionClauses { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="unionClause">The union clause to consider.</param>
         public IDbSingleQuery Union(DbQueryUnionKind kind, IDbSingleQuery query)
         {
-            if (UnionClauses == null)
-            {
-                UnionClauses = new List<DbQueryUnionClause>();
-            }
+            UnionClauses ??= new List<IDbQueryUnionClause>();
             UnionClauses.Add(new DbQueryUnionClause() { Kind = kind, Query = query });
 
             return this;
@@ -371,19 +276,19 @@ namespace BindOpen.Databases.Data.Queries
         // From -------------------------------------
 
         /// <summary>
+        /// From clause of this instance.
+        /// </summary>
+        public IDbQueryFromClause FromClause { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="tables">The tables to consider.</param>
-        public IDbSingleQuery From(params DbTable[] tables)
+        public IDbSingleQuery From(params IDbTable[] tables)
         {
-            if (FromClause == null)
-            {
-                FromClause = new DbQueryFromClause();
-            }
-            if (FromClause.Statements == null)
-            {
-                FromClause.Statements = new List<DbQueryFromStatement>();
-            }
+            FromClause ??= new DbQueryFromClause();
+            FromClause.Statements ??= new();
+
             FromClause.Statements.Add(new DbQueryFromStatement() { Tables = tables?.ToList() });
 
             return this;
@@ -392,14 +297,11 @@ namespace BindOpen.Databases.Data.Queries
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery From(Func<IDbSingleQuery, DbTable[]> initializer)
+        public IDbSingleQuery From(Func<IDbSingleQuery, IDbTable[]> initializer)
         {
             return From(initializer?.Invoke(this));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public IDbSingleQuery From(IDataExpression expression)
         {
             FromClause = new DbQueryFromClause() { Expression = expression as DataExpression };
@@ -415,6 +317,11 @@ namespace BindOpen.Databases.Data.Queries
         }
 
         // Where -------------------------------------
+
+        /// <summary>
+        /// Where clause of this instance.
+        /// </summary>
+        public IDbQueryWhereClause WhereClause { get; set; }
 
         /// <summary>
         /// 
@@ -442,7 +349,7 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="fields">The ID fields to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery WithIdFields(params DbField[] fields)
+        public IDbSingleQuery WithIdFields(params IDbField[] fields)
         {
             if (WhereClause == null)
             {
@@ -457,7 +364,7 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="initializer">The initiliazation function to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery WithIdFields(Func<IDbSingleQuery, DbField[]> initializer)
+        public IDbSingleQuery WithIdFields(Func<IDbSingleQuery, IDbField[]> initializer)
         {
             return WithIdFields(initializer?.Invoke(this));
         }
@@ -467,16 +374,10 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="field">The ID field to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery AddIdField(DbField field)
+        public IDbSingleQuery AddIdField(IDbField field)
         {
-            if (WhereClause == null)
-            {
-                WhereClause = new DbQueryWhereClause();
-            }
-            if (WhereClause.IdFields == null)
-            {
-                WhereClause.IdFields = new List<DbField>();
-            }
+            WhereClause ??= new DbQueryWhereClause();
+            WhereClause.IdFields ??= new List<IDbField>();
             WhereClause.IdFields?.Add(field);
 
             return this;
@@ -488,7 +389,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="canBeAdded">Indicates whether the field can be added.</param>
         /// <param name="field">The ID field to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery AddIdField(bool canBeAdded, DbField field)
+        public IDbSingleQuery AddIdField(bool canBeAdded, IDbField field)
         {
             if (canBeAdded)
             {
@@ -503,7 +404,7 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="initializer">The initiliazation function to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery AddIdField(Func<IDbSingleQuery, DbField> initializer)
+        public IDbSingleQuery AddIdField(Func<IDbSingleQuery, IDbField> initializer)
         {
             return AddIdField(initializer?.Invoke(this));
         }
@@ -514,7 +415,7 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="canBeAdded">Indicates whether the field can be added.</param>
         /// <param name="initializer">The initiliazation function to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbSingleQuery AddIdField(bool canBeAdded, Func<IDbSingleQuery, DbField> initializer)
+        public IDbSingleQuery AddIdField(bool canBeAdded, Func<IDbSingleQuery, IDbField> initializer)
         {
             if (canBeAdded)
             {
@@ -527,13 +428,18 @@ namespace BindOpen.Databases.Data.Queries
         // OrderBy -------------------------------------
 
         /// <summary>
+        /// Order by clause of this instance.
+        /// </summary>
+        public IDbQueryOrderByClause OrderByClause { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="statements"></param>
         /// <returns></returns>
         public IDbSingleQuery OrderBy(params IDbQueryOrderByStatement[] statements)
         {
-            OrderByClause = new DbQueryOrderByClause() { Statements = statements?.Cast<DbQueryOrderByStatement>().ToList() };
+            OrderByClause = new DbQueryOrderByClause() { Statements = statements?.Cast<IDbQueryOrderByStatement>().ToList() };
             return this;
         }
 
@@ -557,10 +463,15 @@ namespace BindOpen.Databases.Data.Queries
         // GroupBy -------------------------------------
 
         /// <summary>
+        /// Group by statement of this instance.
+        /// </summary>
+        public IDbQueryGroupByClause GroupByClause { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="fields">The tables to consider.</param>
-        public IDbSingleQuery GroupBy(params DbField[] fields)
+        public IDbSingleQuery GroupBy(params IDbField[] fields)
         {
             GroupByClause = new DbQueryGroupByClause() { Fields = fields?.ToList() };
             return this;
@@ -584,6 +495,11 @@ namespace BindOpen.Databases.Data.Queries
         }
 
         // Having -------------------------------------
+
+        /// <summary>
+        /// Having statement of this instance.
+        /// </summary>
+        public IDbQueryHavingClause HavingClause { get; set; }
 
         /// <summary>
         /// 

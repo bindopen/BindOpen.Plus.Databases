@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents a Api filter definition.
     /// </summary>
-    public class DbApiFilterDefinition : Dictionary<string, DbApiFilterClause>
+    public class DbApiFilterDefinition : Dictionary<string, IDbApiFilterClause>, IDbApiFilterDefinition
     {
         /// <summary>
         /// Creates a new instance of the ApiScriptFilteringDefinition class.

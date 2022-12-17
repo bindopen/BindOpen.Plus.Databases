@@ -1,19 +1,18 @@
-﻿using BindOpen.Data.Common;
-using BindOpen.Data.Helpers.Strings;
-using BindOpen.System.Diagnostics;
+﻿using BindOpen.Framework.MetaData;
+using BindOpen.Logging;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents the database data query extension.
     /// </summary>
     public static partial class DbQueryExtension
     {
-        private static string GetScriptFunction(DataOperators aOperator)
+        private static string GetScriptFunction(DataOperators op)
         {
-            switch (aOperator)
+            switch (op)
             {
                 case DataOperators.Contains:
                     return "$sqlLike";
@@ -49,7 +48,7 @@ namespace BindOpen.Databases.Data.Queries
         internal static string ConvertToExtensionScript(
             this string searchQuery,
             IBdoLog log = null,
-            DbApiFilterDefinition definition = null,
+            IDbApiFilterDefinition definition = null,
             int i = 0)
         {
             string script = searchQuery;
@@ -61,7 +60,7 @@ namespace BindOpen.Databases.Data.Queries
                 foreach (string instruction in new string[] { "Or", "And", "Not" })
                 {
                     int j = i;
-                    List<string> clauses = new List<string>();
+                    List<string> clauses = new();
                     script.IndexOfNextString(" " + instruction + " ", ref j);
                     while (j < script.Length - 1)
                     {
@@ -72,7 +71,7 @@ namespace BindOpen.Databases.Data.Queries
                         script.IndexOfNextString(" " + instruction + " ", ref j);
                         if (j == script.Length)
                         {
-                            clause = script.Substring(i);
+                            clause = script[i..];
                             clause = clause.ConvertToExtensionScript(log, definition, 0);
                             clauses.Add(clause);
                         }
@@ -118,7 +117,7 @@ namespace BindOpen.Databases.Data.Queries
                         string value = script.Substring(k + scriptOperator.Length)?.Trim();
 
                         if (value.Length > 2 && value.StartsWith("'") && value.EndsWith("'"))
-                            value = "$sqlText('" + value.Substring(1, value.Length - 2) + "')";
+                            value = "$sqlText('" + value[1..^1] + "')";
 
                         // check that the field is in the dictionary
                         if (!definition.ContainsKey(fieldName))
@@ -127,7 +126,7 @@ namespace BindOpen.Databases.Data.Queries
                         }
                         else
                         {
-                            DbApiFilterClause clause = definition?[fieldName];
+                            IDbApiFilterClause clause = definition?[fieldName];
 
                             // check the instruction found corresponds to the definition in dictionary
                             if (!clause.Operators.Any(p => p == aOperator))
@@ -136,12 +135,12 @@ namespace BindOpen.Databases.Data.Queries
                             }
                             else
                             {
-                                if (clause.Field == null) clause.Field = DbFluent.Field(fieldName);
+                                clause.Field ??= DbFluent.Field(fieldName);
 
                                 if (aOperator == DataOperators.Has)
                                 {
                                     if (value.Length > 2 && value.StartsWith("{") && value.EndsWith("}"))
-                                        value = value.Substring(1, value.Length - 2);
+                                        value = value[1..^1];
                                     value = value.ConvertToExtensionScript(log, clause.FilterDefinition, 0);
                                     script = "(" + value + ")";
                                 }
@@ -157,9 +156,9 @@ namespace BindOpen.Databases.Data.Queries
             return script;
         }
 
-        private static string GetInstruction(DataOperators aOperator)
+        private static string GetInstruction(DataOperators op)
         {
-            switch (aOperator)
+            switch (op)
             {
                 case DataOperators.Contains:
                     return "constains";

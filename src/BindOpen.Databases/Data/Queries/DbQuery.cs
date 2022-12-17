@@ -1,102 +1,18 @@
-﻿using BindOpen.Data.Common;
-using BindOpen.Data.Elements;
-using BindOpen.Data.Expression;
-using BindOpen.Data.Helpers.Strings;
-using BindOpen.Data.Items;
-using BindOpen.Extensions.Carriers;
-using BindOpen.System.Scripting;
+﻿using BindOpen.Framework.Extensions;
+using BindOpen.Framework.MetaData.Elements;
+using BindOpen.Framework.MetaData.Expression;
+using BindOpen.Framework.MetaData.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents a database data query.
     /// </summary>
-    public abstract class DbQuery : DescribedDataItem, IDbQuery
+    public abstract class DbQuery : DataItem, IDbQuery
     {
-        // ------------------------------------------
-        // PROPERTIES
-        // ------------------------------------------
-
-        #region Properties
-
-        /// <summary>
-        /// Name of this instance.
-        /// </summary>
-        public new string Name { get; set; } = "dataquery_" + DateTime.Now.ToString(StringHelper.__DateFormat);
-
-        /// <summary>
-        /// Name of the data module of this instance.
-        /// </summary>
-        public string DataModule { get; set; }
-
-        /// <summary>
-        /// Name of the data table of this instance.
-        /// </summary>
-        public string DataTable { get; set; }
-
-        /// <summary>
-        /// Name of the data table alias of this instance.
-        /// </summary>
-        public string DataTableAlias { get; set; }
-
-        /// <summary>
-        /// Schema of this instance.
-        /// </summary>
-        public string Schema { get; set; }
-
-        /// <summary>
-        /// The kind of this instance.
-        /// </summary>
-        public DbQueryKind Kind { get; set; } = DbQueryKind.Select;
-
-        /// <summary>
-        /// Indicates whether existence is checked.
-        /// </summary>
-        public bool IsExistenceChecked { get; set; } = false;
-
-        /// <summary>
-        /// The parameter specification set of this instance.
-        /// </summary>
-        public DataElementSpecSet ParameterSpecSet
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The parameters of this instance.
-        /// </summary>
-        public DataElementSet ParameterSet
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Indicates whether this instance.
-        /// </summary>
-        public bool IsCTERecursive { get; set; }
-
-        /// <summary>
-        /// The CTE tables of this instance.
-        /// </summary>
-        public List<DbTable> CTETables { get; set; }
-
-        /// <summary>
-        /// The sub queries of this instance.
-        /// </summary>
-        public List<DbQuery> SubQueries { get; set; }
-
-        /// <summary>
-        /// Value of this instance.
-        /// </summary>
-        public DataExpression Expression { get; set; }
-
-        #endregion
-
         // ------------------------------------------
         // CONSTRUCTORS
         // ------------------------------------------
@@ -117,55 +33,208 @@ namespace BindOpen.Databases.Data.Queries
         /// <param name="table">The table to consider.</param>
         protected DbQuery(
             DbQueryKind kind,
-            DbTable table = null)
+            IDbTable table = null)
         {
             Kind = kind;
-            if (table != null)
-            {
-                DataModule = table.DataModule;
-                DataTable = table.Name;
-                DataTableAlias = table.Alias;
-                Schema = table.Schema;
-            }
-        }
-
-        /// <summary>
-        /// Instantiates a new instance of the DbQuery class.
-        /// </summary>
-        /// <param name="name">Name of the query.</param>
-        /// <param name="kind">Type of database data query.</param>
-        /// <param name="table">The table to consider.</param>
-        protected DbQuery(
-            string name,
-            DbQueryKind kind,
-            DbTable table = null) : this(kind, table)
-        {
-            Name = name;
+            DataTable = table?.Name;
+            DataTableAlias = table?.Alias;
+            Schema = table?.Schema;
+            DataModule = table?.DataModule;
         }
 
         #endregion
 
         // ------------------------------------------
-        // ACCESSORS
+        // IReferenced Implementation
         // ------------------------------------------
 
-        #region Accessors
+        #region IReferenced
+
+        public virtual string Key() => Id;
+
+        #endregion
+
+        // ------------------------------------------
+        // ITIdentifiedPoco Implementation
+        // ------------------------------------------
+
+        #region ITIdentifiedPoco
 
         /// <summary>
-        /// Clones this instance.
+        /// 
         /// </summary>
-        /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
-        {
-            var clone = base.Clone(areas) as DbQuery;
-            clone.CTETables = CTETables?.Select(p => p.Clone<DbTable>()).ToList();
-            clone.Description = Description?.Clone<DictionaryDataItem>();
-            clone.Expression = Expression?.Clone<DataExpression>();
-            clone.ParameterSet = ParameterSet?.Clone<DataElementSet>();
-            clone.ParameterSpecSet = ParameterSpecSet?.Clone<DataElementSpecSet>();
-            clone.Title = Title?.Clone<DictionaryDataItem>();
+        public string Id { get; set; }
 
-            return clone;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IDbQuery WithId(string id)
+        {
+            Id = id;
+            return this;
+        }
+
+        #endregion
+
+        // ------------------------------------------
+        // IDbQuery Implementation
+        // ------------------------------------------
+
+        #region IDbQuery
+
+        public string Name { get; set; }
+
+        public IDbQuery WithName(string name)
+        {
+            Name = name;
+            return this;
+        }
+
+        /// <summary>
+        /// The expression of this instance.
+        /// </summary>
+        [DetailProperty(Name = "expression")]
+        public IDataExpression Expression { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <returns></returns>
+        public IDbQuery WithExpression(IDataExpression exp)
+        {
+            Expression = exp;
+            return this;
+        }
+
+        /// <summary>
+        /// Name of the data module of this instance.
+        /// </summary>
+        public string DataModule { get; set; }
+
+        public IDbQuery WithDataModule(string dataModule)
+        {
+            DataModule = dataModule;
+            return this;
+        }
+
+        /// <summary>
+        /// Name of the data table of this instance.
+        /// </summary>
+        public string DataTable { get; set; }
+
+        public IDbQuery WithDataTable(string table)
+        {
+            DataTable = table;
+            return this;
+        }
+
+        /// <summary>
+        /// Name of the data table alias of this instance.
+        /// </summary>
+        public string DataTableAlias { get; set; }
+
+        public IDbQuery WithDataTableAlias(string tableAlias)
+        {
+            DataTableAlias = tableAlias;
+            return this;
+        }
+
+        /// <summary>
+        /// Schema of this instance.
+        /// </summary>
+        public string Schema { get; set; }
+
+        public IDbQuery WithSchema(string schema)
+        {
+            Schema = schema;
+            return this;
+        }
+
+        /// <summary>
+        /// The kind of this instance.
+        /// </summary>
+        public DbQueryKind Kind { get; set; } = DbQueryKind.Select;
+
+        public IDbQuery WithKind(DbQueryKind kind)
+        {
+            Kind = kind;
+            return this;
+        }
+
+        /// <summary>
+        /// The parameters of this instance.
+        /// </summary>
+        public IDataElementSet ParameterSet { get; set; }
+
+        /// <summary>
+        /// Defines the parameter specifications of this instance.
+        /// </summary>
+        /// <param name="parameters">The set of parameters to consider.</param>
+        /// <returns>Return this instance.</returns>
+        public IDbQuery WithParameters(params IDataElement[] parameters)
+        {
+            ParameterSet = BdoElements.CreateSet(parameters);
+            return this;
+        }
+
+        public IDbQuery AddParameters(params IScalarElement[] parameters)
+        {
+            ParameterSet ??= BdoElements.CreateSet(parameters);
+            ParameterSet.Add(parameters);
+            return this;
+        }
+
+        /// <summary>
+        /// The parameter specification set of this instance.
+        /// </summary>
+        public IDataElementSpecSet ParameterSpecSet { get; set; }
+
+        /// <summary>
+        /// Defines the parameter specifications of this instance.
+        /// </summary>
+        /// <param name="parameterSpecs">The set of parameter specifications to consider.</param>
+        /// <returns>Return this instance.</returns>
+        public IDbQuery UsingParameters(params IDataElementSpec[] parameterSpecs)
+        {
+            ParameterSpecSet = BdoElementSpecs.CreateSet(parameterSpecs);
+            return this;
+        }
+
+        /// <summary>
+        /// Indicates whether this instance.
+        /// </summary>
+        public bool IsCTERecursive { get; set; }
+
+        /// <summary>
+        /// The CTE tables of this instance.
+        /// </summary>
+        public List<IDbTable> CTETables { get; set; }
+
+        public IDbQuery WithCTE(params IDbTable[] tables)
+        {
+            CTETables = tables.ToList();
+            return this;
+        }
+
+        public IDbQuery WithCTE(bool isRecursive, params IDbTable[] tables)
+        {
+            IsCTERecursive = isRecursive;
+            CTETables ??= new List<IDbTable>();
+            CTETables.AddRange(tables);
+            return this;
+        }
+
+        /// <summary>
+        /// The sub queries of this instance.
+        /// </summary>
+        public List<IDbQuery> SubQueries { get; set; }
+
+        public IDbQuery UseSubQueries(params IDbQuery[] queries)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -181,137 +250,26 @@ namespace BindOpen.Databases.Data.Queries
         #endregion
 
         // ------------------------------------------
-        // MUTATORS
+        // IDataItem METHODS
         // ------------------------------------------
 
-        #region Mutators
+        #region IDataItem
 
         /// <summary>
-        /// Indicates that this instance checks the existence of table or data according to the kind of queries.
+        /// Clones this instance.
         /// </summary>
-        /// <param name="isExistenceChecked">Indicates whether this instance checks the existence of table or data.</param>
-        /// <returns>Return this instance.</returns>
-        public IDbQuery CheckExistence(bool isExistenceChecked = true)
+        /// <returns>Returns the cloned instance.</returns>
+        public override object Clone(params string[] areas)
         {
-            IsExistenceChecked = isExistenceChecked;
+            var clone = base.Clone<IDbQuery>(areas);
+            //clone.WithCTE(CTETables?.Select(p => p.Clone<IDbTable>()).ToArray());
+            //clone.WithDescription(Description?.Clone<IDictionaryDataItem>());
+            //clone.WithExpression(Expression?.Clone<IDataExpression>());
+            //clone.WithParameters(ParameterSet?.Clone<IDataElementSet>());
+            //clone.UsingParameters(ParameterSpecSet?.Clone<IDataElementSpecSet>());
+            //clone.WithTitle(Title?.Clone<IDictionaryDataItem>());
 
-            return this;
-        }
-
-        /// <summary>
-        /// Defines the parameter specifications of this instance.
-        /// </summary>
-        /// <param name="parameters">The set of parameters to consider.</param>
-        /// <returns>Return this instance.</returns>
-        public IDbQuery WithParameters(params IDataElement[] parameters)
-        {
-            ParameterSet = ElementFactory.CreateSet(parameters);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Defines the parameter specifications of this instance.
-        /// </summary>
-        /// <param name="parameterSpecs">The set of parameter specifications to consider.</param>
-        /// <returns>Return this instance.</returns>
-        public IDbQuery UsingParameters(params IDataElementSpec[] parameterSpecs)
-        {
-            ParameterSpecSet = ElementSpecFactory.CreateSet(parameterSpecs);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Add the specified parameter to this instance.
-        /// </summary>
-        /// <param name="parameter">The parameter to consider.</param>
-        /// <returns>Return this instance.</returns>
-        public IDbQuery AddParameter(ScalarElement parameter)
-        {
-            ParameterSet?.Add(parameter as DataElement);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds the specified sub query.
-        /// </summary>
-        /// <param name="subQuery">The sub query to consider.</param>
-        /// <returns>Return this added parameter.</returns>
-        public DataExpression UseSubQuery(IDbQuery subQuery)
-        {
-            if (SubQueries == null) SubQueries = new List<DbQuery>();
-            SubQueries.Add((DbQuery)subQuery);
-
-            return BdoScript.Function("sqlQuery", SubQueries.Count.ToString()).CreateExp();
-        }
-
-        /// <summary>
-        /// Adds the specified parameter to this instance.
-        /// </summary>
-        /// <param name="name">The name to consider.</param>
-        /// <param name="value">The data table to consider.</param>
-        /// <returns>Return this added parameter.</returns>
-        public ScalarElement UseParameter(
-            string name,
-            object value = null)
-        {
-            return UseParameter(name, DataValueTypes.Any, value);
-        }
-
-        /// <summary>
-        /// Adds the specified parameter to this instance.
-        /// </summary>
-        /// <param name="name">The name to consider.</param>
-        /// <param name="valueType">The data value type to consider.</param>
-        /// <param name="value">The data table to consider.</param>
-        /// <returns>Return this added parameter.</returns>
-        public ScalarElement UseParameter(
-            string name,
-            DataValueTypes valueType,
-            object value = null)
-        {
-            if (ParameterSet == null)
-            {
-                ParameterSet = new DataElementSet();
-            }
-
-            if (ParameterSet[name] is ScalarElement parameter)
-            {
-                parameter.WithItems(value);
-            }
-            else
-            {
-                parameter = ElementFactory.CreateScalar(name, valueType, value);
-                parameter.Index = ParameterSet.Count + 1;
-                ParameterSet.Add(parameter);
-            }
-
-            return parameter;
-        }
-
-        /// <summary>
-        /// Sets the specified CTE tables.
-        /// </summary>
-        /// <param name="tables">The CTE tables to consider.</param>
-        /// <returns>Returns this instance.</returns>
-        public IDbQuery WithCTE(params DbTable[] tables)
-        {
-            CTETables = tables?.ToList();
-            return this;
-        }
-
-        /// <summary>
-        /// Sets the specified CTE tables.
-        /// </summary>
-        /// <param name="isRecursive">Indicates whether the WITH clause is recursive.</param>
-        /// <param name="tables">The CTE tables to consider.</param>
-        /// <returns>Returns this instance.</returns>
-        public IDbQuery WithCTE(bool isRecursive, params DbTable[] tables)
-        {
-            IsCTERecursive = isRecursive;
-            return WithCTE(tables);
+            return clone;
         }
 
         #endregion

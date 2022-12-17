@@ -21,12 +21,12 @@
   
   <dataSources>  
     <add name="db.test" kind="Database">
-      <configuration definition="database.mssqlserver$client">
+      <config definition="database.mssqlserver$client">
         <scalar name="databaseKind" value="MSSqlServer" />
         <connectionString>          
           <![CDATA[Data Source=datasource;Initial Catalog=catalog_db;User Id=adminapp;Password=password;]]>
         </connectionString>
-      </configuration>
+      </config>
     </add>
   </dataSources>
   
