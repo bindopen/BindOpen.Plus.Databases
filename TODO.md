@@ -18,6 +18,7 @@ Todo list for BindOpen
 * Api filter and sort clauses
 * Apply data value type of the field from Field<T> methods
 * DbFluent.FieldAsScript<DbImage>(expr1, expr2) expr2 = Fun<field>
+* DbFluent.FieldAsLiteral versus FieldAsValue
 * Update MSSqlServer database query builder
 * Bug with JoinCondition<expr1, expr2>(name)
 * Table<DbAddress>() -> In Update, fields does not repeat table if the same as the query

@@ -1,30 +1,21 @@
-﻿using BindOpen.Data.Items;
-using BindOpen.Extensions.Carriers;
+﻿using BindOpen.Framework.MetaData.Items;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents a Api script expression.
     /// </summary>
-    public class DbApiClause : DataItem
+    public class DbApiClause : DataItem, IDbApiClause
     {
         /// <summary>
         /// The field alias of this instance.
         /// </summary>
-        public string FieldAlias
-        {
-            get;
-            set;
-        } = null;
+        public string FieldAlias { get; set; }
 
         /// <summary>
         /// The field of this instance.
         /// </summary>
-        public DbField Field
-        {
-            get;
-            set;
-        } = null;
+        public IDbField Field { get; set; }
 
         /// <summary>
         /// Creates a new instance of the DbApiClause class.

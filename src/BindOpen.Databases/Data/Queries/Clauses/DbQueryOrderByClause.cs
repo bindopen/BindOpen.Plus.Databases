@@ -1,26 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using BindOpen.Framework.MetaData.Expression;
+using BindOpen.Framework.MetaData.Items;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents the Order-By clause of a database data query.
     /// </summary>
-    public class DbQueryOrderByClause : DbQueryItem, IDbQueryOrderByClause
+    public class DbQueryOrderByClause : DataItem, IDbQueryOrderByClause
     {
-        // ------------------------------------------
-        // PROPERTIES
-        // ------------------------------------------
-
-        #region Properties
-
-        /// <summary>
-        /// The statements of this instance.
-        /// </summary>
-        public List<DbQueryOrderByStatement> Statements { get; set; }
-
-        #endregion
-
         // ------------------------------------------
         // CONSTRUCTORS
         // ------------------------------------------
@@ -36,12 +25,71 @@ namespace BindOpen.Databases.Data.Queries
 
         #endregion
 
+        // ------------------------------------------
+        // IDbQueryOrderByClause Implementation
+        // ------------------------------------------
+
+        #region IDbQueryOrderByClause
+
+        /// <summary>
+        /// The statements of this instance.
+        /// </summary>
+        public List<IDbQueryOrderByStatement> Statements { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="statements"></param>
+        /// <returns></returns>
+        public IDbQueryOrderByClause WithStatements(params IDbQueryOrderByStatement[] statements)
+        {
+            Statements = statements.ToList();
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="statements"></param>
+        /// <returns></returns>
+        public IDbQueryOrderByClause AddStatements(params IDbQueryOrderByStatement[] statements)
+        {
+            Statements ??= new List<IDbQueryOrderByStatement>();
+            Statements.AddRange(statements);
+            return this;
+        }
+
+        #endregion
 
         // ------------------------------------------
-        // ACCESSORS
+        // IDbItem Implementation
         // ------------------------------------------
 
-        #region Accessors
+        #region IDbItem
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IDataExpression Expression { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public IDbQueryOrderByClause WithExpression(IDataExpression expression)
+        {
+            Expression = expression;
+            return this;
+        }
+
+        #endregion
+
+        // ------------------------------------------
+        // IDataItem Implementation
+        // ------------------------------------------
+
+        #region IDataItem
 
         /// <summary>
         /// Clones this instance.
@@ -49,8 +97,8 @@ namespace BindOpen.Databases.Data.Queries
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone(areas) as DbQueryOrderByClause;
-            clone.Statements = Statements?.Select(p => p.Clone<DbQueryOrderByStatement>()).ToList();
+            var clone = base.Clone<IDbQueryOrderByClause>(areas);
+            clone.Statements = Statements?.Select(p => p.Clone<IDbQueryOrderByStatement>()).ToList();
 
             return clone;
         }

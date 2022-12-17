@@ -1,6 +1,6 @@
-﻿using BindOpen.Data.Helpers.Strings;
+﻿using BindOpen.Framework.MetaData;
 
-namespace BindOpen.Databases.Extensions
+namespace BindOpen.Databases
 {
     // --------------------------------------------------
     // EXTENSION

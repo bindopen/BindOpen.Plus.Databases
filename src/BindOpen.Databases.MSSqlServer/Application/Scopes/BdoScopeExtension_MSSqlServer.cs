@@ -1,7 +1,7 @@
-﻿using BindOpen.Extensions.Connectors;
-using BindOpen.Extensions.Runtime;
+﻿using BindOpen.Framework.Extensions.Connectors;
+using BindOpen.Framework.Runtime;
 
-namespace BindOpen.Application.Scopes
+namespace BindOpen.Framework.Runtime.Scopes
 {
     /// <summary>
     /// This class represents a BindOpen scope extension.

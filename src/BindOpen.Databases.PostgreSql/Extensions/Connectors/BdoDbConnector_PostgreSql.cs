@@ -1,15 +1,12 @@
-﻿using BindOpen.Application.Scopes;
-using BindOpen.Data.Connections;
-using BindOpen.Data.Elements;
-using BindOpen.Databases.Data.Queries;
-using BindOpen.Extensions.Runtime;
-using BindOpen.System.Diagnostics;
-using BindOpen.System.Scripting;
+﻿using BindOpen.Databases.Data;
+using BindOpen.Framework.MetaData.Elements;
+using BindOpen.Framework.Runtime.Scopes;
+using BindOpen.Logging;
 using Npgsql;
 using System;
 using System.Data;
 
-namespace BindOpen.Extensions.Connectors
+namespace BindOpen.Framework.Extensions.Connectors
 {
     /// <summary>
     /// This class represents a OleDb database connector.
@@ -96,17 +93,17 @@ namespace BindOpen.Extensions.Connectors
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
         /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="scriptVariableSet">The script variable set to consider.</param>
+        /// <param name="varElementSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the database command.</returns>
         public override IDbCommand CreateCommand(
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IDataElementSet parameterSet = null,
-            IScriptVariableSet scriptVariableSet = null,
+            IDataElementSet varElementSet = null,
             IBdoLog log = null)
         {
-            var command = new NpgsqlCommand(CreateCommandText(query, parameterMode, parameterSet, scriptVariableSet, log));
+            var command = new NpgsqlCommand(CreateCommandText(query, parameterMode, parameterSet, varElementSet, log));
 
             if (query.ParameterSet != null)
             {

@@ -1,6 +1,4 @@
-﻿using BindOpen.Application.Scopes;
-using BindOpen.Data.Stores;
-using BindOpen.Extensions.References;
+﻿using BindOpen.Framework.MetaData.Stores;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Samples.SampleA.Services;
