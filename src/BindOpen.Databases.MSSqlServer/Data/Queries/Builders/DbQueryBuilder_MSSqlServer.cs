@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Databases.Data.Queries
+﻿namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents a builder of database query.

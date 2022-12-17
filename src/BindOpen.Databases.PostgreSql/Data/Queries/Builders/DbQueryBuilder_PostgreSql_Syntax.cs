@@ -1,9 +1,9 @@
-﻿using BindOpen.Data.Common;
-using BindOpen.Data.Helpers.Strings;
+﻿using BindOpen.Framework.MetaData;
+using BindOpen.Framework.MetaData.Helpers.Strings;
 using System;
 using System.Net;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents a builder of database query.

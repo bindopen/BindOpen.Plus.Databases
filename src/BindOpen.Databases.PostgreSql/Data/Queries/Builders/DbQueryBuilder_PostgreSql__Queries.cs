@@ -1,10 +1,11 @@
-﻿using BindOpen.Data.Elements;
-using BindOpen.Data.Helpers.Strings;
-using BindOpen.System.Diagnostics;
+﻿using BindOpen.Databases.Builders;
+using BindOpen.Framework.MetaData.Elements;
+using BindOpen.Framework.MetaData.Helpers.Strings;
+using BindOpen.Logging;
 using BindOpen.System.Scripting;
 using System.Linq;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -18,13 +19,13 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="scriptVariableSet">The script variable set to consider.</param>
+        /// <param name="varElementSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the built query text.</returns>
         protected override string GetSqlText_Query(
             IDbSingleQuery query,
             IDataElementSet parameterSet = null,
-            IScriptVariableSet scriptVariableSet = null,
+            IDataElementSet varElementSet = null,
             IBdoLog log = null)
         {
             var queryString = "";
@@ -44,7 +45,7 @@ namespace BindOpen.Databases.Data.Queries
                 queryString += string.Join(", ", query.CTETables.Select(table => GetSqlText_Table(
                     table, query, parameterSet, DbQueryTableMode.AliasAsCompleteName,
                     query.DataModule, query.Schema,
-                    scriptVariableSet: scriptVariableSet, log: log)))
+                    varElementSet: varElementSet, log: log)))
                     .ConcatenateIfFirstNotEmpty(" ");
             }
 
@@ -65,7 +66,7 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += string.Join(", ", query.Fields.Select(field => GetSqlText_Field(
                                 field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                 query.DataModule, query.Schema,
-                                scriptVariableSet: scriptVariableSet, log: log)))
+                                varElementSet: varElementSet, log: log)))
                                 .ConcatenateIfFirstNotEmpty(" ");
                         }
                         else
@@ -73,19 +74,19 @@ namespace BindOpen.Databases.Data.Queries
                             queryString += "* ";
                         }
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_GroupByClause(query.GroupByClause, query, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_GroupByClause(query.GroupByClause, query, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_HavingClause(query.HavingClause, query, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_HavingClause(query.HavingClause, query, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_OrderByClause(query.OrderByClause, query, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_OrderByClause(query.OrderByClause, query, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
                         if (query.Limit > -1)
@@ -97,7 +98,7 @@ namespace BindOpen.Databases.Data.Queries
                         {
                             foreach (var clause in query.UnionClauses)
                             {
-                                queryString += GetSqlText_UnionClause(clause, query, parameterSet, scriptVariableSet, log);
+                                queryString += GetSqlText_UnionClause(clause, query, parameterSet, varElementSet, log);
                             }
                         }
                     }
@@ -109,7 +110,7 @@ namespace BindOpen.Databases.Data.Queries
                         queryString += GetSqlText_Table(
                             query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
                             DbQueryTableMode.CompleteNameAsAlias, query.DataModule, query.Schema,
-                            scriptVariableSet: scriptVariableSet, log: log)
+                            varElementSet: varElementSet, log: log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
                         queryString += "set ";
@@ -117,13 +118,13 @@ namespace BindOpen.Databases.Data.Queries
                         queryString += string.Join(", ", query.Fields.Select(field =>
                             GetSqlText_Field(
                                 field, query, parameterSet, DbQueryFieldMode.NameEqualsValue,
-                                scriptVariableSet: scriptVariableSet, log: log)))
+                                varElementSet: varElementSet, log: log)))
                             .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
                         if (query.ReturnedIdFields?.Count > 0)
@@ -133,7 +134,7 @@ namespace BindOpen.Databases.Data.Queries
                                 GetSqlText_Field(
                                     field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
-                                    scriptVariableSet: scriptVariableSet, log: log)));
+                                    varElementSet: varElementSet, log: log)));
                         }
                     }
                     break;
@@ -142,10 +143,10 @@ namespace BindOpen.Databases.Data.Queries
                     {
                         queryString += "delete ";
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.FromPreffix, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
-                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_WhereClause(query.WhereClause, query, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
                         if (query.ReturnedIdFields?.Count > 0)
@@ -155,7 +156,7 @@ namespace BindOpen.Databases.Data.Queries
                                 GetSqlText_Field(
                                     field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
-                                    scriptVariableSet: scriptVariableSet, log: log)));
+                                    varElementSet: varElementSet, log: log)));
                         }
                     }
                     break;
@@ -166,7 +167,7 @@ namespace BindOpen.Databases.Data.Queries
                         queryString += GetSqlText_Table(
                             query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
                             DbQueryTableMode.CompleteName, query.DataModule, query.Schema,
-                            scriptVariableSet: scriptVariableSet, log: log)
+                            varElementSet: varElementSet, log: log)
                             .ConcatenateIfFirstNotEmpty(" ");
                         queryString += "(";
 
@@ -174,11 +175,11 @@ namespace BindOpen.Databases.Data.Queries
                             GetSqlText_Field(
                                 field, query, parameterSet, DbQueryFieldMode.OnlyName,
                                 query.DataModule, query.Schema,
-                                scriptVariableSet: scriptVariableSet, log: log)));
+                                varElementSet: varElementSet, log: log)));
 
                         queryString += ") ";
 
-                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.NoPreffix, parameterSet, scriptVariableSet, log)
+                        queryString += GetSqlText_FromClause(query.FromClause, query, DbQueryFromClauseKind.NoPreffix, parameterSet, varElementSet, log)
                             .ConcatenateIfFirstNotEmpty(" ");
 
                         if (query.ReturnedIdFields?.Count > 0)
@@ -188,7 +189,7 @@ namespace BindOpen.Databases.Data.Queries
                                 GetSqlText_Field(
                                     field, query, parameterSet, DbQueryFieldMode.CompleteNameOrValueAsAlias,
                                     query.DataModule, query.Schema, query.DataTable,
-                                    scriptVariableSet: scriptVariableSet, log: log)));
+                                    varElementSet: varElementSet, log: log)));
                         }
                     }
                     break;
@@ -202,13 +203,13 @@ namespace BindOpen.Databases.Data.Queries
         /// </summary>
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="scriptVariableSet">The script variable set to consider.</param>
+        /// <param name="varElementSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the built query text.</returns>
         protected override string GetSqlText_Query(
             IDbCompositeQuery query,
             IDataElementSet parameterSet = null,
-            IScriptVariableSet scriptVariableSet = null,
+            IDataElementSet varElementSet = null,
             IBdoLog log = null)
         {
             var queryString = "";
@@ -225,22 +226,22 @@ namespace BindOpen.Databases.Data.Queries
                         //queryString += GetSqlText_Table(
                         //    query.DataModule, query.Schema, query.DataTable, query.DataTableAlias,
                         //    DbFieldViewMode.CompleteNameAsAlias, query.DataModule, query.Schema,
-                        //    scriptVariableSet: scriptVariableSet, log: log);
+                        //    varElementSet: varElementSet, log: log);
 
                         //if (query.SelectJoinStatement != null)
                         //{
                         //    query.SelectJoinStatement.Kind = DbQueryJoinKind.Left;
-                        //    var subQueryString = GetSqlText_Join(query.SelectJoinStatement, query, parameterSet, scriptVariableSet, log);
+                        //    var subQueryString = GetSqlText_Join(query.SelectJoinStatement, query, parameterSet, varElementSet, log);
                         //    subQueryString = subQueryString.Substring("left join ".Length);
                         //    queryString += subQueryString;
                         //}
 
                         //queryString += " when matched ";
-                        //queryString += BuildQuery(query.MatchedQuery, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
+                        //queryString += BuildQuery(query.MatchedQuery, DbQueryParameterMode.Scripted, parameterSet, varElementSet, log);
                         //UpdateParameterSet(query.ParameterSet, query.MatchedQuery);
 
                         //queryString += " when not matched ";
-                        //queryString += BuildQuery(query.NotMatchedQuery, DbQueryParameterMode.Scripted, parameterSet, scriptVariableSet, log);
+                        //queryString += BuildQuery(query.NotMatchedQuery, DbQueryParameterMode.Scripted, parameterSet, varElementSet, log);
                         //queryString += ";";
                         //UpdateParameterSet(query.ParameterSet, query.NotMatchedQuery);
                     }

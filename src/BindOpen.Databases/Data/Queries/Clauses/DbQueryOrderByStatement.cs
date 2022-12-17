@@ -1,31 +1,14 @@
-﻿using BindOpen.Data.Common;
-using BindOpen.Extensions.Carriers;
+﻿using BindOpen.Framework.MetaData;
+using BindOpen.Framework.MetaData.Expression;
+using BindOpen.Framework.MetaData.Items;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents the Order-By clause of a database data query.
     /// </summary>
-    public class DbQueryOrderByStatement : DbQueryItem, IDbQueryOrderByStatement
+    public class DbQueryOrderByStatement : DataItem, IDbQueryOrderByStatement
     {
-        // ------------------------------------------
-        // PROPERTIES
-        // ------------------------------------------
-
-        #region Properties
-
-        /// <summary>
-        /// The sorting order of this instance.
-        /// </summary>
-        public DataSortingModes Sorting { get; set; }
-
-        /// <summary>
-        /// The field of this instance.
-        /// </summary>
-        public DbField Field { get; set; }
-
-        #endregion
-
         // ------------------------------------------
         // CONSTRUCTORS
         // ------------------------------------------
@@ -41,12 +24,70 @@ namespace BindOpen.Databases.Data.Queries
 
         #endregion
 
+        // ------------------------------------------
+        // IDbItem Implementation
+        // ------------------------------------------
+
+        #region IDbItem
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IDataExpression Expression { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public IDbQueryOrderByStatement WithExpression(IDataExpression expression)
+        {
+            Expression = expression;
+            return this;
+        }
+
+        #endregion
 
         // ------------------------------------------
-        // ACCESSORS
+        // IDbQueryOrderByStatement Implementation
         // ------------------------------------------
 
-        #region Accessors
+        #region IDbQueryOrderByStatement
+
+        /// <summary>
+        /// The sorting order of this instance.
+        /// </summary>
+        public DataSortingModes Sorting { get; set; }
+
+        public IDbQueryOrderByStatement WithSorting(DataSortingModes sorting)
+        {
+            Sorting = sorting;
+            return this;
+        }
+
+        /// <summary>
+        /// The field of this instance.
+        /// </summary>
+        public IDbField Field { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public IDbQueryOrderByStatement WithField(IDbField field)
+        {
+            Field = field;
+            return this;
+        }
+
+        #endregion
+
+        // ------------------------------------------
+        // IDataItem Implementation
+        // ------------------------------------------
+
+        #region IDataItem
 
         /// <summary>
         /// Clones this instance.

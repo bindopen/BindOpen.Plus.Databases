@@ -1,26 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using BindOpen.Framework.MetaData.Expression;
+using BindOpen.Framework.MetaData.Items;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Databases.Data.Queries
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents the From clause of a database data query.
     /// </summary>
-    public class DbQueryFromClause : DbQueryItem, IDbQueryFromClause
+    public class DbQueryFromClause : DataItem, IDbQueryFromClause
     {
-        // ------------------------------------------
-        // PROPERTIES
-        // ------------------------------------------
-
-        #region Properties
-
-        /// <summary>
-        /// The statements of this instance.
-        /// </summary>
-        public List<DbQueryFromStatement> Statements { get; set; }
-
-        #endregion
-
         // ------------------------------------------
         // CONSTRUCTORS
         // ------------------------------------------
@@ -36,12 +25,71 @@ namespace BindOpen.Databases.Data.Queries
 
         #endregion
 
+        // ------------------------------------------
+        // IDbItem Implementation
+        // ------------------------------------------
+
+        #region IDbItem
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IDataExpression Expression { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public IDbQueryFromClause WithExpression(IDataExpression expression)
+        {
+            Expression = expression;
+            return this;
+        }
+
+        #endregion
 
         // ------------------------------------------
-        // ACCESSORS
+        // IDbQueryFromClause Implementation
         // ------------------------------------------
 
-        #region Accessors
+        #region IDbQueryFromClause
+
+        /// <summary>
+        /// The statements of this instance.
+        /// </summary>
+        public List<IDbQueryFromStatement> Statements { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="statements"></param>
+        /// <returns></returns>
+        public IDbQueryFromClause WithStatements(params IDbQueryFromStatement[] statements)
+        {
+            Statements = statements.ToList();
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="statememnt"></param>
+        /// <returns></returns>
+        public IDbQueryFromClause AddStatements(params IDbQueryFromStatement[] statements)
+        {
+            Statements ??= new List<IDbQueryFromStatement>();
+            Statements.AddRange(statements);
+            return this;
+        }
+
+        #endregion
+
+        // ------------------------------------------
+        // IDataItem Implementation
+        // ------------------------------------------
+
+        #region IDataItem
 
         /// <summary>
         /// Clones this instance.
@@ -50,7 +98,7 @@ namespace BindOpen.Databases.Data.Queries
         public override object Clone(params string[] areas)
         {
             var clone = base.Clone(areas) as DbQueryFromClause;
-            clone.Statements = Statements?.Select(p => p.Clone<DbQueryFromStatement>()).ToList();
+            clone.Statements = Statements?.Select(p => p.Clone<IDbQueryFromStatement>()).ToList();
 
             return clone;
         }

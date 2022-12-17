@@ -1,6 +1,6 @@
-﻿using BindOpen.Databases.Data.Queries;
+﻿using BindOpen.Databases.Data;
 
-namespace BindOpen.Extensions.References
+namespace BindOpen.Framework.Extensions.References
 
 {
     /// <summary>

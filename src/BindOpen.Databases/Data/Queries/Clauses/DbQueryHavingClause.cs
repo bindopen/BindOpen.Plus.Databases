@@ -1,18 +1,13 @@
-﻿namespace BindOpen.Databases.Data.Queries
+﻿using BindOpen.Framework.MetaData.Expression;
+using BindOpen.Framework.MetaData.Items;
+
+namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents the Having clause of a database data query.
     /// </summary>
-    public class DbQueryHavingClause : DbQueryItem, IDbQueryHavingClause
+    public class DbQueryHavingClause : DataItem, IDbQueryHavingClause
     {
-        // ------------------------------------------
-        // PROPERTIES
-        // ------------------------------------------
-
-        #region Properties
-
-        #endregion
-
         // ------------------------------------------
         // CONSTRUCTORS
         // ------------------------------------------
@@ -28,12 +23,35 @@
 
         #endregion
 
+        // ------------------------------------------
+        // IDbItem Implementation
+        // ------------------------------------------
+
+        #region IDbItem
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IDataExpression Expression { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public IDbQueryHavingClause WithExpression(IDataExpression expression)
+        {
+            Expression = expression;
+            return this;
+        }
+
+        #endregion
 
         // ------------------------------------------
-        // ACCESSORS
+        // IDataItem Implementation
         // ------------------------------------------
 
-        #region Accessors
+        #region IDataItem
 
         /// <summary>
         /// Clones this instance.
@@ -41,7 +59,7 @@
         /// <returns>Returns the cloned instance.</returns>
         public override object Clone(params string[] areas)
         {
-            var clone = base.Clone(areas) as DbQueryHavingClause;
+            var clone = base.Clone<IDbQueryHavingClause>(areas);
 
             return clone;
         }

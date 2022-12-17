@@ -1,9 +1,9 @@
-﻿using BindOpen.Application.Scopes;
-using BindOpen.Data.Items;
-using BindOpen.Extensions.Runtime;
-using BindOpen.System.Diagnostics;
+﻿using BindOpen.Framework.Runtime.Scopes;
+using BindOpen.Framework.MetaData.Items;
+using BindOpen.Framework.Runtime;
+using BindOpen.Logging;
 
-namespace BindOpen.Data.Stores
+namespace BindOpen.Framework.MetaData.Stores
 {
     /// <summary>
     /// This class represents a data source extension.
@@ -23,7 +23,7 @@ namespace BindOpen.Data.Stores
             string connectionString,
             IBdoLog log = null)
         {
-            var datasource = ItemFactory.CreateDatasource(name, DatasourceKind.Database)
+            var datasource = BdoItems.CreateDatasource(name, DatasourceKind.Database)
                 .WithConfiguration(
                     (datasourceDepot?.Scope?.CreateConnectorConfiguration("databases.msSqlServer$client", log)
                         as BdoConnectorConfiguration)?.WithConnectionString(connectionString));
