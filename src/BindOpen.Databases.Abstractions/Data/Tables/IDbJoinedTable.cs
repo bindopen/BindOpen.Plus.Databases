@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Data
 {
@@ -29,13 +29,13 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The condition of this instance.
         /// </summary>
-        IDataExpression Condition { get; set; }
+        IBdoExpression Condition { get; set; }
 
         /// <summary>
         /// Sets the specified condition.
         /// </summary>
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns this instance.</returns>
-        IDbJoinedTable WithCondition(IDataExpression condition);
+        IDbJoinedTable WithCondition(IBdoExpression condition);
     }
 }

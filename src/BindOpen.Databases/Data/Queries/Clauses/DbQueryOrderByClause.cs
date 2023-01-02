@@ -1,5 +1,5 @@
-﻿using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Items;
+using BindOpen.Data.Items;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +8,7 @@ namespace BindOpen.Databases.Data
     /// <summary>
     /// This class represents the Order-By clause of a database data query.
     /// </summary>
-    public class DbQueryOrderByClause : DataItem, IDbQueryOrderByClause
+    public class DbQueryOrderByClause : BdoItem, IDbQueryOrderByClause
     {
         // ------------------------------------------
         // CONSTRUCTORS
@@ -70,14 +70,14 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        public IDataExpression Expression { get; set; }
+        public IBdoExpression Expression { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
-        public IDbQueryOrderByClause WithExpression(IDataExpression expression)
+        public IDbQueryOrderByClause WithExpression(IBdoExpression expression)
         {
             Expression = expression;
             return this;
@@ -86,10 +86,10 @@ namespace BindOpen.Databases.Data
         #endregion
 
         // ------------------------------------------
-        // IDataItem Implementation
+        // IBdoItem Implementation
         // ------------------------------------------
 
-        #region IDataItem
+        #region IBdoItem
 
         /// <summary>
         /// Clones this instance.

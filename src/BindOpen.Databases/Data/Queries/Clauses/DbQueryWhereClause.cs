@@ -1,5 +1,5 @@
-﻿using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Items;
+using BindOpen.Data.Items;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +8,7 @@ namespace BindOpen.Databases.Data
     /// <summary>
     /// This class represents the Where clause of a database data query.
     /// </summary>
-    public class DbQueryWhereClause : DataItem, IDbQueryWhereClause
+    public class DbQueryWhereClause : BdoItem, IDbQueryWhereClause
     {
         // ------------------------------------------
         // CONSTRUCTORS
@@ -34,14 +34,14 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        public IDataExpression Expression { get; set; }
+        public IBdoExpression Expression { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
-        public IDbQueryWhereClause WithExpression(IDataExpression expression)
+        public IDbQueryWhereClause WithExpression(IBdoExpression expression)
         {
             Expression = expression;
             return this;
@@ -76,10 +76,10 @@ namespace BindOpen.Databases.Data
         #endregion
 
         // ------------------------------------------
-        // IDataItem Implementation
+        // IBdoItem Implementation
         // ------------------------------------------
 
-        #region IDataItem
+        #region IBdoItem
 
         /// <summary>
         /// Clones this instance.

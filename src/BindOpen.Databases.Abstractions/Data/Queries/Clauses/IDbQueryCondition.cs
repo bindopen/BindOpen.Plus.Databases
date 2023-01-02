@@ -1,5 +1,5 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
+﻿using BindOpen.Data;
+using BindOpen.Data.Elements;
 
 namespace BindOpen.Databases.Data
 {
@@ -47,14 +47,14 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The set of parameters of this instance.
         /// </summary>
-        IDataElementSet ParameterSet { get; set; }
+        IBdoElementSet ParameterSet { get; set; }
 
         /// <summary>
         /// Defines the parameters of this instance.
         /// </summary>
         /// <param name="parameters">The set of parameters to consider.</param>
         /// <returns>Return this instance.</returns>
-        IDbQuery WithParameters(params IDataElement[] parameters);
+        IDbQuery WithParameters(params IBdoElement[] parameters);
 
         /// <summary>
         /// Add the specified parameter to this instance.

@@ -48,7 +48,7 @@
         <object name="value">
           <title>Value</title>
           <class.filter>
-            <add>BindOpen.Core.Data.Expression.DataExpression,BindOpen.Core</add>
+            <add>BindOpen.Core.Data.Expression.BdoExpression,BindOpen.Core</add>
           </class.filter>
         </object>
       </path.specification>

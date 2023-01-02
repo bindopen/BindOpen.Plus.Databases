@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Framework.Runtime" Version="1.1.20" />
+    <PackageReference Include="BindOpen.Extensions" Version="1.1.52" />
   </ItemGroup>
 
   <ItemGroup>

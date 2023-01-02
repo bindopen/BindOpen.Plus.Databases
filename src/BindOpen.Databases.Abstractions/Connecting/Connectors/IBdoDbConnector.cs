@@ -1,6 +1,6 @@
 ﻿using BindOpen.Databases.Data;
-using BindOpen.Framework.Extensions.Connecting;
-using BindOpen.Framework.MetaData.Elements;
+using BindOpen.Extensions.Connecting;
+using BindOpen.Data.Elements;
 using BindOpen.Logging;
 
 namespace BindOpen.Databases.Connecting
@@ -73,8 +73,8 @@ namespace BindOpen.Databases.Connecting
         string CreateCommandText(
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null);
 
         #endregion

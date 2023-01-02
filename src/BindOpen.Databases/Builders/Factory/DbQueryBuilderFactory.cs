@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Elements;
+﻿using BindOpen.Data.Elements;
 
 namespace BindOpen.Databases.Builders
 {
@@ -18,11 +18,11 @@ namespace BindOpen.Databases.Builders
         /// <param name="varElementSet">The script variable set to consider.</param>
         /// <param name="queryBuilder">The query builder to consider.</param>
         /// <returns></returns>
-        public static IDataElementSet AddInto(
+        public static IBdoElementSet AddInto(
             this IDbQueryBuilder queryBuilder,
-            IDataElementSet varElementSet)
+            IBdoElementSet varElementSet)
         {
-            varElementSet?.Add(BdoElements.Create(__DbBuilder, queryBuilder));
+            varElementSet?.Add(BdoElements.NewElement(__DbBuilder, queryBuilder));
 
             return varElementSet;
         }
@@ -33,7 +33,7 @@ namespace BindOpen.Databases.Builders
         /// <param name="varElementSet">The script variable set to consider.</param>
         /// <returns></returns>
         public static DbQueryBuilder GetDbBuilder(
-            this IDataElementSet varElementSet)
+            this IBdoElementSet varElementSet)
         {
             return varElementSet?.GetItem<DbQueryBuilder>(__DbBuilder);
         }

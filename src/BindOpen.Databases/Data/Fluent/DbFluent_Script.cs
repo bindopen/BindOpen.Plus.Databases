@@ -1,7 +1,7 @@
-﻿using BindOpen.Framework.Extensions.Scripting;
-using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data;
+using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
+using BindOpen.Extensions.Scripting;
 using System.Linq;
 
 namespace BindOpen.Databases.Data
@@ -39,17 +39,17 @@ namespace BindOpen.Databases.Data
             }
             else if (obj is DbField field)
             {
-                return (field?.ToScript()).CreateExpAsScript();
+                return (field?.ToScript()).AsExpression(BdoExpressionKind.Script);
             }
             else if (obj is DbTable table)
             {
-                return (table?.ToScript()).CreateExpAsScript();
+                return (table?.ToScript()).AsExpression(BdoExpressionKind.Script);
             }
             else if (obj is IScalarElement param)
             {
                 return param.AsExp();
             }
-            else if (obj is DataExpression || obj is BdoScriptword)
+            else if (obj is BdoExpression || obj is BdoScriptword)
             {
                 return obj;
             }

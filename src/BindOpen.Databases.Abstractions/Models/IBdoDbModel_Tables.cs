@@ -1,5 +1,5 @@
 ﻿using BindOpen.Databases.Data;
-using BindOpen.Framework.MetaData.Expression;
+using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Models
 {
@@ -32,7 +32,7 @@ namespace BindOpen.Databases.Models
         /// <param name="kind">The kind to consider.</param>
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public IDbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, IDataExpression condition);
+        public IDbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, IBdoExpression condition);
 
         /// <summary>
         /// Creates a new joined table.
@@ -40,7 +40,7 @@ namespace BindOpen.Databases.Models
         /// <param name="kind">The kind to consider.</param>
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public IDbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, IDataExpression condition);
+        public IDbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, IBdoExpression condition);
 
         /// <summary>
         /// Creates a new joined table.

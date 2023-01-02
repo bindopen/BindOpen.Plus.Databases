@@ -1,5 +1,5 @@
-﻿using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Items;
+using BindOpen.Data.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace BindOpen.Databases.Data
     /// <summary>
     /// This class represents the database tuple.
     /// </summary>
-    public class DbTuple : DataItem, IDbTuple
+    public class DbTuple : BdoItem, IDbTuple
     {
         // ------------------------------------------
         // CONSTRUCTORS
@@ -35,14 +35,14 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The expression of this instance.
         /// </summary>
-        public IDataExpression Expression { get; set; }
+        public IBdoExpression Expression { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="exp"></param>
         /// <returns></returns>
-        public IDbTuple WithExpression(IDataExpression exp)
+        public IDbTuple WithExpression(IBdoExpression exp)
         {
             Expression = exp;
             return this;
@@ -88,10 +88,10 @@ namespace BindOpen.Databases.Data
         #endregion
 
         // ------------------------------------------
-        // IDataItem Implementation
+        // IBdoItem Implementation
         // ------------------------------------------
 
-        #region IDataItem
+        #region IBdoItem
 
         /// <summary>
         /// Clones this instance.

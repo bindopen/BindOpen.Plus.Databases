@@ -1,7 +1,7 @@
 ﻿using BindOpen.Databases.Data;
 using BindOpen.Databases.Exceptions;
-using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Expression;
+using BindOpen.Data;
+using BindOpen.Data.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +76,7 @@ namespace BindOpen.Databases.Models
         /// <param name="kind">The kind to consider.</param>
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public IDbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, IDataExpression condition)
+        public IDbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, IBdoExpression condition)
         {
             return DbFluent.TableAsJoin(kind, Table(name), condition);
         }
@@ -87,7 +87,7 @@ namespace BindOpen.Databases.Models
         /// <param name="kind">The kind to consider.</param>
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public IDbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, IDataExpression condition)
+        public IDbJoinedTable TableAsJoin<T>(DbQueryJoinKind kind, IBdoExpression condition)
         {
             return TableAsJoin(typeof(T).Name, kind, condition);
         }

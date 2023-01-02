@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data.Items;
 using System.Linq;
 
 namespace BindOpen.Databases.Data
@@ -31,7 +31,7 @@ namespace BindOpen.Databases.Data
         /// <param name="table">The table to consider.</param>
         /// <param name="expression">The expression to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, IDbTable table, IDataExpression expression)
+        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, IDbTable table, IBdoExpression expression)
         {
             var joinedTable = new DbJoinedTable() { Kind = kind, Table = table };
             joinedTable.WithCondition(expression);
@@ -46,7 +46,7 @@ namespace BindOpen.Databases.Data
         ///// <param name="conditionScript">The condition script to consider.</param>
         ///// <returns>Returns a new From statement.</returns>
         //public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript)
-        //    => TableAsJoin(kind, table, conditionScript.CreateExpAsScript());
+        //    => TableAsJoin(kind, table, conditionScript.AsExpression(BdoExpressionKind.Script));
 
         // Derived --------------------------------
 

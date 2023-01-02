@@ -1,5 +1,5 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data;
+using BindOpen.Data.Items;
 using BindOpen.Logging;
 using System.Linq;
 
@@ -142,7 +142,7 @@ namespace BindOpen.Databases.Data
                             dbQuery.WhereClause = new DbQueryWhereClause();
                         }
 
-                        dbQuery.WhereClause.Expression = scriptText.CreateExpAsScript();
+                        dbQuery.WhereClause.Expression = scriptText.AsExpression(BdoExpressionKind.Script);
                     }
                 }
             }

@@ -1,11 +1,11 @@
-﻿using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents a Api script expression.
     /// </summary>
-    public class DbApiClause : DataItem, IDbApiClause
+    public class DbApiClause : BdoItem, IDbApiClause
     {
         /// <summary>
         /// The field alias of this instance.

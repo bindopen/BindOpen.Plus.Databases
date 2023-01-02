@@ -1,5 +1,5 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data;
+using BindOpen.Data.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,10 +37,10 @@ namespace BindOpen.Databases.Data
         #endregion
 
         // ------------------------------------------
-        // IDataItem Implementation
+        // IBdoItem Implementation
         // ------------------------------------------
 
-        #region IDataItem
+        #region IBdoItem
 
         /// <summary>
         /// Clones this instance.
@@ -302,16 +302,16 @@ namespace BindOpen.Databases.Data
             return From(initializer?.Invoke(this));
         }
 
-        public IDbSingleQuery From(IDataExpression expression)
+        public IDbSingleQuery From(IBdoExpression expression)
         {
-            FromClause = new DbQueryFromClause() { Expression = expression as DataExpression };
+            FromClause = new DbQueryFromClause() { Expression = expression as BdoExpression };
             return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery From(Func<IDbSingleQuery, IDataExpression> initializer)
+        public IDbSingleQuery From(Func<IDbSingleQuery, IBdoExpression> initializer)
         {
             return From(initializer?.Invoke(this));
         }
@@ -326,10 +326,10 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery Where(IDataExpression expression)
+        public IDbSingleQuery Where(IBdoExpression expression)
         {
             var idFields = WhereClause?.IdFields;
-            WhereClause = new DbQueryWhereClause() { Expression = expression as DataExpression };
+            WhereClause = new DbQueryWhereClause() { Expression = expression as BdoExpression };
             WhereClause.IdFields = idFields;
             return this;
         }
@@ -337,7 +337,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery Where(Func<IDbSingleQuery, IDataExpression> initializer)
+        public IDbSingleQuery Where(Func<IDbSingleQuery, IBdoExpression> initializer)
         {
             return Where(initializer?.Invoke(this));
         }
@@ -446,16 +446,16 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery OrderBy(IDataExpression expression)
+        public IDbSingleQuery OrderBy(IBdoExpression expression)
         {
-            OrderByClause = new DbQueryOrderByClause() { Expression = expression as DataExpression };
+            OrderByClause = new DbQueryOrderByClause() { Expression = expression as BdoExpression };
             return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery OrderBy(Func<IDbSingleQuery, IDataExpression> initializer)
+        public IDbSingleQuery OrderBy(Func<IDbSingleQuery, IBdoExpression> initializer)
         {
             return OrderBy(initializer?.Invoke(this));
         }
@@ -480,16 +480,16 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery GroupBy(IDataExpression expression)
+        public IDbSingleQuery GroupBy(IBdoExpression expression)
         {
-            GroupByClause = new DbQueryGroupByClause() { Expression = expression as DataExpression };
+            GroupByClause = new DbQueryGroupByClause() { Expression = expression as BdoExpression };
             return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery GroupBy(Func<IDbSingleQuery, IDataExpression> initializer)
+        public IDbSingleQuery GroupBy(Func<IDbSingleQuery, IBdoExpression> initializer)
         {
             return GroupBy(initializer?.Invoke(this));
         }
@@ -504,16 +504,16 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery Having(IDataExpression expression)
+        public IDbSingleQuery Having(IBdoExpression expression)
         {
-            HavingClause = new DbQueryHavingClause() { Expression = expression as DataExpression };
+            HavingClause = new DbQueryHavingClause() { Expression = expression as BdoExpression };
             return this;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IDbSingleQuery Having(Func<IDbSingleQuery, IDataExpression> initializer)
+        public IDbSingleQuery Having(Func<IDbSingleQuery, IBdoExpression> initializer)
         {
             return Having(initializer?.Invoke(this));
         }
