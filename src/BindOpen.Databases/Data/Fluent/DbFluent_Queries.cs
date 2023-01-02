@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData;
+﻿using BindOpen.Data;
 using System;
 
 namespace BindOpen.Databases.Data

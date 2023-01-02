@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Data
 {
@@ -15,50 +15,50 @@ namespace BindOpen.Databases.Data
         /// <param name="condition">The condition to consider.</param>
         /// <param name="thenResult">The then-result to consider.</param>
         /// <param name="elseResult">The else-result to consider.</param>
-        public static DataExpression If(object condition, object thenResult, object elseResult)
+        public static BdoExpression If(object condition, object thenResult, object elseResult)
         {
-            return DbFunction("sqlIf", condition, thenResult, elseResult).CreateExp();
+            return DbFunction("sqlIf", condition, thenResult, elseResult).AsExpression();
         }
 
         /// <summary>
         /// Creates a BDO script representing and Sql And condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static DataExpression And(params object[] conditions)
+        public static BdoExpression And(params object[] conditions)
         {
-            return DbFunction("sqlAnd", conditions).CreateExp(); ;
+            return DbFunction("sqlAnd", conditions).AsExpression(); ;
         }
 
         /// <summary>
         /// Creates a BDO script representing and Sql Or condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static DataExpression Or(params object[] conditions)
+        public static BdoExpression Or(params object[] conditions)
         {
-            return DbFunction("sqlOr", conditions).CreateExp(); ;
+            return DbFunction("sqlOr", conditions).AsExpression(); ;
         }
 
         /// <summary>
         /// Creates a BDO script representing and Sql Xor condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static DataExpression Xor(params object[] conditions)
+        public static BdoExpression Xor(params object[] conditions)
         {
-            return DbFunction("sqlXOr", conditions).CreateExp(); ;
+            return DbFunction("sqlXOr", conditions).AsExpression(); ;
         }
 
         /// <summary>
         /// Creates a BDO script representing and Sql Not condition including the specified condition strings.
         /// </summary>
         /// <param name="condition">The condition to consider.</param>
-        public static DataExpression Not(object condition)
-            => DbFunction("sqlNot", condition).CreateExp();
+        public static BdoExpression Not(object condition)
+            => DbFunction("sqlNot", condition).AsExpression();
 
         /// <summary>
         /// Creates a BDO script representing and Sql Xor condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static DataExpression Like(object param1, object param2)
-            => DbFunction("sqlLike", param1, param2).CreateExp();
+        public static BdoExpression Like(object param1, object param2)
+            => DbFunction("sqlLike", param1, param2).AsExpression();
     }
 }

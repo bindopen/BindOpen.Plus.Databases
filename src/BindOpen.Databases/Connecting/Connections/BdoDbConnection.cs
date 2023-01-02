@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.Extensions.Connecting;
+﻿using BindOpen.Extensions.Connecting;
 using BindOpen.Logging;
 using System;
 using System.Data;

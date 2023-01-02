@@ -1,8 +1,8 @@
 ﻿using BindOpen.Databases.Data;
-using BindOpen.Framework.Extensions.Connecting;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Stores;
-using BindOpen.Framework.Runtime.Scopes;
+using BindOpen.Extensions.Connecting;
+using BindOpen.Data.Elements;
+using BindOpen.Data.Stores;
+using BindOpen.Runtime.Scopes;
 using BindOpen.Logging;
 using System.Data;
 
@@ -26,13 +26,13 @@ namespace BindOpen.Databases.Connecting
         /// <returns>Returns True if the connector has been opened. False otherwise.</returns>
         public static T Open<T>(
             this IBdoScope scope,
-            IBdoDatasourceDepot depot,
+            IBdoSourceDepot depot,
             string dataSourceName,
             string connectorDefinitionUniqueId,
             IBdoLog log = null)
             where T : class, IBdoConnection
         {
-            depot ??= scope?.DataStore?.Get<IBdoDatasourceDepot>();
+            depot ??= scope?.DataStore?.Get<IBdoSourceDepot>();
 
             if (depot == null)
                 log.AddError("Data source depot missing");
@@ -93,8 +93,8 @@ namespace BindOpen.Databases.Connecting
             this IBdoDbConnection connection,
             IDbQuery query,
             DbQueryParameterMode parameterMode,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null)
         {
             IDbCommand command = (connection?.Connector as BdoDbConnector)?.CreateCommand(query, parameterMode, parameterSet, varElementSet, log);
@@ -115,8 +115,8 @@ namespace BindOpen.Databases.Connecting
         public static IDbCommand CreateCommand<T>(
             this IDbQuery query,
             DbQueryParameterMode parameterMode,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             T connector = new();
@@ -137,8 +137,8 @@ namespace BindOpen.Databases.Connecting
             this IDbConnection connection,
             IDbQuery query,
             DbQueryParameterMode parameterMode,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             T connector = new();
@@ -161,8 +161,8 @@ namespace BindOpen.Databases.Connecting
             this IDbTransaction transaction,
             IDbQuery query,
             DbQueryParameterMode parameterMode,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             IDbCommand command = transaction?.Connection?.CreateCommand<T>(query, parameterMode, parameterSet, varElementSet, log);

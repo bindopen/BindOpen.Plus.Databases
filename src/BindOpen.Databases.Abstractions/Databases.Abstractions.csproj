@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Framework.Abstractions" Version="1.1.20" />
+    <PackageReference Include="BindOpen.Abstractions" Version="1.1.52" />
   </ItemGroup>
 
 </Project>

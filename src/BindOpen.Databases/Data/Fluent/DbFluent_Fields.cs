@@ -1,6 +1,6 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data;
+using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -73,7 +73,7 @@ namespace BindOpen.Databases.Data
                 field.ValueType = valueType;
                 if (value != null)
                 {
-                    field.Expression = value.ToString(field.ValueType).CreateExpAsLiteral();
+                    field.Expression = value.ToString(field.ValueType).AsExpression(BdoExpressionKind.Literal);
                 }
             }
 
@@ -156,7 +156,7 @@ namespace BindOpen.Databases.Data
                 field.ValueType = DataValueTypes.None;
                 if (script != null)
                 {
-                    field.Expression = script.CreateExpAsScript();
+                    field.Expression = script.AsExpression(BdoExpressionKind.Script);
                 }
             }
 
@@ -308,7 +308,7 @@ namespace BindOpen.Databases.Data
         {
             if (field != null)
             {
-                field.Expression = (otherField.ToScript()).CreateExpAsScript();
+                field.Expression = (otherField.ToScript()).AsExpression(BdoExpressionKind.Script);
             }
 
             return field;
@@ -397,7 +397,7 @@ namespace BindOpen.Databases.Data
             if (field != null)
             {
                 field.ValueType = DataValueTypes.None;
-                field.Expression = BdoElements.CreateScalar(parameterName).AsExp();
+                field.Expression = BdoElements.NewScalar(parameterName).AsExp();
             }
 
             return field;

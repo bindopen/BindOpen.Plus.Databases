@@ -1,10 +1,10 @@
-﻿using BindOpen.Databases.Data;
-using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Items;
-using BindOpen.Framework.MetaData.Stores;
-using BindOpen.Framework.Runtime.Scopes;
+﻿using BindOpen.Data;
+using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
+using BindOpen.Data.Stores;
+using BindOpen.Databases.Data;
 using BindOpen.Logging;
+using BindOpen.Runtime.Scopes;
 using System;
 
 namespace BindOpen.Databases.Builders
@@ -12,7 +12,7 @@ namespace BindOpen.Databases.Builders
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    public abstract partial class DbQueryBuilder : DataItem,
+    public abstract partial class DbQueryBuilder : BdoItem,
         IDbQueryBuilder
     {
         // ------------------------------------------
@@ -91,7 +91,7 @@ namespace BindOpen.Databases.Builders
         /// <remarks>If not found, it returns the specified data module name.</remarks>
         protected string GetDatabaseName(string dataModuleName)
         {
-            var dataSourceDepot = Scope?.DataStore?.Get<IBdoDatasourceDepot>();
+            var dataSourceDepot = Scope?.DataStore?.Get<IBdoSourceDepot>();
             if (dataSourceDepot == null)
                 return dataModuleName;
             else
@@ -110,7 +110,7 @@ namespace BindOpen.Databases.Builders
         /// </summary>
         /// <param name="parameterSet">The parameter set to consider.</param>
         /// <param name="query">The query to consider.</param>
-        protected static void UpdateParameterSet(IDataElementSet parameterSet, IDbQuery query)
+        protected static void UpdateParameterSet(IBdoElementSet parameterSet, IDbQuery query)
         {
             parameterSet?.Update(query?.ParameterSpecSet);
             parameterSet?.Update(query?.ParameterSet);
@@ -128,8 +128,8 @@ namespace BindOpen.Databases.Builders
         public string BuildQuery(
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null)
         {
             var queryString = "";
@@ -170,7 +170,7 @@ namespace BindOpen.Databases.Builders
 
                     if (parameterMode != DbQueryParameterMode.Scripted)
                     {
-                        parameterSet ??= new DataElementSet();
+                        parameterSet ??= BdoElements.NewSet();
                         UpdateParameterSet(parameterSet, query);
 
                         if (query is IDbStoredQuery storedDbQuery)
@@ -219,8 +219,8 @@ namespace BindOpen.Databases.Builders
         /// <returns>Returns the built query text.</returns>
         protected abstract string GetSqlText_Query(
             IDbSingleQuery query,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null);
 
         // Builds merge query ----------------------
@@ -235,8 +235,8 @@ namespace BindOpen.Databases.Builders
         /// <returns>Returns the built query text.</returns>
         protected abstract string GetSqlText_Query(
             IDbCompositeQuery query,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null);
 
         #endregion

@@ -1,12 +1,12 @@
 ﻿using BindOpen.Databases.Data;
-using BindOpen.Framework.MetaData.Items;
+using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents the table relationship.
     /// </summary>
-    public class DbTableRelationship : DataItem, IDbTableRelationship
+    public class DbTableRelationship : BdoItem, IDbTableRelationship
     {
         // ------------------------------------------
         // PROPERTIES
@@ -27,7 +27,7 @@ namespace BindOpen.Databases.Models
         /// <summary>
         /// The field mapping of this instance.
         /// </summary>
-        public IDictionaryDataItem FieldMappingDictionary { get; set; } = new DictionaryDataItem();
+        public IBdoDictionary FieldMappingDictionary { get; set; } = new BdoDictionary();
 
         #endregion
 
@@ -62,7 +62,7 @@ namespace BindOpen.Databases.Models
             var clone = base.Clone<IDbTableRelationship>(areas);
             clone.Table1 = Table1?.Clone<IDbTable>();
             clone.Table2 = Table2?.Clone<IDbTable>();
-            clone.FieldMappingDictionary = FieldMappingDictionary?.Clone<DictionaryDataItem>();
+            clone.FieldMappingDictionary = FieldMappingDictionary?.Clone<BdoDictionary>();
 
             return clone;
         }

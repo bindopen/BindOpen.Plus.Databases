@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.Extensions.Connecting;
+﻿using BindOpen.Extensions.Connecting;
 
 namespace BindOpen.Databases.Connecting
 {

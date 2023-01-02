@@ -1,8 +1,8 @@
 ﻿using BindOpen.Databases.Connecting;
 using BindOpen.Databases.Stores;
-using BindOpen.Framework.Extensions.Connecting;
-using BindOpen.Framework.MetaData.Items;
-using BindOpen.Framework.Runtime.Scopes;
+using BindOpen.Extensions.Connecting;
+using BindOpen.Data.Items;
+using BindOpen.Runtime.Scopes;
 using BindOpen.Logging;
 using System;
 
@@ -11,7 +11,7 @@ namespace BindOpen.Databases.Models
     /// <summary>
     /// This class represents a master data repository.
     /// </summary>
-    public abstract class TBdoDbRepository<M> : DataItem, ITBdoDbRepository<M>
+    public abstract class TBdoDbRepository<M> : BdoItem, ITBdoDbRepository<M>
         where M : BdoDbModel
     {
         // ------------------------------------------
@@ -50,19 +50,22 @@ namespace BindOpen.Databases.Models
             return this;
         }
 
-        void IBdoConnected.UsingConnection(
-            Action<IBdoConnection> action,
-            bool isAutoConnected = true,
-            IBdoLog log = null)
-        { }
-
         /// <summary>
         /// Executing the specified action during a new connection.
         /// </summary>
         /// <param name="action">The action to execute.</param>
         /// <param name="log">The log to consider.</param>
         /// <param name="isAutoConnected">Indicates whether the connection must be automatically connected.</param>
-        public virtual ITBdoDbRepository<M> UsingConnection(
+        IBdoConnected IBdoConnected.UsingConnection(
+            Action<IBdoConnection> action,
+            bool isAutoConnected = true,
+            IBdoLog log = null)
+        {
+            Connector?.UsingConnection(action, isAutoConnected, log);
+            return this;
+        }
+
+        public ITBdoDbRepository<M> UsingConnection(
             Action<IBdoDbConnection, IBdoLog> action,
             bool isAutoConnected = true,
             IBdoLog log = null)
@@ -71,11 +74,14 @@ namespace BindOpen.Databases.Models
             return this;
         }
 
-        void IBdoConnected.UsingConnection(
+        IBdoConnected IBdoConnected.UsingConnection(
             Action<IBdoConnection, IBdoLog> action,
             bool isAutoConnected = true,
             IBdoLog log = null)
-        { }
+        {
+            Connector?.UsingConnection(action, isAutoConnected, log);
+            return this;
+        }
 
         #endregion
 

@@ -1,5 +1,5 @@
-﻿using BindOpen.Framework.Extensions.Data;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Items;
+using BindOpen.Extensions.Modeling;
 
 namespace BindOpen.Databases.Data
 {

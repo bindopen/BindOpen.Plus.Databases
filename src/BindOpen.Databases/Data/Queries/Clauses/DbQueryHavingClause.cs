@@ -1,12 +1,12 @@
-﻿using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Items;
+using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// This class represents the Having clause of a database data query.
     /// </summary>
-    public class DbQueryHavingClause : DataItem, IDbQueryHavingClause
+    public class DbQueryHavingClause : BdoItem, IDbQueryHavingClause
     {
         // ------------------------------------------
         // CONSTRUCTORS
@@ -32,14 +32,14 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        public IDataExpression Expression { get; set; }
+        public IBdoExpression Expression { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
-        public IDbQueryHavingClause WithExpression(IDataExpression expression)
+        public IDbQueryHavingClause WithExpression(IBdoExpression expression)
         {
             Expression = expression;
             return this;
@@ -48,10 +48,10 @@ namespace BindOpen.Databases.Data
         #endregion
 
         // ------------------------------------------
-        // IDataItem Implementation
+        // IBdoItem Implementation
         // ------------------------------------------
 
-        #region IDataItem
+        #region IBdoItem
 
         /// <summary>
         /// Clones this instance.
