@@ -1,7 +1,6 @@
-﻿using BindOpen.Framework.Extensions;
-using BindOpen.Framework.Extensions.Data;
-using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
+using BindOpen.Extensions.Modeling;
 
 namespace BindOpen.Databases.Data
 {
@@ -32,10 +31,10 @@ namespace BindOpen.Databases.Data
         #endregion
 
         // ------------------------------------------
-        // IDataItem Implementation
+        // IBdoItem Implementation
         // ------------------------------------------
 
-        #region IDataItem
+        #region IBdoItem
 
         /// <summary>
         /// Clones this instance.
@@ -44,7 +43,7 @@ namespace BindOpen.Databases.Data
         public override object Clone(params string[] areas)
         {
             var clone = base.Clone(areas) as DbTable;
-            clone.Expression = Expression?.Clone<DataExpression>();
+            clone.Expression = Expression?.Clone<BdoExpression>();
 
             return clone;
         }
@@ -85,15 +84,15 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The expression of this instance.
         /// </summary>
-        [DetailProperty(Name = "expression")]
-        public IDataExpression Expression { get; set; }
+        [BdoElement(Name = "expression")]
+        public IBdoExpression Expression { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="exp"></param>
         /// <returns></returns>
-        public IDbTable WithExpression(IDataExpression exp)
+        public IDbTable WithExpression(IBdoExpression exp)
         {
             Expression = exp;
             return this;
@@ -110,7 +109,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Data module of this instance.
         /// </summary>
-        [DetailProperty(Name = "dataModule")]
+        [BdoElement(Name = "dataModule")]
         public string DataModule { get; set; }
 
         /// <summary>
@@ -127,7 +126,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Data module of this instance.
         /// </summary>
-        [DetailProperty(Name = "schema")]
+        [BdoElement(Name = "schema")]
         public string Schema { get; set; }
 
         /// <summary>
@@ -144,7 +143,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Alias of this instance.
         /// </summary>
-        [DetailProperty(Name = "alias")]
+        [BdoElement(Name = "alias")]
         public string Alias { get; set; }
 
         /// <summary>

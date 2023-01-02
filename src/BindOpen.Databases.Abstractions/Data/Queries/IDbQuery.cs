@@ -1,6 +1,6 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data;
+using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
 using System.Collections.Generic;
 
 namespace BindOpen.Databases.Data
@@ -63,14 +63,14 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The parameter set of this instance.
         /// </summary>
-        IDataElementSet ParameterSet { get; set; }
+        IBdoElementSet ParameterSet { get; set; }
 
         /// <summary>
         /// Defines the parameters of this instance.
         /// </summary>
         /// <param name="parameters">The set of parameters to consider.</param>
         /// <returns>Return this instance.</returns>
-        IDbQuery WithParameters(params IDataElement[] parameters);
+        IDbQuery WithParameters(params IBdoElement[] parameters);
 
         /// <summary>
         /// Add the specified parameter to this instance.
@@ -82,14 +82,14 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The parameter specification set of this instance.
         /// </summary>
-        IDataElementSpecSet ParameterSpecSet { get; set; }
+        IBdoElementSpecSet ParameterSpecSet { get; set; }
 
         /// <summary>
         /// Defines the parameter specifications of this instance.
         /// </summary>
         /// <param name="parameters">The set of parameter specifications to consider.</param>
         /// <returns>Return this instance.</returns>
-        IDbQuery UsingParameters(params IDataElementSpec[] parameterSpecs);
+        IDbQuery UsingParameters(params IBdoElementSpec[] parameterSpecs);
 
         /// <summary>
         /// Gets the name of this instance.

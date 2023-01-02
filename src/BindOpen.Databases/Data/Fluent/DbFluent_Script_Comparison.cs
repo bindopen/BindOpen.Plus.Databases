@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Data
 {
@@ -15,8 +15,8 @@ namespace BindOpen.Databases.Data
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression Eq(object value1, object value2)
-            => DbFunction("sqlEq", value1, value2).CreateExp();
+        public static BdoExpression Eq(object value1, object value2)
+            => DbFunction("sqlEq", value1, value2).AsExpression();
 
         /// <summary>
         /// Evaluates the script word $SQLDIFF.
@@ -24,8 +24,8 @@ namespace BindOpen.Databases.Data
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression Diff(object value1, object value2)
-            => DbFunction("sqlDiff", value1, value2).CreateExp();
+        public static BdoExpression Diff(object value1, object value2)
+            => DbFunction("sqlDiff", value1, value2).AsExpression();
 
         /// <summary>
         /// Evaluates the script word $SQLGT.
@@ -33,8 +33,8 @@ namespace BindOpen.Databases.Data
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression Gt(object value1, object value2)
-            => DbFunction("sqlGt", value1, value2).CreateExp();
+        public static BdoExpression Gt(object value1, object value2)
+            => DbFunction("sqlGt", value1, value2).AsExpression();
 
         /// <summary>
         /// Evaluates the script word $SQLGTE.
@@ -42,8 +42,8 @@ namespace BindOpen.Databases.Data
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression Gte(object value1, object value2)
-            => DbFunction("sqlGte", value1, value2).CreateExp();
+        public static BdoExpression Gte(object value1, object value2)
+            => DbFunction("sqlGte", value1, value2).AsExpression();
 
         /// <summary>
         /// Evaluates the script word $SQLLT.
@@ -51,8 +51,8 @@ namespace BindOpen.Databases.Data
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression Lt(object value1, object value2)
-            => DbFunction("sqlLt", value1, value2).CreateExp();
+        public static BdoExpression Lt(object value1, object value2)
+            => DbFunction("sqlLt", value1, value2).AsExpression();
 
         /// <summary>
         /// Evaluates the script word $SQLLTE.
@@ -60,16 +60,16 @@ namespace BindOpen.Databases.Data
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression Lte(object value1, object value2)
-            => DbFunction("sqlLte", value1, value2).CreateExp();
+        public static BdoExpression Lte(object value1, object value2)
+            => DbFunction("sqlLte", value1, value2).AsExpression();
 
         /// <summary>
         /// Evaluates the script word $SQLISNULL.
         /// </summary>
         /// <param name="value1"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression IsNull(object value1)
-            => DbFunction("sqlIsNull", value1).CreateExp();
+        public static BdoExpression IsNull(object value1)
+            => DbFunction("sqlIsNull", value1).AsExpression();
 
         /// <summary>
         /// Evaluates the script word $SQLIFNULL.
@@ -77,15 +77,15 @@ namespace BindOpen.Databases.Data
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression IfNull(object value1, object value2)
-            => DbFunction("sqlIfNull", value1, value2).CreateExp();
+        public static BdoExpression IfNull(object value1, object value2)
+            => DbFunction("sqlIfNull", value1, value2).AsExpression();
 
         /// <summary>
         /// Evaluates the script word $SQLEXISTS.
         /// </summary>
         /// <param name="value"></param>
         /// <returns>The interpreted object value.</returns>
-        public static DataExpression Exists(object value)
-            => DbFunction("sqlExists", value).CreateExp();
+        public static BdoExpression Exists(object value)
+            => DbFunction("sqlExists", value).AsExpression();
     }
 }

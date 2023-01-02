@@ -1,8 +1,8 @@
-﻿using BindOpen.Databases.Data;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Items;
-using BindOpen.Framework.Runtime.Scopes;
+﻿using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
+using BindOpen.Databases.Data;
 using BindOpen.Logging;
+using BindOpen.Runtime.Scopes;
 
 namespace BindOpen.Databases.Builders
 {
@@ -25,8 +25,8 @@ namespace BindOpen.Databases.Builders
         public string BuildQuery(
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null);
     }
 }

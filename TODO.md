@@ -11,8 +11,8 @@ Todo list for BindOpen
 ## Stuff to check out later on
 
 * Review the CreateParameterWildString method
-* See whether AsScript extension must return a ScriptWord or a DataExpression
-* Null exception in .DataElementSet.Repair: UsingParameters without parameters
+* See whether AsScript extension must return a ScriptWord or a BdoExpression
+* Null exception in .BdoElementSet.Repair: UsingParameters without parameters
 
 * Add Getting Help + Contributors sections in README.md
 * Api filter and sort clauses

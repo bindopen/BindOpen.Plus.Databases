@@ -1,14 +1,13 @@
-﻿using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Data
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbItem : IDataItem
+    public interface IDbItem : IBdoItem
     {
-        IDataExpression Expression { get; set; }
+        IBdoExpression Expression { get; set; }
 
         string ToString();
     }

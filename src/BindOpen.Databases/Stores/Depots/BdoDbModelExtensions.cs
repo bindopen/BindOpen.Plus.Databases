@@ -1,6 +1,6 @@
 ﻿using BindOpen.Databases.Models;
-using BindOpen.Framework.MetaData.Stores;
-using BindOpen.Framework.Runtime.Scopes;
+using BindOpen.Data.Stores;
+using BindOpen.Runtime.Scopes;
 using BindOpen.Logging;
 using System;
 

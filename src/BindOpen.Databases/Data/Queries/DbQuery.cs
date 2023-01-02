@@ -1,7 +1,5 @@
-﻿using BindOpen.Framework.Extensions;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ namespace BindOpen.Databases.Data
     /// <summary>
     /// This class represents a database data query.
     /// </summary>
-    public abstract class DbQuery : DataItem, IDbQuery
+    public abstract class DbQuery : BdoItem, IDbQuery
     {
         // ------------------------------------------
         // CONSTRUCTORS
@@ -95,15 +93,15 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The expression of this instance.
         /// </summary>
-        [DetailProperty(Name = "expression")]
-        public IDataExpression Expression { get; set; }
+        [BdoElement(Name = "expression")]
+        public IBdoExpression Expression { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="exp"></param>
         /// <returns></returns>
-        public IDbQuery WithExpression(IDataExpression exp)
+        public IDbQuery WithExpression(IBdoExpression exp)
         {
             Expression = exp;
             return this;
@@ -167,22 +165,22 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The parameters of this instance.
         /// </summary>
-        public IDataElementSet ParameterSet { get; set; }
+        public IBdoElementSet ParameterSet { get; set; }
 
         /// <summary>
         /// Defines the parameter specifications of this instance.
         /// </summary>
         /// <param name="parameters">The set of parameters to consider.</param>
         /// <returns>Return this instance.</returns>
-        public IDbQuery WithParameters(params IDataElement[] parameters)
+        public IDbQuery WithParameters(params IBdoElement[] parameters)
         {
-            ParameterSet = BdoElements.CreateSet(parameters);
+            ParameterSet = BdoElements.NewSet(parameters);
             return this;
         }
 
         public IDbQuery AddParameters(params IScalarElement[] parameters)
         {
-            ParameterSet ??= BdoElements.CreateSet(parameters);
+            ParameterSet ??= BdoElements.NewSet(parameters);
             ParameterSet.Add(parameters);
             return this;
         }
@@ -190,16 +188,16 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The parameter specification set of this instance.
         /// </summary>
-        public IDataElementSpecSet ParameterSpecSet { get; set; }
+        public IBdoElementSpecSet ParameterSpecSet { get; set; }
 
         /// <summary>
         /// Defines the parameter specifications of this instance.
         /// </summary>
         /// <param name="parameterSpecs">The set of parameter specifications to consider.</param>
         /// <returns>Return this instance.</returns>
-        public IDbQuery UsingParameters(params IDataElementSpec[] parameterSpecs)
+        public IDbQuery UsingParameters(params IBdoElementSpec[] parameterSpecs)
         {
-            ParameterSpecSet = BdoElementSpecs.CreateSet(parameterSpecs);
+            ParameterSpecSet = BdoElements.NewSpecSet(parameterSpecs);
             return this;
         }
 
@@ -250,10 +248,10 @@ namespace BindOpen.Databases.Data
         #endregion
 
         // ------------------------------------------
-        // IDataItem METHODS
+        // IBdoItem METHODS
         // ------------------------------------------
 
-        #region IDataItem
+        #region IBdoItem
 
         /// <summary>
         /// Clones this instance.
@@ -263,11 +261,11 @@ namespace BindOpen.Databases.Data
         {
             var clone = base.Clone<IDbQuery>(areas);
             //clone.WithCTE(CTETables?.Select(p => p.Clone<IDbTable>()).ToArray());
-            //clone.WithDescription(Description?.Clone<IDictionaryDataItem>());
-            //clone.WithExpression(Expression?.Clone<IDataExpression>());
-            //clone.WithParameters(ParameterSet?.Clone<IDataElementSet>());
-            //clone.UsingParameters(ParameterSpecSet?.Clone<IDataElementSpecSet>());
-            //clone.WithTitle(Title?.Clone<IDictionaryDataItem>());
+            //clone.WithDescription(Description?.Clone<IBdoDictionary>());
+            //clone.WithExpression(Expression?.Clone<IBdoExpression>());
+            //clone.WithParameters(ParameterSet?.Clone<IBdoElementSet>());
+            //clone.UsingParameters(ParameterSpecSet?.Clone<IBdoElementSpecSet>());
+            //clone.WithTitle(Title?.Clone<IBdoDictionary>());
 
             return clone;
         }

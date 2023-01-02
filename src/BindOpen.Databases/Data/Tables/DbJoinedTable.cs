@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Data
 {
@@ -75,14 +75,14 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The condition of this instance.
         /// </summary>
-        public IDataExpression Condition { get; set; }
+        public IBdoExpression Condition { get; set; }
 
         /// <summary>
         /// Sets the specified condition.
         /// </summary>
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns this instance.</returns>
-        public IDbJoinedTable WithCondition(IDataExpression condition)
+        public IDbJoinedTable WithCondition(IBdoExpression condition)
         {
             Condition = condition;
             return this;
@@ -94,15 +94,15 @@ namespace BindOpen.Databases.Data
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns this instance.</returns>
         public IDbJoinedTable WithCondition(string condition)
-            => WithCondition(condition?.CreateExpAsScript());
+            => WithCondition(condition?.AsExpression(BdoExpressionKind.Script));
 
         #endregion
 
         // ------------------------------------------
-        // IDataItem Implementation
+        // IBdoItem Implementation
         // ------------------------------------------
 
-        #region IDataItem
+        #region IBdoItem
 
         /// <summary>
         /// Clones this instance.
@@ -112,7 +112,7 @@ namespace BindOpen.Databases.Data
         {
             var clone = base.Clone(areas) as DbJoinedTable;
             clone.Table = Table?.Clone<DbTable>();
-            clone.Condition = Condition?.Clone<DataExpression>();
+            clone.Condition = Condition?.Clone<BdoExpression>();
 
             return clone;
         }

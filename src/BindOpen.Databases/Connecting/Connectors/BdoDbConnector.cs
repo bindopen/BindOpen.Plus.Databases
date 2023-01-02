@@ -1,11 +1,10 @@
-﻿using BindOpen.Databases.Builders;
+﻿using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
+using BindOpen.Databases.Builders;
 using BindOpen.Databases.Data;
-using BindOpen.Framework.Extensions;
-using BindOpen.Framework.Extensions.Connecting;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Items;
-using BindOpen.Framework.Runtime.Scopes;
+using BindOpen.Extensions.Connecting;
 using BindOpen.Logging;
+using BindOpen.Runtime.Scopes;
 using System.Data;
 
 namespace BindOpen.Databases.Connecting
@@ -56,43 +55,43 @@ namespace BindOpen.Databases.Connecting
         /// <summary>
         /// The provider of this instance.
         /// </summary>
-        [DetailProperty(Name = "provider")]
+        [BdoElement(Name = "provider")]
         public string Provider { get; set; }
 
         /// <summary>
         /// The server address of this instance.
         /// </summary>
-        [DetailProperty(Name = "serverAddress")]
+        [BdoElement(Name = "serverAddress")]
         public string ServerAddress { get; set; }
 
         /// <summary>
         /// The initial catalog of this instance.
         /// </summary>
-        [DetailProperty(Name = "initialCatalog")]
+        [BdoElement(Name = "initialCatalog")]
         public string InitialCatalog { get; set; }
 
         /// <summary>
         /// The integrated security of this instance.
         /// </summary>
-        [DetailProperty(Name = "integratedSecurity")]
+        [BdoElement(Name = "integratedSecurity")]
         public string IntegratedSecurity { get; set; }
 
         /// <summary>
         /// The user name of this instance.
         /// </summary>
-        [DetailProperty(Name = "userName")]
+        [BdoElement(Name = "userName")]
         public string UserName { get; set; }
 
         /// <summary>
         /// The password of this instance.
         /// </summary>
-        [DetailProperty(Name = "password")]
+        [BdoElement(Name = "password")]
         public string Password { get; set; }
 
         /// <summary>
         /// The database kind of this instance.
         /// </summary>
-        [DetailProperty(Name = "kind")]
+        [BdoElement(Name = "kind")]
         public BdoDbConnectorKind DatabaseConnectorKind { get; set; }
 
         /// <summary>
@@ -102,14 +101,14 @@ namespace BindOpen.Databases.Connecting
         public new ITBdoConnector<IBdoDbConnection> WithConnectionString(string connectionString = null)
         {
             base.WithConnectionString(connectionString);
-            var item = BdoItems.CreateDictionary(connectionString);
+            var item = BdoItems.NewDictionary(connectionString);
 
-            Provider = item.GetText("Provider")?.Trim().ToLower();
+            Provider = item["Provider"]?.Trim().ToLower();
             DatabaseConnectorKind = EstimateDbConnectorKind();
-            ServerAddress = item.GetText("Data Source");
-            InitialCatalog = item.GetText("Initial Catalog");
-            UserName = item.GetText("User Id");
-            Password = item.GetText("Password");
+            ServerAddress = item["Data Source"];
+            InitialCatalog = item["Initial Catalog"];
+            UserName = item["User Id"];
+            Password = item["Password"];
 
             return this;
         }
@@ -139,8 +138,8 @@ namespace BindOpen.Databases.Connecting
         public string CreateCommandText(
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null)
         {
             if (_queryBuilder == null)
@@ -165,8 +164,8 @@ namespace BindOpen.Databases.Connecting
         public abstract IDbCommand CreateCommand(
             IDbQuery query,
             DbQueryParameterMode parameterMode,
-            IDataElementSet parameterSet = null,
-            IDataElementSet varElementSet = null,
+            IBdoElementSet parameterSet = null,
+            IBdoElementSet varElementSet = null,
             IBdoLog log = null);
 
         /// <summary>

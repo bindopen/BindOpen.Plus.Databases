@@ -1,7 +1,7 @@
-﻿using BindOpen.Framework.Extensions.Scripting;
-using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data;
+using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
+using BindOpen.Extensions.Scripting;
 
 namespace BindOpen.Databases.Data
 {
@@ -13,7 +13,7 @@ namespace BindOpen.Databases.Data
         // As parameter -----
 
         /// <summary>
-        /// Creates a new instance of the DataElement class.
+        /// Creates a new instance of the BdoElement class.
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="value">The data table to consider.</para>
@@ -25,7 +25,7 @@ namespace BindOpen.Databases.Data
         }
 
         /// <summary>
-        /// Creates a new instance of the DataElement class.
+        /// Creates a new instance of the BdoElement class.
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="valueType">The data value type to consider.</param>
@@ -35,17 +35,17 @@ namespace BindOpen.Databases.Data
             DataValueTypes valueType,
             object value)
         {
-            return BdoElements.CreateScalar(name, valueType, value);
+            return BdoElements.NewScalar(name, valueType, value);
         }
 
         /// <summary>
         /// Converts this instance as a word.
         /// </summary>
         /// <param name="element">The parameter to consider.</param>
-        public static IDataExpression AsExp(this IScalarElement parameter)
+        public static IBdoExpression AsExp(this IScalarElement parameter)
         {
             return BdoScript.Function("sqlParameter", parameter?.Name ?? parameter.Index.ToString())
-                .CreateExp();
+                .AsExpression();
         }
 
         /// <summary>

@@ -1,8 +1,7 @@
-﻿using BindOpen.Framework.Extensions;
-using BindOpen.Framework.Extensions.Data;
-using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data;
+using BindOpen.Data.Elements;
+using BindOpen.Data.Items;
+using BindOpen.Extensions.Modeling;
 
 namespace BindOpen.Databases.Data
 {
@@ -49,15 +48,15 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// The expression of this instance.
         /// </summary>
-        [DetailProperty(Name = "expression")]
-        public IDataExpression Expression { get; set; }
+        [BdoElement(Name = "expression")]
+        public IBdoExpression Expression { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="exp"></param>
         /// <returns></returns>
-        public IDbField WithExpression(IDataExpression exp)
+        public IDbField WithExpression(IBdoExpression exp)
         {
             Expression = exp;
             return this;
@@ -66,7 +65,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Indicates wheteher this instance represents all the fields.
         /// </summary>
-        [DetailProperty(Name = "isAll")]
+        [BdoElement(Name = "isAll")]
         public bool IsAll { get; set; }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Data module of this instance.
         /// </summary>
-        [DetailProperty(Name = "dataModule")]
+        [BdoElement(Name = "dataModule")]
         public string DataModule { get; set; }
 
         /// <summary>
@@ -99,7 +98,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Data module of this instance.
         /// </summary>
-        [DetailProperty(Name = "schema")]
+        [BdoElement(Name = "schema")]
         public string Schema { get; set; }
 
         /// <summary>
@@ -116,7 +115,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Data table of this instance.
         /// </summary>
-        [DetailProperty(Name = "dataTable")]
+        [BdoElement(Name = "dataTable")]
         public string DataTable { get; set; }
 
         /// <summary>
@@ -133,7 +132,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Alias of the data table of this instance.
         /// </summary>
-        [DetailProperty(Name = "dataTableAlias")]
+        [BdoElement(Name = "dataTableAlias")]
         public string DataTableAlias { get; set; }
 
         public IDbField WithDataTableAlias(string dataTableAlias)
@@ -144,7 +143,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Alias of this instance.
         /// </summary>
-        [DetailProperty(Name = "alias")]
+        [BdoElement(Name = "alias")]
         public string Alias { get; set; }
 
         /// <summary>
@@ -161,7 +160,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Size of this instance.
         /// </summary>
-        [DetailProperty(Name = "size")]
+        [BdoElement(Name = "size")]
         public int? Size { get; set; }
 
         /// <summary>
@@ -178,15 +177,15 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Value of this instance.
         /// </summary>
-        [DetailProperty(Name = "value")]
-        public IDataExpression Value { get; set; }
+        [BdoElement(Name = "value")]
+        public IBdoExpression Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public IDbField SetValue(IDataExpression value)
+        public IDbField SetValue(IBdoExpression value)
         {
             Value = value;
             return this;
@@ -195,7 +194,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Value of this instance.
         /// </summary>
-        [DetailProperty(Name = "query")]
+        [BdoElement(Name = "query")]
         public IDbQuery Query { get; set; }
 
         ///
@@ -208,7 +207,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Indicates wheteher this instance is a key.
         /// </summary>
-        [DetailProperty(Name = "isKey")]
+        [BdoElement(Name = "isKey")]
         public bool IsKey { get; set; }
 
         /// <summary>
@@ -224,7 +223,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Indicates wheteher this instance is a foreign key.
         /// </summary>
-        [DetailProperty(Name = "isForeignKey")]
+        [BdoElement(Name = "isForeignKey")]
         public bool IsForeignKey { get; set; }
 
         /// <summary>
@@ -240,7 +239,7 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// Type of value of this instance.
         /// </summary>
-        [DetailProperty(Name = "valueType")]
+        [BdoElement(Name = "valueType")]
         public DataValueTypes ValueType { get; set; }
 
         /// <summary>
@@ -279,7 +278,7 @@ namespace BindOpen.Databases.Data
         public override object Clone(params string[] areas)
         {
             var clone = base.Clone(areas) as DbField;
-            clone.Expression = Expression?.Clone<DataExpression>();
+            clone.Expression = Expression?.Clone<BdoExpression>();
             clone.Query = Query?.Clone<DbQuery>();
 
             return clone;

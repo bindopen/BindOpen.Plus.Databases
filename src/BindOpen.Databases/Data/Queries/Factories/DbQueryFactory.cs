@@ -1,5 +1,5 @@
 ﻿using BindOpen.Databases.Builders;
-using BindOpen.Framework.Runtime.Scopes;
+using BindOpen.Runtime.Scopes;
 
 namespace BindOpen.Databases.Data
 {

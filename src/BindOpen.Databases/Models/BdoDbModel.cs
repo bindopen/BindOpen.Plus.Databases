@@ -1,5 +1,5 @@
 ﻿using BindOpen.Databases.Data;
-using BindOpen.Framework.MetaData.Items;
+using BindOpen.Data.Items;
 using System.Collections.Generic;
 
 namespace BindOpen.Databases.Models
@@ -7,7 +7,7 @@ namespace BindOpen.Databases.Models
     /// <summary>
     /// This class represents a database model.
     /// </summary>
-    public abstract partial class BdoDbModel : DataItem, IBdoDbModel, IBdoDbModelBuilder
+    public abstract partial class BdoDbModel : BdoItem, IBdoDbModel, IBdoDbModelBuilder
     {
         #region Variables
 

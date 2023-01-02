@@ -1,12 +1,12 @@
-﻿using BindOpen.Databases.Data;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data.Items;
+using BindOpen.Databases.Data;
 
 namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents the table relationship.
     /// </summary>
-    public interface IDbTableRelationship : IDataItem
+    public interface IDbTableRelationship : IBdoItem
     {
         /// <summary>
         /// The table 1 of this instance.
@@ -21,6 +21,6 @@ namespace BindOpen.Databases.Models
         /// <summary>
         /// The field mapping of this instance.
         /// </summary>
-        public IDictionaryDataItem FieldMappingDictionary { get; set; }
+        public IBdoDictionary FieldMappingDictionary { get; set; }
     }
 }

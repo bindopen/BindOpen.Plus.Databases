@@ -1,7 +1,5 @@
-﻿using BindOpen.Framework.Extensions.Connecting;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.Runtime.Scopes;
-using BindOpen.Logging;
+﻿using BindOpen.Extensions;
+using BindOpen.Extensions.Connecting;
 
 namespace BindOpen.Databases.Connecting.Connectors
 {
@@ -22,11 +20,9 @@ namespace BindOpen.Databases.Connecting.Connectors
         /// <param name="varElementSet">The script variable set to use.</param>
         /// <typeparam name="T">The connector class to return.</typeparam>
         /// <returns>Returns the created connector.</returns>
-        public static T CreateDbConnector<T>(
-            this IBdoScope scope,
-            IBdoConnectorConfiguration config,
-            IDataElementSet varElementSet = null,
-            IBdoLog log = null) where T : class, IBdoDbConnector, new()
-            => scope.CreateConnector<T>(config, varElementSet, log);
+        public static T NewDbConnector<T>(
+            IBdoConnectorConfiguration config)
+            where T : class, IBdoDbConnector, new()
+            => BdoExtensions.NewConnector<T>(config);
     }
 }

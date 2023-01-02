@@ -1,8 +1,8 @@
 ﻿using BindOpen.Databases.Builders;
 using BindOpen.Databases.Data;
-using BindOpen.Framework.Extensions.Scripting;
-using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Stores;
+using BindOpen.Extensions.Scripting;
+using BindOpen.Data;
+using BindOpen.Data.Stores;
 
 namespace BindOpen.Databases.Scripting
 {
@@ -723,7 +723,7 @@ namespace BindOpen.Databases.Scripting
             {
                 string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
 
-                string instanceName = domain?.Scope?.DataStore?.Get<IBdoDatasourceDepot>()?.GetInstanceName(value1);
+                string instanceName = domain?.Scope?.DataStore?.Get<IBdoSourceDepot>()?.GetInstanceName(value1);
                 if (string.IsNullOrEmpty(instanceName) || instanceName == StringHelper.__NoneString)
                     instanceName = value1;
 

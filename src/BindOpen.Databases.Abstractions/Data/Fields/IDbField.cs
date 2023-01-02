@@ -1,15 +1,14 @@
-﻿using BindOpen.Framework.Extensions.Data;
-using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Expression;
-using BindOpen.Framework.MetaData.Items;
+﻿using BindOpen.Data;
+using BindOpen.Data.Items;
+using BindOpen.Extensions.Modeling;
 
 namespace BindOpen.Databases.Data
 {
     public interface IDbField : IBdoCarrier, ITDbItem<IDbField>, ITNamedPoco<IDbField>
     {
-        IDataExpression Value { get; set; }
+        IBdoExpression Value { get; set; }
 
-        IDbField SetValue(IDataExpression value);
+        IDbField SetValue(IBdoExpression value);
 
         string Alias { get; }
 

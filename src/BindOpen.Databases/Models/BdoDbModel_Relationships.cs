@@ -1,7 +1,7 @@
-﻿using BindOpen.Databases.Data;
+﻿using BindOpen.Data;
+using BindOpen.Data.Items;
+using BindOpen.Databases.Data;
 using BindOpen.Databases.Exceptions;
-using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Expression;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +23,7 @@ namespace BindOpen.Databases.Models
         /// <param name="table1Alias"></param>
         /// <param name="table2Alias"></param>
         /// <returns></returns>
-        public IDataExpression JoinCondition(
+        public IBdoExpression JoinCondition(
             string name,
             string table1Alias = null,
             string table2Alias = null)
@@ -40,12 +40,12 @@ namespace BindOpen.Databases.Models
             }
 
             List<object> queryConditions = new();
-            foreach (var mapping in relationship.FieldMappingDictionary.Values)
+            foreach (var mapping in relationship.FieldMappingDictionary)
             {
                 queryConditions.Add(
                     DbFluent.Eq(
                         DbFluent.Field(mapping.Key, relationship.Table1),
-                        DbFluent.Field(mapping.Content, relationship.Table2)));
+                        DbFluent.Field(mapping.Value, relationship.Table2)));
             }
 
             return DbFluent.And(queryConditions.ToArray());
@@ -60,7 +60,7 @@ namespace BindOpen.Databases.Models
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
         /// <returns></returns>
-        public IDataExpression JoinCondition<T1, T2>(
+        public IBdoExpression JoinCondition<T1, T2>(
             string table1Alias = null,
             string table2Alias = null)
         {

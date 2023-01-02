@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Models
 {
@@ -13,7 +13,7 @@ namespace BindOpen.Databases.Models
         /// <param name="table1alias"></param>
         /// <param name="table2alias"></param>
         /// <returns></returns>
-        IDataExpression JoinCondition(
+        IBdoExpression JoinCondition(
             string name,
             string table1Alias = null,
             string table2Alias = null);
@@ -26,7 +26,7 @@ namespace BindOpen.Databases.Models
         /// <param name="table1alias"></param>
         /// <param name="table2alias"></param>
         /// <returns></returns>
-        IDataExpression JoinCondition<T1, T2>(
+        IBdoExpression JoinCondition<T1, T2>(
             string table1Alias = null,
             string table2Alias = null);
 

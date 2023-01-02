@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data.Items;
 using System;
 using System.Collections.Generic;
 
@@ -156,12 +156,12 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery From(IDataExpression expression);
+        IDbSingleQuery From(IBdoExpression expression);
 
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery From(Func<IDbSingleQuery, IDataExpression> initializer);
+        IDbSingleQuery From(Func<IDbSingleQuery, IBdoExpression> initializer);
 
         /// <summary>
         /// 
@@ -197,12 +197,12 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery Where(IDataExpression expression);
+        IDbSingleQuery Where(IBdoExpression expression);
 
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery Where(Func<IDbSingleQuery, IDataExpression> initializer);
+        IDbSingleQuery Where(Func<IDbSingleQuery, IBdoExpression> initializer);
 
         // OrderBy -------------------------------------
 
@@ -219,12 +219,12 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery OrderBy(IDataExpression expression);
+        IDbSingleQuery OrderBy(IBdoExpression expression);
 
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery OrderBy(Func<IDbSingleQuery, IDataExpression> initializer);
+        IDbSingleQuery OrderBy(Func<IDbSingleQuery, IBdoExpression> initializer);
 
         // GroupBy -------------------------------------
 
@@ -242,12 +242,12 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery GroupBy(IDataExpression expression);
+        IDbSingleQuery GroupBy(IBdoExpression expression);
 
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery GroupBy(Func<IDbSingleQuery, IDataExpression> initializer);
+        IDbSingleQuery GroupBy(Func<IDbSingleQuery, IBdoExpression> initializer);
 
         // Having -------------------------------------
 
@@ -259,11 +259,11 @@ namespace BindOpen.Databases.Data
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery Having(IDataExpression expression);
+        IDbSingleQuery Having(IBdoExpression expression);
 
         /// <summary>
         /// 
         /// </summary>
-        IDbSingleQuery Having(Func<IDbSingleQuery, IDataExpression> initializer);
+        IDbSingleQuery Having(Func<IDbSingleQuery, IBdoExpression> initializer);
     }
 }

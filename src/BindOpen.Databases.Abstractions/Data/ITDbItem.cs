@@ -1,4 +1,4 @@
-﻿using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data.Items;
 
 namespace BindOpen.Databases.Data
 {
@@ -7,6 +7,6 @@ namespace BindOpen.Databases.Data
     /// </summary>
     public interface ITDbItem<T> : IDbItem where T : IDbItem
     {
-        T WithExpression(IDataExpression expression);
+        T WithExpression(IBdoExpression expression);
     }
 }
