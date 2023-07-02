@@ -1,0 +1,20 @@
+﻿using BindOpen.System.Data.Helpers;
+
+namespace BindOpen.Labs.Databases
+{
+    /// <summary>
+    /// This class represents the database extension.
+    /// </summary>
+    public static class Extension_database
+    {
+        /// <summary>
+        /// Gets the database unique name.
+        /// </summary>
+        /// <param name="uniqueName">The unique name to consider.</param>
+        /// <returns>The result object.</returns>
+        public static string GetUniqueName_database(this string uniqueName)
+        {
+            return uniqueName.StartingWith("database.") + "$client";
+        }
+    }
+}
