@@ -1,9 +1,8 @@
 ﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Scoping.Extensions.Connecting;
 using BindOpen.System.Data.Meta;
 using BindOpen.System.Data.Stores;
-using BindOpen.Runtime.Scopes;
 using BindOpen.System.Logging;
+using BindOpen.System.Scoping.Connectors;
 using System.Data;
 
 namespace BindOpen.Labs.Databases.Connecting

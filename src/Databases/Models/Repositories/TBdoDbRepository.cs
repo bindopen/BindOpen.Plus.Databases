@@ -1,7 +1,7 @@
-﻿using BindOpen.System.Data.Items;
+﻿using BindOpen.System.Data;
 using BindOpen.Labs.Databases.Connecting;
 using BindOpen.Labs.Databases.Stores;
-using BindOpen.System.Scoping.Extensions.Connecting;
+using BindOpen.System.Scoping.Connectors;
 using BindOpen.Runtime.Scopes;
 
 namespace BindOpen.Labs.Databases.Models

@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>BindOpen.Labs.Databases</AssemblyName>
-    <PackageId>BindOpen.Labs.Databases</PackageId>
+    <AssemblyName>BindOpen.Labs.Databases.Abstractions</AssemblyName>
+    <PackageId>BindOpen.Labs.Databases.Abstractions</PackageId>
     <Product>BindOpen.Labs.Databases</Product>
     <Company>BindOpen</Company>
-    <Copyright>Copyright ï¿½BindOpen 2011-2023</Copyright>
+    <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package handles database connections.</Description>
     <Authors>Sumer Team</Authors>
     <RootNamespace>BindOpen.Labs.Databases</RootNamespace>
-    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Labs.Databases</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/bindopen/BindOpen.Labs.Databases.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/bindopen</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bindopen/BindOpen.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>bindopen_icon.png</PackageIcon>
@@ -20,12 +20,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>BindOpen.Labs.Databases.xml</DocumentationFile>
+    <DocumentationFile>BindOpen.Labs.Databases.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Connecting\BindOpen.Connectors" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\docs\images\bindopen_icon.png">
@@ -44,17 +40,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="BindOpen.Extension" />
-    <EmbeddedResource Include="Data\BindOpen.Carriers" />
-    <EmbeddedResource Include="Connecting\BindOpen.Connectors" />
-    <EmbeddedResource Include="Scripting\BindOpen.Scriptwords" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.System.Scoping.Extensions" Version="1.2.51" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Databases.Abstractions\Databases.Abstractions.csproj" />
+    <PackageReference Include="BindOpen.System.Abstractions" Version="1.2.51" />
   </ItemGroup>
 
 </Project>

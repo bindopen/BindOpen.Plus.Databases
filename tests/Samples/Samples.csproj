@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>Samples.SampleA</AssemblyName>
-    <PackageId>BindOpen.TestConsole</PackageId>
-    <Product>BindOpen.Databases</Product>
+    <AssemblyName>BindOpen.Labs.Databases.Samples</AssemblyName>
+    <PackageId>BindOpen.Labs.Databases.Samples</PackageId>
+    <Product>BindOpen.Labs.Databases</Product>
     <Company>BindOpen</Company>
     <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package conducts on-demand tests before they are implemented in the unit test project.</Description>
     <Authors>Sumer Team</Authors>
-    <RootNamespace>Samples.SampleA</RootNamespace>
+    <RootNamespace>BindOpen.Labs.Databases.Samples</RootNamespace>
     <PackageProjectUrl>https://github.com/bindopen/BindOpen.Databases</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bindopen/BindOpen.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

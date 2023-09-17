@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>BindOpen.Tests.Databases</AssemblyName>
-    <PackageId>BindOpen.Tests.Databases</PackageId>
-    <Product>BindOpen.Databases</Product>
+    <AssemblyName>BindOpen.Labs.Databases.Tests</AssemblyName>
+    <PackageId>BindOpen.Labs.Databases.Tests</PackageId>
+    <Product>BindOpen.Labs.Databases</Product>
     <Company>BindOpen</Company>
     <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package conducts unit tests on Database libraries.</Description>
     <Authors>Sumer Team</Authors>
-    <RootNamespace>BindOpen.Tests.Databases</RootNamespace>
+    <RootNamespace>BindOpen.Labs.Databases.Tests</RootNamespace>
     <PackageProjectUrl>https://github.com/bindopen/BindOpen.Databases</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bindopen/BindOpen.Databases.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
