@@ -1,9 +1,11 @@
-﻿namespace BindOpen.Plus.Databases.Models.Factories
+﻿using BindOpen.Plus.Databases.Models;
+
+namespace BindOpen.Plus.Databases
 {
     /// <summary>
     /// This class represents a database factory.
     /// </summary>
-    public static class DbModelFactory
+    public static partial class BdoDatabases
     {
         /// <summary>
         /// Creates a new database model builder.

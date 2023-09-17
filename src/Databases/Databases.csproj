@@ -54,4 +54,8 @@
     <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Queries\Factories\" />
+  </ItemGroup>
+
 </Project>

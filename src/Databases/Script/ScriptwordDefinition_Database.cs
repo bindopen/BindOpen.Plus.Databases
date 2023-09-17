@@ -1,6 +1,5 @@
 ﻿using BindOpen.Kernel.Scoping;
 using BindOpen.Kernel.Scoping.Script;
-using BindOpen.Plus.Databases.Builders;
 using BindOpen.Plus.Databases.Data;
 
 namespace BindOpen.Plus.Databases.Scripting
@@ -26,7 +25,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlCount")]
         public static object Fun_SqlCount(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -45,7 +44,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlSum")]
         public static object Fun_SqlSum(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -64,7 +63,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlAverage")]
         public static object Fun_SqlAverage(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -85,7 +84,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlGetCurrentDate")]
         public static object Fun_SqlGetCurrentDate(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -108,7 +107,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlTrue")]
         public static object Fun_SqlTrue(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -127,7 +126,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlIf")]
         public static object Fun_SqlIf(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -150,7 +149,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlNot")]
         public static object Fun_SqlNot(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -170,7 +169,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlOr")]
         public static object Fun_SqlOr(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -189,7 +188,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlAnd")]
         public static object Fun_SqlAnd(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -208,7 +207,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlXor")]
         public static object Fun_SqlXor(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -228,7 +227,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlEq")]
         public static object Fun_SqlEq(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -250,7 +249,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlDiff")]
         public static object Fun_SqlDiff(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -272,7 +271,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlGt")]
         public static object Fun_SqlGt(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -294,7 +293,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlGte")]
         public static object Fun_SqlGte(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -316,7 +315,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlLt")]
         public static object Fun_SqlLt(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -338,7 +337,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlLte")]
         public static object Fun_SqlLte(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -360,7 +359,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlIsNull")]
         public static object Fun_SqlIsNull(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -381,7 +380,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlIfNull")]
         public static object Fun_SqlIfNull(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -405,7 +404,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlConvertToText")]
         public static object Fun_SqlConvertToText(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -427,7 +426,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlText")]
         public static object Fun_SqlText(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -447,7 +446,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlValue")]
         public static object Fun_SqlValue(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -467,7 +466,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlEncodeBase64")]
         public static object Fun_SqlEncodeBase64(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -487,7 +486,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlDecodeBase64")]
         public static object Fun_SqlDecodeBase64(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -507,7 +506,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlLike")]
         public static object Fun_SqlLike(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -528,7 +527,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlReplace")]
         public static object Fun_SqlReplace(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -550,7 +549,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlConcat")]
         public static object Fun_SqlConcat(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -569,7 +568,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlStringConcat")]
         public static object Fun_SqlStringConcat(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -588,7 +587,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlNull")]
         public static object Fun_SqlNull(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -607,7 +606,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlEmpty")]
         public static object Fun_SqlEmpty(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -626,7 +625,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlLCase")]
         public static object Fun_SqlLower(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -646,7 +645,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlUCase")]
         public static object Fun_SqlUpper(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -666,7 +665,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlLPad")]
         public static object Fun_SqlLeftPadding(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -688,7 +687,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlRPad")]
         public static object Fun_SqlRightPadding(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -712,7 +711,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlDatabase")]
         public static object Fun_SqlDatabase(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -732,7 +731,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction]
         public static object Fun_SqlDatabase_SqlSchema(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -753,7 +752,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction]
         public static object Fun_SqlDatabase_SqlTable(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -774,7 +773,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction]
         public static object Fun_SqlDatabase_SqlTable_SqlField(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -797,7 +796,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlNewGuid")]
         public static object Fun_SqlNewGuid(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -816,7 +815,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlRandom")]
         public static object Fun_SqlRandom(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -837,7 +836,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlIn")]
         public static object Fun_SqlIn(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -859,7 +858,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlExists")]
         public static object Fun_SqlExists(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -879,7 +878,7 @@ namespace BindOpen.Plus.Databases.Scripting
         [BdoFunction(Name = "sqlList")]
         public static object Fun_SqlList(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
