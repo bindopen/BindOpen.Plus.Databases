@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Labs.Databases.Data
+﻿namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents the Join table of a database data query.

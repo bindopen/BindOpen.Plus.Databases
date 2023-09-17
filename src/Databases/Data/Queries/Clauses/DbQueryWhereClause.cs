@@ -1,8 +1,8 @@
-﻿using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents the Where clause of a database data query.
@@ -84,9 +84,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone<IDbQueryWhereClause>(areas);
+            var clone = base.Clone<IDbQueryWhereClause>();
             clone.IdFields = IdFields?.Select(p => p.Clone<IDbField>()).ToList();
 
             return clone;

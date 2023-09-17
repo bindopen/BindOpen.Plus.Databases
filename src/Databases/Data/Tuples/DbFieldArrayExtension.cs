@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents the extension for database field array.

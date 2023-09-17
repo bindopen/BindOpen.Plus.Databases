@@ -1,14 +1,14 @@
-﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.Labs.Databases.Exceptions;
-using BindOpen.System.Data;
-using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Plus.Databases.Data;
+using BindOpen.Plus.Databases.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BindOpen.Labs.Databases.Models
+namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// This class represents a database model.
@@ -174,7 +174,7 @@ namespace BindOpen.Labs.Databases.Models
             List<IDbField> fields = new List<IDbField>();
             foreach (var expression in expressions)
             {
-                fields.Add(DbFluent.Field(expression.GetProperty().Name));
+                fields.Add(DbFluent.Field(expression.GetPropertyInfo().Name));
             }
 
             AddTable(tableName, table, fields.ToArray());

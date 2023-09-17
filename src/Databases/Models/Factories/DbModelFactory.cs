@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Labs.Databases.Models.Factories
+﻿namespace BindOpen.Plus.Databases.Models.Factories
 {
     /// <summary>
     /// This class represents a database factory.

@@ -1,8 +1,8 @@
-﻿using BindOpen.Labs.Databases.Models;
-using BindOpen.System.Data.Stores;
+﻿using BindOpen.Plus.Databases.Models;
+using BindOpen.Kernel.Data.Stores;
 using System.Collections.Generic;
 
-namespace BindOpen.Labs.Databases.Stores
+namespace BindOpen.Plus.Databases.Stores
 {
     /// <summary>
     /// 

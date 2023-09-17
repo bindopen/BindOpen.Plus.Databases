@@ -1,10 +1,10 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents an advanced database data query.
@@ -46,9 +46,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone<IDbSingleQuery>(areas);
+            var clone = base.Clone<IDbSingleQuery>();
             clone.Fields = Fields?.Select(p => p.Clone<IDbField>()).ToList();
             //clone.UnionClauses = UnionClauses?.Select(p => p?.Clone<DbQueryUnionClause>()).ToList();
             //clone.FromClause = FromClause?.Clone<DbQueryFromClause>();

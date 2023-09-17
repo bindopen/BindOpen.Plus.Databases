@@ -1,6 +1,7 @@
-﻿using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
 
-namespace BindOpen.Labs.Databases.Builders
+namespace BindOpen.Plus.Databases.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -26,7 +27,7 @@ namespace BindOpen.Labs.Databases.Builders
             {
                 case DataValueTypes.Text:
                     return value == null ? GetSqlText_Null() : GetSqlText_Text(value as string);
-                case DataValueTypes.ByteArray:
+                case DataValueTypes.Binary:
                 case DataValueTypes.Date:
                     return value == null ? GetSqlText_Null() : GetSqlText_Text(value.ToString(valueType));
                 case DataValueTypes.Number:

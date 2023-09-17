@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Labs.Databases.Builders
+﻿namespace BindOpen.Plus.Databases.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.

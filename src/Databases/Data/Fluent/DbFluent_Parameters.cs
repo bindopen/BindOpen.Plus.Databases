@@ -1,9 +1,9 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
-using BindOpen.System.Data;
-using BindOpen.System.Scoping.Extensions.Scripting;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Kernel.Data.Meta;
+using BindOpen.Kernel.Scoping.Script;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.
@@ -35,7 +35,7 @@ namespace BindOpen.Labs.Databases.Data
             DataValueTypes valueType,
             object value)
         {
-            return BdoMeta.NewScalar(name, valueType, value);
+            return BdoData.NewScalar(name, valueType, value);
         }
 
         /// <summary>
@@ -44,8 +44,7 @@ namespace BindOpen.Labs.Databases.Data
         /// <param name="element">The parameter to consider.</param>
         public static IBdoExpression AsExp(this IBdoMetaScalar parameter)
         {
-            return BdoScript.Function("sqlParameter", parameter?.Name ?? parameter.Index.ToString())
-                .AsExpression();
+            return (BdoExpression)BdoScript.Function("sqlParameter", parameter?.Name ?? parameter.Index.ToString());
         }
 
         /// <summary>

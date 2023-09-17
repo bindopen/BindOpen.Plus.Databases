@@ -1,7 +1,7 @@
-﻿using BindOpen.Labs.Databases.Builders;
-using BindOpen.Runtime.Scopes;
+﻿using BindOpen.Kernel.Scoping;
+using BindOpen.Plus.Databases.Builders;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents a database factory.

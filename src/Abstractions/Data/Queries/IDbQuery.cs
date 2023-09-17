@@ -1,8 +1,8 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
+﻿using BindOpen.Kernel;
+using BindOpen.Kernel.Data.Meta;
 using System.Collections.Generic;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// 
@@ -80,7 +80,7 @@ namespace BindOpen.Labs.Databases.Data
         /// <summary>
         /// The parameter specification set of this instance.
         /// </summary>
-        ITBdoSet<IBdoSpec> ParameterSpecs { get; set; }
+        IBdoSpecSet ParameterSpecSet { get; set; }
 
         /// <summary>
         /// Defines the parameter specifications of this instance.

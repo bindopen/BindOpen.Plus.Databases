@@ -1,7 +1,7 @@
-﻿using BindOpen.System.Scoping.Connectors;
+﻿using BindOpen.Kernel.Scoping.Connectors;
 using System.Data;
 
-namespace BindOpen.Labs.Databases.Connecting
+namespace BindOpen.Plus.Databases.Connectors
 {
     /// <summary>
     /// This interfaces represents a connection.

@@ -1,6 +1,6 @@
-﻿using BindOpen.Labs.Databases.Connecting;
+﻿using BindOpen.Plus.Databases.Connectors;
 
-namespace BindOpen.Labs.Databases.Models
+namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// 

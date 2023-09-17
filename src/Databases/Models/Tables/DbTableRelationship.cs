@@ -1,7 +1,7 @@
-﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Plus.Databases.Data;
 
-namespace BindOpen.Labs.Databases.Models
+namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// This class represents the table relationship.
@@ -27,7 +27,7 @@ namespace BindOpen.Labs.Databases.Models
         /// <summary>
         /// The field mapping of this instance.
         /// </summary>
-        public IBdoDictionary FieldMappingDictionary { get; set; } = new BdoDictionary();
+        public ITBdoDictionary<string> FieldMappingDictionary { get; set; }
 
         #endregion
 
@@ -57,12 +57,12 @@ namespace BindOpen.Labs.Databases.Models
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone<IDbTableRelationship>(areas);
+            var clone = base.Clone<IDbTableRelationship>();
             clone.Table1 = Table1?.Clone<IDbTable>();
             clone.Table2 = Table2?.Clone<IDbTable>();
-            clone.FieldMappingDictionary = FieldMappingDictionary?.Clone<BdoDictionary>();
+            clone.FieldMappingDictionary = FieldMappingDictionary?.Clone<TBdoDictionary<string>>();
 
             return clone;
         }

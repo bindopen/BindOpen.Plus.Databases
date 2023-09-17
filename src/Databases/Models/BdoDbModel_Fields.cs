@@ -1,11 +1,11 @@
-﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Plus.Databases.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace BindOpen.Labs.Databases.Models
+namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// This class represents a database model.
@@ -33,7 +33,7 @@ namespace BindOpen.Labs.Databases.Models
         /// <returns></returns>
         public IDbField Field<T>(Expression<Func<T, object>> expression, string tableAlias = null)
         {
-            return DbFluent.Field(expression.GetProperty().Name, Table<T>(tableAlias));
+            return DbFluent.Field(expression.GetPropertyInfo().Name, Table<T>(tableAlias));
         }
 
         // As All -----

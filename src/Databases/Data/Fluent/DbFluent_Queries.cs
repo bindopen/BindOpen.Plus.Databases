@@ -1,7 +1,7 @@
-﻿using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data.Helpers;
 using System;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents a fluent factory of database query.

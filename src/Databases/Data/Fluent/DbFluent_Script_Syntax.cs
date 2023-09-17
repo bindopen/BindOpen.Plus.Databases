@@ -1,7 +1,6 @@
-﻿using BindOpen.System.Scoping.Extensions.Scripting;
-using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Scoping.Script;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.
@@ -11,34 +10,34 @@ namespace BindOpen.Labs.Databases.Data
         /// <summary>
         /// Creates a BDO script representing the current date in SQL.
         /// </summary>
-        public static BdoExpression CurrentDate()
-            => DbFunction("sqlGetCurrentDate").AsExpression();
+        public static BdoScriptword CurrentDate()
+            => DbFunction("sqlGetCurrentDate");
 
         /// <summary>
         /// Creates a BDO script representing a text.
         /// </summary>
-        public static BdoExpression Null()
-            => DbFunction("sqlNull").AsExpression();
+        public static BdoScriptword Null()
+            => DbFunction("sqlNull");
 
         /// <summary>
         /// Encodes the specified text with the specified format.
         /// </summary>
         /// <param name="value">The value to consider.</param>
-        public static BdoExpression EncodeBase64(object value)
-            => DbFunction("sqlEncodeBase64", value).AsExpression();
+        public static BdoScriptword EncodeBase64(object value)
+            => DbFunction("sqlEncodeBase64", value);
 
         /// <summary>
         /// Decodes the specified text with the specified format.
         /// </summary>
         /// <param name="value">The value to consider.</param>
-        public static BdoExpression DecodeBase64(object value)
-            => DbFunction("sqlDecodeBase64", value).AsExpression();
+        public static BdoScriptword DecodeBase64(object value)
+            => DbFunction("sqlDecodeBase64", value);
 
         /// <summary>
         /// Gets the Sql value of the specified object.
         /// </summary>
         /// <param name="value">The value to consider.</param>
-        public static BdoExpression Value(object value)
-            => BdoScript.Function("sqlValue", value).AsExpression();
+        public static BdoScriptword Value(object value)
+            => BdoScript.Function("sqlValue", value);
     }
 }

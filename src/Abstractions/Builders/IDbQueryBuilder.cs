@@ -1,10 +1,10 @@
-﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
-using BindOpen.System.Logging;
-using BindOpen.System.Scoping;
+﻿using BindOpen.Kernel;
+using BindOpen.Kernel.Data.Meta;
+using BindOpen.Kernel.Logging;
+using BindOpen.Kernel.Scoping;
+using BindOpen.Plus.Databases.Data;
 
-namespace BindOpen.Labs.Databases.Builders
+namespace BindOpen.Plus.Databases.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.

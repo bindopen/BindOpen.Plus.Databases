@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Labs.Databases.Connecting
+﻿namespace BindOpen.Plus.Databases.Connectors
 {
 
     /// <summary>

@@ -1,11 +1,11 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Kernel.Data.Meta;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This static class represents a factory of data field.
@@ -39,7 +39,7 @@ namespace BindOpen.Labs.Databases.Data
             Expression<Func<T, object>> expr,
             IDbTable table = null) where T : class
         {
-            var propertyInfo = expr.GetProperty();
+            var propertyInfo = expr.GetPropertyInfo();
             var name = propertyInfo?.Name;
             var valueType = propertyInfo?.PropertyType.GetValueType() ?? DataValueTypes.None;
 
@@ -73,7 +73,7 @@ namespace BindOpen.Labs.Databases.Data
                 field.ValueType = valueType;
                 if (value != null)
                 {
-                    field.Expression = value.ToString(field.ValueType).AsExpression(BdoExpressionKind.Literal);
+                    field.Expression = value.ToString(field.ValueType).ToExpression(BdoExpressionKind.Literal);
                 }
             }
 
@@ -156,7 +156,7 @@ namespace BindOpen.Labs.Databases.Data
                 field.ValueType = DataValueTypes.None;
                 if (script != null)
                 {
-                    field.Expression = script.AsExpression(BdoExpressionKind.Script);
+                    field.Expression = script.ToExpression(BdoExpressionKind.Script);
                 }
             }
 
@@ -308,7 +308,7 @@ namespace BindOpen.Labs.Databases.Data
         {
             if (field != null)
             {
-                field.Expression = (otherField.ToScript()).AsExpression(BdoExpressionKind.Script);
+                field.Expression = (otherField.ToScript()).ToExpression(BdoExpressionKind.Script);
             }
 
             return field;
@@ -397,7 +397,7 @@ namespace BindOpen.Labs.Databases.Data
             if (field != null)
             {
                 field.ValueType = DataValueTypes.None;
-                field.Expression = BdoMeta.NewScalar(parameterName).AsExp();
+                field.Expression = BdoData.NewScalar(parameterName).AsExp();
             }
 
             return field;

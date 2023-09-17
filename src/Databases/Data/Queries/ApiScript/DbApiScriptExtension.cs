@@ -1,9 +1,10 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Logging;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Kernel.Logging;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents the database data query extension.
@@ -16,21 +17,21 @@ namespace BindOpen.Labs.Databases.Data
             {
                 case DataOperators.Contains:
                     return "$sqlLike";
-                case DataOperators.Different:
+                case DataOperators.DifferentFrom:
                     return "$sqlDiff";
-                case DataOperators.Equal:
+                case DataOperators.EqualTo:
                     return "$sqlEq";
-                case DataOperators.Greater:
+                case DataOperators.GreaterThan:
                     return "$sqlGt";
-                case DataOperators.GreaterOrEqual:
+                case DataOperators.GreaterThanOrEqualTo:
                     return "$sqlGte";
                 case DataOperators.Has:
                     return "";
                 case DataOperators.In:
                     return "$sqlIn";
-                case DataOperators.Lesser:
+                case DataOperators.LesserThan:
                     return "$sqlLt";
-                case DataOperators.LesserOrEqual:
+                case DataOperators.LesserThanOrEqualTo:
                     return "$sqlLte";
             }
 
@@ -91,9 +92,9 @@ namespace BindOpen.Labs.Databases.Data
                     foreach (DataOperators currentOperator in new DataOperators[] {
                         DataOperators.Exists,
                         DataOperators.Contains,
-                        DataOperators.Different, DataOperators.Equal,
-                        DataOperators.GreaterOrEqual, DataOperators.Greater,
-                        DataOperators.LesserOrEqual, DataOperators.Lesser,
+                        DataOperators.DifferentFrom, DataOperators.EqualTo,
+                        DataOperators.GreaterThanOrEqualTo, DataOperators.GreaterThan,
+                        DataOperators.LesserThanOrEqualTo, DataOperators.LesserThan,
                         DataOperators.Has, DataOperators.In })
                     {
                         int k1 = 0;
@@ -108,7 +109,7 @@ namespace BindOpen.Labs.Databases.Data
                     }
                     if (k == script.Length)
                     {
-                        log.AddError("No operator found in clause '" + searchQuery + "'", resultCode: "user");
+                        log?.AddEvent(EventKinds.Error, "No operator found in clause '" + searchQuery + "'", resultCode: "user");
                     }
                     else
                     {
@@ -122,7 +123,7 @@ namespace BindOpen.Labs.Databases.Data
                         // check that the field is in the dictionary
                         if (!definition.ContainsKey(fieldName))
                         {
-                            log.AddError("Undefined field '" + fieldName + "' in clause '" + searchQuery + "''", resultCode: "user");
+                            log?.AddEvent(EventKinds.Error, "Undefined field '" + fieldName + "' in clause '" + searchQuery + "''", resultCode: "user");
                         }
                         else
                         {
@@ -131,7 +132,7 @@ namespace BindOpen.Labs.Databases.Data
                             // check the instruction found corresponds to the definition in dictionary
                             if (!clause.Operators.Any(p => p == aOperator))
                             {
-                                log.AddError("Undefined operator '" + aOperator.ToString() + "' for field '" + fieldName + "'", resultCode: "user");
+                                log?.AddEvent(EventKinds.Error, "Undefined operator '" + aOperator.ToString() + "' for field '" + fieldName + "'", resultCode: "user");
                             }
                             else
                             {
@@ -162,21 +163,21 @@ namespace BindOpen.Labs.Databases.Data
             {
                 case DataOperators.Contains:
                     return "constains";
-                case DataOperators.Different:
+                case DataOperators.DifferentFrom:
                     return "!=";
-                case DataOperators.Equal:
+                case DataOperators.EqualTo:
                     return "=";
-                case DataOperators.Greater:
+                case DataOperators.GreaterThan:
                     return ">";
-                case DataOperators.GreaterOrEqual:
+                case DataOperators.GreaterThanOrEqualTo:
                     return ">=";
                 case DataOperators.Has:
                     return "has";
                 case DataOperators.In:
                     return "in";
-                case DataOperators.Lesser:
+                case DataOperators.LesserThan:
                     return "<";
-                case DataOperators.LesserOrEqual:
+                case DataOperators.LesserThanOrEqualTo:
                     return "<=";
             }
 

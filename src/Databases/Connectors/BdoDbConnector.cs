@@ -1,12 +1,11 @@
-﻿using BindOpen.Labs.Databases.Builders;
-using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
-using BindOpen.System.Logging;
-using BindOpen.System.Scoping.Connectors;
+﻿using BindOpen.Kernel.Data.Meta;
+using BindOpen.Kernel.Logging;
+using BindOpen.Kernel.Scoping.Connectors;
+using BindOpen.Plus.Databases.Builders;
+using BindOpen.Plus.Databases.Data;
 using System.Data;
 
-namespace BindOpen.Labs.Databases.Connecting
+namespace BindOpen.Plus.Databases.Connectors
 {
     /// <summary>
     /// This class defines a database connector.
@@ -93,36 +92,6 @@ namespace BindOpen.Labs.Databases.Connecting
         [BdoProperty(Name = "kind")]
         public BdoDbConnectorKind DatabaseConnectorKind { get; set; }
 
-        /// <summary>
-        /// Updates the connection string with the specified string.
-        /// </summary>
-        /// <param name="connectionString">The connection string to consider.</param>
-        public new ITBdoConnector<IBdoDbConnection> WithConnectionString(string connectionString = null)
-        {
-            base.WithConnectionString(connectionString);
-            var item = BdoData.NewDictionary(connectionString);
-
-            Provider = item["Provider"]?.Trim().ToLower();
-            DatabaseConnectorKind = EstimateDbConnectorKind();
-            ServerAddress = item["Data Source"];
-            InitialCatalog = item["Initial Catalog"];
-            UserName = item["User Id"];
-            Password = item["Password"];
-
-            return this;
-        }
-
-        /// <summary>
-        /// Updates the instance considering the specified scope.
-        /// </summary>
-        /// <param name="scope">The scope to consider.</param>
-        public override IBdoConnector WithScope(IBdoScope scope)
-        {
-            base.WithScope(scope);
-
-            return this;
-        }
-
         // SQL commands
 
         /// <summary>
@@ -143,7 +112,7 @@ namespace BindOpen.Labs.Databases.Connecting
         {
             if (_queryBuilder == null)
             {
-                log?.AddError("Data builder missing");
+                log?.AddEvent(EventKinds.Error, "Data builder missing");
                 return null;
             }
 

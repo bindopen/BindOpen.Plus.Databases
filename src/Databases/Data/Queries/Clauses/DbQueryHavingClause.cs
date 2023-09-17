@@ -1,6 +1,6 @@
-﻿using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents the Having clause of a database data query.
@@ -56,9 +56,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone<IDbQueryHavingClause>(areas);
+            var clone = base.Clone<IDbQueryHavingClause>();
 
             return clone;
         }

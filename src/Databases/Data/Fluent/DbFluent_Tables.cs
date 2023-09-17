@@ -1,7 +1,7 @@
-﻿using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This static class represents a factory of data table.
@@ -46,7 +46,7 @@ namespace BindOpen.Labs.Databases.Data
         ///// <param name="conditionScript">The condition script to consider.</param>
         ///// <returns>Returns a new From statement.</returns>
         //public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, DbTable table, string conditionScript)
-        //    => TableAsJoin(kind, table, conditionScript.AsExpression(BdoExpressionKind.Script));
+        //    => TableAsJoin(kind, table, conditionScript.ToExpression(BdoExpressionKind.Script));
 
         // Derived --------------------------------
 

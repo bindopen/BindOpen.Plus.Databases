@@ -1,13 +1,13 @@
-﻿using BindOpen.System.Data.Stores;
-using BindOpen.Labs.Databases.Models;
-using BindOpen.System.Scoping.Extensions;
-using BindOpen.System.Logging;
+﻿using BindOpen.Kernel.Data.Assemblies;
+using BindOpen.Kernel.Data.Stores;
+using BindOpen.Kernel.Logging;
+using BindOpen.Plus.Databases.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace BindOpen.Labs.Databases.Stores
+namespace BindOpen.Plus.Databases.Stores
 {
     /// <summary>
     /// This class represents a database model depot.
@@ -41,7 +41,7 @@ namespace BindOpen.Labs.Databases.Stores
         /// </summary>
         public List<IBdoDbModel> Models
         {
-            get => Items;
+            get => Items?.ToList();
         }
 
         /// <summary>
@@ -69,9 +69,9 @@ namespace BindOpen.Labs.Databases.Stores
         /// </summary>
         /// <param name="assemblyName">The name of the assembly.</param>
         /// <param name="log">The log to consider.</param>
-        public override IBdoDepot AddFromAssembly(string assemblyName, IBdoLog log = null)
+        public override IBdoDepot AddFromAssembly(IBdoAssemblyReference reference, IBdoLog log = null)
         {
-            Assembly assembly = AppDomain.CurrentDomain.GetAsssembly(assemblyName);
+            Assembly assembly = AppDomain.CurrentDomain.GetAssembly(reference);
             if (assembly != null)
             {
                 var types = assembly.GetTypes().Where(p => p.IsClass && typeof(IBdoDbModel).IsAssignableFrom(p));
@@ -79,23 +79,11 @@ namespace BindOpen.Labs.Databases.Stores
                 {
                     var model = Activator.CreateInstance(type) as BdoDbModel;
 
-                    Add(model);
+                    this.Insert(model);
                 }
             }
 
             return this;
-        }
-
-        /// <summary>
-        /// Gets the database model of the specified type and with the specified name.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public override IBdoDbModel Get<IBdoDbModel>(string key = null)
-        {
-            var item = Items?.FirstOrDefault(p => p is IBdoDbModel);
-            return item;
         }
 
         #endregion

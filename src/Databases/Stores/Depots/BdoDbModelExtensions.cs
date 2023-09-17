@@ -1,10 +1,10 @@
-﻿using BindOpen.Labs.Databases.Models;
-using BindOpen.System.Data.Stores;
-using BindOpen.Runtime.Scopes;
-using BindOpen.System.Logging;
+﻿using BindOpen.Kernel.Data.Stores;
+using BindOpen.Kernel.Logging;
+using BindOpen.Kernel.Scoping;
+using BindOpen.Plus.Databases.Models;
 using System;
 
-namespace BindOpen.Labs.Databases.Stores
+namespace BindOpen.Plus.Databases.Stores
 {
     /// <summary>
     /// This class represents an data queries factory.
@@ -14,32 +14,35 @@ namespace BindOpen.Labs.Databases.Stores
         /// <summary>
         /// Add a database queries depot into the specified data store executing the specified action.
         /// </summary>
-        /// <param name="dataStore">The data store to consider.</param>
+        /// <param name="depotStore">The data store to consider.</param>
         /// <returns>Returns the data store to update.</returns>
-        public static IBdoDataStore RegisterDbModels(
-            this IBdoDataStore dataStore) =>
-            dataStore.RegisterDbModels((d, l) => { });
+        public static T RegisterDbModels<T>(
+            this T depotStore)
+            where T : IBdoDepotStore
+            => depotStore.RegisterDbModels((d, l) => { });
 
         /// <summary>
         /// Add a database queries depot into the specified data store executing the specified action.
         /// </summary>
-        /// <param name="dataStore">The data store to consider.</param>
+        /// <param name="depotStore">The data store to consider.</param>
         /// <param name="action">The action to execute on the created depot.</param>
         /// <returns>Returns the data store to update.</returns>
-        public static IBdoDataStore RegisterDbModels(
-            this IBdoDataStore dataStore,
-            Action<IBdoDbModelDepot> action) =>
-            dataStore.RegisterDbModels((d, l) => action?.Invoke(d));
+        public static T RegisterDbModels<T>(
+            this T depotStore,
+            Action<IBdoDbModelDepot> action)
+            where T : IBdoDepotStore
+            => depotStore.RegisterDbModels((d, l) => action?.Invoke(d));
 
         /// <summary>
         /// Add a database queries depot into the specified data store executing the specified action.
         /// </summary>
-        /// <param name="dataStore">The data store to consider.</param>
+        /// <param name="depotStore">The data store to consider.</param>
         /// <param name="action">The action to execute on the created depot.</param>
         /// <returns>Returns the data store to update.</returns>
-        public static IBdoDataStore RegisterDbModels(
-            this IBdoDataStore dataStore,
+        public static T RegisterDbModels<T>(
+            this T depotStore,
             Action<IBdoDbModelDepot, IBdoLog> action)
+            where T : IBdoDepotStore
         {
             var depot = new BdoDbModelDepot()
             {
@@ -55,7 +58,7 @@ namespace BindOpen.Labs.Databases.Stores
 
                         if (!log.HasEvent(EventKinds.Error, EventKinds.Exception))
                         {
-                            log.AddMessage("Depot loaded (" + number + " models added)");
+                            log.AddEvent(EventKinds.Error, "Depot loaded (" + number + " models added)");
                         }
                     }
 
@@ -65,18 +68,18 @@ namespace BindOpen.Labs.Databases.Stores
 
             // we populate the data source depot from settings
 
-            dataStore?.Add<IBdoDbModelDepot>(depot);
-            return dataStore;
+            depotStore?.Add<IBdoDbModelDepot>(depot);
+            return depotStore;
         }
 
         /// <summary>
         /// Gets the database queries depot of the specified data store.
         /// </summary>
-        /// <param name="dataStore">The data store to consider.</param>
+        /// <param name="depotStore">The data store to consider.</param>
         /// <returns>Returns the database model depot of the specified data store.</returns>
-        public static IBdoDbModelDepot GetDbModelDepot(this IBdoDataStore dataStore)
+        public static IBdoDbModelDepot GetDbModelDepot(this IBdoDepotStore depotStore)
         {
-            return dataStore?.Get<IBdoDbModelDepot>();
+            return depotStore?.Get<IBdoDbModelDepot>();
         }
 
         /// <summary>
@@ -86,7 +89,7 @@ namespace BindOpen.Labs.Databases.Stores
         /// <returns>Returns the database model depot of the specified scope.</returns>
         public static IBdoDbModelDepot GetDbModelDepot(this IBdoScope scope)
         {
-            return scope?.DataStore?.Get<IBdoDbModelDepot>();
+            return scope?.DepotStore?.Get<IBdoDbModelDepot>();
         }
 
         /// <summary>
@@ -96,7 +99,7 @@ namespace BindOpen.Labs.Databases.Stores
         /// <returns>Returns the database query with the specified name.</returns>
         public static T GetModel<T>(this IBdoScope scope) where T : class, IBdoDbModel
         {
-            return scope?.DataStore?.Get<IBdoDbModelDepot>()?.Get<T>();
+            return scope?.GetDbModelDepot()?.Get<T>();
         }
     }
 }

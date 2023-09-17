@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace BindOpen.Labs.Databases.Builders
+namespace BindOpen.Plus.Databases.Builders
 {
     /// <summary>
     /// This enumerates the possible modes of database query field.

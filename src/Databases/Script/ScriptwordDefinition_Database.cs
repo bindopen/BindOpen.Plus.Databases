@@ -1,15 +1,13 @@
-﻿using BindOpen.Labs.Databases.Builders;
-using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Scoping.Extensions.Scripting;
-using BindOpen.System.Data;
-using BindOpen.System.Data.Stores;
+﻿using BindOpen.Kernel.Scoping;
+using BindOpen.Kernel.Scoping.Script;
+using BindOpen.Plus.Databases.Builders;
+using BindOpen.Plus.Databases.Data;
 
-namespace BindOpen.Labs.Databases.Scripting
+namespace BindOpen.Plus.Databases.Scripting
 {
     /// <summary>
     /// This class represents a 'Database' script word definition.
     /// </summary>
-    [BdoScriptwordDefinition()]
     public static class ScriptwordDefinition_Database
     {
         // ------------------------------------------
@@ -25,17 +23,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlCount")]
-        public static object Fun_SqlCount(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlCount")]
+        public static object Fun_SqlCount(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_Count(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_Count(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -44,17 +42,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlSum")]
-        public static object Fun_SqlSum(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlSum")]
+        public static object Fun_SqlSum(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_Sum(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_Sum(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -63,17 +61,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlAverage")]
-        public static object Fun_SqlAverage(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlAverage")]
+        public static object Fun_SqlAverage(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_Average(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_Average(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -84,10 +82,10 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlGetCurrentDate")]
-        public static object Fun_SqlGetCurrentDate(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlGetCurrentDate")]
+        public static object Fun_SqlGetCurrentDate(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -107,10 +105,10 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlTrue")]
-        public static object Fun_SqlTrue(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlTrue")]
+        public static object Fun_SqlTrue(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -126,19 +124,19 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlIf")]
-        public static object Fun_SqlIf(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlIf")]
+        public static object Fun_SqlIf(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string condition = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(2)?.ToString();
+                string condition = domain?.Scriptword?.GetData<string>(0);
+                string value1 = domain?.Scriptword?.GetData<string>(1);
+                string value2 = domain?.Scriptword?.GetData<string>(2);
 
                 return queryBuilder.GetSqlText_If(condition, value1, value2);
             }
@@ -149,17 +147,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlNot")]
-        public static object Fun_SqlNot(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlNot")]
+        public static object Fun_SqlNot(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_Not(value1);
             }
         }
@@ -169,17 +167,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlOr")]
-        public static object Fun_SqlOr(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlOr")]
+        public static object Fun_SqlOr(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_Or(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_Or(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -188,17 +186,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlAnd")]
-        public static object Fun_SqlAnd(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlAnd")]
+        public static object Fun_SqlAnd(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_And(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_And(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -207,17 +205,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlXor")]
-        public static object Fun_SqlXor(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlXor")]
+        public static object Fun_SqlXor(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_Xor(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_Xor(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -227,18 +225,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlEq")]
-        public static object Fun_SqlEq(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlEq")]
+        public static object Fun_SqlEq(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
 
                 return queryBuilder.GetSqlText_Eq(value1, value2);
             }
@@ -249,18 +247,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlDiff")]
-        public static object Fun_SqlDiff(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlDiff")]
+        public static object Fun_SqlDiff(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
 
                 return queryBuilder.GetSqlText_Diff(value1, value2);
             }
@@ -271,18 +269,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlGt")]
-        public static object Fun_SqlGt(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlGt")]
+        public static object Fun_SqlGt(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
 
                 return queryBuilder.GetSqlText_Gt(value1, value2);
             }
@@ -293,18 +291,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlGte")]
-        public static object Fun_SqlGte(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlGte")]
+        public static object Fun_SqlGte(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
 
                 return queryBuilder.GetSqlText_Gte(value1, value2);
             }
@@ -315,18 +313,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlLt")]
-        public static object Fun_SqlLt(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlLt")]
+        public static object Fun_SqlLt(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
 
                 return queryBuilder.GetSqlText_Lt(value1, value2);
             }
@@ -337,18 +335,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlLte")]
-        public static object Fun_SqlLte(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlLte")]
+        public static object Fun_SqlLte(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
 
                 return queryBuilder.GetSqlText_Lte(value1, value2);
             }
@@ -359,17 +357,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlIsNull")]
-        public static object Fun_SqlIsNull(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlIsNull")]
+        public static object Fun_SqlIsNull(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
 
                 return queryBuilder.GetSqlText_IsNull(value1);
             }
@@ -380,18 +378,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlIfNull")]
-        public static object Fun_SqlIfNull(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlIfNull")]
+        public static object Fun_SqlIfNull(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
 
                 return queryBuilder.GetSqlText_IfNull(value1, value2);
             }
@@ -404,17 +402,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlConvertToText")]
-        public static object Fun_SqlConvertToText(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlConvertToText")]
+        public static object Fun_SqlConvertToText(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_ConvertToText(value1);
             }
         }
@@ -426,17 +424,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlText")]
-        public static object Fun_SqlText(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlText")]
+        public static object Fun_SqlText(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_Text(value1);
             }
         }
@@ -446,17 +444,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlValue")]
-        public static object Fun_SqlValue(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlValue")]
+        public static object Fun_SqlValue(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_Value(value1);
             }
         }
@@ -466,17 +464,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlEncodeBase64")]
-        public static object Fun_SqlEncodeBase64(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlEncodeBase64")]
+        public static object Fun_SqlEncodeBase64(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_EncodeBase64(value1);
             }
         }
@@ -486,17 +484,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlDecodeBase64")]
-        public static object Fun_SqlDecodeBase64(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlDecodeBase64")]
+        public static object Fun_SqlDecodeBase64(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_DecodeBase64(value1);
             }
         }
@@ -506,18 +504,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlLike")]
-        public static object Fun_SqlLike(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlLike")]
+        public static object Fun_SqlLike(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
                 return queryBuilder.GetSqlText_Like(value1, value2);
             }
         }
@@ -527,19 +525,19 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlReplace")]
-        public static object Fun_SqlReplace(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlReplace")]
+        public static object Fun_SqlReplace(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
-                string value3 = domain?.Scriptword?.Parameters?.GetAt(2)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
+                string value3 = domain?.Scriptword?.GetData<string>(2);
                 return queryBuilder.GetSqlText_Replace(value1, value2, value3);
             }
         }
@@ -549,17 +547,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlConcat")]
-        public static object Fun_SqlConcat(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlConcat")]
+        public static object Fun_SqlConcat(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_Concat(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_Concat(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -568,17 +566,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlStringConcat")]
-        public static object Fun_SqlStringConcat(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlStringConcat")]
+        public static object Fun_SqlStringConcat(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_StringConcat(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_StringConcat(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -587,10 +585,10 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlNull")]
-        public static object Fun_SqlNull(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlNull")]
+        public static object Fun_SqlNull(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -606,10 +604,10 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlEmpty")]
-        public static object Fun_SqlEmpty(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlEmpty")]
+        public static object Fun_SqlEmpty(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -625,17 +623,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlLCase")]
-        public static object Fun_SqlLower(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlLCase")]
+        public static object Fun_SqlLower(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_LCase(value1);
             }
         }
@@ -645,17 +643,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlUCase")]
-        public static object Fun_SqlUpper(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlUCase")]
+        public static object Fun_SqlUpper(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_UCase(value1);
             }
         }
@@ -665,19 +663,19 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlLPad")]
-        public static object Fun_SqlLeftPadding(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlLPad")]
+        public static object Fun_SqlLeftPadding(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
-                string value3 = domain?.Scriptword?.Parameters?.GetAt(2)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
+                string value3 = domain?.Scriptword?.GetData<string>(2);
                 return queryBuilder.GetSqlText_LPad(value1, value2, value3);
             }
         }
@@ -687,19 +685,19 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlRPad")]
-        public static object Fun_SqlRightPadding(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlRPad")]
+        public static object Fun_SqlRightPadding(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
-                string value3 = domain?.Scriptword?.Parameters?.GetAt(2)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.GetData<string>(1);
+                string value3 = domain?.Scriptword?.GetData<string>(2);
                 return queryBuilder.GetSqlText_RPad(value1, value2, value3);
             }
         }
@@ -711,23 +709,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlDatabase")]
-        public static object Fun_SqlDatabase(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlDatabase")]
+        public static object Fun_SqlDatabase(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-
-                string instanceName = domain?.Scope?.DataStore?.Get<IBdoSourceDepot>()?.GetInstanceName(value1);
-                if (string.IsNullOrEmpty(instanceName) || instanceName == StringHelper.__NoneString)
-                    instanceName = value1;
-
-                return queryBuilder.GetSqlText_Database(instanceName);
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                return value1;
             }
         }
 
@@ -736,18 +729,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword]
-        public static object Fun_SqlDatabase_SqlSchema(IBdoScriptwordDomain domain)
+        [BdoFunction]
+        public static object Fun_SqlDatabase_SqlSchema(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parent?.Item?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.Parent?.GetData<string>();
                 return queryBuilder.GetSqlText_Schema(value1, value2);
             }
         }
@@ -757,18 +750,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword]
-        public static object Fun_SqlDatabase_SqlTable(IBdoScriptwordDomain domain)
+        [BdoFunction]
+        public static object Fun_SqlDatabase_SqlTable(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parent?.Item?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.Parent?.GetData<string>();
                 return queryBuilder.GetSqlText_Table(value1, value2);
             }
         }
@@ -778,18 +771,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword]
-        public static object Fun_SqlDatabase_SqlTable_SqlField(IBdoScriptwordDomain domain)
+        [BdoFunction]
+        public static object Fun_SqlDatabase_SqlTable_SqlField(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parent?.Item?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?.Parent?.GetData<string>();
                 return queryBuilder.GetSqlText_Field(value1, value2);
             }
         }
@@ -801,10 +794,10 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlNewGuid")]
-        public static object Fun_SqlNewGuid(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlNewGuid")]
+        public static object Fun_SqlNewGuid(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -820,10 +813,10 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlRandom")]
-        public static object Fun_SqlRandom(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlRandom")]
+        public static object Fun_SqlRandom(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
@@ -841,18 +834,18 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlIn")]
-        public static object Fun_SqlIn(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlIn")]
+        public static object Fun_SqlIn(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value1 = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
-                string value2 = domain?.Scriptword?.Parameters?.GetAt(1)?.ToString();
+                string value1 = domain?.Scriptword?.GetData<string>(0);
+                string value2 = domain?.Scriptword?[1]?.ToString();
 
                 return queryBuilder.GetSqlText_In(value1, value2);
             }
@@ -863,17 +856,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlExists")]
-        public static object Fun_SqlExists(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlExists")]
+        public static object Fun_SqlExists(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                string value = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+                string value = domain?.Scriptword?.GetData<string>(0);
                 return queryBuilder.GetSqlText_Exists(value);
             }
         }
@@ -883,17 +876,17 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlList")]
-        public static object Fun_SqlList(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlList")]
+        public static object Fun_SqlList(IBdoScriptDomain domain)
         {
-            var queryBuilder = domain?.ScriptVariableSet?.GetDbBuilder();
+            var queryBuilder = domain?.VariableSet?.GetDbBuilder();
             if (queryBuilder == null)
             {
                 return "<DatabaseBuilderMissing/>";
             }
             else
             {
-                return queryBuilder.GetSqlText_List(domain?.Scriptword?.Parameters?.ToArray());
+                return queryBuilder.GetSqlText_List(domain?.Scriptword?.ToArray());
             }
         }
 
@@ -902,10 +895,10 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlParameter")]
-        public static object Fun_SqlParameter(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlParameter")]
+        public static object Fun_SqlParameter(IBdoScriptDomain domain)
         {
-            string value = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+            string value = domain?.Scriptword?.GetData<string>(0);
             return value.AsParameterWildString();
         }
 
@@ -914,10 +907,10 @@ namespace BindOpen.Labs.Databases.Scripting
         /// </summary>
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
-        [BdoScriptword(Name = "sqlQuery")]
-        public static object Fun_SqlQuery(IBdoScriptwordDomain domain)
+        [BdoFunction(Name = "sqlQuery")]
+        public static object Fun_SqlQuery(IBdoScriptDomain domain)
         {
-            string value = domain?.Scriptword?.Parameters?.GetAt(0)?.ToString();
+            string value = domain?.Scriptword?.GetData<string>(0);
             return "(" + value.AsQueryWildString() + ")";
         }
 

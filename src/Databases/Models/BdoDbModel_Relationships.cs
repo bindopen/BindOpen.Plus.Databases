@@ -1,13 +1,13 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data;
-using BindOpen.Labs.Databases.Data;
-using BindOpen.Labs.Databases.Exceptions;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Plus.Databases.Data;
+using BindOpen.Plus.Databases.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace BindOpen.Labs.Databases.Models
+namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// This class represents a database model.
@@ -48,7 +48,7 @@ namespace BindOpen.Labs.Databases.Models
                         DbFluent.Field(mapping.Value, relationship.Table2)));
             }
 
-            return DbFluent.And(queryConditions.ToArray());
+            return (BdoExpression)DbFluent.And(queryConditions.ToArray());
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace BindOpen.Labs.Databases.Models
             var table1Name = Table<T1>()?.Name;
             var table2Name = Table<T2>()?.Name;
 
-            return JoinCondition(table1Name + "_" + table2Name, table1Alias, table2Alias);
+            return (BdoExpression)JoinCondition(table1Name + "_" + table2Name, table1Alias, table2Alias);
         }
 
         // Relationships ---------------------------------------
@@ -183,8 +183,8 @@ namespace BindOpen.Labs.Databases.Models
             return AddRelationship(name, table1, table2,
                 mappings.Select(q =>
                     {
-                        var field1Name = q.field1.GetProperty().Name;
-                        var field2Name = q.field2.GetProperty().Name;
+                        var field1Name = q.field1.GetPropertyInfo().Name;
+                        var field2Name = q.field2.GetPropertyInfo().Name;
 
                         return (field1Name, field2Name);
                     }).ToArray());

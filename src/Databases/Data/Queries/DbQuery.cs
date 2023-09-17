@@ -1,11 +1,10 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Meta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents a database data query.
@@ -176,13 +175,13 @@ namespace BindOpen.Labs.Databases.Data
         /// <returns>Return this instance.</returns>
         public IDbQuery WithParameters(params IBdoMetaData[] parameters)
         {
-            ParameterSet = BdoMeta.NewList(parameters);
+            ParameterSet = BdoData.NewSet(parameters);
             return this;
         }
 
         public IDbQuery AddParameters(params IBdoMetaScalar[] parameters)
         {
-            ParameterSet ??= BdoMeta.NewList(parameters);
+            ParameterSet ??= BdoData.NewSet(parameters);
             ParameterSet.Add(parameters);
             return this;
         }
@@ -199,7 +198,7 @@ namespace BindOpen.Labs.Databases.Data
         /// <returns>Return this instance.</returns>
         public IDbQuery UsingParameters(params IBdoSpec[] parameterSpecs)
         {
-            ParameterSpecSet = BdoMeta.NewSpecList(parameterSpecs);
+            ParameterSpecSet = BdoData.NewSpecSet(parameterSpecs);
             return this;
         }
 
@@ -259,9 +258,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone<IDbQuery>(areas);
+            var clone = base.Clone<IDbQuery>();
             //clone.WithCTE(CTETables?.Select(p => p.Clone<IDbTable>()).ToArray());
             //clone.WithDescription(Description?.Clone<IBdoDictionary>());
             //clone.WithExpression(Expression?.Clone<IBdoExpression>());

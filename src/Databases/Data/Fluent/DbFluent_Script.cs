@@ -1,10 +1,10 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
-using BindOpen.System.Data;
-using BindOpen.System.Scoping.Extensions.Scripting;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Kernel.Data.Meta;
+using BindOpen.Kernel.Scoping.Script;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.
@@ -39,17 +39,17 @@ namespace BindOpen.Labs.Databases.Data
             }
             else if (obj is DbField field)
             {
-                return (field?.ToScript()).AsExpression(BdoExpressionKind.Script);
+                return (field?.ToScript()).ToExpression(BdoExpressionKind.Script);
             }
             else if (obj is DbTable table)
             {
-                return (table?.ToScript()).AsExpression(BdoExpressionKind.Script);
+                return (table?.ToScript()).ToExpression(BdoExpressionKind.Script);
             }
             else if (obj is IBdoMetaScalar param)
             {
                 return param.AsExp();
             }
-            else if (obj is BdoExpression || obj is BdoScriptword)
+            else if (obj is BdoExpression)
             {
                 return obj;
             }

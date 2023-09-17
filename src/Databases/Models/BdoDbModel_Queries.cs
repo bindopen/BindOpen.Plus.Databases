@@ -1,9 +1,9 @@
-﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.Labs.Databases.Exceptions;
+﻿using BindOpen.Plus.Databases.Data;
+using BindOpen.Plus.Databases.Exceptions;
 using System;
 using System.Collections.Generic;
 
-namespace BindOpen.Labs.Databases.Models
+namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// This class represents a database model.

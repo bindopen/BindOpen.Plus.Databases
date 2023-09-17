@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents a stored data query.
@@ -84,9 +84,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone(areas) as DbStoredQuery;
+            var clone = base.Clone() as DbStoredQuery;
             clone.Query = Query?.Clone<IDbQuery>();
 
             if (QueryTexts != null)

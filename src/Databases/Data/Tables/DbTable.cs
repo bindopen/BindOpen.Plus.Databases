@@ -1,16 +1,15 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
-using BindOpen.System.Scoping.Extensions.Modeling;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Meta;
+using BindOpen.Kernel.Scoping;
+using BindOpen.Kernel.Scoping.Entities;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents a database data table.
     /// </summary>
     [BdoEntity(
         Name = "databases$dbTable",
-        DatasourceKind = DatasourceKind.Database,
         Description = "Database table.",
         CreationDate = "2016-09-14"
     )]
@@ -41,9 +40,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone(areas) as DbTable;
+            var clone = base.Clone() as DbTable;
             clone.Expression = Expression?.Clone<BdoExpression>();
 
             return clone;

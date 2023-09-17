@@ -1,6 +1,6 @@
-﻿using BindOpen.System.Data.Helpers;
+﻿using BindOpen.Kernel.Data.Helpers;
 
-namespace BindOpen.Labs.Databases
+namespace BindOpen.Plus.Databases
 {
     /// <summary>
     /// This class represents the database extension.

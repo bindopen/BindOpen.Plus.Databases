@@ -1,9 +1,10 @@
-﻿using BindOpen.System.Logging;
-using BindOpen.System.Scoping.Connectors;
+﻿using BindOpen.Kernel.Logging;
+using BindOpen.Kernel.Scoping;
+using BindOpen.Kernel.Scoping.Connectors;
 using System;
 using System.Data;
 
-namespace BindOpen.Labs.Databases.Connecting
+namespace BindOpen.Plus.Databases.Connectors
 {
     /// <summary>
     /// This class represents a database connection.
@@ -89,7 +90,7 @@ namespace BindOpen.Labs.Databases.Connecting
         /// Connects this instance.
         /// </summary>
         /// <returns>Returns the log of process.</returns>
-        public override IBdoConnection Connect(IBdoLog log = null)
+        public override void Connect(IBdoLog log = null)
         {
             try
             {
@@ -99,15 +100,13 @@ namespace BindOpen.Labs.Databases.Connecting
             {
                 log?.AddException(ex);
             }
-
-            return this;
         }
 
         /// <summary>
         /// Disconnects this instance.
         /// </summary>
         /// <returns>Returns the log of process.</returns>
-        public override IBdoConnection Disconnect(IBdoLog log = null)
+        public override void Disconnect(IBdoLog log = null)
         {
             try
             {
@@ -117,8 +116,6 @@ namespace BindOpen.Labs.Databases.Connecting
             {
                 log?.AddException(ex);
             }
-
-            return this;
         }
 
         #endregion

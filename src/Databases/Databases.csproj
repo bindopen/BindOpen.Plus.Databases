@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>BindOpen.Labs.Databases</AssemblyName>
-    <PackageId>BindOpen.Labs.Databases</PackageId>
-    <Product>BindOpen.Labs.Databases</Product>
+    <AssemblyName>BindOpen.Plus.Databases</AssemblyName>
+    <PackageId>BindOpen.Plus.Databases</PackageId>
+    <Product>BindOpen.Plus.Databases</Product>
     <Company>BindOpen</Company>
     <Copyright>Copyright �BindOpen 2011-2023</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package handles database connections.</Description>
     <Authors>Sumer Team</Authors>
-    <RootNamespace>BindOpen.Labs.Databases</RootNamespace>
-    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Labs.Databases</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/bindopen/BindOpen.Labs.Databases.git</RepositoryUrl>
+    <RootNamespace>BindOpen.Plus.Databases</RootNamespace>
+    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Plus.Databases</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bindopen/BindOpen.Plus.Databases.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>bindopen_icon.png</PackageIcon>
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>BindOpen.Labs.Databases.xml</DocumentationFile>
+    <DocumentationFile>BindOpen.Plus.Databases.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,12 +41,13 @@
   <ItemGroup>
     <EmbeddedResource Include="BindOpen.Extension" />
     <EmbeddedResource Include="Data\BindOpen.Carriers" />
-    <EmbeddedResource Include="Connecting\BindOpen.Connectors" />
-    <EmbeddedResource Include="Scripting\BindOpen.Scriptwords" />
+    <EmbeddedResource Include="Connectors\BindOpen.Connectors" />
+    <EmbeddedResource Include="Script\BindOpen.Scriptwords" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.System.Scoping.Extensions" Version="1.2.51" />
+    <PackageReference Include="BindOpen.Kernel.Scoping.Extensions" Version="1.2.105" />
+    <PackageReference Include="BindOpen.Kernel.Scoping.Script" Version="1.2.105" />
   </ItemGroup>
 
   <ItemGroup>

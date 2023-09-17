@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Labs.Databases.Data
+﻿namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// 

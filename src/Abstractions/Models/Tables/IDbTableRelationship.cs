@@ -1,7 +1,7 @@
-﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Plus.Databases.Data;
 
-namespace BindOpen.Labs.Databases.Models
+namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// This class represents the table relationship.
@@ -21,6 +21,6 @@ namespace BindOpen.Labs.Databases.Models
         /// <summary>
         /// The field mapping of this instance.
         /// </summary>
-        public IBdoDictionary FieldMappingDictionary { get; set; }
+        public ITBdoDictionary<string> FieldMappingDictionary { get; set; }
     }
 }

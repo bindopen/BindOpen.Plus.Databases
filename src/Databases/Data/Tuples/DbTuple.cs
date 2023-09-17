@@ -1,9 +1,9 @@
-﻿using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents the database tuple.
@@ -96,9 +96,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone<IDbTuple>(areas);
+            var clone = Clone<IDbTuple>();
             clone.WithFields(Fields?.Select(p => p.Clone<IDbField>()).ToArray());
 
             return clone;

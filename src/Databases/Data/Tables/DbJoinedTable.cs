@@ -1,7 +1,6 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Data;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents the Join table of a database data query.
@@ -95,7 +94,7 @@ namespace BindOpen.Labs.Databases.Data
         /// <param name="condition">The condition to consider.</param>
         /// <returns>Returns this instance.</returns>
         public IDbJoinedTable WithCondition(string condition)
-            => WithCondition(condition?.AsExpression(BdoExpressionKind.Script));
+            => WithCondition(condition?.ToExpression(BdoExpressionKind.Script));
 
         #endregion
 
@@ -109,9 +108,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone(areas) as DbJoinedTable;
+            var clone = base.Clone() as DbJoinedTable;
             clone.Table = Table?.Clone<DbTable>();
             clone.Condition = Condition?.Clone<BdoExpression>();
 

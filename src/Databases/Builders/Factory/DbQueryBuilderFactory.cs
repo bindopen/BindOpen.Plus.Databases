@@ -1,7 +1,7 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Meta;
 
-namespace BindOpen.Labs.Databases.Builders
+namespace BindOpen.Plus.Databases.Builders
 {
     /// <summary>
     /// This class contains script variable set for Databases.
@@ -23,7 +23,7 @@ namespace BindOpen.Labs.Databases.Builders
             this IDbQueryBuilder queryBuilder,
             IBdoMetaSet varElementSet)
         {
-            varElementSet?.Add(BdoMeta.New(__DbBuilder, queryBuilder));
+            varElementSet?.Add(BdoData.NewMeta(__DbBuilder, queryBuilder));
 
             return varElementSet;
         }

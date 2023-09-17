@@ -1,6 +1,6 @@
-﻿using BindOpen.System.Data;
+﻿using BindOpen.Kernel.Scoping.Script;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.
@@ -15,50 +15,50 @@ namespace BindOpen.Labs.Databases.Data
         /// <param name="condition">The condition to consider.</param>
         /// <param name="thenResult">The then-result to consider.</param>
         /// <param name="elseResult">The else-result to consider.</param>
-        public static BdoExpression If(object condition, object thenResult, object elseResult)
+        public static BdoScriptword If(object condition, object thenResult, object elseResult)
         {
-            return DbFunction("sqlIf", condition, thenResult, elseResult).AsExpression();
+            return DbFunction("sqlIf", condition, thenResult, elseResult);
         }
 
         /// <summary>
         /// Creates a BDO script representing and Sql And condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static BdoExpression And(params object[] conditions)
+        public static BdoScriptword And(params object[] conditions)
         {
-            return DbFunction("sqlAnd", conditions).AsExpression(); ;
+            return DbFunction("sqlAnd", conditions); ;
         }
 
         /// <summary>
         /// Creates a BDO script representing and Sql Or condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static BdoExpression Or(params object[] conditions)
+        public static BdoScriptword Or(params object[] conditions)
         {
-            return DbFunction("sqlOr", conditions).AsExpression(); ;
+            return DbFunction("sqlOr", conditions); ;
         }
 
         /// <summary>
         /// Creates a BDO script representing and Sql Xor condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static BdoExpression Xor(params object[] conditions)
+        public static BdoScriptword Xor(params object[] conditions)
         {
-            return DbFunction("sqlXOr", conditions).AsExpression(); ;
+            return DbFunction("sqlXOr", conditions); ;
         }
 
         /// <summary>
         /// Creates a BDO script representing and Sql Not condition including the specified condition strings.
         /// </summary>
         /// <param name="condition">The condition to consider.</param>
-        public static BdoExpression Not(object condition)
-            => DbFunction("sqlNot", condition).AsExpression();
+        public static BdoScriptword Not(object condition)
+            => DbFunction("sqlNot", condition);
 
         /// <summary>
         /// Creates a BDO script representing and Sql Xor condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static BdoExpression Like(object param1, object param2)
-            => DbFunction("sqlLike", param1, param2).AsExpression();
+        public static BdoScriptword Like(object param1, object param2)
+            => DbFunction("sqlLike", param1, param2);
     }
 }

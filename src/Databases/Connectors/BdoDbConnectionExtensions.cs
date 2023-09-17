@@ -1,11 +1,13 @@
-﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Data.Meta;
-using BindOpen.System.Data.Stores;
-using BindOpen.System.Logging;
-using BindOpen.System.Scoping.Connectors;
+﻿using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Kernel.Data.Meta;
+using BindOpen.Kernel.Data.Stores;
+using BindOpen.Kernel.Logging;
+using BindOpen.Kernel.Scoping;
+using BindOpen.Kernel.Scoping.Connectors;
+using BindOpen.Plus.Databases.Data;
 using System.Data;
 
-namespace BindOpen.Labs.Databases.Connecting
+namespace BindOpen.Plus.Databases.Connectors
 {
     /// <summary>
     /// This class proposes extensions for database connection.
@@ -25,18 +27,18 @@ namespace BindOpen.Labs.Databases.Connecting
         /// <returns>Returns True if the connector has been opened. False otherwise.</returns>
         public static T Open<T>(
             this IBdoScope scope,
-            IBdoSourceDepot depot,
+            IBdoDatasourceDepot depot,
             string dataSourceName,
             string connectorDefinitionUniqueId,
             IBdoLog log = null)
             where T : class, IBdoConnection
         {
-            depot ??= scope?.DataStore?.Get<IBdoSourceDepot>();
+            depot ??= scope?.DepotStore?.Get<IBdoDatasourceDepot>();
 
             if (depot == null)
-                log.AddError("Data source depot missing");
-            else if (!depot.HasItem(dataSourceName))
-                log.AddError("Data source '" + dataSourceName + "' missing in depot");
+                log?.AddEvent(EventKinds.Error, "Data source depot missing");
+            else if (!depot.Has(dataSourceName))
+                log?.AddEvent(EventKinds.Error, "Data source '" + dataSourceName + "' missing in depot");
             else
                 return scope.Open<T>(depot, dataSourceName, connectorDefinitionUniqueId, log);
 
@@ -119,7 +121,7 @@ namespace BindOpen.Labs.Databases.Connecting
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             T connector = new();
-            return connector?.NewConnection(log)?.CreateCommand(query, parameterMode, parameterSet, varElementSet, log);
+            return connector?.NewConnection(log)?.As<IBdoDbConnection>()?.CreateCommand(query, parameterMode, parameterSet, varElementSet, log);
         }
 
         /// <summary>

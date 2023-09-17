@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This class represents a merge data query.
@@ -67,9 +67,9 @@ namespace BindOpen.Labs.Databases.Data
         /// Clones this instance.
         /// </summary>
         /// <returns>Returns the cloned instance.</returns>
-        public override object Clone(params string[] areas)
+        public override object Clone()
         {
-            var clone = base.Clone(areas) as DbCompositeQuery;
+            var clone = base.Clone() as DbCompositeQuery;
             clone.Queries = Queries?.Select(p => p.Clone<IDbQuery>()).ToList();
 
             return clone;

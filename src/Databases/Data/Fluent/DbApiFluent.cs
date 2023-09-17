@@ -1,8 +1,8 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Logging;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Logging;
 using System.Linq;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This static class represents a fluent factory of database API.
@@ -141,7 +141,7 @@ namespace BindOpen.Labs.Databases.Data
                             dbQuery.WhereClause = new DbQueryWhereClause();
                         }
 
-                        dbQuery.WhereClause.Expression = scriptText.AsExpression(BdoExpressionKind.Script);
+                        dbQuery.WhereClause.Expression = scriptText.ToExpression(BdoExpressionKind.Script);
                     }
                 }
             }
@@ -176,7 +176,7 @@ namespace BindOpen.Labs.Databases.Data
                         string fieldName = fieldItemParams[0]?.Trim();
                         if (!definition.ContainsKey(fieldName))
                         {
-                            log?.AddError("Undefined field '" + fieldName + "' in order statement", resultCode: "user");
+                            log?.AddEvent(EventKinds.Error, "Undefined field '" + fieldName + "' in order statement", resultCode: "user");
                         }
                         else
                         {
@@ -193,7 +193,7 @@ namespace BindOpen.Labs.Databases.Data
                                 }
                                 else if (!string.Equals(direction, "asc"))
                                 {
-                                    log?.AddError("Invalid order direction '" + direction + "'", resultCode: "user");
+                                    log?.AddEvent(EventKinds.Error, "Invalid order direction '" + direction + "'", resultCode: "user");
                                 }
                                 else
                                 {

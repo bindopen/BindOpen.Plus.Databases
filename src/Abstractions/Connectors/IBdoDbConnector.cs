@@ -1,9 +1,9 @@
-﻿using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Data.Meta;
-using BindOpen.System.Logging;
-using BindOpen.System.Scoping.Connectors;
+﻿using BindOpen.Kernel.Data.Meta;
+using BindOpen.Kernel.Logging;
+using BindOpen.Kernel.Scoping.Connectors;
+using BindOpen.Plus.Databases.Data;
 
-namespace BindOpen.Labs.Databases.Connecting
+namespace BindOpen.Plus.Databases.Connectors
 {
     /// <summary>
     /// This class defines a database connector.

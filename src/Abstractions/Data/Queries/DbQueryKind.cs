@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Labs.Databases.Data
+﻿namespace BindOpen.Plus.Databases.Data
 {
     /// <summary>
     /// This enumeration lists the possible kinds of database data queries.

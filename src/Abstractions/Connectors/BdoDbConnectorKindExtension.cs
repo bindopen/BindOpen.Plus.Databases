@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BindOpen.Labs.Databases.Connecting
+namespace BindOpen.Plus.Databases.Connectors
 {
     /// <summary>
     /// This class represents an extension of the ConnectorKind_database enumeration.

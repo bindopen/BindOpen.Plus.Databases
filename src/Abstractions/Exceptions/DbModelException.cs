@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BindOpen.Labs.Databases.Exceptions
+namespace BindOpen.Plus.Databases.Exceptions
 {
     /// <summary>
     /// This class represents a database model expcetion.

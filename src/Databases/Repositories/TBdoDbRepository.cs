@@ -1,10 +1,11 @@
-﻿using BindOpen.System.Data;
-using BindOpen.Labs.Databases.Connecting;
-using BindOpen.Labs.Databases.Stores;
-using BindOpen.System.Scoping.Connectors;
-using BindOpen.Runtime.Scopes;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Kernel.Scoping;
+using BindOpen.Kernel.Scoping.Connectors;
+using BindOpen.Plus.Databases.Connectors;
+using BindOpen.Plus.Databases.Stores;
 
-namespace BindOpen.Labs.Databases.Models
+namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// This class represents a master data repository.
@@ -65,21 +66,7 @@ namespace BindOpen.Labs.Databases.Models
         /// </summary>
         public IBdoDbConnector Connector { get; set; }
 
-        IBdoConnector IBdoConnected.Connector => Connector;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="connector"></param>
-        /// <returns></returns>
-        public IBdoDbConnected WithConnector(IBdoDbConnector connector)
-        {
-            Connector = connector;
-            return this;
-        }
-
-        IBdoConnected IBdoConnected.WithConnector(IBdoConnector connector)
-            => (IBdoConnected)WithConnector((IBdoDbConnector)connector);
+        IBdoConnector IBdoConnected.Connector { get => Connector; set { Connector = value.As<IBdoDbConnector>(); } }
 
         #endregion
 

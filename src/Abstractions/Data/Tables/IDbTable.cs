@@ -1,7 +1,7 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Scoping.Entities;
+﻿using BindOpen.Kernel;
+using BindOpen.Kernel.Scoping.Entities;
 
-namespace BindOpen.Labs.Databases.Data
+namespace BindOpen.Plus.Databases.Data
 {
     public interface IDbTable :
         IBdoEntity,

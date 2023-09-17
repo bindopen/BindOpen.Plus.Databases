@@ -1,13 +1,12 @@
-﻿using BindOpen.System.Data;
-using BindOpen.System.Data;
-using BindOpen.System.Data.Meta;
-using BindOpen.System.Data.Stores;
-using BindOpen.Labs.Databases.Data;
-using BindOpen.System.Logging;
-using BindOpen.Runtime.Scopes;
+﻿using BindOpen.Kernel.Data;
+using BindOpen.Kernel.Data.Meta;
+using BindOpen.Kernel.Data.Stores;
+using BindOpen.Kernel.Logging;
+using BindOpen.Kernel.Scoping;
+using BindOpen.Plus.Databases.Data;
 using System;
 
-namespace BindOpen.Labs.Databases.Builders
+namespace BindOpen.Plus.Databases.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -91,16 +90,12 @@ namespace BindOpen.Labs.Databases.Builders
         /// <remarks>If not found, it returns the specified data module name.</remarks>
         protected string GetDatabaseName(string dataModuleName)
         {
-            var dataSourceDepot = Scope?.DataStore?.Get<IBdoSourceDepot>();
+            var dataSourceDepot = Scope?.GetDatasourceDepot();
             if (dataSourceDepot == null)
                 return dataModuleName;
             else
             {
-                var databaseName = dataSourceDepot.GetInstanceOtherwiseModuleName(dataModuleName);
-                if (databaseName == StringHelper.__NoneString)
-                {
-                    databaseName = dataModuleName;
-                }
+                var databaseName = dataModuleName;
                 return databaseName;
             }
         }
@@ -112,7 +107,7 @@ namespace BindOpen.Labs.Databases.Builders
         /// <param name="query">The query to consider.</param>
         protected static void UpdateParameterSet(IBdoMetaSet parameterSet, IDbQuery query)
         {
-            parameterSet?.Update(query?.ParameterSpecs);
+            //parameterSet?.Update(query?.ParameterSpecs);
             parameterSet?.Update(query?.ParameterSet);
         }
 
@@ -170,7 +165,7 @@ namespace BindOpen.Labs.Databases.Builders
 
                     if (parameterMode != DbQueryParameterMode.Scripted)
                     {
-                        parameterSet ??= BdoMeta.NewList();
+                        parameterSet ??= BdoData.NewSet();
                         UpdateParameterSet(parameterSet, query);
 
                         if (query is IDbStoredQuery storedDbQuery)
@@ -185,7 +180,7 @@ namespace BindOpen.Labs.Databases.Builders
                                 if (parameterMode == DbQueryParameterMode.ValueInjected)
                                 {
                                     queryString = queryString.Replace((parameter?.Name ?? parameter.Index.ToString())?.AsParameterWildString(),
-                                        GetSqlText_Value(parameter?.GetData(Scope, varElementSet, log), parameter.DataValueType));
+                                        GetSqlText_Value(parameter?.GetData(Scope, varElementSet, log), parameter.DataType?.ValueType ?? DataValueTypes.None));
                                 }
                                 else
                                 {
@@ -198,7 +193,8 @@ namespace BindOpen.Labs.Databases.Builders
                 }
                 catch (Exception ex)
                 {
-                    log?.AddError(
+                    log?.AddEvent(
+                        EventKinds.Error,
                         "Error trying to build query '" + (query?.Name ?? "(Undefinied)") + "'",
                         description: ex.ToString() + ". Built query is : '" + queryString + "'.");
                 }
