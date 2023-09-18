@@ -1,13 +1,14 @@
 ﻿using BindOpen.Kernel.Data;
 using BindOpen.Kernel.Logging;
+using BindOpen.Plus.Databases.Data;
 using System.Linq;
 
-namespace BindOpen.Plus.Databases.Data
+namespace BindOpen.Plus.Databases
 {
     /// <summary>
     /// This static class represents a fluent factory of database API.
     /// </summary>
-    public static partial class DbApiFluent
+    public static partial class BdoDb
     {
         // Filter clause
 
@@ -180,7 +181,7 @@ namespace BindOpen.Plus.Databases.Data
                         }
                         else
                         {
-                            statement.Field = definition?[fieldName]?.Field ?? DbFluent.Field(fieldName);
+                            statement.Field = definition?[fieldName]?.Field ?? BdoDb.Field(fieldName);
                             statement.Sorting = DataSortingModes.Ascending;
 
                             if (fieldItemParams.Length > 1)

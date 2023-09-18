@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Kernel.Abstractions" Version="1.2.105" />
+    <PackageReference Include="BindOpen.Kernel.Abstractions" Version="1.2.108" />
   </ItemGroup>
 
 </Project>

@@ -1,17 +1,19 @@
 ﻿using BindOpen.Kernel.Data;
 using BindOpen.Kernel.Data.Helpers;
+using BindOpen.Kernel.Data.Repositories;
+using BindOpen.Kernel.Logging;
 using BindOpen.Kernel.Scoping;
 using BindOpen.Kernel.Scoping.Connectors;
 using BindOpen.Plus.Databases.Connectors;
 using BindOpen.Plus.Databases.Stores;
+using System;
 
 namespace BindOpen.Plus.Databases.Models
 {
     /// <summary>
     /// This class represents a master data repository.
     /// </summary>
-    public abstract class TBdoDbRepository<M> : BdoObject,
-        ITBdoDbRepository<M>
+    public abstract class TBdoDbRepository<M> : BdoObject, ITBdoDbRepository<M>
         where M : BdoDbModel
     {
         // ------------------------------------------
@@ -28,6 +30,16 @@ namespace BindOpen.Plus.Databases.Models
         }
 
         #endregion
+
+        public virtual void UsingConnection(Action<IBdoDbConnection, IBdoLog> action, bool autoConnect = true, IBdoLog log = null)
+        {
+            UsingConnection(new Action<IBdoConnection, IBdoLog>((conn, log) => action?.Invoke((IBdoDbConnection)conn, log)), autoConnect, log);
+        }
+
+        void IBdoRepository.UsingConnection(Action<IBdoConnection, IBdoLog> action, bool autoConnect, IBdoLog log)
+        {
+            Connector?.UsingConnection(action, autoConnect, log);
+        }
 
         // ------------------------------------------
         // IBdoScoped Implementation

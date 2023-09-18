@@ -43,12 +43,12 @@ namespace BindOpen.Plus.Databases.Models
             foreach (var mapping in relationship.FieldMappingDictionary)
             {
                 queryConditions.Add(
-                    DbFluent.Eq(
-                        DbFluent.Field(mapping.Key, relationship.Table1),
-                        DbFluent.Field(mapping.Value, relationship.Table2)));
+                    BdoDb.Eq(
+                        BdoDb.Field(mapping.Key, relationship.Table1),
+                        BdoDb.Field(mapping.Value, relationship.Table2)));
             }
 
-            return (BdoExpression)DbFluent.And(queryConditions.ToArray());
+            return (BdoExpression)BdoDb.And(queryConditions.ToArray());
         }
 
         /// <summary>
