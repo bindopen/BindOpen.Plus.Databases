@@ -21,7 +21,7 @@ namespace BindOpen.Plus.Databases.Models
         /// <returns></returns>
         public IDbField Field(string name, string tableName, string tableAlias = null)
         {
-            return DbFluent.Field(name, Table(tableName, tableAlias));
+            return BdoDb.Field(name, Table(tableName, tableAlias));
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace BindOpen.Plus.Databases.Models
         /// <returns></returns>
         public IDbField Field<T>(Expression<Func<T, object>> expression, string tableAlias = null)
         {
-            return DbFluent.Field(expression.GetPropertyInfo().Name, Table<T>(tableAlias));
+            return BdoDb.Field(expression.GetPropertyInfo().Name, Table<T>(tableAlias));
         }
 
         // As All -----

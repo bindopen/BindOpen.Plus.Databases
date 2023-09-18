@@ -23,7 +23,7 @@ namespace BindOpen.Plus.Databases.Data
                     return "$sqlEq";
                 case DataOperators.GreaterThan:
                     return "$sqlGt";
-                case DataOperators.GreaterThanOrEqualTo:
+                case DataOperators.GreaterOrEqualThan:
                     return "$sqlGte";
                 case DataOperators.Has:
                     return "";
@@ -31,7 +31,7 @@ namespace BindOpen.Plus.Databases.Data
                     return "$sqlIn";
                 case DataOperators.LesserThan:
                     return "$sqlLt";
-                case DataOperators.LesserThanOrEqualTo:
+                case DataOperators.LesserOrEqualThan:
                     return "$sqlLte";
             }
 
@@ -93,8 +93,8 @@ namespace BindOpen.Plus.Databases.Data
                         DataOperators.Exists,
                         DataOperators.Contains,
                         DataOperators.DifferentFrom, DataOperators.EqualTo,
-                        DataOperators.GreaterThanOrEqualTo, DataOperators.GreaterThan,
-                        DataOperators.LesserThanOrEqualTo, DataOperators.LesserThan,
+                        DataOperators.GreaterOrEqualThan, DataOperators.GreaterThan,
+                        DataOperators.LesserOrEqualThan, DataOperators.LesserThan,
                         DataOperators.Has, DataOperators.In })
                     {
                         int k1 = 0;
@@ -136,7 +136,7 @@ namespace BindOpen.Plus.Databases.Data
                             }
                             else
                             {
-                                clause.Field ??= DbFluent.Field(fieldName);
+                                clause.Field ??= BdoDb.Field(fieldName);
 
                                 if (aOperator == DataOperators.Has)
                                 {
@@ -169,7 +169,7 @@ namespace BindOpen.Plus.Databases.Data
                     return "=";
                 case DataOperators.GreaterThan:
                     return ">";
-                case DataOperators.GreaterThanOrEqualTo:
+                case DataOperators.GreaterOrEqualThan:
                     return ">=";
                 case DataOperators.Has:
                     return "has";
@@ -177,7 +177,7 @@ namespace BindOpen.Plus.Databases.Data
                     return "in";
                 case DataOperators.LesserThan:
                     return "<";
-                case DataOperators.LesserThanOrEqualTo:
+                case DataOperators.LesserOrEqualThan:
                     return "<=";
             }
 

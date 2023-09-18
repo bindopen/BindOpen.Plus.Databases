@@ -1,9 +1,11 @@
-﻿namespace BindOpen.Plus.Databases.Data
+﻿using BindOpen.Plus.Databases.Data;
+
+namespace BindOpen.Plus.Databases
 {
     /// <summary>
     /// This class represents a fluent factory of database query.
     /// </summary>
-    public static partial class DbFluent
+    public static partial class BdoDb
     {
         // Upsert --------------------------------
 

@@ -17,14 +17,14 @@ namespace BindOpen.Plus.Databases.Models
         /// </summary>
         /// <returns>Returns a new Delete advanced database query</returns>
         public IDbSingleQuery DeleteQuery<T>(string name, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.DeleteQuery(name, Table<T>(), initAction);
+            => BdoDb.DeleteQuery(name, Table<T>(), initAction);
 
         /// <summary>
         /// Creates a new Delete advanced database query.
         /// </summary>
         /// <returns>Returns a new Delete advanced database query</returns>
         public IDbSingleQuery DeleteQuery<T>(Action<IDbSingleQuery> initAction = null)
-            => DbFluent.DeleteQuery(Table<T>(), initAction);
+            => BdoDb.DeleteQuery(Table<T>(), initAction);
 
         // Create --------------------------------
 
@@ -33,14 +33,14 @@ namespace BindOpen.Plus.Databases.Models
         /// </summary>
         /// <returns>Returns a new Create basic database query</returns>
         public IDbSingleQuery CreateQuery<T>(string name, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.CreateQuery(name, Table<T>(), onlyIfNotExisting, initAction);
+            => BdoDb.CreateQuery(name, Table<T>(), onlyIfNotExisting, initAction);
 
         /// <summary>
         /// Creates a new Create advanced database query.
         /// </summary>
         /// <returns>Returns a new Create basic database query</returns>
         public IDbSingleQuery CreateQuery<T>(bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.CreateQuery(Table<T>(), onlyIfNotExisting, initAction);
+            => BdoDb.CreateQuery(Table<T>(), onlyIfNotExisting, initAction);
 
         // Drop --------------------------------
 
@@ -49,14 +49,14 @@ namespace BindOpen.Plus.Databases.Models
         /// </summary>
         /// <returns>Returns a new Drop advanced database query</returns>
         public IDbSingleQuery DropQuery<T>(string name, bool onlyIfExisting = true, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.DropQuery(name, Table<T>(), onlyIfExisting, initAction);
+            => BdoDb.DropQuery(name, Table<T>(), onlyIfExisting, initAction);
 
         /// <summary>
         /// Creates a new Drop advanced database query.
         /// </summary>
         /// <returns>Returns a new Drop advanced database query</returns>
         public IDbSingleQuery DropQuery<T>(bool onlyIfExisting = true, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.DropQuery(Table<T>(), onlyIfExisting, initAction);
+            => BdoDb.DropQuery(Table<T>(), onlyIfExisting, initAction);
 
         // Insert --------------------------------
 
@@ -65,14 +65,14 @@ namespace BindOpen.Plus.Databases.Models
         /// </summary>
         /// <returns>Returns a new Insert advanced database query</returns>
         public IDbSingleQuery InsertQuery<T>(string name, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.InsertQuery(name, Table<T>(), onlyIfNotExisting, initAction);
+            => BdoDb.InsertQuery(name, Table<T>(), onlyIfNotExisting, initAction);
 
         /// <summary>
         /// Creates a new Insert advanced database query.
         /// </summary>
         /// <returns>Returns a new Insert advanced database query</returns>
         public IDbSingleQuery InsertQuery<T>(bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.InsertQuery(Table<T>(), onlyIfNotExisting, initAction);
+            => BdoDb.InsertQuery(Table<T>(), onlyIfNotExisting, initAction);
 
         // Select --------------------------------
 
@@ -81,14 +81,14 @@ namespace BindOpen.Plus.Databases.Models
         /// </summary>
         /// <returns>Returns a new Select advanced database query</returns>
         public IDbSingleQuery SelectQuery<T>(string name, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.SelectQuery(name, Table<T>(), initAction);
+            => BdoDb.SelectQuery(name, Table<T>(), initAction);
 
         /// <summary>
         /// Creates a new Select advanced database query.
         /// </summary>
         /// <returns>Returns a new Select advanced database query</returns>
         public IDbSingleQuery SelectQuery<T>(Action<IDbSingleQuery> initAction = null)
-            => DbFluent.SelectQuery(Table<T>(), initAction);
+            => BdoDb.SelectQuery(Table<T>(), initAction);
 
         // Update --------------------------------
 
@@ -97,14 +97,14 @@ namespace BindOpen.Plus.Databases.Models
         /// </summary>
         /// <returns>Returns a new Update advanced database query</returns>
         public IDbSingleQuery UpdateQuery<T>(string name, Action<IDbSingleQuery> initAction = null)
-            => DbFluent.UpdateQuery(name, Table<T>(), initAction);
+            => BdoDb.UpdateQuery(name, Table<T>(), initAction);
 
         /// <summary>
         /// Creates a new Update advanced database query.
         /// </summary>
         /// <returns>Returns a new Update advanced database query</returns>
         public IDbSingleQuery UpdateQuery<T>(Action<IDbSingleQuery> initAction = null)
-            => DbFluent.UpdateQuery(Table<T>(), initAction);
+            => BdoDb.UpdateQuery(Table<T>(), initAction);
 
         // Update --------------------------------
 
@@ -186,7 +186,7 @@ namespace BindOpen.Plus.Databases.Models
                 }
 
                 QueryDictionary.Remove(name);
-                QueryDictionary.Add(name, DbFluent.StoredQuery(name, query));
+                QueryDictionary.Add(name, BdoDb.StoredQuery(name, query));
             }
             return this;
         }

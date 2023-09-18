@@ -2,14 +2,15 @@
 using BindOpen.Kernel.Data.Helpers;
 using BindOpen.Kernel.Data.Meta;
 using BindOpen.Kernel.Scoping.Script;
+using BindOpen.Plus.Databases.Data;
 using System.Linq;
 
-namespace BindOpen.Plus.Databases.Data
+namespace BindOpen.Plus.Databases
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.
     /// </summary>
-    public static partial class DbFluent
+    public static partial class BdoDb
     {
         /// <summary>
         /// 
