@@ -1,12 +1,13 @@
 ﻿using BindOpen.Kernel.Data;
+using BindOpen.Plus.Databases.Data;
 using System.Linq;
 
-namespace BindOpen.Plus.Databases.Data
+namespace BindOpen.Plus.Databases
 {
     /// <summary>
-    /// This static class represents a factory of data table.
+    /// This static class represents a factory of data query parameter.
     /// </summary>
-    public static partial class DbFluent
+    public static partial class BdoDb
     {
         /// <summary>
         /// Creates a new instance of the DbTable class.

@@ -258,7 +258,7 @@ namespace BindOpen.Plus.Databases.Data
         /// <returns></returns>
         public IDbField AsNull()
         {
-            SetValue((BdoExpression)DbFluent.Null());
+            SetValue((BdoExpression)BdoDb.Null());
             return this;
         }
 

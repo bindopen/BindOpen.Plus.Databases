@@ -3,12 +3,12 @@ using BindOpen.Kernel.Data.Helpers;
 using BindOpen.Kernel.Data.Meta;
 using BindOpen.Kernel.Scoping.Script;
 
-namespace BindOpen.Plus.Databases.Data
+namespace BindOpen.Plus.Databases
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.
     /// </summary>
-    public static partial class DbFluent
+    public static partial class BdoDb
     {
         // As parameter -----
 
@@ -21,7 +21,7 @@ namespace BindOpen.Plus.Databases.Data
             string name,
             object value = null)
         {
-            return DbFluent.Parameter(name, DataValueTypes.Any, value);
+            return BdoDb.Parameter(name, DataValueTypes.Any, value);
         }
 
         /// <summary>

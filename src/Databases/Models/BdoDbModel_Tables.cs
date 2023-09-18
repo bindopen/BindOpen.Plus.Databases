@@ -78,7 +78,7 @@ namespace BindOpen.Plus.Databases.Models
         /// <returns>Returns a new From statement.</returns>
         public IDbJoinedTable TableAsJoin(string name, DbQueryJoinKind kind, IBdoExpression condition)
         {
-            return DbFluent.TableAsJoin(kind, Table(name), condition);
+            return BdoDb.TableAsJoin(kind, Table(name), condition);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace BindOpen.Plus.Databases.Models
             string table1Alias = null, string table2Alias = null)
         {
             var conditionScript = JoinCondition<T1, T2>(table1Alias, table2Alias);
-            return DbFluent.TableAsJoin(kind, Table<T>(), conditionScript);
+            return BdoDb.TableAsJoin(kind, Table<T>(), conditionScript);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace BindOpen.Plus.Databases.Models
             List<IDbField> fields = new List<IDbField>();
             foreach (var expression in expressions)
             {
-                fields.Add(DbFluent.Field(expression.GetPropertyInfo().Name));
+                fields.Add(BdoDb.Field(expression.GetPropertyInfo().Name));
             }
 
             AddTable(tableName, table, fields.ToArray());

@@ -8,7 +8,7 @@ namespace BindOpen.Plus.Databases
     /// <summary>
     /// This class represents a database factory.
     /// </summary>
-    public static partial class BdoDatabases
+    public static partial class BdoDb
     {
         /// <summary>
         /// The context entry corresponding to the database builder

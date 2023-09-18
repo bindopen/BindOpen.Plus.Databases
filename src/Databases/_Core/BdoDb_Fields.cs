@@ -1,16 +1,17 @@
 ﻿using BindOpen.Kernel.Data;
 using BindOpen.Kernel.Data.Helpers;
 using BindOpen.Kernel.Data.Meta;
+using BindOpen.Plus.Databases.Data;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BindOpen.Plus.Databases.Data
+namespace BindOpen.Plus.Databases
 {
     /// <summary>
     /// This static class represents a factory of data field.
     /// </summary>
-    public static partial class DbFluent
+    public static partial class BdoDb
     {
         /// <summary>
         /// Creates a new instance of the DbField class.
@@ -49,7 +50,7 @@ namespace BindOpen.Plus.Databases.Data
                 valueType = fieldAttribute.ValueType;
             }
 
-            var field = DbFluent.Field(name, table);
+            var field = BdoDb.Field(name, table);
             field.WithValueType(valueType);
 
             return field;
@@ -91,7 +92,7 @@ namespace BindOpen.Plus.Databases.Data
             object value,
             DataValueTypes valueType = DataValueTypes.Any)
         {
-            return DbFluent.FieldAsLiteral(name, null, value, valueType);
+            return BdoDb.FieldAsLiteral(name, null, value, valueType);
         }
 
         /// <summary>
@@ -107,7 +108,7 @@ namespace BindOpen.Plus.Databases.Data
             object value,
             DataValueTypes valueType = DataValueTypes.Any)
         {
-            var field = DbFluent.Field(name, table);
+            var field = BdoDb.Field(name, table);
             field.AsLiteral(value, valueType);
             return field;
         }
@@ -135,7 +136,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             object value) where T : class
         {
-            var field = DbFluent.Field<T>(expr, table);
+            var field = BdoDb.Field<T>(expr, table);
             field.AsLiteral(value, field?.ValueType ?? DataValueTypes.None);
             return field;
         }
@@ -186,7 +187,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             string script)
         {
-            var field = DbFluent.Field(name, table);
+            var field = BdoDb.Field(name, table);
             field.AsScript(script);
             return field;
         }
@@ -214,7 +215,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             string script) where T : class
         {
-            var field = DbFluent.Field<T>(expr, table);
+            var field = BdoDb.Field<T>(expr, table);
             field.AsScript(script);
             return field;
         }
@@ -248,7 +249,7 @@ namespace BindOpen.Plus.Databases.Data
             string name,
             IDbQuery query)
         {
-            return DbFluent.FieldAsQuery(name, null, query);
+            return BdoDb.FieldAsQuery(name, null, query);
         }
 
         /// <summary>
@@ -262,7 +263,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             IDbQuery query)
         {
-            var field = DbFluent.Field(name, table);
+            var field = BdoDb.Field(name, table);
             field.AsQuery(query);
             return field;
         }
@@ -290,7 +291,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             IDbQuery query) where T : class
         {
-            var field = DbFluent.Field<T>(expr, table);
+            var field = BdoDb.Field<T>(expr, table);
             field.AsQuery(query);
             return field;
         }
@@ -323,7 +324,7 @@ namespace BindOpen.Plus.Databases.Data
             string name,
             IDbField otherField)
         {
-            return DbFluent.FieldAsOther(name, null, otherField);
+            return BdoDb.FieldAsOther(name, null, otherField);
         }
 
         /// <summary>
@@ -337,7 +338,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             IDbField otherField)
         {
-            var field = DbFluent.Field(name, table);
+            var field = BdoDb.Field(name, table);
             field.AsOther(otherField);
             return field;
         }
@@ -365,7 +366,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             IDbField otherField) where T : class
         {
-            var field = DbFluent.Field<T>(expr, table);
+            var field = BdoDb.Field<T>(expr, table);
             field.AsOther(otherField);
             return field;
         }
@@ -378,7 +379,7 @@ namespace BindOpen.Plus.Databases.Data
         /// <param name="table">The data table to consider.</param>
         public static DbField FieldAsAll(IDbTable table)
         {
-            var field = DbFluent.Field(null, table);
+            var field = BdoDb.Field(null, table);
             field.AsAll();
             return field;
         }
@@ -412,7 +413,7 @@ namespace BindOpen.Plus.Databases.Data
             string name,
             string parameterName)
         {
-            return DbFluent.FieldAsParameter(name, null, parameterName);
+            return BdoDb.FieldAsParameter(name, null, parameterName);
         }
 
         /// <summary>
@@ -454,7 +455,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             string parameterName) where T : class
         {
-            var field = DbFluent.Field<T>(expr, table);
+            var field = BdoDb.Field<T>(expr, table);
             field.AsParameter(parameterName);
             return field;
         }
@@ -488,7 +489,7 @@ namespace BindOpen.Plus.Databases.Data
             string name,
             byte parameterIndex)
         {
-            return DbFluent.FieldAsParameter(name, null, parameterIndex);
+            return BdoDb.FieldAsParameter(name, null, parameterIndex);
         }
 
         /// <summary>
@@ -530,7 +531,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             byte parameterIndex) where T : class
         {
-            var field = DbFluent.Field<T>(expr, table);
+            var field = BdoDb.Field<T>(expr, table);
             field.AsParameter(parameterIndex);
             return field;
         }
@@ -564,7 +565,7 @@ namespace BindOpen.Plus.Databases.Data
             string name,
             IBdoMetaScalar parameter)
         {
-            return DbFluent.FieldAsParameter(name, null, parameter);
+            return BdoDb.FieldAsParameter(name, null, parameter);
         }
 
         /// <summary>
@@ -606,7 +607,7 @@ namespace BindOpen.Plus.Databases.Data
             IDbTable table,
             IBdoMetaScalar parameter) where T : class
         {
-            var field = DbFluent.Field<T>(expr, table);
+            var field = BdoDb.Field<T>(expr, table);
             field.AsParameter(parameter);
             return field;
         }
@@ -619,7 +620,7 @@ namespace BindOpen.Plus.Databases.Data
         /// <param name="field">The field to consider.</param>
         public static IDbField AsNull(this IDbField field)
         {
-            return field?.AsScript(DbFluent.Null().ToString());
+            return field?.AsScript(BdoDb.Null().ToString());
         }
 
         /// <summary>
@@ -639,7 +640,7 @@ namespace BindOpen.Plus.Databases.Data
         public static DbField FieldAsNull(
             string name, IDbTable table)
         {
-            var field = DbFluent.Field(name, table);
+            var field = BdoDb.Field(name, table);
             field.AsNull();
             return field;
         }
@@ -663,7 +664,7 @@ namespace BindOpen.Plus.Databases.Data
             Expression<Func<T, object>> expr,
             IDbTable table) where T : class
         {
-            var field = DbFluent.Field<T>(expr, table);
+            var field = BdoDb.Field<T>(expr, table);
             field.AsNull();
             return field;
         }

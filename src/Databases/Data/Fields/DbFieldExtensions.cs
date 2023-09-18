@@ -22,7 +22,7 @@ namespace BindOpen.Plus.Databases.Data
                     || !string.IsNullOrEmpty(field.Schema)
                     || !string.IsNullOrEmpty(field.DataModule))
                 {
-                    st = DbFluent.Table(field.DataTable, field.Schema, field.DataModule).WithAlias(field.DataTableAlias).ToScript()
+                    st = BdoDb.Table(field.DataTable, field.Schema, field.DataModule).WithAlias(field.DataTableAlias).ToScript()
                         .ConcatenateIfFirstNotEmpty(".");
                 }
 
