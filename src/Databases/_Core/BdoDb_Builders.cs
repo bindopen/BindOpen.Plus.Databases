@@ -49,10 +49,7 @@ namespace BindOpen.Plus.Databases
         public static T CreateQueryBuilder<T>(IBdoScope scope)
             where T : IDbQueryBuilder, new()
         {
-            var builder = new T
-            {
-                Scope = scope
-            };
+            var builder = new T().WithScope(scope);
 
             return builder;
         }

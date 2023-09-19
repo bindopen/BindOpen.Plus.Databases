@@ -9,9 +9,7 @@ namespace BindOpen.Plus.Databases.Builders
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    public partial interface IDbQueryBuilder :
-        IIdentified,
-        ITBdoScoped<IDbQueryBuilder>
+    public partial interface IDbQueryBuilder : IIdentified, IBdoScoped
     {
         /// <summary>
         /// Builds the SQL text from the specified database query.
