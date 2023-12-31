@@ -1,8 +1,8 @@
-﻿using BindOpen.Kernel;
-using BindOpen.Kernel.Data.Meta;
-using BindOpen.Kernel.Logging;
-using BindOpen.Kernel.Scoping;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data;
+using BindOpen.Data.Meta;
+using BindOpen.Logging;
+using BindOpen.Scoping;
+using BindOpen.Plus.Databases.Models;
 
 namespace BindOpen.Plus.Databases.Builders
 {

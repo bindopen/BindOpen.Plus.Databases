@@ -1,4 +1,4 @@
-﻿using BindOpen.Kernel.Data.Helpers;
+﻿using BindOpen.Data.Helpers;
 
 namespace BindOpen.Plus.Databases
 {

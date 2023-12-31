@@ -1,5 +1,5 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Kernel.Data.Helpers;
+﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
 
 namespace BindOpen.Plus.Databases.Builders
 {
@@ -45,6 +45,8 @@ namespace BindOpen.Plus.Databases.Builders
         /// </summary>
         /// <returns>The interpreted string value.</returns>
         public abstract string GetSqlText_Null();
+
+        public abstract string GetSqlText_True();
 
         /// <summary>
         /// Evaluates the script word $SQLVALUE.

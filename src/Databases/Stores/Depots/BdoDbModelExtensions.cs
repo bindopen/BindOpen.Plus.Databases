@@ -1,6 +1,6 @@
-﻿using BindOpen.Kernel.Data.Stores;
-using BindOpen.Kernel.Logging;
-using BindOpen.Kernel.Scoping;
+﻿using BindOpen.Data.Stores;
+using BindOpen.Logging;
+using BindOpen.Scoping;
 using BindOpen.Plus.Databases.Models;
 using System;
 

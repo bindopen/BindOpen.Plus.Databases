@@ -1,4 +1,4 @@
-﻿using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Plus.Databases.Models;
 using System;
 using System.Linq.Expressions;
 

@@ -1,7 +1,7 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Kernel.Data.Helpers;
-using BindOpen.Kernel.Data.Meta;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
+using BindOpen.Data.Meta;
+using BindOpen.Plus.Databases.Models;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -18,7 +18,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="table">The data table to consider.</param>
-        public static DbField Field(
+        public static IDbField Field(
             string name,
             IDbTable table = null)
             => new DbField()
@@ -36,7 +36,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <typeparam name="T">The class to consider.</typeparam>
-        public static DbField Field<T>(
+        public static IDbField Field<T>(
             Expression<Func<T, object>> expr,
             IDbTable table = null) where T : class
         {
@@ -50,7 +50,7 @@ namespace BindOpen.Plus.Databases
                 valueType = fieldAttribute.ValueType;
             }
 
-            var field = BdoDb.Field(name, table);
+            var field = Field(name, table);
             field.WithValueType(valueType);
 
             return field;
@@ -87,12 +87,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name to consider.</param>
         /// <param name="value">The value to consider.</param>
         /// <param name="valueType">The value type to consider.</param>
-        public static DbField FieldAsLiteral(
+        public static IDbField FieldAsLiteral(
             string name,
             object value,
             DataValueTypes valueType = DataValueTypes.Any)
         {
-            return BdoDb.FieldAsLiteral(name, null, value, valueType);
+            return FieldAsLiteral(name, null, value, valueType);
         }
 
         /// <summary>
@@ -102,13 +102,13 @@ namespace BindOpen.Plus.Databases
         /// <param name="table">The data table to consider.</param>
         /// <param name="value">The value to consider.</param>
         /// <param name="valueType">The value type to consider.</param>
-        public static DbField FieldAsLiteral(
+        public static IDbField FieldAsLiteral(
             string name,
             IDbTable table,
             object value,
             DataValueTypes valueType = DataValueTypes.Any)
         {
-            var field = BdoDb.Field(name, table);
+            var field = Field(name, table);
             field.AsLiteral(value, valueType);
             return field;
         }
@@ -118,11 +118,11 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="value">The value to consider.</param>
-        public static DbField FieldAsLiteral<T>(
+        public static IDbField FieldAsLiteral<T>(
             Expression<Func<T, object>> expr,
             object value) where T : class
         {
-            return FieldAsLiteral<T>(expr, null, value);
+            return FieldAsLiteral(expr, null, value);
         }
 
         /// <summary>
@@ -131,12 +131,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="value">The value to consider.</param>
-        public static DbField FieldAsLiteral<T>(
+        public static IDbField FieldAsLiteral<T>(
             Expression<Func<T, object>> expr,
             IDbTable table,
             object value) where T : class
         {
-            var field = BdoDb.Field<T>(expr, table);
+            var field = Field(expr, table);
             field.AsLiteral(value, field?.ValueType ?? DataValueTypes.None);
             return field;
         }
@@ -169,7 +169,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="script">The script to consider.</param>
-        public static DbField FieldAsScript(
+        public static IDbField FieldAsScript(
             string name,
             string script)
         {
@@ -182,12 +182,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="script">The script to consider.</param>
-        public static DbField FieldAsScript(
+        public static IDbField FieldAsScript(
             string name,
             IDbTable table,
             string script)
         {
-            var field = BdoDb.Field(name, table);
+            var field = Field(name, table);
             field.AsScript(script);
             return field;
         }
@@ -197,7 +197,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="script">The script to consider.</param>
-        public static DbField FieldAsScript<T>(
+        public static IDbField FieldAsScript<T>(
             Expression<Func<T, object>> expr,
             string script) where T : class
         {
@@ -210,12 +210,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="script">The script to consider.</param>
-        public static DbField FieldAsScript<T>(
+        public static IDbField FieldAsScript<T>(
             Expression<Func<T, object>> expr,
             IDbTable table,
             string script) where T : class
         {
-            var field = BdoDb.Field<T>(expr, table);
+            var field = Field<T>(expr, table);
             field.AsScript(script);
             return field;
         }
@@ -245,11 +245,11 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="query">The query to consider.</param>
-        public static DbField FieldAsQuery(
+        public static IDbField FieldAsQuery(
             string name,
             IDbQuery query)
         {
-            return BdoDb.FieldAsQuery(name, null, query);
+            return FieldAsQuery(name, null, query);
         }
 
         /// <summary>
@@ -258,12 +258,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="query">The query to consider.</param>
-        public static DbField FieldAsQuery(
+        public static IDbField FieldAsQuery(
             string name,
             IDbTable table,
             IDbQuery query)
         {
-            var field = BdoDb.Field(name, table);
+            var field = Field(name, table);
             field.AsQuery(query);
             return field;
         }
@@ -273,7 +273,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="query">The query to consider.</param>
-        public static DbField FieldAsQuery<T>(
+        public static IDbField FieldAsQuery<T>(
             Expression<Func<T, object>> expr,
             IDbQuery query) where T : class
         {
@@ -286,12 +286,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="query">The query to consider.</param>
-        public static DbField FieldAsQuery<T>(
+        public static IDbField FieldAsQuery<T>(
             Expression<Func<T, object>> expr,
             IDbTable table,
             IDbQuery query) where T : class
         {
-            var field = BdoDb.Field<T>(expr, table);
+            var field = Field<T>(expr, table);
             field.AsQuery(query);
             return field;
         }
@@ -320,11 +320,11 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="otherField">The other field to consider.</param>
-        public static DbField FieldAsOther(
+        public static IDbField FieldAsOther(
             string name,
             IDbField otherField)
         {
-            return BdoDb.FieldAsOther(name, null, otherField);
+            return FieldAsOther(name, null, otherField);
         }
 
         /// <summary>
@@ -333,12 +333,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="otherField">The other field to consider.</param>
-        public static DbField FieldAsOther(
+        public static IDbField FieldAsOther(
             string name,
             IDbTable table,
             IDbField otherField)
         {
-            var field = BdoDb.Field(name, table);
+            var field = Field(name, table);
             field.AsOther(otherField);
             return field;
         }
@@ -348,7 +348,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="otherField">The other field to consider.</param>
-        public static DbField FieldAsOther<T>(
+        public static IDbField FieldAsOther<T>(
             Expression<Func<T, object>> expr,
             IDbField otherField) where T : class
         {
@@ -361,12 +361,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="otherField">The other field to consider.</param>
-        public static DbField FieldAsOther<T>(
+        public static IDbField FieldAsOther<T>(
             Expression<Func<T, object>> expr,
             IDbTable table,
             IDbField otherField) where T : class
         {
-            var field = BdoDb.Field<T>(expr, table);
+            var field = Field<T>(expr, table);
             field.AsOther(otherField);
             return field;
         }
@@ -377,9 +377,9 @@ namespace BindOpen.Plus.Databases
         /// Creates a new instance of the DbField class.
         /// </summary>
         /// <param name="table">The data table to consider.</param>
-        public static DbField FieldAsAll(IDbTable table)
+        public static IDbField FieldAsAll(IDbTable table)
         {
-            var field = BdoDb.Field(null, table);
+            var field = Field(null, table);
             field.AsAll();
             return field;
         }
@@ -409,11 +409,11 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="parameterName">The parameter element to consider.</param>
-        public static DbField FieldAsParameter(
+        public static IDbField FieldAsParameter(
             string name,
             string parameterName)
         {
-            return BdoDb.FieldAsParameter(name, null, parameterName);
+            return FieldAsParameter(name, null, parameterName);
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameterName">The parameter element to consider.</param>
-        public static DbField FieldAsParameter(
+        public static IDbField FieldAsParameter(
             string name,
             IDbTable table,
             string parameterName)
@@ -437,7 +437,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="parameterName">The parameter element to consider.</param>
-        public static DbField FieldAsParameter<T>(
+        public static IDbField FieldAsParameter<T>(
             Expression<Func<T, object>> expr,
             string parameterName) where T : class
         {
@@ -450,12 +450,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameterName">The parameter element to consider.</param>
-        public static DbField FieldAsParameter<T>(
+        public static IDbField FieldAsParameter<T>(
             Expression<Func<T, object>> expr,
             IDbTable table,
             string parameterName) where T : class
         {
-            var field = BdoDb.Field<T>(expr, table);
+            var field = Field<T>(expr, table);
             field.AsParameter(parameterName);
             return field;
         }
@@ -485,11 +485,11 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="parameterIndex">The parameter index to consider.</param>
-        public static DbField FieldAsParameter(
+        public static IDbField FieldAsParameter(
             string name,
             byte parameterIndex)
         {
-            return BdoDb.FieldAsParameter(name, null, parameterIndex);
+            return FieldAsParameter(name, null, parameterIndex);
         }
 
         /// <summary>
@@ -498,7 +498,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameterIndex">The parameter index to consider.</param>
-        public static DbField FieldAsParameter(
+        public static IDbField FieldAsParameter(
             string name,
             IDbTable table,
             byte parameterIndex)
@@ -513,7 +513,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="parameterIndex">The parameter index to consider.</param>
-        public static DbField FieldAsParameter<T>(
+        public static IDbField FieldAsParameter<T>(
             Expression<Func<T, object>> expr,
             byte parameterIndex) where T : class
         {
@@ -526,12 +526,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameterIndex">The parameter index to consider.</param>
-        public static DbField FieldAsParameter<T>(
+        public static IDbField FieldAsParameter<T>(
             Expression<Func<T, object>> expr,
             IDbTable table,
             byte parameterIndex) where T : class
         {
-            var field = BdoDb.Field<T>(expr, table);
+            var field = Field<T>(expr, table);
             field.AsParameter(parameterIndex);
             return field;
         }
@@ -561,11 +561,11 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="parameter">The parameter to consider.</param>
-        public static DbField FieldAsParameter(
+        public static IDbField FieldAsParameter(
             string name,
             IBdoMetaScalar parameter)
         {
-            return BdoDb.FieldAsParameter(name, null, parameter);
+            return FieldAsParameter(name, null, parameter);
         }
 
         /// <summary>
@@ -574,7 +574,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameter">The parameter to consider.</param>
-        public static DbField FieldAsParameter(
+        public static IDbField FieldAsParameter(
             string name,
             IDbTable table,
             IBdoMetaScalar parameter)
@@ -589,7 +589,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="parameter">The parameter to consider.</param>
-        public static DbField FieldAsParameter<T>(
+        public static IDbField FieldAsParameter<T>(
             Expression<Func<T, object>> expr,
             IBdoMetaScalar parameter) where T : class
         {
@@ -602,12 +602,12 @@ namespace BindOpen.Plus.Databases
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
         /// <param name="parameter">The parameter to consider.</param>
-        public static DbField FieldAsParameter<T>(
+        public static IDbField FieldAsParameter<T>(
             Expression<Func<T, object>> expr,
             IDbTable table,
             IBdoMetaScalar parameter) where T : class
         {
-            var field = BdoDb.Field<T>(expr, table);
+            var field = Field<T>(expr, table);
             field.AsParameter(parameter);
             return field;
         }
@@ -620,14 +620,14 @@ namespace BindOpen.Plus.Databases
         /// <param name="field">The field to consider.</param>
         public static IDbField AsNull(this IDbField field)
         {
-            return field?.AsScript(BdoDb.Null().ToString());
+            return field?.AsScript(Null().ToString());
         }
 
         /// <summary>
         /// Creates a new instance of the DbField class.
         /// </summary>
         /// <param name="name">The name to consider.</param>
-        public static DbField FieldAsNull(string name)
+        public static IDbField FieldAsNull(string name)
         {
             return FieldAsNull(name, null);
         }
@@ -637,10 +637,10 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="name">The name to consider.</param>
         /// <param name="table">The data table to consider.</param>
-        public static DbField FieldAsNull(
+        public static IDbField FieldAsNull(
             string name, IDbTable table)
         {
-            var field = BdoDb.Field(name, table);
+            var field = Field(name, table);
             field.AsNull();
             return field;
         }
@@ -649,7 +649,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new instance of the DbField class.
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
-        public static DbField FieldAsNull<T>(
+        public static IDbField FieldAsNull<T>(
             Expression<Func<T, object>> expr) where T : class
         {
             return FieldAsNull<T>(expr, null);
@@ -660,11 +660,11 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="expr">The expression to consider.</param>
         /// <param name="table">The data table to consider.</param>
-        public static DbField FieldAsNull<T>(
+        public static IDbField FieldAsNull<T>(
             Expression<Func<T, object>> expr,
             IDbTable table) where T : class
         {
-            var field = BdoDb.Field<T>(expr, table);
+            var field = Field(expr, table);
             field.AsNull();
             return field;
         }

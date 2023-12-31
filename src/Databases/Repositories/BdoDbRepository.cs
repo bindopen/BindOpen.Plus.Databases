@@ -1,9 +1,9 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Kernel.Data.Helpers;
-using BindOpen.Kernel.Data.Repositories;
-using BindOpen.Kernel.Logging;
-using BindOpen.Kernel.Scoping;
-using BindOpen.Kernel.Scoping.Connectors;
+﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
+using BindOpen.Data.Repositories;
+using BindOpen.Logging;
+using BindOpen.Scoping;
+using BindOpen.Scoping.Connectors;
 using BindOpen.Plus.Databases.Connectors;
 using System;
 

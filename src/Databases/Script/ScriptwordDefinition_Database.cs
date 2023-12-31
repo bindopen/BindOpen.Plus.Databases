@@ -1,8 +1,7 @@
-﻿using BindOpen.Kernel.Scoping;
-using BindOpen.Kernel.Scoping.Script;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Scoping;
+using BindOpen.Scoping.Script;
 
-namespace BindOpen.Plus.Databases.Scripting
+namespace BindOpen.Plus.Databases.Script
 {
     /// <summary>
     /// This class represents a 'Database' script word definition.

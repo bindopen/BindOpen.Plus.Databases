@@ -1,6 +1,6 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Kernel.Logging;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data;
+using BindOpen.Logging;
+using BindOpen.Plus.Databases.Models;
 using System.Linq;
 
 namespace BindOpen.Plus.Databases

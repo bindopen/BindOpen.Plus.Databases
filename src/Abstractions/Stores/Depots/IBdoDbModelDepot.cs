@@ -1,5 +1,5 @@
 ﻿using BindOpen.Plus.Databases.Models;
-using BindOpen.Kernel.Data.Stores;
+using BindOpen.Data.Stores;
 using System.Collections.Generic;
 
 namespace BindOpen.Plus.Databases.Stores

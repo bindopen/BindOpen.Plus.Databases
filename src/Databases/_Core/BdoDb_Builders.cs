@@ -1,6 +1,6 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Kernel.Data.Meta;
-using BindOpen.Kernel.Scoping;
+﻿using BindOpen.Data;
+using BindOpen.Data.Meta;
+using BindOpen.Scoping;
 using BindOpen.Plus.Databases.Builders;
 
 namespace BindOpen.Plus.Databases
@@ -35,7 +35,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="varElementSet">The script variable set to consider.</param>
         /// <returns></returns>
-        public static DbQueryBuilder GetDbQueryBuilder(this IBdoMetaSet metaSet)
+        public static IDbQueryBuilder GetDbQueryBuilder(this IBdoMetaSet metaSet)
         {
             return metaSet?.GetData<DbQueryBuilder>(__DbBuilder);
         }

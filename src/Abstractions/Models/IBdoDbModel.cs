@@ -1,9 +1,8 @@
-﻿using BindOpen.Kernel;
+﻿using BindOpen.Data;
 
 namespace BindOpen.Plus.Databases.Models
 {
-    public partial interface IBdoDbModel :
-        IIdentified, IReferenced
+    public partial interface IBdoDbModel : IIdentified, IReferenced
     {
     }
 }
