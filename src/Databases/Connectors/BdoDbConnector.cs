@@ -1,8 +1,8 @@
-﻿using BindOpen.Kernel.Data.Meta;
-using BindOpen.Kernel.Logging;
-using BindOpen.Kernel.Scoping.Connectors;
+﻿using BindOpen.Data.Meta;
+using BindOpen.Logging;
+using BindOpen.Scoping.Connectors;
 using BindOpen.Plus.Databases.Builders;
-using BindOpen.Plus.Databases.Data;
+using BindOpen.Plus.Databases.Models;
 using System.Data;
 
 namespace BindOpen.Plus.Databases.Connectors
@@ -10,8 +10,7 @@ namespace BindOpen.Plus.Databases.Connectors
     /// <summary>
     /// This class defines a database connector.
     /// </summary>
-    public abstract class BdoDbConnector :
-        BdoConnector, IBdoDbConnector
+    public abstract class BdoDbConnector : BdoConnector, IBdoDbConnector
     {
         // ------------------------------------------
         // CONSTRUCTORS

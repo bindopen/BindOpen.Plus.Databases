@@ -1,4 +1,4 @@
-﻿using BindOpen.Kernel.Scoping;
+﻿using BindOpen.Scoping;
 using BindOpen.Plus.Databases.Stores;
 
 namespace BindOpen.Plus.Databases.Models

@@ -1,9 +1,9 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Kernel.Data.Meta;
-using BindOpen.Kernel.Data.Stores;
-using BindOpen.Kernel.Logging;
-using BindOpen.Kernel.Scoping;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data;
+using BindOpen.Data.Meta;
+using BindOpen.Data.Stores;
+using BindOpen.Logging;
+using BindOpen.Plus.Databases.Models;
+using BindOpen.Scoping;
 using System;
 
 namespace BindOpen.Plus.Databases.Builders
@@ -11,8 +11,7 @@ namespace BindOpen.Plus.Databases.Builders
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    public abstract partial class DbQueryBuilder : BdoObject,
-        IDbQueryBuilder
+    public abstract partial class DbQueryBuilder : BdoObject, IDbQueryBuilder
     {
         // ------------------------------------------
         // CONSTRUCTORS
@@ -23,8 +22,9 @@ namespace BindOpen.Plus.Databases.Builders
         /// <summary>
         /// Instantiates a new instance of the DbQueryBuilder class.
         /// </summary>
-        protected DbQueryBuilder()
+        protected DbQueryBuilder(IBdoScope scope)
         {
+            Scope = scope;
         }
 
         #endregion
@@ -40,17 +40,6 @@ namespace BindOpen.Plus.Databases.Builders
         /// </summary>
         public IBdoScope Scope { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="scope"></param>
-        /// <returns></returns>
-        public IDbQueryBuilder WithScope(IBdoScope scope)
-        {
-            Scope = scope;
-            return this;
-        }
-
         #endregion
 
         // ------------------------------------------
@@ -63,17 +52,6 @@ namespace BindOpen.Plus.Databases.Builders
         /// 
         /// </summary>
         public string Id { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public IDbQueryBuilder WithId(string id)
-        {
-            Id = id;
-            return this;
-        }
 
         #endregion
 

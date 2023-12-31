@@ -1,4 +1,4 @@
-﻿using BindOpen.Kernel.Scoping.Script;
+﻿using BindOpen.Scoping.Script;
 
 namespace BindOpen.Plus.Databases
 {
@@ -15,7 +15,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword Eq(object value1, object value2)
+        public static IBdoScriptword Eq(object value1, object value2)
             => DbFunction("sqlEq", value1, value2);
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword Diff(object value1, object value2)
+        public static IBdoScriptword Diff(object value1, object value2)
             => DbFunction("sqlDiff", value1, value2);
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword Gt(object value1, object value2)
+        public static IBdoScriptword Gt(object value1, object value2)
             => DbFunction("sqlGt", value1, value2);
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword Gte(object value1, object value2)
+        public static IBdoScriptword Gte(object value1, object value2)
             => DbFunction("sqlGte", value1, value2);
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword Lt(object value1, object value2)
+        public static IBdoScriptword Lt(object value1, object value2)
             => DbFunction("sqlLt", value1, value2);
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword Lte(object value1, object value2)
+        public static IBdoScriptword Lte(object value1, object value2)
             => DbFunction("sqlLte", value1, value2);
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="value1"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword IsNull(object value1)
+        public static IBdoScriptword IsNull(object value1)
             => DbFunction("sqlIsNull", value1);
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword IfNull(object value1, object value2)
+        public static IBdoScriptword IfNull(object value1, object value2)
             => DbFunction("sqlIfNull", value1, value2);
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="value"></param>
         /// <returns>The interpreted object value.</returns>
-        public static BdoScriptword Exists(object value)
+        public static IBdoScriptword Exists(object value)
             => DbFunction("sqlExists", value);
     }
 }

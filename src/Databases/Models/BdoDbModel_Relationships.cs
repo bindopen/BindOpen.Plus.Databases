@@ -1,6 +1,6 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Kernel.Data.Helpers;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
+using BindOpen.Plus.Databases.Models;
 using BindOpen.Plus.Databases.Exceptions;
 using System;
 using System.Collections.Generic;

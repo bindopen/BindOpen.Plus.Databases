@@ -1,7 +1,7 @@
-﻿using BindOpen.Kernel.Data.Meta;
-using BindOpen.Kernel.Logging;
-using BindOpen.Kernel.Scoping.Connectors;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data.Meta;
+using BindOpen.Logging;
+using BindOpen.Scoping.Connectors;
+using BindOpen.Plus.Databases.Models;
 
 namespace BindOpen.Plus.Databases.Connectors
 {

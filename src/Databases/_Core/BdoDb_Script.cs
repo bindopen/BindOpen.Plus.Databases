@@ -1,8 +1,8 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Kernel.Data.Helpers;
-using BindOpen.Kernel.Data.Meta;
-using BindOpen.Kernel.Scoping.Script;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
+using BindOpen.Data.Meta;
+using BindOpen.Scoping.Script;
+using BindOpen.Plus.Databases.Models;
 using System.Linq;
 
 namespace BindOpen.Plus.Databases
@@ -18,7 +18,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="obj"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        internal static BdoScriptword DbFunction(string name, params object[] parameters)
+        internal static IBdoScriptword DbFunction(string name, params object[] parameters)
         {
             return BdoScript.Function(name, parameters.Select(p => p.AsSqlValue()).ToArray());
         }

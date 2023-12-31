@@ -1,10 +1,10 @@
-﻿using BindOpen.Kernel.Data.Helpers;
-using BindOpen.Kernel.Data.Meta;
-using BindOpen.Kernel.Data.Stores;
-using BindOpen.Kernel.Logging;
-using BindOpen.Kernel.Scoping;
-using BindOpen.Kernel.Scoping.Connectors;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data.Helpers;
+using BindOpen.Data.Meta;
+using BindOpen.Data.Stores;
+using BindOpen.Logging;
+using BindOpen.Scoping;
+using BindOpen.Scoping.Connectors;
+using BindOpen.Plus.Databases.Models;
 using System.Data;
 
 namespace BindOpen.Plus.Databases.Connectors

@@ -1,5 +1,4 @@
-﻿using BindOpen.Plus.Databases.Data;
-using System;
+﻿using System;
 
 namespace BindOpen.Plus.Databases.Models
 {

@@ -1,6 +1,6 @@
-﻿using BindOpen.Kernel.Data.Assemblies;
-using BindOpen.Kernel.Data.Stores;
-using BindOpen.Kernel.Logging;
+﻿using BindOpen.Data.Assemblies;
+using BindOpen.Data.Stores;
+using BindOpen.Logging;
 using BindOpen.Plus.Databases.Models;
 using System;
 using System.Collections.Generic;

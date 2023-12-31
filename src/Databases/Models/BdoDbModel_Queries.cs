@@ -1,4 +1,4 @@
-﻿using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Plus.Databases.Models;
 using BindOpen.Plus.Databases.Exceptions;
 using System;
 using System.Collections.Generic;

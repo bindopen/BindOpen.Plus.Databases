@@ -1,5 +1,5 @@
-﻿using BindOpen.Plus.Databases.Data;
-using BindOpen.Kernel.Data;
+﻿using BindOpen.Plus.Databases.Models;
+using BindOpen.Data;
 using System.Collections.Generic;
 
 namespace BindOpen.Plus.Databases.Models

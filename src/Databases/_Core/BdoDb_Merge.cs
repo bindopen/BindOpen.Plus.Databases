@@ -1,4 +1,4 @@
-﻿using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Plus.Databases.Models;
 
 namespace BindOpen.Plus.Databases
 {
@@ -15,7 +15,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name of the query to consider.</param>
         /// <param name="table">The table to consider.</param>
         /// <returns>Returns a new Upsert basic database query</returns>
-        public static DbCompositeQuery Upsert(
+        public static IDbCompositeQuery Upsert(
             string name,
             IDbTable table)
         {
@@ -31,7 +31,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="table">The table to consider.</param>
         /// <param name="selectQuery">The select query to consider.</param>
         /// <returns>Returns a new Upsert basic database query</returns>
-        public static DbCompositeQuery Upsert(
+        public static IDbCompositeQuery Upsert(
             IDbTable table)
             => Upsert(null, table);
     }
