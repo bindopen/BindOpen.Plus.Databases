@@ -6,7 +6,7 @@
     <PackageId>BindOpen.Plus.Databases</PackageId>
     <Product>BindOpen.Plus.Databases</Product>
     <Company>BindOpen</Company>
-    <Copyright>Copyright �BindOpen 2011-2023</Copyright>
+    <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package handles database connections.</Description>
     <Authors>Sumer Team</Authors>
     <RootNamespace>BindOpen.Plus.Databases</RootNamespace>
@@ -39,24 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="BindOpen.Extension" />
-    <EmbeddedResource Include="Data\BindOpen.Carriers" />
-    <EmbeddedResource Include="Connectors\BindOpen.Connectors" />
-    <EmbeddedResource Include="Script\BindOpen.Scriptwords" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BindOpen.Kernel.Scoping.Extensions" Version="1.2.108" />
-    <PackageReference Include="BindOpen.Kernel.Scoping.Script" Version="1.2.108" />
+    <PackageReference Include="BindOpen.Kernel.Scoping.Script" Version="1.2.148" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Fluent\" />
-    <Folder Include="Data\Queries\Factories\" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
-﻿using BindOpen.Kernel.Data;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data;
+using BindOpen.Plus.Databases.Models;
 using System.Linq;
 
 namespace BindOpen.Plus.Databases
@@ -15,7 +15,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="name">The name to consider.</param>
         /// <param name="schema">The schema to consider.</param>
         /// <param name="dataModuleName">The name of the data module to consider.</param>
-        public static DbTable Table(string name = null, string schema = null, string dataModuleName = null)
+        public static IDbTable Table(string name = null, string schema = null, string dataModuleName = null)
             => new DbTable()
             {
                 Name = name,
@@ -32,7 +32,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="table">The table to consider.</param>
         /// <param name="expression">The expression to consider.</param>
         /// <returns>Returns a new From statement.</returns>
-        public static DbJoinedTable TableAsJoin(DbQueryJoinKind kind, IDbTable table, IBdoExpression expression)
+        public static IDbJoinedTable TableAsJoin(DbQueryJoinKind kind, IDbTable table, IBdoExpression expression)
         {
             var joinedTable = new DbJoinedTable() { Kind = kind, Table = table };
             joinedTable.WithCondition(expression);
@@ -55,7 +55,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new instance of the DbDerivedTable class.
         /// </summary>
         /// <param name="query">The query to consider.</param>
-        public static DbDerivedTable TableAsQuery(IDbQuery query)
+        public static IDbDerivedTable TableAsQuery(IDbQuery query)
             => new DbDerivedTable() { Query = query };
 
         // Tupled --------------------------------
@@ -64,7 +64,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new instance of the DbTupledTable class.
         /// </summary>
         /// <param name="query">The query to consider.</param>
-        public static DbTupledTable TableAsTuples(params IDbTuple[] tuples)
+        public static IDbTupledTable TableAsTuples(params IDbTuple[] tuples)
             => new DbTupledTable() { Tuples = tuples?.Cast<IDbTuple>().ToList() };
 
         /// <summary>

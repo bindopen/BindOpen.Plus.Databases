@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>BindOpen.Labs.Databases.Tests</AssemblyName>
-    <PackageId>BindOpen.Labs.Databases.Tests</PackageId>
-    <Product>BindOpen.Labs.Databases</Product>
+    <AssemblyName>BindOpen.Plus.Databases.Tests</AssemblyName>
+    <PackageId>BindOpen.Plus.Databases.Tests</PackageId>
+    <Product>BindOpen.Plus.Databases</Product>
     <Company>BindOpen</Company>
     <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package conducts unit tests on Database libraries.</Description>
     <Authors>Sumer Team</Authors>
-    <RootNamespace>BindOpen.Labs.Databases.Tests</RootNamespace>
-    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Databases</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/bindopen/BindOpen.Databases.git</RepositoryUrl>
+    <RootNamespace>BindOpen.Plus.Databases.Tests</RootNamespace>
+    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Plus.Databases</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bindopen/BindOpen.Plus.Databases.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>bindopen_icon.png</PackageIcon>
@@ -52,8 +52,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\BindOpen.Databases.MSSqlServer\Databases.MSSqlServer.csproj" />
-    <ProjectReference Include="..\..\src\BindOpen.Databases.PostgreSql\Databases.PostgreSql.csproj" />
+    <ProjectReference Include="..\..\src\BindOpen.Plus.Databases.MSSqlServer\Databases.MSSqlServer.csproj" />
+    <ProjectReference Include="..\..\src\BindOpen.Plus.Databases.PostgreSql\Databases.PostgreSql.csproj" />
   </ItemGroup>
 
 </Project>

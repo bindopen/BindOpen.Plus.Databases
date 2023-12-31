@@ -1,7 +1,10 @@
-﻿using BindOpen.Kernel.Logging;
-using BindOpen.Kernel.Scoping;
-using BindOpen.Kernel.Scoping.Connectors;
+﻿using BindOpen.Data.Meta;
+using BindOpen.Logging;
+using BindOpen.Scoping;
+using BindOpen.Scoping.Connectors;
+using BindOpen.Scoping.Entities;
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace BindOpen.Plus.Databases.Connectors
@@ -188,6 +191,16 @@ namespace BindOpen.Plus.Databases.Connectors
         void IDbConnection.Open()
         {
             _nativeDbConnection?.Open();
+        }
+
+        public override IEnumerable<T> Pull<T>(IBdoMetaSet paramSet = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Push(params IBdoEntity[] entities)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

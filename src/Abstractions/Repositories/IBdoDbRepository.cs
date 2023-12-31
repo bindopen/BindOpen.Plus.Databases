@@ -1,5 +1,5 @@
-﻿using BindOpen.Kernel.Data.Repositories;
-using BindOpen.Kernel.Logging;
+﻿using BindOpen.Data.Repositories;
+using BindOpen.Logging;
 using BindOpen.Plus.Databases.Connectors;
 using System;
 

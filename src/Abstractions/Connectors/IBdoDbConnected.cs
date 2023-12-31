@@ -1,4 +1,4 @@
-﻿using BindOpen.Kernel.Scoping.Connectors;
+﻿using BindOpen.Scoping.Connectors;
 
 namespace BindOpen.Plus.Databases.Connectors
 {

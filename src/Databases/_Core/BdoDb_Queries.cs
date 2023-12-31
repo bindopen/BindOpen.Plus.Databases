@@ -1,5 +1,5 @@
-﻿using BindOpen.Kernel.Data.Helpers;
-using BindOpen.Plus.Databases.Data;
+﻿using BindOpen.Data.Helpers;
+using BindOpen.Plus.Databases.Models;
 using System;
 
 namespace BindOpen.Plus.Databases
@@ -49,7 +49,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Delete advanced database query.
         /// </summary>
         /// <returns>Returns a new Delete advanced database query</returns>
-        public static DbSingleQuery DeleteQuery(string name, IDbTable table, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery DeleteQuery(string name, IDbTable table, Action<IDbSingleQuery> initAction = null)
         {
             var query = new DbSingleQuery(DbQueryKind.Delete, table);
             query.WithName(name);
@@ -62,7 +62,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Delete advanced database query.
         /// </summary>
         /// <returns>Returns a new Delete advanced database query</returns>
-        public static DbSingleQuery DeleteQuery(IDbTable table, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery DeleteQuery(IDbTable table, Action<IDbSingleQuery> initAction = null)
             => DeleteQuery(null, table, initAction);
 
         // Create --------------------------------
@@ -71,7 +71,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Create advanced database query.
         /// </summary>
         /// <returns>Returns a new Create basic database query</returns>
-        public static DbSingleQuery CreateQuery(string name, IDbTable table, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery CreateQuery(string name, IDbTable table, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
         {
             var query = new DbSingleQuery(DbQueryKind.Create, table);
             query.WithName(name);
@@ -86,7 +86,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Create advanced database query.
         /// </summary>
         /// <returns>Returns a new Create basic database query</returns>
-        public static DbSingleQuery CreateQuery(IDbTable table, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery CreateQuery(IDbTable table, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
             => CreateQuery(null, table, onlyIfNotExisting, initAction);
 
         // Drop --------------------------------
@@ -95,7 +95,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Drop advanced database query.
         /// </summary>
         /// <returns>Returns a new Drop advanced database query</returns>
-        public static DbSingleQuery DropQuery(string name, IDbTable table, bool onlyIfExisting = true, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery DropQuery(string name, IDbTable table, bool onlyIfExisting = true, Action<IDbSingleQuery> initAction = null)
         {
             var query = new DbSingleQuery(DbQueryKind.Drop, table);
             query.WithName(name);
@@ -109,7 +109,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Drop advanced database query.
         /// </summary>
         /// <returns>Returns a new Drop advanced database query</returns>
-        public static DbSingleQuery DropQuery(IDbTable table, bool onlyIfExisting = true, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery DropQuery(IDbTable table, bool onlyIfExisting = true, Action<IDbSingleQuery> initAction = null)
             => DropQuery(null, table, onlyIfExisting, initAction);
 
         // Insert --------------------------------
@@ -118,7 +118,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Insert advanced database query.
         /// </summary>
         /// <returns>Returns a new Insert advanced database query</returns>
-        public static DbSingleQuery InsertQuery(string name, IDbTable table, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery InsertQuery(string name, IDbTable table, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
         {
             var query = new DbSingleQuery(DbQueryKind.Insert, table);
             query.WithName(name);
@@ -132,7 +132,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Insert advanced database query.
         /// </summary>
         /// <returns>Returns a new Insert advanced database query</returns>
-        public static DbSingleQuery InsertQuery(IDbTable table, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery InsertQuery(IDbTable table, bool onlyIfNotExisting = true, Action<IDbSingleQuery> initAction = null)
             => InsertQuery(null, table, onlyIfNotExisting, initAction);
 
         // Select --------------------------------
@@ -141,7 +141,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Select advanced database query.
         /// </summary>
         /// <returns>Returns a new Select advanced database query</returns>
-        public static DbSingleQuery SelectQuery(string name, IDbTable table, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery SelectQuery(string name, IDbTable table, Action<IDbSingleQuery> initAction = null)
         {
             var query = new DbSingleQuery(DbQueryKind.Select, table);
             query.WithName(name);
@@ -154,7 +154,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Select advanced database query.
         /// </summary>
         /// <returns>Returns a new Select advanced database query</returns>
-        public static DbSingleQuery SelectQuery(IDbTable table, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery SelectQuery(IDbTable table, Action<IDbSingleQuery> initAction = null)
             => SelectQuery(null, table, initAction);
 
         // Update --------------------------------
@@ -163,7 +163,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Update advanced database query.
         /// </summary>
         /// <returns>Returns a new Update advanced database query</returns>
-        public static DbSingleQuery UpdateQuery(string name, IDbTable table, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery UpdateQuery(string name, IDbTable table, Action<IDbSingleQuery> initAction = null)
         {
             var query = new DbSingleQuery(DbQueryKind.Update, table);
             query.WithName(name);
@@ -176,7 +176,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a new Update advanced database query.
         /// </summary>
         /// <returns>Returns a new Update advanced database query</returns>
-        public static DbSingleQuery UpdateQuery(IDbTable table, Action<IDbSingleQuery> initAction = null)
+        public static IDbSingleQuery UpdateQuery(IDbTable table, Action<IDbSingleQuery> initAction = null)
             => UpdateQuery(null, table, initAction);
     }
 }

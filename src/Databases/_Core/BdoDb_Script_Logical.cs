@@ -1,4 +1,4 @@
-﻿using BindOpen.Kernel.Scoping.Script;
+﻿using BindOpen.Scoping.Script;
 
 namespace BindOpen.Plus.Databases
 {
@@ -15,7 +15,7 @@ namespace BindOpen.Plus.Databases
         /// <param name="condition">The condition to consider.</param>
         /// <param name="thenResult">The then-result to consider.</param>
         /// <param name="elseResult">The else-result to consider.</param>
-        public static BdoScriptword If(object condition, object thenResult, object elseResult)
+        public static IBdoScriptword If(object condition, object thenResult, object elseResult)
         {
             return DbFunction("sqlIf", condition, thenResult, elseResult);
         }
@@ -24,7 +24,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a BDO script representing and Sql And condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static BdoScriptword And(params object[] conditions)
+        public static IBdoScriptword And(params object[] conditions)
         {
             return DbFunction("sqlAnd", conditions); ;
         }
@@ -33,7 +33,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a BDO script representing and Sql Or condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static BdoScriptword Or(params object[] conditions)
+        public static IBdoScriptword Or(params object[] conditions)
         {
             return DbFunction("sqlOr", conditions); ;
         }
@@ -42,7 +42,7 @@ namespace BindOpen.Plus.Databases
         /// Creates a BDO script representing and Sql Xor condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static BdoScriptword Xor(params object[] conditions)
+        public static IBdoScriptword Xor(params object[] conditions)
         {
             return DbFunction("sqlXOr", conditions); ;
         }
@@ -51,14 +51,14 @@ namespace BindOpen.Plus.Databases
         /// Creates a BDO script representing and Sql Not condition including the specified condition strings.
         /// </summary>
         /// <param name="condition">The condition to consider.</param>
-        public static BdoScriptword Not(object condition)
+        public static IBdoScriptword Not(object condition)
             => DbFunction("sqlNot", condition);
 
         /// <summary>
         /// Creates a BDO script representing and Sql Xor condition including the specified condition strings.
         /// </summary>
         /// <param name="conditions">The conditions to consider.</param>
-        public static BdoScriptword Like(object param1, object param2)
+        public static IBdoScriptword Like(object param1, object param2)
             => DbFunction("sqlLike", param1, param2);
     }
 }
