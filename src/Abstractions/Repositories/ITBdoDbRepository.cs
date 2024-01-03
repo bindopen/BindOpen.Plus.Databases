@@ -1,6 +1,6 @@
 ﻿using BindOpen.Scoping;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 

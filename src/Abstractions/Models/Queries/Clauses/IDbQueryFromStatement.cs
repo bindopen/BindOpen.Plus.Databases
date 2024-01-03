@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 
     /// </summary>
     public interface IDbQueryFromStatement :
-        ITDbObject<IDbQueryFromStatement>,
+        IDbObject,
         IDbQueryStatement
     {
         /// <summary>

@@ -2,10 +2,10 @@
 using BindOpen.Data.Helpers;
 using BindOpen.Data.Meta;
 using BindOpen.Scoping.Script;
-using BindOpen.Plus.Databases.Models;
+using BindOpen.Databases.Models;
 using System.Linq;
 
-namespace BindOpen.Plus.Databases
+namespace BindOpen.Databases
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.

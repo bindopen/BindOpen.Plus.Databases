@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Plus.Databases.Models
+﻿namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This enumeration lists all the possible kinds of database carriers.

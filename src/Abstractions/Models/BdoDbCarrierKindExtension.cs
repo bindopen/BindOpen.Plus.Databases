@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Plus.Databases.Models
+﻿namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents an extension of the DatabaseCarrierKind enumeration.

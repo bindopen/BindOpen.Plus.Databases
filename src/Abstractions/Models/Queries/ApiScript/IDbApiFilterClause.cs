@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data;
 using System.Collections.Generic;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents a Api script clause.

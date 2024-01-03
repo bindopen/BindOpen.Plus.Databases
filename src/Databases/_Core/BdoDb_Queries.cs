@@ -1,8 +1,8 @@
 ﻿using BindOpen.Data.Helpers;
-using BindOpen.Plus.Databases.Models;
+using BindOpen.Databases.Models;
 using System;
 
-namespace BindOpen.Plus.Databases
+namespace BindOpen.Databases
 {
     /// <summary>
     /// This class represents a fluent factory of database query.

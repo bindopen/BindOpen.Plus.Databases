@@ -1,14 +1,14 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Helpers;
-using BindOpen.Plus.Databases.Models;
-using BindOpen.Plus.Databases.Exceptions;
+using BindOpen.Databases.Models;
+using BindOpen.Databases.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents a database model.

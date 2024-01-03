@@ -1,9 +1,8 @@
 ﻿using BindOpen.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents the database tuple.
@@ -36,17 +35,6 @@ namespace BindOpen.Plus.Databases.Models
         /// </summary>
         public IBdoExpression Expression { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="exp"></param>
-        /// <returns></returns>
-        public IDbTuple WithExpression(IBdoExpression exp)
-        {
-            Expression = exp;
-            return this;
-        }
-
         #endregion
 
         // ------------------------------------------
@@ -59,30 +47,6 @@ namespace BindOpen.Plus.Databases.Models
         /// The fields of this instance.
         /// </summary>
         public List<IDbField> Fields { get; set; }
-
-        /// <summary>
-        /// Sets the specified fields.
-        /// </summary>
-        public IDbTuple WithFields(params IDbField[] fields)
-        {
-            Fields = fields?.ToList();
-            return this;
-        }
-
-        /// <summary>
-        /// Adds the specified fields.
-        /// </summary>
-        public IDbTuple AddFields(params IDbField[] fields)
-        {
-            // first we remove common fields
-            Fields.RemoveAll(q =>
-                fields.Any(
-                    p => (q.Alias ?? q.Name).Equals(p.Alias ?? p.Name, StringComparison.OrdinalIgnoreCase)));
-
-            Fields.AddRange(fields);
-
-            return this;
-        }
 
         #endregion
 

@@ -3,7 +3,7 @@ using BindOpen.Data.Meta;
 using BindOpen.Scoping;
 using BindOpen.Scoping.Entities;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents a database data table.

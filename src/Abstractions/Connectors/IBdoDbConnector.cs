@@ -1,9 +1,10 @@
 ﻿using BindOpen.Data.Meta;
+using BindOpen.Databases.Models;
 using BindOpen.Logging;
 using BindOpen.Scoping.Connectors;
-using BindOpen.Plus.Databases.Models;
+using System.Data;
 
-namespace BindOpen.Plus.Databases.Connectors
+namespace BindOpen.Databases.Connectors
 {
     /// <summary>
     /// This class defines a database connector.
@@ -67,29 +68,22 @@ namespace BindOpen.Plus.Databases.Connectors
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
         /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the SQL text of the specified query.</returns>
         string CreateCommandText(
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null);
 
-        #endregion
-
-        // ------------------------------------------
-        // DATABASE MANAGEMENT
-        // ------------------------------------------
-
-        #region Database Management
-
-        /// <summary>
-        /// Estimates the kind of the database connector of this instance.
-        /// </summary>
-        /// <returns>The database connector kind of this instance.</returns>
-        BdoDbConnectorKind EstimateDbConnectorKind();
+        IDbCommand CreateCommand(
+            IDbQuery query,
+            DbQueryParameterMode parameterMode,
+            IBdoMetaSet parameterSet = null,
+            IBdoMetaSet varSet = null,
+            IBdoLog log = null);
 
         #endregion
     }

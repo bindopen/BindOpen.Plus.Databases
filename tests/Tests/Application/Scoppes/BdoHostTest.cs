@@ -1,9 +1,8 @@
-﻿using BindOpen.Framework.Runtime.Scopes;
-using BindOpen.Framework.MetaData.Helpers.Serialization;
-using BindOpen.Tests.Databases;
+﻿using BindOpen.Application.Scopes;
+using BindOpen.Plus.Databases.Tests.Databases;
 using NUnit.Framework;
 
-namespace BindOpen.Tests.Application.Scopes
+namespace BindOpen.Plus.Databases.Tests.Application.Scopes
 {
     [TestFixture, Order(1)]
     public class BdoHostTest

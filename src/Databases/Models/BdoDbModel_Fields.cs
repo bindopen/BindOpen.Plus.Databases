@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents a database model.
@@ -45,7 +45,7 @@ namespace BindOpen.Plus.Databases.Models
         /// <returns></returns>
         public List<IDbField> AllFields(string tableName, string tableAlias = null)
         {
-            return TableModel(tableName).Fields.Select(p => p?.Clone<DbField>().WithAlias(tableAlias)).ToList();
+            return TableModel(tableName).Fields.Select(p => p?.Clone<IDbField>().WithAlias(tableAlias)).ToList();
         }
 
         /// <summary>

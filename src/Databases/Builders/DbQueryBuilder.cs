@@ -1,12 +1,12 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Meta;
 using BindOpen.Data.Stores;
+using BindOpen.Databases.Models;
 using BindOpen.Logging;
-using BindOpen.Plus.Databases.Models;
 using BindOpen.Scoping;
 using System;
 
-namespace BindOpen.Plus.Databases.Builders
+namespace BindOpen.Databases.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -22,9 +22,8 @@ namespace BindOpen.Plus.Databases.Builders
         /// <summary>
         /// Instantiates a new instance of the DbQueryBuilder class.
         /// </summary>
-        protected DbQueryBuilder(IBdoScope scope)
+        protected DbQueryBuilder()
         {
-            Scope = scope;
         }
 
         #endregion
@@ -95,14 +94,14 @@ namespace BindOpen.Plus.Databases.Builders
         /// <param name="query">The database data query to build.</param>
         /// <param name="parameterMode">The display mode of parameters to consider.</param>
         /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="varElementSet">The interpretation variables to consider.</param>
+        /// <param name="varSet">The interpretation variables to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the built query text.</returns>
         public string BuildQuery(
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null)
         {
             var queryString = "";
@@ -113,19 +112,19 @@ namespace BindOpen.Plus.Databases.Builders
                 {
                     if (query is IDbSingleQuery singleDbQuery)
                     {
-                        varElementSet.AddDbQueryBuilder(this);
-                        queryString = GetSqlText_Query(singleDbQuery, parameterSet, varElementSet, log);
+                        varSet.AddDbQueryBuilder(this);
+                        queryString = GetSqlText_Query(singleDbQuery, parameterSet, varSet, log);
                     }
                     else if (query is IDbCompositeQuery compositeDbQuery)
                     {
-                        varElementSet.AddDbQueryBuilder(this);
-                        queryString = GetSqlText_Query(compositeDbQuery, parameterSet, varElementSet, log);
+                        varSet.AddDbQueryBuilder(this);
+                        queryString = GetSqlText_Query(compositeDbQuery, parameterSet, varSet, log);
                     }
                     else if (query is IDbStoredQuery storedDbQuery)
                     {
                         if (!storedDbQuery.QueryTexts.TryGetValue(Id, out queryString))
                         {
-                            queryString = BuildQuery(storedDbQuery.Query, DbQueryParameterMode.Scripted, parameterSet, varElementSet, log);
+                            queryString = BuildQuery(storedDbQuery.Query, DbQueryParameterMode.Scripted, parameterSet, varSet, log);
                             storedDbQuery.QueryTexts.Add(Id, queryString);
                         }
                     }
@@ -135,7 +134,7 @@ namespace BindOpen.Plus.Databases.Builders
                         for (int i = 0; i < query.SubQueries.Count; i++)
                         {
                             var subQuery = query.SubQueries[i];
-                            var subQueryString = BuildQuery(subQuery, parameterMode, parameterSet, varElementSet, log);
+                            var subQueryString = BuildQuery(subQuery, parameterMode, parameterSet, varSet, log);
 
                             queryString = queryString.Replace((i + 1).ToString().AsQueryWildString(), subQueryString);
                         }
@@ -158,7 +157,7 @@ namespace BindOpen.Plus.Databases.Builders
                                 if (parameterMode == DbQueryParameterMode.ValueInjected)
                                 {
                                     queryString = queryString.Replace((parameter?.Name ?? parameter.Index.ToString())?.AsParameterWildString(),
-                                        GetSqlText_Value(parameter?.GetData(Scope, varElementSet, log), parameter.DataType?.ValueType ?? DataValueTypes.None));
+                                        GetSqlText_Value(parameter?.GetData(Scope, varSet, log), parameter.DataType?.ValueType ?? DataValueTypes.None));
                                 }
                                 else
                                 {
@@ -188,13 +187,13 @@ namespace BindOpen.Plus.Databases.Builders
         /// </summary>
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the built query text.</returns>
         protected abstract string GetSqlText_Query(
             IDbSingleQuery query,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null);
 
         // Builds merge query ----------------------
@@ -205,12 +204,12 @@ namespace BindOpen.Plus.Databases.Builders
         /// <param name="query">The query to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <returns>Returns the built query text.</returns>
         protected abstract string GetSqlText_Query(
             IDbCompositeQuery query,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null);
 
         #endregion

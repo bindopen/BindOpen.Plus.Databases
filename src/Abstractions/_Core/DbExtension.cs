@@ -1,6 +1,6 @@
 ﻿using BindOpen.Data.Helpers;
 
-namespace BindOpen.Plus.Databases
+namespace BindOpen.Databases
 {
     // --------------------------------------------------
     // EXTENSION

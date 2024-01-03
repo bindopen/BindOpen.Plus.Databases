@@ -1,6 +1,6 @@
 ﻿using BindOpen.Data;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents the Join table of a database data query.

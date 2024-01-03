@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data;
-using BindOpen.Plus.Databases.Models;
+using BindOpen.Databases.Models;
 
-namespace BindOpen.Plus.Databases
+namespace BindOpen.Databases
 {
     /// <summary>
     /// This static class represents a factory of data table.
@@ -13,7 +13,7 @@ namespace BindOpen.Plus.Databases
         /// </summary>
         /// <param name="field">The field to consider.</param>
         /// <param name="sortingMode">The sorting mode to consider.</param>
-        public static IDbQueryOrderByStatement OrderBy(DbField field, DataSortingModes sortingMode = DataSortingModes.Ascending)
+        public static IDbQueryOrderByStatement OrderBy(IDbField field, DataSortingModes sortingMode = DataSortingModes.Ascending)
             => new DbQueryOrderByStatement()
             {
                 Field = field,
