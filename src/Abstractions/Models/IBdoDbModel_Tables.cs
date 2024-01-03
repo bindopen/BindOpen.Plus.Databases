@@ -1,7 +1,6 @@
-﻿using BindOpen.Plus.Databases.Models;
-using BindOpen.Data;
+﻿using BindOpen.Data;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     public partial interface IBdoDbModel
     {

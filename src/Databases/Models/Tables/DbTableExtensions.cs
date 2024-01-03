@@ -1,6 +1,6 @@
 ﻿using BindOpen.Data.Helpers;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class contains database field extensions.

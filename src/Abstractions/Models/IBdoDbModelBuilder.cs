@@ -1,8 +1,7 @@
-﻿using BindOpen.Plus.Databases.Models;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     public interface IBdoDbModelBuilder
     {

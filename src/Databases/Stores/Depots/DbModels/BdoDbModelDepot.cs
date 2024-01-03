@@ -1,13 +1,13 @@
 ﻿using BindOpen.Data.Assemblies;
 using BindOpen.Data.Stores;
 using BindOpen.Logging;
-using BindOpen.Plus.Databases.Models;
+using BindOpen.Databases.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace BindOpen.Plus.Databases.Stores
+namespace BindOpen.Databases.Stores
 {
     /// <summary>
     /// This class represents a database model depot.

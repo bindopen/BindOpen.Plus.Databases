@@ -1,6 +1,6 @@
 ﻿using BindOpen.Scoping.Script;
 
-namespace BindOpen.Plus.Databases
+namespace BindOpen.Databases
 {
     /// <summary>
     /// This static class represents a factory of data query parameter.

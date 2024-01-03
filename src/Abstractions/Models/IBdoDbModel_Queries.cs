@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     public partial interface IBdoDbModel
     {

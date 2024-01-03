@@ -1,8 +1,8 @@
-﻿using BindOpen.Plus.Databases.Models;
+﻿using BindOpen.Databases.Models;
 using BindOpen.Data;
 using System.Collections.Generic;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents the table model.

@@ -17,8 +17,8 @@ Todo list for BindOpen
 * Add Getting Help + Contributors sections in README.md
 * Api filter and sort clauses
 * Apply data value type of the field from Field<T> methods
-* DbFluent.FieldAsScript<DbImage>(expr1, expr2) expr2 = Fun<field>
-* DbFluent.FieldAsLiteral versus FieldAsValue
+* BdoDb.FieldAsScript<DbImage>(expr1, expr2) expr2 = Fun<field>
+* BdoDb.FieldAsLiteral versus FieldAsValue
 * Update MSSqlServer database query builder
 * Bug with JoinCondition<expr1, expr2>(name)
 * Table<DbAddress>() -> In Update, fields does not repeat table if the same as the query
@@ -28,7 +28,7 @@ Todo list for BindOpen
 * Converting table (derived, query, tuple) in script
 * Converting tuple in script
 * Make Where clause as a tree of function(string)/expression
-* Make DbFluent easier.
+* Make BdoDb easier.
 	- Create interface IDbParameter that inherites IScalarELement.
 	- Implement AsDbExp to handle.
 	- BdoScript -> ScriptFactory
@@ -36,5 +36,5 @@ Todo list for BindOpen
 
 ## Bugs to fix later on
 
-* Handle fields in select as script: DbFluent.FieldAsScript<DbImage>(p => p.Data, DbFluent.DecodeBase64(DbFluent.Field("Data")))
+* Handle fields in select as script: BdoDb.FieldAsScript<DbImage>(p => p.Data, BdoDb.DecodeBase64(BdoDb.Field("Data")))
 

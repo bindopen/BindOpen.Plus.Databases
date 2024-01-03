@@ -1,12 +1,12 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Meta;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQueryCondition : ITDbObject<IDbQueryCondition>
+    public interface IDbQueryCondition : IDbObject
     {
         // ------------------------------------------
         // PROPERTIES

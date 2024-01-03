@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace BindOpen.Plus.Databases.Connectors
+namespace BindOpen.Databases.Connectors
 {
     /// <summary>
     /// This class represents a database connection.

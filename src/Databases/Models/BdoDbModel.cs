@@ -1,8 +1,7 @@
-﻿using BindOpen.Plus.Databases.Models;
-using BindOpen.Data;
+﻿using BindOpen.Data;
 using System.Collections.Generic;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents a database model.
@@ -33,26 +32,15 @@ namespace BindOpen.Plus.Databases.Models
         #endregion
 
         // ------------------------------------------
-        // ITIdentifiedPoco Implementation
+        // IIdentified Implementation
         // ------------------------------------------
 
-        #region ITIdentifiedPoco
+        #region IIdentified
 
         /// <summary>
         /// 
         /// </summary>
         public string Id { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public IBdoDbModel WithId(string id)
-        {
-            Id = id;
-            return this;
-        }
 
         #endregion
 

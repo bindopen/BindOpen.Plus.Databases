@@ -1,8 +1,8 @@
-﻿using BindOpen.Plus.Databases.Exceptions;
+﻿using BindOpen.Databases.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents a database model.

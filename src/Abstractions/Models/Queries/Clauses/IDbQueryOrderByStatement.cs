@@ -1,12 +1,12 @@
 ﻿using BindOpen.Data;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 
     /// </summary>
     public interface IDbQueryOrderByStatement :
-        ITDbObject<IDbQueryOrderByStatement>,
+        IDbObject,
         IDbQueryStatement
     {
         /// <summary>

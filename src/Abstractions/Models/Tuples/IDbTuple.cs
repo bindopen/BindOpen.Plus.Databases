@@ -1,25 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbTuple : ITDbObject<IDbTuple>
+    public interface IDbTuple : IDbObject
     {
         /// <summary>
         /// The fields of this instance.
         /// </summary>
-        List<IDbField> Fields { get; }
-
-        /// <summary>
-        /// Adds the specified fields.
-        /// </summary>
-        IDbTuple WithFields(params IDbField[] fields);
-
-        /// <summary>
-        /// Adds the specified fields.
-        /// </summary>
-        IDbTuple AddFields(params IDbField[] fields);
+        List<IDbField> Fields { get; set; }
     }
 }

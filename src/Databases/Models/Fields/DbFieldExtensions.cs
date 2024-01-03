@@ -1,6 +1,7 @@
-﻿using BindOpen.Data.Helpers;
+﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class contains database field extensions.
@@ -41,6 +42,16 @@ namespace BindOpen.Plus.Databases.Models
             }
 
             return st;
+        }
+
+        public static IDbField AsNull(this IDbField field)
+        {
+            if (field != null)
+            {
+                field.SetValue((BdoExpression)BdoDb.Null());
+            }
+
+            return field;
         }
     }
 }

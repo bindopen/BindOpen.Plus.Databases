@@ -1,12 +1,7 @@
-﻿using BindOpen.Framework.Runtime.Scopes;
-using BindOpen.Framework.MetaData.Helpers.Files;
-using BindOpen.Framework.MetaData.Stores;
-using BindOpen.Framework.Extensions.References;
-using BindOpen.Databases.Tests.PostgreSql.Data.Models;
-using BindOpen.Databases.Tests.Settings;
-using BindOpen.Databases.Stores.Depots;
+﻿using BindOpen.Data.Helpers;
+using BindOpen.Databases.Tests.Fakes;
 
-namespace BindOpen.Tests.Databases
+namespace BindOpen.Plus.Databases.Tests
 {
     public static class GlobalVariables
     {
@@ -38,7 +33,7 @@ namespace BindOpen.Tests.Databases
                                 .RegisterDatasources(m => m
                                     .AddFromConfiguration(options)
                                     .AddDatasource(m.CreatePostgreSqlDatasource("db.testA", "connectionStringA")))
-                                .RegisterDbModels((m, l) => m.AddFromAssembly<TestDbModel>(l)))
+                                .RegisterDbModels((m, l) => m.AddFromAssembly<DbModelFake>(l)))
                         //.AddDefaultFileLogger()
                         //.ThrowExceptionOnStartFailure()
                         //.AddLoggers(

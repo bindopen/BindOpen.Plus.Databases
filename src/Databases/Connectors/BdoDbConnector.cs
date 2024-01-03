@@ -1,11 +1,11 @@
 ﻿using BindOpen.Data.Meta;
+using BindOpen.Databases.Builders;
+using BindOpen.Databases.Models;
 using BindOpen.Logging;
 using BindOpen.Scoping.Connectors;
-using BindOpen.Plus.Databases.Builders;
-using BindOpen.Plus.Databases.Models;
 using System.Data;
 
-namespace BindOpen.Plus.Databases.Connectors
+namespace BindOpen.Databases.Connectors
 {
     /// <summary>
     /// This class defines a database connector.
@@ -99,14 +99,14 @@ namespace BindOpen.Plus.Databases.Connectors
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
         /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the SQL text of the specified query.</returns>
-        public string CreateCommandText(
+        public virtual string CreateCommandText(
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null)
         {
             if (_queryBuilder == null)
@@ -115,34 +115,16 @@ namespace BindOpen.Plus.Databases.Connectors
                 return null;
             }
 
-            string sqlText = _queryBuilder.BuildQuery(query, parameterMode, parameterSet, varElementSet, log);
+            string sqlText = _queryBuilder.BuildQuery(query, parameterMode, parameterSet, varSet, log);
             return sqlText;
         }
 
-        /// <summary>
-        /// Creates a command from the specified query.
-        /// </summary>
-        /// <param name="query">The query to consider.</param>
-        /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
-        /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
-        /// <param name="log">The log to consider.</param>
-        /// <returns>Returns the database command.</returns>
         public abstract IDbCommand CreateCommand(
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null);
-
-        /// <summary>
-        /// Estimates the database connector kind of this instance.
-        /// </summary>
-        /// <returns>The database connector kind of this instance.</returns>
-        public BdoDbConnectorKind EstimateDbConnectorKind()
-        {
-            return ConnectionString.GuessDbConnectorKind();
-        }
 
         #endregion
     }

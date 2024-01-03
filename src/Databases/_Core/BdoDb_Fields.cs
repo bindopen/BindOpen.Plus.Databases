@@ -1,12 +1,12 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Helpers;
 using BindOpen.Data.Meta;
-using BindOpen.Plus.Databases.Models;
+using BindOpen.Databases.Models;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BindOpen.Plus.Databases
+namespace BindOpen.Databases
 {
     /// <summary>
     /// This static class represents a factory of data field.

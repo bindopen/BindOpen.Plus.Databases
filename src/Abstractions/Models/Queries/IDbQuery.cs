@@ -2,12 +2,12 @@
 using BindOpen.Data.Meta;
 using System.Collections.Generic;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IDbQuery : ITDbObject<IDbQuery>,
+    public interface IDbQuery : IDbObject,
         IIdentified, INamed,
         IReferenced
     {

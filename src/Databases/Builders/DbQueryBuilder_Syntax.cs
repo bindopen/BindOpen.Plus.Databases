@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Helpers;
 
-namespace BindOpen.Plus.Databases.Builders
+namespace BindOpen.Databases.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -45,8 +45,6 @@ namespace BindOpen.Plus.Databases.Builders
         /// </summary>
         /// <returns>The interpreted string value.</returns>
         public abstract string GetSqlText_Null();
-
-        public abstract string GetSqlText_True();
 
         /// <summary>
         /// Evaluates the script word $SQLVALUE.
