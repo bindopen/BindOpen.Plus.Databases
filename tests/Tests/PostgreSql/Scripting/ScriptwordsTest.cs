@@ -19,7 +19,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         [Test, Order(1)]
         public void TestInterprete_Fun_SqlEq()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string value = null;
             string fluentScript = BdoDb.Eq(
@@ -27,9 +27,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             string expectedScript = "$sqlEq($sqlField('RegionalDirectorateId'), $sqlIfNull($sqlNull(), $sqlField('RegionalDirectorateId')))";
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(expectedScript.Equals(fluentScript, StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
 
@@ -41,9 +41,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
 
             string expectedResult = @"""RegionalDirectorateId""=COALESCE(NULL, ""RegionalDirectorateId"")";
 
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -51,7 +51,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         [Test, Order(2)]
         public void TestInterprete_Fun_SqlEq_Null()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             // Case: value, null
 
@@ -67,9 +67,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             string expectedResult = @"COALESCE(NULL, ""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
 
@@ -82,9 +82,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             expectedResult = @"COALESCE(NULL, ""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
 
             xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -99,7 +99,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
 
             string expectedResult = @"COALESCE(""RegionalDirectorateId"", '')=COALESCE(NULL, '')";
 
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             var varSet = new ScriptVariableSet();
             varSet.SetValue(VarSetDb.__DbBuilder,
@@ -107,9 +107,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script1, DataExpressionKind.Script, varSet, log: log)?.ToString();
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -120,7 +120,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             string script = BdoDb.EncodeBase64(BdoDb.Text("ABCDE"));
             string expectedResult = @"encode('ABCDE', 'base64')";
 
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             var varSet = new ScriptVariableSet();
             varSet.SetValue(VarSetDb.__DbBuilder,
@@ -128,9 +128,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script, DataExpressionKind.Script, varSet, log: log)?.ToString();
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
 
@@ -144,9 +144,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script, DataExpressionKind.Script, varSet, log: log)?.ToString();
 
             xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -154,15 +154,15 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         [Test, Order(4)]
         public void TestInterprete_Fun_SqlULCase()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string fluentScript = BdoDb.LowerCase(BdoDb.Field("RegionalDirectorateId"));
             string expectedScript = "$sqlLCase($sqlField('RegionalDirectorateId'))";
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(expectedScript.Equals(fluentScript, StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
 
@@ -174,9 +174,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
 
             string expectedResult = @"lower(""RegionalDirectorateId"")";
 
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -184,7 +184,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         [Test, Order(5)]
         public void TestInterprete_Fun_SqlULPad()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string fluentScript = BdoDb.LeftPadding(BdoDb.Field("RegionalDirectorateId"), 10, BdoDb.Text("A"));
 
@@ -196,9 +196,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             string expectedResult = @"lpad(""RegionalDirectorateId"", 10, 'A')";
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -211,7 +211,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
 
             string expectedResult = @"case when (null is null) then ""RegionalDirectorateId"" else ""RegionalDirectorateId2"" end";
 
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             var varSet = new ScriptVariableSet();
             varSet.SetValue(VarSetDb.__DbBuilder,
@@ -219,9 +219,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script1, DataExpressionKind.Script, varSet, log: log)?.ToString();
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }

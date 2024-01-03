@@ -33,7 +33,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [Test]
         public void SimpleInsertWithValues()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult =
                 @"insert into ""Mdm"".""Employee"" (""Code"", ""ByteArrayField"", ""DoubleField"", ""DateTimeField"", ""LongField"") "
@@ -47,9 +47,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee1(_employee), log: log);
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -57,7 +57,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [Test]
         public void SimpleInsertWithSelect()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult =
                 @"insert into ""Mdm"".""Employee"" (""Code"", ""ByteArrayField"", ""DoubleField"", ""DateTimeField"", ""LongField"") "
@@ -72,9 +72,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee2(_employee), log: log);
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -82,7 +82,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [Test]
         public void SimpleInsertWithSelectWithSubQuery()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult =
                 @"insert into ""Mdm"".""Employee"" (""Code"", ""ByteArrayField"", ""DoubleField"", ""DateTimeField"", ""LongField"") "
@@ -99,9 +99,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
             string result = _dbConnector.CreateCommandText(_model.InsertEmployee3(_employee), log: log);
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
