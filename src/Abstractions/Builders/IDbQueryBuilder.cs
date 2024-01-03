@@ -2,9 +2,9 @@
 using BindOpen.Data.Meta;
 using BindOpen.Logging;
 using BindOpen.Scoping;
-using BindOpen.Plus.Databases.Models;
+using BindOpen.Databases.Models;
 
-namespace BindOpen.Plus.Databases.Builders
+namespace BindOpen.Databases.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.
@@ -17,14 +17,14 @@ namespace BindOpen.Plus.Databases.Builders
         /// <param name="query">The database data query to build.</param>
         /// <param name="parameterMode">The display mode of parameters to consider.</param>
         /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="varElementSet">The interpretation variables to consider.</param>
+        /// <param name="varSet">The interpretation variables to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the built query text.</returns>
         public string BuildQuery(
             IDbQuery query,
             DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null);
     }
 }

@@ -1,10 +1,10 @@
 ﻿using BindOpen.Data.Stores;
+using BindOpen.Databases.Models;
 using BindOpen.Logging;
 using BindOpen.Scoping;
-using BindOpen.Plus.Databases.Models;
 using System;
 
-namespace BindOpen.Plus.Databases.Stores
+namespace BindOpen.Databases.Stores
 {
     /// <summary>
     /// This class represents an data queries factory.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BindOpen.Plus.Databases.Connectors
+namespace BindOpen.Databases.Connectors
 {
     /// <summary>
     /// This class represents an extension of the ConnectorKind_database enumeration.
@@ -49,6 +49,16 @@ namespace BindOpen.Plus.Databases.Connectors
             }
 
             return BdoDbConnectorKind.Any;
+        }
+
+        /// <summary>
+        /// Estimates the database connector kind of this instance.
+        /// </summary>
+        /// <returns>The database connector kind of this instance.</returns>
+        public static BdoDbConnectorKind GuessDbConnectorKind(
+            this IBdoDbConnector connector)
+        {
+            return connector?.ConnectionString.GuessDbConnectorKind() ?? BdoDbConnectorKind.None;
         }
     }
 }

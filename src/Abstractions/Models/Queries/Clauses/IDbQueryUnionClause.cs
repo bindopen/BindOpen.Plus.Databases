@@ -1,7 +1,7 @@
-﻿namespace BindOpen.Plus.Databases.Models
+﻿namespace BindOpen.Databases.Models
 {
     public interface IDbQueryUnionClause :
-        ITDbObject<IDbQueryUnionClause>,
+        IDbObject,
         IDbQueryClause
     {
         DbQueryUnionKind Kind { get; set; }

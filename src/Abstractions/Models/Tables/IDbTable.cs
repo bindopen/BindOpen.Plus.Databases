@@ -1,11 +1,11 @@
 ﻿using BindOpen.Data;
 using BindOpen.Scoping.Entities;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     public interface IDbTable :
         IBdoEntity,
-        ITDbObject<IDbTable>, INamed
+        IDbObject, INamed
     {
         string Alias { get; set; }
 

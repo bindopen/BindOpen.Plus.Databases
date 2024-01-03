@@ -11,9 +11,9 @@
   <description>
     <add.value key="en">Extension library 'Databases'.</add.value>
   </description>
-  <assembly>BindOpen.Plus.Databases</assembly>
-  <fileName>BindOpen.Plus.Databases.dll</fileName>
-  <rootNamespace>BindOpen.Plus.Databases</rootNamespace>
+  <assembly>BindOpen.Databases</assembly>
+  <fileName>BindOpen.Databases.dll</fileName>
+  <rootNamespace>BindOpen.Databases</rootNamespace>
   <indexes>
     <add.value key="connector">.Connectors.Connectors.index</add.value>
     <add.value key="scriptWord">.Scriptwords.Scriptwords.index</add.value>    

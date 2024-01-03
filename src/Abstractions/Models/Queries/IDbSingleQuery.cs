@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 

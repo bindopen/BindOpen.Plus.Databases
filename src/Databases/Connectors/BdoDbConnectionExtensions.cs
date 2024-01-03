@@ -1,13 +1,12 @@
-﻿using BindOpen.Data.Helpers;
-using BindOpen.Data.Meta;
+﻿using BindOpen.Data.Meta;
 using BindOpen.Data.Stores;
+using BindOpen.Databases.Models;
 using BindOpen.Logging;
 using BindOpen.Scoping;
 using BindOpen.Scoping.Connectors;
-using BindOpen.Plus.Databases.Models;
 using System.Data;
 
-namespace BindOpen.Plus.Databases.Connectors
+namespace BindOpen.Databases.Connectors
 {
     /// <summary>
     /// This class proposes extensions for database connection.
@@ -83,45 +82,21 @@ namespace BindOpen.Plus.Databases.Connectors
         /// <summary>
         /// Gets the SQL text of the specified query.
         /// </summary>
-        /// <param name="connection">The connection to consider.</param>
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
         /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
-        /// <param name="log">The log to consider.</param>
-        /// <returns>Returns the SQL text of the specified query.</returns>
-        public static IDbCommand CreateCommand(
-            this IBdoDbConnection connection,
-            IDbQuery query,
-            DbQueryParameterMode parameterMode,
-            IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
-            IBdoLog log = null)
-        {
-            IDbCommand command = (connection?.Connector as BdoDbConnector)?.CreateCommand(query, parameterMode, parameterSet, varElementSet, log);
-            command.Connection = connection?.Native;
-
-            return command;
-        }
-
-        /// <summary>
-        /// Gets the SQL text of the specified query.
-        /// </summary>
-        /// <param name="query">The query to consider.</param>
-        /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
-        /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the SQL text of the specified query.</returns>
         public static IDbCommand CreateCommand<T>(
             this IDbQuery query,
             DbQueryParameterMode parameterMode,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             T connector = new();
-            return connector?.NewConnection(log)?.As<IBdoDbConnection>()?.CreateCommand(query, parameterMode, parameterSet, varElementSet, log);
+            return connector?.CreateCommand(query, parameterMode, parameterSet, varSet, log);
         }
 
         /// <summary>
@@ -131,7 +106,7 @@ namespace BindOpen.Plus.Databases.Connectors
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
         /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the SQL text of the specified query.</returns>
         public static IDbCommand CreateCommand<T>(
@@ -139,12 +114,12 @@ namespace BindOpen.Plus.Databases.Connectors
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
             T connector = new();
             var command = connection.CreateCommand();
-            command.CommandText = connector?.CreateCommandText(query, parameterMode, parameterSet, varElementSet, log);
+            command.CommandText = connector?.CreateCommandText(query, parameterMode, parameterSet, varSet, log);
             return command;
         }
 
@@ -155,7 +130,7 @@ namespace BindOpen.Plus.Databases.Connectors
         /// <param name="query">The query to consider.</param>
         /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
         /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <param name="log">The log to consider.</param>
         /// <returns>Returns the SQL text of the specified query.</returns>
         public static IDbCommand CreateCommand<T>(
@@ -163,10 +138,10 @@ namespace BindOpen.Plus.Databases.Connectors
             IDbQuery query,
             DbQueryParameterMode parameterMode,
             IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varElementSet = null,
+            IBdoMetaSet varSet = null,
             IBdoLog log = null) where T : BdoDbConnector, new()
         {
-            IDbCommand command = transaction?.Connection?.CreateCommand<T>(query, parameterMode, parameterSet, varElementSet, log);
+            IDbCommand command = transaction?.Connection?.CreateCommand<T>(query, parameterMode, parameterSet, varSet, log);
             command.Transaction = transaction;
 
             return command;

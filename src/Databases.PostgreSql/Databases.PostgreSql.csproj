@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <AssemblyName>BindOpen.Plus.Databases.PostgreSql</AssemblyName>
+    <PackageId>BindOpen.Plus.Databases.PostgreSql</PackageId>
+    <Product>BindOpen.Plus.Databases</Product>
+    <Company>BindOpen</Company>
+    <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
+    <Description>BindOpen is a framework that allows you to build widely-extended applications. This package handles database connections.</Description>
+    <Authors>Sumer Team</Authors>
+    <RootNamespace>BindOpen.Plus.Databases</RootNamespace>
+    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Plus.Databases</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bindopen/BindOpen.Plus.Databases.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>bindopen_icon.png</PackageIcon>
+    <SignAssembly>true</SignAssembly>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>BindOpen.Plus.Databases.PostgreSql.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\docs\images\bindopen_icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\Readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BindOpen.Kernel.Scoping" Version="1.2.150" />
+    <PackageReference Include="Npgsql" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Databases\Databases.csproj" />
+  </ItemGroup>
+
+</Project>

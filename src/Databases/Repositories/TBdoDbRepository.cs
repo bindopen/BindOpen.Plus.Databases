@@ -1,7 +1,7 @@
 ﻿using BindOpen.Scoping;
-using BindOpen.Plus.Databases.Stores;
+using BindOpen.Databases.Stores;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents a master data repository.

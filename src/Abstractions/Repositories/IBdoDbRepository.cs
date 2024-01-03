@@ -1,9 +1,9 @@
 ﻿using BindOpen.Data.Repositories;
 using BindOpen.Logging;
-using BindOpen.Plus.Databases.Connectors;
+using BindOpen.Databases.Connectors;
 using System;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 

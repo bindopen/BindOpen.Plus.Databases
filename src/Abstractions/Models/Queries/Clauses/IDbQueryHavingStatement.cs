@@ -1,10 +1,10 @@
-﻿namespace BindOpen.Plus.Databases.Models
+﻿namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// 
     /// </summary>
     public interface IDbQueryHavingClause :
-        ITDbObject<IDbQueryHavingClause>,
+        IDbObject,
         IDbQueryStatement
     {
     }

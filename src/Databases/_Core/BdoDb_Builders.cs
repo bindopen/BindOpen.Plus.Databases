@@ -1,9 +1,9 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Meta;
 using BindOpen.Scoping;
-using BindOpen.Plus.Databases.Builders;
+using BindOpen.Databases.Builders;
 
-namespace BindOpen.Plus.Databases
+namespace BindOpen.Databases
 {
     /// <summary>
     /// This class represents a database factory.
@@ -18,7 +18,7 @@ namespace BindOpen.Plus.Databases
         /// <summary>
         /// Sets the database query builder in the specified script variable set.
         /// </summary>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <param name="queryBuilder">The query builder to consider.</param>
         /// <returns></returns>
         public static IBdoMetaSet AddDbQueryBuilder(
@@ -33,7 +33,7 @@ namespace BindOpen.Plus.Databases
         /// <summary>
         /// Gets the database query builder in the specified script variable set.
         /// </summary>
-        /// <param name="varElementSet">The script variable set to consider.</param>
+        /// <param name="varSet">The script variable set to consider.</param>
         /// <returns></returns>
         public static IDbQueryBuilder GetDbQueryBuilder(this IBdoMetaSet metaSet)
         {

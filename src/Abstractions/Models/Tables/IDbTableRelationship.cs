@@ -1,7 +1,6 @@
 ﻿using BindOpen.Data;
-using BindOpen.Plus.Databases.Models;
 
-namespace BindOpen.Plus.Databases.Models
+namespace BindOpen.Databases.Models
 {
     /// <summary>
     /// This class represents the table relationship.

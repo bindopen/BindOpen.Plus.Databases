@@ -1,4 +1,4 @@
-﻿namespace BindOpen.Plus.Databases.Connectors
+﻿namespace BindOpen.Databases.Connectors
 {
     /// <summary>
     /// This class represents a BindOpen scope extension.

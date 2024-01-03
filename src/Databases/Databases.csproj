@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>BindOpen.Plus.Databases</AssemblyName>
-    <PackageId>BindOpen.Plus.Databases</PackageId>
-    <Product>BindOpen.Plus.Databases</Product>
+    <AssemblyName>BindOpen.Databases</AssemblyName>
+    <PackageId>BindOpen.Databases</PackageId>
+    <Product>BindOpen.Databases</Product>
     <Company>BindOpen</Company>
     <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package handles database connections.</Description>
     <Authors>Sumer Team</Authors>
-    <RootNamespace>BindOpen.Plus.Databases</RootNamespace>
-    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Plus.Databases</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/bindopen/BindOpen.Plus.Databases.git</RepositoryUrl>
+    <RootNamespace>BindOpen.Databases</RootNamespace>
+    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Databases</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bindopen/BindOpen.Databases.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>bindopen_icon.png</PackageIcon>
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>BindOpen.Plus.Databases.xml</DocumentationFile>
+    <DocumentationFile>BindOpen.Databases.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Kernel.Scoping.Script" Version="1.2.148" />
+    <PackageReference Include="BindOpen.Kernel.Scoping.Script" Version="1.2.150" />
   </ItemGroup>
 
   <ItemGroup>
