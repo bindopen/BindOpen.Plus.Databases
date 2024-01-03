@@ -33,7 +33,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [Test]
         public void SimpleUpdate1()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
             string code = "codeC";
 
             string expectedResult =
@@ -50,9 +50,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
             string result = _dbConnector.CreateCommandText(_model.UpdateEmployee1(code, true, _employee), log: log);
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -60,7 +60,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [Test]
         public void SimpleUpdate2()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult =
                 @"update ""Mdm"".""Employee"" as ""employee"" set ""RegionalDirectorateId""=null from ""Mdm"".""RegionalDirectorate"" as ""regionalDirectorate"" where ""employee"".""RegionalDirectorateId""=""regionalDirectorate"".""RegionalDirectorateId"" and ""employee"".""Code""='codeC' returning ""employee"".""Code""";
@@ -68,9 +68,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
             string result = _dbConnector.CreateCommandText(_model.UpdateEmployee2("codeC"), log: log);
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -78,7 +78,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [Test]
         public void SimpleUpdate3()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult =
                 @"update ""Mdm"".""Employee"" as ""employee"" set "
@@ -90,9 +90,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
             string result = _dbConnector.CreateCommandText(_model.UpdateEmployee3("codeR"), log: log);
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -100,7 +100,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [Test]
         public void SimpleUpdate4()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult =
                 @"update ""Mdm"".""Employee"" as ""employee"" set "
@@ -111,9 +111,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
             string result = _dbConnector.CreateCommandText(_model.UpdateEmployee4("codeR"), log: log);
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
