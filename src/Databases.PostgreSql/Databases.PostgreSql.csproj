@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>BindOpen.Plus.Databases.PostgreSql</AssemblyName>
+    <AssemblyName>BindOpen.Databases.PostgreSql</AssemblyName>
     <PackageId>BindOpen.Plus.Databases.PostgreSql</PackageId>
     <Product>BindOpen.Plus.Databases</Product>
     <Company>BindOpen</Company>
     <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package handles database connections.</Description>
     <Authors>Sumer Team</Authors>
-    <RootNamespace>BindOpen.Plus.Databases</RootNamespace>
+    <RootNamespace>BindOpen.Databases.PostgreSql</RootNamespace>
     <PackageProjectUrl>https://github.com/bindopen/BindOpen.Plus.Databases</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bindopen/BindOpen.Plus.Databases.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
