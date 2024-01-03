@@ -21,7 +21,7 @@ namespace BindOpen.Databases.PostgreSql.Tuples
         [Test]
         public void AddFields()
         {
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             var tuple = BdoDb.Tuple(
                 BdoDb.Field("field1", BdoDb.Table("Table1")),

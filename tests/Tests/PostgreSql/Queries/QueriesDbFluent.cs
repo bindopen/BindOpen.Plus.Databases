@@ -20,16 +20,16 @@ namespace BindOpen.Databases.PostgreSql.Queries
         public void TestSqlValue()
         {
             var expression = BdoDb.Value(_value_datetime);
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult = @"$sqlValue('2020-12-20T00:00:00')";
 
             string result = (string)expression;
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -40,16 +40,16 @@ namespace BindOpen.Databases.PostgreSql.Queries
             var expression = BdoDb.Like(
                 BdoDb.Table("MyTable"),
                 BdoDb.Concat("%", BdoDb.Parameter("myText").AsExp(), "%"));
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult = @"$sqlLike($sqlTable('MyTable'), $sqlConcat($sqlText('%'), $sqlParameter('myText'), $sqlText('%')))";
 
             string result = (string)expression;
 
             string xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
 
@@ -61,9 +61,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
                 log: log);
             expectedResult = @"(""MyTable"" like concat('%', |*|p:myText|*|, '%'))";
             xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
 
@@ -77,7 +77,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
                     BdoDb.IfNull(
                         BdoDb.Parameter("myText"),
                         BdoDb.Field("fieldA")));
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult = @"""fieldA""=coalesce(|*|p:myText|*|, ""fieldA"")";
 
@@ -87,9 +87,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
                 log: log);
 
             var xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }
@@ -98,7 +98,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
         public void TestSqlStringConcat()
         {
             var expression = BdoDb.StringConcat("X", "O", "A");
-            var log = new BdoLog();
+            var log = BdoLogging.NewLog();
 
             string expectedResult = @"'X' || 'O' || 'A'";
 
@@ -108,9 +108,9 @@ namespace BindOpen.Databases.PostgreSql.Queries
                 log: log);
 
             var xml = "";
-            if (log.HasErrorsOrExceptions())
+            if (log.HasErrorOrException())
             {
-                xml = ". Result was '" + log.ToXml();
+                xml = ". Result was '" + log.ToString();
             }
             Assert.That(result.Trim().Equals(expectedResult.Trim(), StringComparison.OrdinalIgnoreCase), "Bad script interpretation" + xml);
         }

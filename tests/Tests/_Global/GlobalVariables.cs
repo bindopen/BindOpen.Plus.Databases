@@ -1,5 +1,6 @@
 ﻿using BindOpen.Data.Helpers;
 using BindOpen.Databases.Tests.Fakes;
+using BindOpen.Scoping;
 
 namespace BindOpen.Plus.Databases.Tests
 {
@@ -21,7 +22,7 @@ namespace BindOpen.Plus.Databases.Tests
             }
         }
 
-        public static IBdoHost AppHost
+        public static IBdoScope Scope
         {
             get
             {

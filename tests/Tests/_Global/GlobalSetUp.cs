@@ -13,7 +13,7 @@ namespace BindOpen.Plus.Databases.Tests
         {
             // Setup singleton variables for the first time
 
-            var _ = GlobalVariables.AppHost;
+            var _ = GlobalVariables.Scope;
         }
     }
 }
