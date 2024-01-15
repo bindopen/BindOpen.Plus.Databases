@@ -1,5 +1,8 @@
 ﻿using BindOpen.Databases.Connectors;
+using BindOpen.Databases.Models;
+using BindOpen.Databases.Stores;
 using BindOpen.Databases.Tests.Fakes;
+using BindOpen.Logging;
 using BindOpen.Plus.Databases.Tests;
 using NUnit.Framework;
 
@@ -14,8 +17,8 @@ namespace BindOpen.Databases.PostgreSql.Tuples
         [SetUp]
         public void Setup()
         {
-            _model = GlobalVariables.AppHost.GetModel<DbModelFake>();
-            _dbConnector = GlobalVariables.AppHost.CreatePostgreSqlConnector();
+            _model = GlobalVariables.Scope.GetModel<DbModelFake>();
+            _dbConnector = GlobalVariables.Scope.CreatePostgreSqlConnector();
         }
 
         [Test]

@@ -148,17 +148,14 @@ namespace BindOpen.Databases
         /// </summary>
         /// <param name="field">The field to consider.</param>
         /// <param name="script">The script to consider.</param>
-        public static IDbField AsScript(
+        public static IDbField AsExpression(
             this IDbField field,
-            string script)
+            IBdoExpression exp)
         {
             if (field != null)
             {
-                field.ValueType = DataValueTypes.None;
-                if (script != null)
-                {
-                    field.Expression = script.ToExpression(BdoExpressionKind.Script);
-                }
+                field.ValueType = DataValueTypes.Any;
+                field.Expression = exp;
             }
 
             return field;
@@ -171,9 +168,9 @@ namespace BindOpen.Databases
         /// <param name="script">The script to consider.</param>
         public static IDbField FieldAsScript(
             string name,
-            string script)
+            IBdoExpression exp)
         {
-            return FieldAsScript(name, null, script);
+            return FieldAsScript(name, null, exp);
         }
 
         /// <summary>
@@ -185,10 +182,10 @@ namespace BindOpen.Databases
         public static IDbField FieldAsScript(
             string name,
             IDbTable table,
-            string script)
+            IBdoExpression exp)
         {
-            var field = Field(name, table);
-            field.AsScript(script);
+            var field = Field(name, table)
+                .AsExpression(exp);
             return field;
         }
 
@@ -199,9 +196,9 @@ namespace BindOpen.Databases
         /// <param name="script">The script to consider.</param>
         public static IDbField FieldAsScript<T>(
             Expression<Func<T, object>> expr,
-            string script) where T : class
+            IBdoExpression exp) where T : class
         {
-            return FieldAsScript<T>(expr, null, script);
+            return FieldAsScript<T>(expr, null, exp);
         }
 
         /// <summary>
@@ -213,10 +210,9 @@ namespace BindOpen.Databases
         public static IDbField FieldAsScript<T>(
             Expression<Func<T, object>> expr,
             IDbTable table,
-            string script) where T : class
+            IBdoExpression exp) where T : class
         {
-            var field = Field<T>(expr, table);
-            field.AsScript(script);
+            var field = Field(expr, table).AsExpression(exp);
             return field;
         }
 
@@ -620,7 +616,7 @@ namespace BindOpen.Databases
         /// <param name="field">The field to consider.</param>
         public static IDbField AsNull(this IDbField field)
         {
-            return field?.AsScript(Null().ToString());
+            return field?.AsExpression(Null());
         }
 
         /// <summary>

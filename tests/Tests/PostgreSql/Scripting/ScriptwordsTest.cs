@@ -1,4 +1,7 @@
-﻿using BindOpen.Databases.Connectors;
+﻿using BindOpen.Data;
+using BindOpen.Databases.Builders;
+using BindOpen.Databases.Connectors;
+using BindOpen.Logging;
 using BindOpen.Plus.Databases.Tests;
 using NUnit.Framework;
 using System;
@@ -13,7 +16,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         [SetUp]
         public void Setup()
         {
-            _dbConnector = GlobalVariables.AppHost.CreatePostgreSqlConnector();
+            _dbConnector = GlobalVariables.Scope.CreatePostgreSqlConnector();
         }
 
         [Test, Order(1)]
@@ -22,7 +25,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             var log = BdoLogging.NewLog();
 
             string value = null;
-            string fluentScript = BdoDb.Eq(
+            var fluentScript = BdoDb.Eq(
                 BdoDb.Field("RegionalDirectorateId"), BdoDb.IfNull(value, BdoDb.Field("RegionalDirectorateId")));
             string expectedScript = "$sqlEq($sqlField('RegionalDirectorateId'), $sqlIfNull($sqlNull(), $sqlField('RegionalDirectorateId')))";
 
@@ -31,13 +34,12 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             {
                 xml = ". Result was '" + log.ToString();
             }
-            Assert.That(expectedScript.Equals(fluentScript, StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
+            Assert.That(expectedScript.Equals(fluentScript.ToString(), StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
 
 
-            var varSet = new ScriptVariableSet();
-            varSet.SetValue(VarSetDb.__DbBuilder,
-                BdoDb.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+            string result = GlobalVariables.Scope.Interpreter.Evaluate(fluentScript, varSet, log: log)?.ToString();
 
             string expectedResult = @"""RegionalDirectorateId""=COALESCE(NULL, ""RegionalDirectorateId"")";
 
@@ -56,13 +58,12 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             // Case: value, null
 
             string value = null;
-            string fluentScript1 = BdoDb.Eq(
+            var fluentScript1 = BdoDb.Eq(
                 null, BdoDb.IfNull(value, BdoDb.Field("RegionalDirectorateId", BdoDb.Table("Table1", "Schema1"))));
 
-            var varSet = new ScriptVariableSet();
-            varSet.SetValue(VarSetDb.__DbBuilder,
-                BdoDb.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript1, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+            string result = GlobalVariables.Scope.Interpreter.Evaluate(fluentScript1, varSet, log: log)?.ToString();
 
             string expectedResult = @"COALESCE(NULL, ""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
 
@@ -75,9 +76,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
 
             // Case: null, value
 
-            string fluentScript2 = BdoDb.Eq(
+            var fluentScript2 = BdoDb.Eq(
                 BdoDb.IfNull(value, BdoDb.Field("RegionalDirectorateId", BdoDb.Table("Table1", "Schema1"))), null);
-            result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript2, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            result = GlobalVariables.Scope.Interpreter.Evaluate(fluentScript2, varSet, log: log)?.ToString();
 
             expectedResult = @"COALESCE(NULL, ""Schema1"".""Table1"".""RegionalDirectorateId"") is null";
 
@@ -93,7 +94,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         public void TestInterprete_Fun_SqlIfNull()
         {
             string value = null;
-            string script1 = BdoDb.Eq(
+            var script1 = BdoDb.Eq(
                 BdoDb.IfNull(BdoDb.Field("RegionalDirectorateId"), ""),
                 BdoDb.IfNull(value, ""));
 
@@ -101,10 +102,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
 
             var log = BdoLogging.NewLog();
 
-            var varSet = new ScriptVariableSet();
-            varSet.SetValue(VarSetDb.__DbBuilder,
-                BdoDb.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script1, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+            string result = GlobalVariables.Scope.Interpreter.Evaluate(script1, varSet, log: log)?.ToString();
 
             string xml = "";
             if (log.HasErrorOrException())
@@ -117,15 +117,14 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         [Test, Order(3)]
         public void TestInterprete_Fun_SqlEncode()
         {
-            string script = BdoDb.EncodeBase64(BdoDb.Text("ABCDE"));
+            var script = BdoDb.EncodeBase64(BdoDb.Text("ABCDE"));
             string expectedResult = @"encode('ABCDE', 'base64')";
 
             var log = BdoLogging.NewLog();
 
-            var varSet = new ScriptVariableSet();
-            varSet.SetValue(VarSetDb.__DbBuilder,
-                BdoDb.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+            string result = GlobalVariables.Scope.Interpreter.Evaluate(script, varSet, log: log)?.ToString();
 
             string xml = "";
             if (log.HasErrorOrException())
@@ -138,10 +137,9 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             expectedResult = @"decode(""ABCDE"", 'base64')";
             log = new BdoLog();
 
-            varSet = new ScriptVariableSet();
-            varSet.SetValue(VarSetDb.__DbBuilder,
-                BdoDb.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+            result = GlobalVariables.Scope.Interpreter.Evaluate(script, varSet, log: log)?.ToString();
 
             xml = "";
             if (log.HasErrorOrException())
@@ -156,7 +154,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         {
             var log = BdoLogging.NewLog();
 
-            string fluentScript = BdoDb.LowerCase(BdoDb.Field("RegionalDirectorateId"));
+            var fluentScript = BdoDb.LowerCase(BdoDb.Field("RegionalDirectorateId"));
             string expectedScript = "$sqlLCase($sqlField('RegionalDirectorateId'))";
 
             string xml = "";
@@ -164,13 +162,11 @@ namespace BindOpen.Databases.PostgreSql.Scripting
             {
                 xml = ". Result was '" + log.ToString();
             }
-            Assert.That(expectedScript.Equals(fluentScript, StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
+            Assert.That(expectedScript.Equals(fluentScript.ToString(), StringComparison.OrdinalIgnoreCase), "Bad fluent interpretation. Result was '" + xml);
 
-
-            var varSet = new ScriptVariableSet();
-            varSet.SetValue(VarSetDb.__DbBuilder,
-                BdoDb.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+            string result = GlobalVariables.Scope.Interpreter.Evaluate(fluentScript, varSet, log: log)?.ToString();
 
             string expectedResult = @"lower(""RegionalDirectorateId"")";
 
@@ -186,12 +182,11 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         {
             var log = BdoLogging.NewLog();
 
-            string fluentScript = BdoDb.LeftPadding(BdoDb.Field("RegionalDirectorateId"), 10, BdoDb.Text("A"));
+            var fluentScript = BdoDb.LeftPadding(BdoDb.Field("RegionalDirectorateId"), 10, BdoDb.Text("A"));
 
-            var varSet = new ScriptVariableSet();
-            varSet.SetValue(VarSetDb.__DbBuilder,
-                BdoDb.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(fluentScript, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+            string result = GlobalVariables.Scope.Interpreter.Evaluate(fluentScript, varSet, log: log)?.ToString();
 
             string expectedResult = @"lpad(""RegionalDirectorateId"", 10, 'A')";
 
@@ -207,16 +202,15 @@ namespace BindOpen.Databases.PostgreSql.Scripting
         public void TestInterprete_Fun_SqlIf()
         {
             string value = null;
-            string script1 = BdoDb.If(BdoDb.IsNull(value), BdoDb.Field("RegionalDirectorateId"), BdoDb.Field("RegionalDirectorateId2"));
+            var script1 = BdoDb.If(BdoDb.IsNull(value), BdoDb.Field("RegionalDirectorateId"), BdoDb.Field("RegionalDirectorateId2"));
 
             string expectedResult = @"case when (null is null) then ""RegionalDirectorateId"" else ""RegionalDirectorateId2"" end";
 
             var log = BdoLogging.NewLog();
 
-            var varSet = new ScriptVariableSet();
-            varSet.SetValue(VarSetDb.__DbBuilder,
-                BdoDb.CreateQueryBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.AppHost));
-            string result = GlobalVariables.AppHost.Scope.Interpreter.Evaluate(script1, DataExpressionKind.Script, varSet, log: log)?.ToString();
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+            string result = GlobalVariables.Scope.Interpreter.Evaluate(script1, varSet, log: log)?.ToString();
 
             string xml = "";
             if (log.HasErrorOrException())

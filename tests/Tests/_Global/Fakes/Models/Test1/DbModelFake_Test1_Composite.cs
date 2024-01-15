@@ -1,8 +1,5 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
+﻿using BindOpen.Data;
 using BindOpen.Databases.Models;
-using BindOpen.Databases.Data;
-using BindOpen.Databases.Tests.PostgreSql.Data.Dtos.Test1;
 using BindOpen.Databases.Tests.Fakes.Test1;
 
 namespace BindOpen.Databases.Tests.Fakes

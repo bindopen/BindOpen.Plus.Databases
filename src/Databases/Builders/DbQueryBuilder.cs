@@ -112,12 +112,12 @@ namespace BindOpen.Databases.Builders
                 {
                     if (query is IDbSingleQuery singleDbQuery)
                     {
-                        varSet.AddDbQueryBuilder(this);
+                        varSet.AddDbBuilder(this);
                         queryString = GetSqlText_Query(singleDbQuery, parameterSet, varSet, log);
                     }
                     else if (query is IDbCompositeQuery compositeDbQuery)
                     {
-                        varSet.AddDbQueryBuilder(this);
+                        varSet.AddDbBuilder(this);
                         queryString = GetSqlText_Query(compositeDbQuery, parameterSet, varSet, log);
                     }
                     else if (query is IDbStoredQuery storedDbQuery)

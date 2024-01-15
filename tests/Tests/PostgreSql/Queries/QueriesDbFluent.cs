@@ -1,4 +1,8 @@
-﻿using BindOpen.Plus.Databases.Tests;
+﻿using BindOpen.Data;
+using BindOpen.Databases.Builders;
+using BindOpen.Logging;
+using BindOpen.Plus.Databases.Tests;
+using BindOpen.Scoping;
 using NUnit.Framework;
 using System;
 
@@ -7,13 +11,13 @@ namespace BindOpen.Databases.PostgreSql.Queries
     [TestFixture]
     public class QueriesBdoDb
     {
-        private IBdoHost _appHost;
+        private IBdoScope _appScope;
         private DateTime _value_datetime = new DateTime(2020, 12, 20);
 
         [SetUp]
         public void Setup()
         {
-            _appHost = GlobalVariables.AppHost;
+            _appScope = GlobalVariables.Scope;
         }
 
         [Test]
@@ -24,7 +28,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
 
             string expectedResult = @"$sqlValue('2020-12-20T00:00:00')";
 
-            string result = (string)expression;
+            string result = expression.ToString();
 
             string xml = "";
             if (log.HasErrorOrException())
@@ -44,7 +48,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
 
             string expectedResult = @"$sqlLike($sqlTable('MyTable'), $sqlConcat($sqlText('%'), $sqlParameter('myText'), $sqlText('%')))";
 
-            string result = (string)expression;
+            string result = expression.ToString();
 
             string xml = "";
             if (log.HasErrorOrException())
@@ -55,10 +59,10 @@ namespace BindOpen.Databases.PostgreSql.Queries
 
             // scripted
 
-            result = _appHost.Interpreter.Evaluate<string>(
-                expression,
-                new ScriptVariableSet().SetDbBuilder(new DbQueryBuilder_PostgreSql()),
-                log: log);
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+
+            result = _appScope.Interpreter.Evaluate<string>(expression, varSet, log: log);
             expectedResult = @"(""MyTable"" like concat('%', |*|p:myText|*|, '%'))";
             xml = "";
             if (log.HasErrorOrException())
@@ -81,10 +85,10 @@ namespace BindOpen.Databases.PostgreSql.Queries
 
             string expectedResult = @"""fieldA""=coalesce(|*|p:myText|*|, ""fieldA"")";
 
-            var result = _appHost.Interpreter.Evaluate<string>(
-                expression,
-                new ScriptVariableSet().SetDbBuilder(new DbQueryBuilder_PostgreSql()),
-                log: log);
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+
+            var result = _appScope.Interpreter.Evaluate<string>(expression, varSet, log: log);
 
             var xml = "";
             if (log.HasErrorOrException())
@@ -102,10 +106,10 @@ namespace BindOpen.Databases.PostgreSql.Queries
 
             string expectedResult = @"'X' || 'O' || 'A'";
 
-            var result = _appHost.Interpreter.Evaluate<string>(
-                expression,
-                new ScriptVariableSet().SetDbBuilder(new DbQueryBuilder_PostgreSql()),
-                log: log);
+            var varSet = BdoData.NewSet()
+                .AddDbBuilder<DbQueryBuilder_PostgreSql>(GlobalVariables.Scope);
+
+            var result = _appScope.Interpreter.Evaluate<string>(expression, varSet, log: log);
 
             var xml = "";
             if (log.HasErrorOrException())

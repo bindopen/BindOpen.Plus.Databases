@@ -1,8 +1,7 @@
-﻿using BindOpen.Framework.MetaData;
+﻿using BindOpen.Data;
 using BindOpen.Databases.Models;
-using BindOpen.Databases.Data;
-using BindOpen.Logging;
 using BindOpen.Databases.Tests.Fakes.Test1;
+using BindOpen.Logging;
 
 namespace BindOpen.Databases.Tests.Fakes
 {
@@ -52,9 +51,9 @@ namespace BindOpen.Databases.Tests.Fakes
                 .Filter(
                     q,
                     BdoDb.CreateFilterDefinition(
-                        BdoDb.CreateFilterClause("startDate", BdoDb.Field("CreationDate", BdoDb.Table("table")), DataOperators.GreaterOrEqual),
-                        BdoDb.CreateFilterClause("endDate", BdoDb.Field("LastModificationDate", BdoDb.Table("table")), DataOperators.LesserOrEqual),
-                        BdoDb.CreateFilterClause("code", BdoDb.Field("Code", BdoDb.Table("table")), DataOperators.Equal)),
+                        BdoDb.CreateFilterClause("startDate", BdoDb.Field("CreationDate", BdoDb.Table("table")), DataOperators.GreaterOrEqualThan),
+                        BdoDb.CreateFilterClause("endDate", BdoDb.Field("LastModificationDate", BdoDb.Table("table")), DataOperators.LesserOrEqualThan),
+                        BdoDb.CreateFilterClause("code", BdoDb.Field("Code", BdoDb.Table("table")), DataOperators.EqualsTo)),
                     log)
                 .Sort(
                     orderBy,

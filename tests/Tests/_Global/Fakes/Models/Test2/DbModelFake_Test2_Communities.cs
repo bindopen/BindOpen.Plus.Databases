@@ -33,9 +33,9 @@ namespace BindOpen.Databases.Tests.Fakes
                     .Filter(
                         q,
                         BdoDb.CreateFilterDefinition(
-                            BdoDb.CreateFilterClause("startDate", Field<DbCommunityFake>(p => p.CreationDate), DataOperators.GreaterOrEqual),
-                            BdoDb.CreateFilterClause("endDate", Field<DbCommunityFake>(p => p.LastModificationDate), DataOperators.LesserOrEqual),
-                            BdoDb.CreateFilterClause("code", Field<DbCommunityFake>(p => p.Code), DataOperators.Equal)),
+                            BdoDb.CreateFilterClause("startDate", Field<DbCommunityFake>(p => p.CreationDate), DataOperators.GreaterOrEqualThan),
+                            BdoDb.CreateFilterClause("endDate", Field<DbCommunityFake>(p => p.LastModificationDate), DataOperators.LesserOrEqualThan),
+                            BdoDb.CreateFilterClause("code", Field<DbCommunityFake>(p => p.Code), DataOperators.EqualsTo)),
                         log)
                     .Sort(
                         orderBy,

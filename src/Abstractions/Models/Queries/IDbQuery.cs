@@ -75,7 +75,7 @@ namespace BindOpen.Databases.Models
         /// </summary>
         /// <param name="parameters">The parameters to consider.</param>
         /// <returns>Return this instance.</returns>
-        IDbQuery AddParameters(params IBdoMetaScalar[] parameters);
+        IDbQuery AddParameters(params IBdoMetaData[] parameters);
 
         /// <summary>
         /// The parameter specification set of this instance.
