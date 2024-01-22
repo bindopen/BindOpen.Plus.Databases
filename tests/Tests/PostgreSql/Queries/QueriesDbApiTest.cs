@@ -1,4 +1,5 @@
 ﻿using BindOpen.Databases.Connectors;
+using BindOpen.Databases.Stores;
 using BindOpen.Databases.Tests.Fakes;
 using BindOpen.Logging;
 using BindOpen.Plus.Databases.Tests;

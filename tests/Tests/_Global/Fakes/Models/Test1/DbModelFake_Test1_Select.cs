@@ -1,7 +1,5 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
+﻿using BindOpen.Data;
 using BindOpen.Databases.Models;
-using BindOpen.Databases.Data;
 using BindOpen.Databases.Tests.Fakes.Test1;
 
 namespace BindOpen.Databases.Tests.Fakes
@@ -134,7 +132,7 @@ namespace BindOpen.Databases.Tests.Fakes
             return this.UseQuery("SelectEmployeeWithCode6", p =>
                 p.SelectQuery<DbEmployeeFake>()
                     .WithFields(Tuple("Fields_SelectEmployee2"))
-                    .AddField(BdoDb.FieldAsScript<DbEmployeeFake>(p => p.DateTimeField, "$sqlGetCurrentDate()"))
+                    .AddField(BdoDb.FieldAsScript<DbEmployeeFake>(p => p.DateTimeField, BdoData.NewExp("$sqlGetCurrentDate()")))
                     .OrderBy(
                         BdoDb.OrderBy(
                             BdoDb.FieldAsScript<DbEmployeeFake>(p => p.Code,
@@ -156,7 +154,7 @@ namespace BindOpen.Databases.Tests.Fakes
             return this.UseQuery("SelectEmployeeWithCode7", p =>
                 p.SelectQuery<DbEmployeeFake>()
                     .WithFields(Tuple("Fields_SelectEmployee2"))
-                    .AddField(BdoDb.FieldAsScript<DbEmployeeFake>(p => p.DateTimeField, "$sqlGetCurrentDate()"))
+                    .AddField(BdoDb.FieldAsScript<DbEmployeeFake>(p => p.DateTimeField, BdoData.NewExp("$sqlGetCurrentDate()")))
                 )
                 .WithParameters(
                     BdoData.NewScalar("code", code));

@@ -12,7 +12,7 @@
         /// <returns>The result object.</returns>
         public static string GetUniqueName(this BdoDbCarrierKind dbCarrierKind)
         {
-            return dbCarrierKind.ToString().ToLower().GetUniqueName_database();
+            return dbCarrierKind.ToString().ToLower().GetDbConnectorUniqueName();
         }
     }
 }

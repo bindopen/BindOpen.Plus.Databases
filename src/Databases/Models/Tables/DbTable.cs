@@ -1,4 +1,5 @@
 ﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
 using BindOpen.Data.Meta;
 using BindOpen.Scoping;
 using BindOpen.Scoping.Entities;
@@ -54,7 +55,29 @@ namespace BindOpen.Databases.Models
         /// <returns></returns>
         public override string ToString()
         {
-            return this;
+            string st = "";
+
+            if (!string.IsNullOrEmpty(Alias))
+            {
+                st = st.ConcatenateIf(string.IsNullOrEmpty(st), "$") + "sqlTable('" + Alias + "')";
+            }
+            else
+            {
+                st = st.ConcatenateIf(!string.IsNullOrEmpty(DataModule), st.ConcatenateIf(string.IsNullOrEmpty(st), "$") + "sqlDatabase('" + DataModule + "').");
+
+                st = st.ConcatenateIf(!string.IsNullOrEmpty(Schema), st.ConcatenateIf(string.IsNullOrEmpty(st), "$") + "sqlSchema('" + Schema + "').");
+
+                if (!string.IsNullOrEmpty(Name))
+                {
+                    st = st.ConcatenateIf(string.IsNullOrEmpty(st), "$") + "sqlTable('" + Name + "')";
+                }
+                else
+                {
+                    st = st.ConcatenateIf(string.IsNullOrEmpty(st), "$") + "sqlTable('<!-TABLE_MISSING-!>')";
+                }
+            }
+
+            return st;
         }
 
         #endregion
@@ -66,12 +89,6 @@ namespace BindOpen.Databases.Models
         #region ITNamedPoco
 
         public string Name { get; set; }
-
-        public IDbTable WithName(string name)
-        {
-            Name = name;
-            return this;
-        }
 
         #endregion
 
@@ -86,17 +103,6 @@ namespace BindOpen.Databases.Models
         /// </summary>
         [BdoProperty(Name = "expression")]
         public IBdoExpression Expression { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="exp"></param>
-        /// <returns></returns>
-        public IDbTable WithExpression(IBdoExpression exp)
-        {
-            Expression = exp;
-            return this;
-        }
 
         #endregion
 
@@ -113,49 +119,16 @@ namespace BindOpen.Databases.Models
         public string DataModule { get; set; }
 
         /// <summary>
-        /// Sets the specified data module.
-        /// </summary>
-        /// <param name="dataModule">The data module to consider.</param>
-        /// <returns>Returns this instance.</returns>
-        public IDbTable WithDataModule(string dataModule)
-        {
-            DataModule = dataModule;
-            return this;
-        }
-
-        /// <summary>
         /// Data module of this instance.
         /// </summary>
         [BdoProperty(Name = "schema")]
         public string Schema { get; set; }
 
         /// <summary>
-        /// Sets the specified schema.
-        /// </summary>
-        /// <param name="schema">The schema to consider.</param>
-        /// <returns>Returns this instance.</returns>
-        public IDbTable WithSchema(string schema)
-        {
-            Schema = schema;
-            return this;
-        }
-
-        /// <summary>
         /// Alias of this instance.
         /// </summary>
         [BdoProperty(Name = "alias")]
         public string Alias { get; set; }
-
-        /// <summary>
-        /// Sets the specified alias.
-        /// </summary>
-        /// <param name="alias">The alias to consider.</param>
-        /// <returns>Returns this instance.</returns>
-        public IDbTable WithAlias(string alias)
-        {
-            Alias = alias;
-            return this;
-        }
 
         #endregion
 
@@ -169,8 +142,7 @@ namespace BindOpen.Databases.Models
         /// Returns the data expression string corresponding to this instance.
         /// </summary>
         /// <param name="table">The table to consider.</param>
-        public static implicit operator string(DbTable table)
-            => table.ToScript();
+        public static implicit operator string(DbTable table) => table?.ToString();
 
         #endregion
     }

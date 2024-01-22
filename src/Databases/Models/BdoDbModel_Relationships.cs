@@ -1,6 +1,5 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Helpers;
-using BindOpen.Databases.Models;
 using BindOpen.Databases.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -48,7 +47,7 @@ namespace BindOpen.Databases.Models
                         BdoDb.Field(mapping.Value, relationship.Table2)));
             }
 
-            return (BdoExpression)BdoDb.And(queryConditions.ToArray());
+            return BdoDb.And(queryConditions.ToArray());
         }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace BindOpen.Databases.Models
             var table1Name = Table<T1>()?.Name;
             var table2Name = Table<T2>()?.Name;
 
-            return (BdoExpression)JoinCondition(table1Name + "_" + table2Name, table1Alias, table2Alias);
+            return JoinCondition(table1Name + "_" + table2Name, table1Alias, table2Alias);
         }
 
         // Relationships ---------------------------------------

@@ -11,19 +11,5 @@ namespace BindOpen.Databases.Models
         /// The tuples of this instance.
         /// </summary>
         public List<IDbTuple> Tuples { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tuples"></param>
-        /// <returns></returns>
-        IDbTupledTable WithTuples(params IDbTuple[] tuples);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tuples"></param>
-        /// <returns></returns>
-        IDbTupledTable AddTuples(params IDbTuple[] tuples);
     }
 }

@@ -1,6 +1,11 @@
-﻿using BindOpen.Databases.Connectors;
+﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
+using BindOpen.Databases.Connectors;
+using BindOpen.Databases.Stores;
 using BindOpen.Databases.Tests.Fakes;
+using BindOpen.Logging;
 using BindOpen.Plus.Databases.Tests;
+using Bogus;
 using NUnit.Framework;
 using System;
 
@@ -16,8 +21,8 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [SetUp]
         public void Setup()
         {
-            _model = GlobalVariables.AppHost.GetModel<DbModelFake>();
-            _dbConnector = GlobalVariables.AppHost.CreatePostgreSqlConnector();
+            _model = GlobalVariables.Scope.GetModel<DbModelFake>();
+            _dbConnector = GlobalVariables.Scope.CreatePostgreSqlConnector();
 
             var f = new Faker();
             _employee = new EmployeeDtoFake()
@@ -39,7 +44,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
             string expectedResult =
                 @"update ""Mdm"".""Employee"" set "
                 + @"""Code""='" + code + "'"
-                + @", ""ByteArrayField""='" + _employee.ByteArrayField.ToString(DataValueTypes.ByteArray).Replace("'", "''") + "'"
+                + @", ""ByteArrayField""='" + _employee.ByteArrayField.ToString(DataValueTypes.Binary).Replace("'", "''") + "'"
                 + @", ""DoubleField""=" + _employee.DoubleField.ToString(DataValueTypes.Number)
                 + @", ""DateTimeField""='" + _employee.DateTimeField.ToString(DataValueTypes.Date) + "'"
                 + @", ""LongField""=" + _employee.LongField.ToString(DataValueTypes.Long)

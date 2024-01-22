@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>BindOpen.Plus.Databases.Samples</AssemblyName>
-    <PackageId>BindOpen.Plus.Databases.Samples</PackageId>
-    <Product>BindOpen.Plus.Databases</Product>
+    <AssemblyName>BindOpen.Databases.Samples</AssemblyName>
+    <PackageId>BindOpen.Databases.Samples</PackageId>
+    <Product>BindOpen.Databases</Product>
     <Company>BindOpen</Company>
-    <Copyright>Copyright ©BindOpen 2011-2023</Copyright>
+    <Copyright>Copyright ©BindOpen 2011-2024</Copyright>
     <Description>BindOpen is a framework that allows you to build widely-extended applications. This package conducts on-demand tests before they are implemented in the unit test project.</Description>
     <Authors>Sumer Team</Authors>
-    <RootNamespace>BindOpen.Plus.Databases.Samples</RootNamespace>
-    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Plus.Databases</PackageProjectUrl>
+    <RootNamespace>BindOpen.Databases.Samples</RootNamespace>
+    <PackageProjectUrl>https://github.com/bindopen/BindOpen.Databases</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bindopen/BindOpen.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -18,7 +18,7 @@
     <OutputType>Exe</OutputType>
     <PackageIconUrl>https://storage.bindopen.org/org/icons/bindopen_icon_64x64.png</PackageIconUrl>
     <SignAssembly>true</SignAssembly>
-    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -34,15 +34,15 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\..\Readme.md">
+    <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BindOpen.Plus.Databases.MSSqlServer\Databases.MSSqlServer.csproj" />
-    <ProjectReference Include="..\BindOpen.Plus.Databases.PostgreSql\Databases.PostgreSql.csproj" />
+    <ProjectReference Include="..\BindOpen.Databases.MSSqlServer\Databases.MSSqlServer.csproj" />
+    <ProjectReference Include="..\BindOpen.Databases.PostgreSql\Databases.PostgreSql.csproj" />
   </ItemGroup>
   
   <ItemGroup>

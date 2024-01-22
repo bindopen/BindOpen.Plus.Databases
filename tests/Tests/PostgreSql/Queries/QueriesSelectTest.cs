@@ -1,5 +1,7 @@
 ﻿using BindOpen.Databases.Connectors;
+using BindOpen.Databases.Stores;
 using BindOpen.Databases.Tests.Fakes;
+using BindOpen.Logging;
 using BindOpen.Plus.Databases.Tests;
 using NUnit.Framework;
 using System;
@@ -15,8 +17,8 @@ namespace BindOpen.Databases.PostgreSql.Queries
         [SetUp]
         public void Setup()
         {
-            _model = GlobalVariables.AppHost.GetModel<DbModelFake>();
-            _dbConnector = GlobalVariables.AppHost.CreatePostgreSqlConnector();
+            _model = GlobalVariables.Scope.GetModel<DbModelFake>();
+            _dbConnector = GlobalVariables.Scope.CreatePostgreSqlConnector();
         }
 
         [Test]
