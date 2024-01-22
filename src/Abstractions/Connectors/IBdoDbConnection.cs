@@ -13,10 +13,5 @@ namespace BindOpen.Databases.Connectors
         /// </summary>
         /// <returns>Returns the connection of this instance.</returns>
         IDbConnection Native { get; }
-
-        /// <summary>
-        /// Connector of the connection.
-        /// </summary>
-        new IBdoDbConnector Connector { get; set; }
     }
 }

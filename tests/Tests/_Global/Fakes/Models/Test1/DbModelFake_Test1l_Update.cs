@@ -1,8 +1,5 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
+﻿using BindOpen.Data;
 using BindOpen.Databases.Models;
-using BindOpen.Databases.Data;
-using BindOpen.Databases.Tests.PostgreSql.Data.Dtos.Test1;
 using BindOpen.Databases.Tests.Fakes.Test1;
 
 namespace BindOpen.Databases.Tests.Fakes
@@ -38,7 +35,7 @@ namespace BindOpen.Databases.Tests.Fakes
 
                     query.AddField(
                         !isPartialUpdate || employee?.ByteArrayField?.Length > 0,
-                        q => BdoDb.FieldAsParameter(nameof(DbEmployeeFake.ByteArrayField), q.UseParameter("byteArrayField", DataValueTypes.ByteArray)));
+                        q => BdoDb.FieldAsParameter(nameof(DbEmployeeFake.ByteArrayField), q.UseParameter("byteArrayField", DataValueTypes.Binary)));
 
                     query.AddField(
                         !isPartialUpdate || employee?.DateTimeField != null,

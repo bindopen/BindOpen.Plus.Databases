@@ -1,7 +1,7 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Meta;
-using BindOpen.Scoping;
 using BindOpen.Databases.Builders;
+using BindOpen.Scoping;
 
 namespace BindOpen.Databases
 {
@@ -13,21 +13,22 @@ namespace BindOpen.Databases
         /// <summary>
         /// The context entry corresponding to the database builder
         /// </summary>
-        public static string __DbBuilder = "DATABASE_BUILDER";
+        public static string __DbBuilderToken = "$DB_QUERYBUILDER";
 
-        /// <summary>
-        /// Sets the database query builder in the specified script variable set.
-        /// </summary>
-        /// <param name="varSet">The script variable set to consider.</param>
-        /// <param name="queryBuilder">The query builder to consider.</param>
-        /// <returns></returns>
-        public static IBdoMetaSet AddDbQueryBuilder(
+        public static IBdoMetaSet AddDbBuilder(
             this IBdoMetaSet metaSet,
-            IDbQueryBuilder queryBuilder)
+            IDbQueryBuilder builder)
         {
-            metaSet?.Add(BdoData.NewMeta(__DbBuilder, queryBuilder));
+            metaSet?.Add(BdoData.NewMeta(__DbBuilderToken, builder));
 
             return metaSet;
+        }
+
+        public static IBdoMetaSet AddDbBuilder<T>(this IBdoMetaSet metaSet, IBdoScope scope)
+            where T : IDbQueryBuilder, new()
+        {
+            var builder = scope.CreateQueryBuilder<T>();
+            return metaSet.AddDbBuilder(builder);
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace BindOpen.Databases
         /// <returns></returns>
         public static IDbQueryBuilder GetDbQueryBuilder(this IBdoMetaSet metaSet)
         {
-            return metaSet?.GetData<DbQueryBuilder>(__DbBuilder);
+            return metaSet?.GetData<DbQueryBuilder>(__DbBuilderToken);
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace BindOpen.Databases
         /// <param name="scope">The scope to consider.</param>
         /// <typeparam name="T">The query builder type to consider.</typeparam>
         /// <returns>Returns the created query builder.</returns>
-        public static T CreateQueryBuilder<T>(IBdoScope scope)
+        public static T CreateQueryBuilder<T>(this IBdoScope scope)
             where T : IDbQueryBuilder, new()
         {
             var builder = new T().WithScope(scope);

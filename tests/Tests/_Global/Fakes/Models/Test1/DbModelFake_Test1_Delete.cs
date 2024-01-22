@@ -1,8 +1,5 @@
-﻿using BindOpen.Framework.MetaData;
-using BindOpen.Framework.MetaData.Elements;
-using BindOpen.Framework.MetaData.Expression;
+﻿using BindOpen.Data;
 using BindOpen.Databases.Models;
-using BindOpen.Databases.Data;
 using BindOpen.Databases.Tests.Fakes.Test1;
 
 namespace BindOpen.Databases.Tests.Fakes
@@ -48,7 +45,7 @@ namespace BindOpen.Databases.Tests.Fakes
         internal IDbQuery DeleteEmployee3(string code)
         {
             var query = BdoDb.DeleteQuery(Table<DbEmployeeFake>())
-                .Where(q => DataExpressionFactory.CreateExpAsAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueTypes.Text).AsExp()) + "}}"))
+                .Where(q => BdoData.NewExp("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueTypes.Text).AsExp()) + "}}", BdoExpressionKind.Auto))
                 .WithParameters(
                     BdoData.NewScalar("code", code));
 
@@ -114,7 +111,7 @@ namespace BindOpen.Databases.Tests.Fakes
                         DbQueryJoinKind.Left,
                         JoinCondition<DbEmployeeFake, DbContactFake>())
                         .WithAlias("mainCountry"))
-                .Where(q => DataExpressionFactory.CreateExpAsAuto("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueTypes.Text).AsExp()) + "}}"))
+                .Where(q => BdoData.NewExp("{{" + string.Format("$sqlEq($sqlField('Code'), {0})", q.UseParameter("code", DataValueTypes.Text).AsExp()) + "}}", BdoExpressionKind.Auto))
                 .WithParameters(
                     BdoData.NewScalar("code", code));
 
@@ -140,7 +137,7 @@ namespace BindOpen.Databases.Tests.Fakes
                         DbQueryJoinKind.Left,
                         Table<DbContactFake>().WithAlias("secondaryCountry"),
                         JoinCondition<DbEmployeeFake, DbContactFake>("secondary")))
-                .Where(q => DataExpressionFactory.CreateExpAsLiteral(@"""Code""='codeC'"))
+                .Where(q => BdoData.NewExp(@"""Code""='codeC'", BdoExpressionKind.Literal))
                 .WithParameters(
                     BdoData.NewScalar("code", code));
 

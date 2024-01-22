@@ -1,47 +1,60 @@
 ﻿using BindOpen.Data.Helpers;
-using BindOpen.Databases.Tests.Fakes;
 using BindOpen.Scoping;
+using BindOpen.Scoping.Script;
 
 namespace BindOpen.Plus.Databases.Tests
 {
     public static class GlobalVariables
     {
-        static string _workingFolder = null;
-        static IBdoHost _appHost = null;
+        static IBdoScope _appScope = null;
 
+        /// <summary>
+        /// The global scope.
+        /// </summary>
+        public static IBdoScope Scope
+        {
+            get
+            {
+                if (_appScope == null)
+                {
+                    _appScope = BdoScoping.NewScope();
+                    _appScope.LoadExtensions(q => q.AddAssemblyFrom<GlobalSetUp>());
+                }
+
+                return _appScope;
+            }
+        }
+
+        static string _workingFolder;
+        static IBdoScriptInterpreter _scriptInterpreter;
+
+        /// <summary>
+        /// The global working folder.
+        /// </summary>
         public static string WorkingFolder
         {
             get
             {
                 if (_workingFolder == null)
                 {
-                    _workingFolder = (FileHelper.GetAppRootFolderPath() + @"bdo\temp\").ToPath();
+                    _workingFolder = (FileHelper.GetAppRootFolderPath() + @"temp\").ToPath();
                 }
 
                 return _workingFolder;
             }
         }
 
-        public static IBdoScope Scope
+        public static IBdoScriptInterpreter ScriptInterpreter
         {
             get
             {
-                return _appHost ?? (_appHost = BdoHostFactory.CreateBindOpenHost<TestAppSettings>(
-                        options => options
-                            .SetModule("app.test")
-                            .AddExtensions(p => p.AddMSSqlServer().AddPostgreSql())
-                            .AddDataStore(s => s
-                                .RegisterDatasources(m => m
-                                    .AddFromConfiguration(options)
-                                    .AddDatasource(m.CreatePostgreSqlDatasource("db.testA", "connectionStringA")))
-                                .RegisterDbModels((m, l) => m.AddFromAssembly<DbModelFake>(l)))
-                        //.AddDefaultFileLogger()
-                        //.ThrowExceptionOnStartFailure()
-                        //.AddLoggers(
-                        //    BdoLoggerFactory.Create<BdoSnapLogger>(null, BdoLoggerMode.Auto).AddConsoleOutput())
-                        ));
+                if (_scriptInterpreter == null)
+                {
+                    _scriptInterpreter = Scope.Interpreter; ;
+                }
+
+                return _scriptInterpreter;
             }
         }
     }
-
 }

@@ -9,8 +9,7 @@ namespace BindOpen.Databases.Models
     /// <summary>
     /// This class represents a database data query.
     /// </summary>
-    public abstract class DbQuery : BdoObject,
-        IDbQuery
+    public abstract class DbQuery : BdoObject, IDbQuery
     {
         // ------------------------------------------
         // CONSTRUCTORS
@@ -179,7 +178,7 @@ namespace BindOpen.Databases.Models
             return this;
         }
 
-        public IDbQuery AddParameters(params IBdoMetaScalar[] parameters)
+        public IDbQuery AddParameters(params IBdoMetaData[] parameters)
         {
             ParameterSet ??= BdoData.NewSet(parameters);
             ParameterSet.Add(parameters);

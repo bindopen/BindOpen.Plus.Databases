@@ -1,8 +1,8 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Helpers;
 using BindOpen.Data.Meta;
-using BindOpen.Scoping.Script;
 using BindOpen.Databases.Models;
+using BindOpen.Scoping.Script;
 using System.Linq;
 
 namespace BindOpen.Databases
@@ -38,19 +38,19 @@ namespace BindOpen.Databases
             {
                 return BdoScript.Function("sqlText", text);
             }
-            else if (obj is DbField field)
+            else if (obj is IDbField field)
             {
-                return (field?.ToScript()).ToExpression(BdoExpressionKind.Script);
+                return (field?.ToString()).ToExpression(BdoExpressionKind.Script);
             }
-            else if (obj is DbTable table)
+            else if (obj is IDbTable table)
             {
-                return (table?.ToScript()).ToExpression(BdoExpressionKind.Script);
+                return (table?.ToString()).ToExpression(BdoExpressionKind.Script);
             }
-            else if (obj is IBdoMetaScalar param)
-            {
-                return param.AsExp();
-            }
-            else if (obj is BdoExpression)
+            //else if (obj is IBdoMetaScalar param)
+            //{
+            //    return param.AsExp();
+            //}
+            else if (obj is IBdoExpression)
             {
                 return obj;
             }

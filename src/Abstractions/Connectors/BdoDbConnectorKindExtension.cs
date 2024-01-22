@@ -14,7 +14,7 @@ namespace BindOpen.Databases.Connectors
         /// <returns>The result object.</returns>
         public static string GetUniqueName(this BdoDbConnectorKind connectorKind_database)
         {
-            return connectorKind_database.ToString().ToLower().GetUniqueName_database();
+            return connectorKind_database.ToString().ToLower().GetDbConnectorUniqueName();
         }
 
 

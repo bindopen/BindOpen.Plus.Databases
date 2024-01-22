@@ -1,4 +1,5 @@
 ﻿using BindOpen.Data;
+using BindOpen.Data.Helpers;
 using BindOpen.Data.Meta;
 using BindOpen.Scoping;
 using BindOpen.Scoping.Entities;
@@ -155,7 +156,30 @@ namespace BindOpen.Databases.Models
         /// <returns></returns>
         public override string ToString()
         {
-            return this;
+            string st = "";
+
+            if (!string.IsNullOrEmpty(DataTable)
+                || !string.IsNullOrEmpty(Schema)
+                || !string.IsNullOrEmpty(DataModule))
+            {
+                st = BdoDb.Table(DataTable, Schema, DataModule).WithAlias(DataTableAlias).ToString()
+                    .ConcatenateIfFirstNotEmpty(".");
+            }
+
+            if (!string.IsNullOrEmpty(Alias))
+            {
+                st = st.ConcatenateIf(string.IsNullOrEmpty(st), "$") + "sqlField('" + Alias + "')";
+            }
+            else if (!string.IsNullOrEmpty(Name))
+            {
+                st = st.ConcatenateIf(string.IsNullOrEmpty(st), "$") + "sqlField('" + Name + "')";
+            }
+            else
+            {
+                st = st.ConcatenateIf(string.IsNullOrEmpty(st), "$") + "sqlField('<!-FIELD_MISSING-!>')";
+            }
+
+            return st;
         }
 
         #endregion
@@ -171,7 +195,7 @@ namespace BindOpen.Databases.Models
         /// </summary>
         /// <param name="field">The field to consider.</param>
         public static implicit operator string(DbField field)
-            => field.ToScript();
+            => field?.ToString();
 
         #endregion
     }

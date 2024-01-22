@@ -1,4 +1,9 @@
-﻿using BindOpen.Plus.Databases.Tests;
+﻿using BindOpen.Data.Helpers;
+using BindOpen.Data.Stores;
+using BindOpen.Databases.Tests.Fakes;
+using BindOpen.Logging;
+using BindOpen.Plus.Databases.Tests;
+using BindOpen.Scoping;
 using NUnit.Framework;
 using System;
 
@@ -12,9 +17,9 @@ namespace BindOpen.Databases.Tests.PostgreSql.Data.Repositories
         [SetUp]
         public void TestSetup()
         {
-            var host = GlobalVariables.AppHost;
-            _repository = host.CreateConnected<RepositoryFake>(
-                host.CreatePostgreSqlConnector(host.GetDatasourceDepot().GetConnectionString("db.test")));
+            var scope = GlobalVariables.Scope;
+            _repository = scope.CreateConnected<RepositoryFake>(
+                scope.CreatePostgreSqlConnector().WithConnectionString(scope.GetDatasourceDepot()["db.test"]?.ConnectionString));
         }
 
         [Test]
@@ -27,7 +32,7 @@ namespace BindOpen.Databases.Tests.PostgreSql.Data.Repositories
             _repository.UsingConnection(
                 (p, l) =>
                 {
-                }, log);
+                }, true, log);
 
             Assert.That(log.HasErrorOrException(), "Using connection method not working");
         }
