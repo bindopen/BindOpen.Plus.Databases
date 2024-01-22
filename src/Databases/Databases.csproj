@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>BindOpen.Plus.Databases</AssemblyName>
-    <PackageId>BindOpen.Plus.Databases</PackageId>
-    <Product>BindOpen.Plus.Databases</Product>
+    <AssemblyName>BindOpen.Databases</AssemblyName>
+    <PackageId>BindOpen.Databases</PackageId>
+    <Product>BindOpen.Databases</Product>
     <Company>BindOpen</Company>
     <Copyright>Copyright ©BindOpen 2011-2024</Copyright>
-    <Description>BindOpen is a framework that allows you to build widely-extended applications. This package handles database connections.</Description>
+    <Description>BindOpen.Logging offers a simple and multidimensional logging system, perfect to monitor nested task executions.</Description>
     <Authors>Sumer Team</Authors>
     <RootNamespace>BindOpen.Databases</RootNamespace>
     <PackageProjectUrl>https://github.com/bindopen/BindOpen.Databases</PackageProjectUrl>
@@ -16,11 +16,11 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>bindopen_icon.png</PackageIcon>
     <SignAssembly>true</SignAssembly>
-    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>BindOpen.Plus.Databases.xml</DocumentationFile>
+    <DocumentationFile>BindOpen.Databases.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,14 +32,14 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\..\Readme.md">
+    <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Kernel.Scoping.Script" Version="1.2.159" />
+    <PackageReference Include="BindOpen.Scoping.Script" Version="1.2.165" />
   </ItemGroup>
 
   <ItemGroup>

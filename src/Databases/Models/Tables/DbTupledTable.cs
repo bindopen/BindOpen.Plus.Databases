@@ -23,7 +23,6 @@ namespace BindOpen.Databases.Models
 
         #endregion
 
-
         // ------------------------------------------
         // IDbTupledTable Implementation
         // ------------------------------------------
@@ -34,29 +33,6 @@ namespace BindOpen.Databases.Models
         /// The tuples of this instance.
         /// </summary>
         public List<IDbTuple> Tuples { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tuples"></param>
-        /// <returns></returns>
-        public IDbTupledTable WithTuples(params IDbTuple[] tuples)
-        {
-            Tuples = tuples?.ToList();
-            return this;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tuples"></param>
-        /// <returns></returns>
-        public IDbTupledTable AddTuples(params IDbTuple[] tuples)
-        {
-            Tuples ??= new List<IDbTuple>();
-            Tuples.AddRange(tuples);
-            return this;
-        }
 
         #endregion
 

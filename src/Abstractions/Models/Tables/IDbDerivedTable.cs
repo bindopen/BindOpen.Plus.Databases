@@ -9,12 +9,5 @@
         /// The query of this instance.
         /// </summary>
         IDbQuery Query { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        IDbDerivedTable WithQuery(IDbQuery query);
     }
 }

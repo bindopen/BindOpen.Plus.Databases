@@ -3,9 +3,7 @@ using BindOpen.Scoping.Entities;
 
 namespace BindOpen.Databases.Models
 {
-    public interface IDbField :
-        IBdoEntity, IDbObject,
-        INamed
+    public interface IDbField : IBdoEntity, IDbObject, INamed
     {
         IBdoExpression Value { get; set; }
 

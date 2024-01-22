@@ -46,55 +46,14 @@ namespace BindOpen.Databases.Models
         public DbQueryJoinKind Kind { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="kind"></param>
-        /// <returns></returns>
-        public IDbJoinedTable WithKind(DbQueryJoinKind kind)
-        {
-            Kind = kind;
-            return this;
-        }
-
-        /// <summary>
         /// The table of this instance.
         /// </summary>
         public IDbTable Table { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="table"></param>
-        /// <returns></returns>
-        public IDbJoinedTable WithTable(IDbTable table)
-        {
-            Table = table;
-            return this;
-        }
-
-        /// <summary>
         /// The condition of this instance.
         /// </summary>
         public IBdoExpression Condition { get; set; }
-
-        /// <summary>
-        /// Sets the specified condition.
-        /// </summary>
-        /// <param name="condition">The condition to consider.</param>
-        /// <returns>Returns this instance.</returns>
-        public IDbJoinedTable WithCondition(IBdoExpression condition)
-        {
-            Condition = condition;
-            return this;
-        }
-
-        /// <summary>
-        /// Sets the specified condition.
-        /// </summary>
-        /// <param name="condition">The condition to consider.</param>
-        /// <returns>Returns this instance.</returns>
-        public IDbJoinedTable WithCondition(string condition)
-            => WithCondition(condition?.ToExpression(BdoExpressionKind.Script));
 
         #endregion
 

@@ -1,6 +1,7 @@
 ﻿using BindOpen.Data;
 using BindOpen.Databases.Builders;
 using BindOpen.Logging;
+using BindOpen.Logging.Loggers;
 using BindOpen.Plus.Databases.Tests;
 using BindOpen.Scoping;
 using NUnit.Framework;
@@ -81,7 +82,8 @@ namespace BindOpen.Databases.PostgreSql.Queries
                     BdoDb.IfNull(
                         BdoDb.Parameter("myText"),
                         BdoDb.Field("fieldA")));
-            var log = BdoLogging.NewLog();
+            var log = BdoLogging.NewLog()
+                .WithLogger(BdoLogging.NewLogger<BdoTraceLogger>());
 
             string expectedResult = @"""fieldA""=coalesce(|*|p:myText|*|, ""fieldA"")";
 

@@ -61,5 +61,49 @@ namespace BindOpen.Databases.Models
 
             return BdoScript.Function("sqlQuery", query.SubQueries.Count.ToString());
         }
+
+        /// <summary>
+        /// Defines the parameter specifications of this instance.
+        /// </summary>
+        /// <param name="parameters">The set of parameters to consider.</param>
+        /// <returns>Return this instance.</returns>
+        public static T WithParameters<T>(this T query, params IBdoMetaData[] parameters)
+            where T : IDbQuery
+        {
+            if (query != null)
+            {
+                query.ParameterSet = BdoData.NewSet(parameters);
+            }
+
+            return query;
+        }
+
+        public static T AddParameters<T>(this T query, params IBdoMetaScalar[] parameters)
+            where T : IDbQuery
+        {
+            if (query != null)
+            {
+                query.ParameterSet ??= BdoData.NewSet(parameters);
+                query.ParameterSet.Add(parameters);
+            }
+
+            return query;
+        }
+
+        /// <summary>
+        /// Defines the parameter specifications of this instance.
+        /// </summary>
+        /// <param name="parameterSpecs">The set of parameter specifications to consider.</param>
+        /// <returns>Return this instance.</returns>
+        public static T UsingParameters<T>(this T query, params IBdoSpec[] parameterSpecs)
+            where T : IDbQuery
+        {
+            if (query != null)
+            {
+                query.ParameterSpecSet = BdoData.NewSpecSet(parameterSpecs);
+            }
+
+            return query;
+        }
     }
 }

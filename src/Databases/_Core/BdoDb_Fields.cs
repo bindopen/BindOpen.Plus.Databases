@@ -108,8 +108,8 @@ namespace BindOpen.Databases
             object value,
             DataValueTypes valueType = DataValueTypes.Any)
         {
-            var field = Field(name, table);
-            field.AsLiteral(value, valueType);
+            var field = Field(name, table)
+                .AsLiteral(value, valueType);
             return field;
         }
 
@@ -299,13 +299,11 @@ namespace BindOpen.Databases
         /// </summary>
         /// <param name="field">The field to consider.</param>
         /// <param name="otherField">The other field to consider.</param>
-        public static IDbField AsOther(
-            this IDbField field,
-            IDbField otherField)
+        public static IDbField AsOther(this IDbField field, IDbField otherField)
         {
             if (field != null)
             {
-                field.Expression = (otherField.ToScript()).ToExpression(BdoExpressionKind.Script);
+                field.Expression = (otherField.ToString()).ToExpression(BdoExpressionKind.Script);
             }
 
             return field;

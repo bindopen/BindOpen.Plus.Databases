@@ -44,7 +44,7 @@ namespace BindOpen.Databases
         /// <param name="element">The parameter to consider.</param>
         public static IBdoExpression AsExp(this IBdoMetaScalar parameter)
         {
-            return (BdoExpression)BdoScript.Function("sqlParameter", parameter?.Name ?? parameter.Index.ToString());
+            return BdoScript.Function("sqlParameter", parameter?.Name ?? parameter.Index.ToString());
         }
 
         /// <summary>

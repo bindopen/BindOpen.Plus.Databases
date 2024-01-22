@@ -233,8 +233,8 @@ namespace BindOpen.Databases.Script
             }
             else
             {
-                string value1 = domain?.Scriptword?.GetData<string>(0);
-                string value2 = domain?.Scriptword?.GetData<string>(1);
+                string value1 = domain?.Scriptword?.GetData(0)?.ToString();
+                string value2 = domain?.Scriptword?.GetData(1)?.ToString();
 
                 return queryBuilder.GetSqlText_Eq(value1, value2);
             }
@@ -728,7 +728,7 @@ namespace BindOpen.Databases.Script
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoFunction]
-        public static object Fun_SqlDatabase_SqlSchema(IBdoScriptDomain domain)
+        public static object Fun_SqlSchema(IBdoScriptDomain domain)
         {
             var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
@@ -749,7 +749,7 @@ namespace BindOpen.Databases.Script
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoFunction]
-        public static object Fun_SqlDatabase_SqlTable(IBdoScriptDomain domain)
+        public static object Fun_SqlTable(IBdoScriptDomain domain)
         {
             var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
@@ -770,7 +770,7 @@ namespace BindOpen.Databases.Script
         /// <param name="scope">The script word function scope to consider.</param>
         /// <returns>The interpreted string value.</returns>
         [BdoFunction]
-        public static object Fun_SqlDatabase_SqlTable_SqlField(IBdoScriptDomain domain)
+        public static object Fun_SqlField(IBdoScriptDomain domain)
         {
             var queryBuilder = domain?.VariableSet?.GetDbQueryBuilder();
             if (queryBuilder == null)
@@ -843,7 +843,7 @@ namespace BindOpen.Databases.Script
             else
             {
                 string value1 = domain?.Scriptword?.GetData<string>(0);
-                string value2 = domain?.Scriptword?[1]?.ToString();
+                string value2 = domain?.Scriptword?.GetData<string>(1);
 
                 return queryBuilder.GetSqlText_In(value1, value2);
             }

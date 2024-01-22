@@ -2,7 +2,6 @@
 using BindOpen.Databases.Models;
 using BindOpen.Databases.Stores;
 using BindOpen.Databases.Tests.Fakes;
-using BindOpen.Logging;
 using BindOpen.Plus.Databases.Tests;
 using NUnit.Framework;
 
@@ -24,8 +23,6 @@ namespace BindOpen.Databases.PostgreSql.Tuples
         [Test]
         public void AddFields()
         {
-            var log = BdoLogging.NewLog();
-
             var tuple = BdoDb.Tuple(
                 BdoDb.Field("field1", BdoDb.Table("Table1")),
                 BdoDb.Field("field2", BdoDb.Table("Table1")),

@@ -31,17 +31,6 @@
         /// </summary>
         public IDbQuery Query { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public IDbDerivedTable WithQuery(IDbQuery query)
-        {
-            Query = query;
-            return this;
-        }
-
         #endregion
 
         // ------------------------------------------
