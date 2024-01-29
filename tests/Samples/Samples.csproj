@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>BindOpen.Databases.Samples</AssemblyName>
     <PackageId>BindOpen.Databases.Samples</PackageId>
     <Product>BindOpen.Databases</Product>
