@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>BindOpen.Databases</AssemblyName>
     <PackageId>BindOpen.Databases</PackageId>
     <Product>BindOpen.Databases</Product>
@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Scoping.Script" Version="1.2.165" />
+    <PackageReference Include="BindOpen.Scoping.Script" Version="1.2.166" />
   </ItemGroup>
 
   <ItemGroup>
