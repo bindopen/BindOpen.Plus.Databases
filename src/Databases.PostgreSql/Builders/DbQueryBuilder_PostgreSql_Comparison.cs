@@ -1,7 +1,7 @@
 ﻿using BindOpen.Scoping.Script;
 using System;
 
-namespace BindOpen.Databases.Builders
+namespace BindOpen.Databases.Relational.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.

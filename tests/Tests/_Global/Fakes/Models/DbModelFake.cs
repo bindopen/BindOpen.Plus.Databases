@@ -1,11 +1,11 @@
-﻿using BindOpen.Databases.Models;
+﻿using BindOpen.Databases.Relational;
 
 namespace BindOpen.Databases.Tests.Fakes
 {
     /// <summary>
     /// This class represents a BrandManager database model.
     /// </summary>
-    public partial class DbModelFake : BdoDbModel
+    public partial class DbModelFake : BdoDbRelationalModel
     {
         /// <summary>
         /// 

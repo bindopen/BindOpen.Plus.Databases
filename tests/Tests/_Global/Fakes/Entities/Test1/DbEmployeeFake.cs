@@ -1,4 +1,4 @@
-﻿using BindOpen.Databases.Models;
+﻿using BindOpen.Databases.Relational;
 using System;
 
 namespace BindOpen.Databases.Tests.Fakes.Test1

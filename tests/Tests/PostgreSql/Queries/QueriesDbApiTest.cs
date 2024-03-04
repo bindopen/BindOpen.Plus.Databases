@@ -12,7 +12,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
     public class QueriesDbApiTest
     {
         DbModelFake _model;
-        IBdoDbConnector _dbConnector;
+        IBdoDbRelationalConnector _dbConnector;
 
         [SetUp]
         public void Setup()

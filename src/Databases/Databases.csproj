@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Scoping.Script" Version="1.2.166" />
+    <PackageReference Include="BindOpen.Scoping.Script" Version="1.2.168" />
   </ItemGroup>
 
   <ItemGroup>

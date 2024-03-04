@@ -1,9 +1,5 @@
 ﻿using BindOpen.Data.Meta;
-using BindOpen.Databases.Builders;
-using BindOpen.Databases.Models;
-using BindOpen.Logging;
 using BindOpen.Scoping.Connectors;
-using System.Data;
 
 namespace BindOpen.Databases.Connectors
 {
@@ -43,11 +39,6 @@ namespace BindOpen.Databases.Connectors
         // -----------------------------------------------
 
         #region IBdoDbConnector
-
-        /// <summary>
-        /// The query builder of this instance.
-        /// </summary>
-        protected IDbQueryBuilder _queryBuilder;
 
         /// <summary>
         /// The provider of this instance.
@@ -90,41 +81,6 @@ namespace BindOpen.Databases.Connectors
         /// </summary>
         [BdoProperty(Name = "kind")]
         public BdoDbConnectorKind DatabaseConnectorKind { get; set; }
-
-        // SQL commands
-
-        /// <summary>
-        /// Gets the SQL text of the specified query.
-        /// </summary>
-        /// <param name="query">The query to consider.</param>
-        /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
-        /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="varSet">The script variable set to consider.</param>
-        /// <param name="log">The log to consider.</param>
-        /// <returns>Returns the SQL text of the specified query.</returns>
-        public virtual string CreateCommandText(
-            IDbQuery query,
-            DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
-            IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varSet = null,
-            IBdoLog log = null)
-        {
-            if (_queryBuilder == null)
-            {
-                log?.AddEvent(EventKinds.Error, "Data builder missing");
-                return null;
-            }
-
-            string sqlText = _queryBuilder.BuildQuery(query, parameterMode, parameterSet, varSet, log);
-            return sqlText;
-        }
-
-        public abstract IDbCommand CreateCommand(
-            IDbQuery query,
-            DbQueryParameterMode parameterMode,
-            IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varSet = null,
-            IBdoLog log = null);
 
         #endregion
     }

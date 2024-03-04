@@ -1,5 +1,4 @@
-﻿using BindOpen.Databases.Models;
-using BindOpen.Data.Stores;
+﻿using BindOpen.Data.Stores;
 using System.Collections.Generic;
 
 namespace BindOpen.Databases.Stores

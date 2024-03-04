@@ -1,6 +1,6 @@
 ﻿using BindOpen.Data.Meta;
-using BindOpen.Databases.Builders;
-using BindOpen.Databases.Models;
+using BindOpen.Databases.Relational;
+using BindOpen.Databases.Relational.Builders;
 using BindOpen.Logging;
 using BindOpen.Scoping;
 using BindOpen.Scoping.Connectors;
@@ -13,7 +13,7 @@ namespace BindOpen.Databases.Connectors
     /// This class represents a OleDb database connector.
     /// </summary>
     [BdoConnector(Name = "databases.postgresql$client")]
-    public class BdoDbConnector_PostgreSql : BdoDbConnector
+    public class BdoDbConnector_PostgreSql : BdoDbRelationalConnector
     {
         // ------------------------------------------
         // VARIABLES

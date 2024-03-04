@@ -1,8 +1,4 @@
-﻿using BindOpen.Data.Meta;
-using BindOpen.Databases.Models;
-using BindOpen.Logging;
-using BindOpen.Scoping.Connectors;
-using System.Data;
+﻿using BindOpen.Scoping.Connectors;
 
 namespace BindOpen.Databases.Connectors
 {
@@ -51,39 +47,6 @@ namespace BindOpen.Databases.Connectors
         /// The database kind of this instance.
         /// </summary>
         BdoDbConnectorKind DatabaseConnectorKind { get; set; }
-
-        #endregion
-
-        // ------------------------------------------
-        // ACCESSORS
-        // ------------------------------------------
-
-        #region Accessors
-
-        // SQL commands
-
-        /// <summary>
-        /// Gets the SQL text of the specified query.
-        /// </summary>
-        /// <param name="query">The query to consider.</param>
-        /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
-        /// <param name="parameterSet">The parameter set to consider.</param>
-        /// <param name="varSet">The script variable set to consider.</param>
-        /// <param name="log">The log to consider.</param>
-        /// <returns>Returns the SQL text of the specified query.</returns>
-        string CreateCommandText(
-            IDbQuery query,
-            DbQueryParameterMode parameterMode = DbQueryParameterMode.ValueInjected,
-            IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varSet = null,
-            IBdoLog log = null);
-
-        IDbCommand CreateCommand(
-            IDbQuery query,
-            DbQueryParameterMode parameterMode,
-            IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varSet = null,
-            IBdoLog log = null);
 
         #endregion
     }

@@ -39,12 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BindOpen.Scoping" Version="1.2.166" />
-    <PackageReference Include="Npgsql" Version="8.0.1" />
+    <PackageReference Include="Npgsql" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Databases\Databases.csproj" />
+    <ProjectReference Include="..\Databases.Relational\Databases.Relational.csproj" />
   </ItemGroup>
 
 </Project>

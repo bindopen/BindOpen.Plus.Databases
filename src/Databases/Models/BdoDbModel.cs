@@ -1,24 +1,12 @@
 ﻿using BindOpen.Data;
-using System.Collections.Generic;
 
-namespace BindOpen.Databases.Models
+namespace BindOpen.Databases
 {
     /// <summary>
     /// This class represents a database model.
     /// </summary>
-    public abstract partial class BdoDbModel :
-        BdoObject,
-        IBdoDbModel, IBdoDbModelBuilder
+    public abstract partial class BdoDbModel : BdoObject, IBdoDbModel, IBdoDbModelBuilder
     {
-        #region Variables
-
-        internal Dictionary<string, IDbTableModel> TableModelDictionary = new Dictionary<string, IDbTableModel>();
-        internal Dictionary<string, IDbTableRelationship> TableRelationShipDictionary = new Dictionary<string, IDbTableRelationship>();
-        internal Dictionary<string, IDbField[]> TupleDictionary = new Dictionary<string, IDbField[]>();
-        internal Dictionary<string, IDbStoredQuery> QueryDictionary = new Dictionary<string, IDbStoredQuery>();
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -32,23 +20,15 @@ namespace BindOpen.Databases.Models
         #endregion
 
         // ------------------------------------------
-        // IIdentified Implementation
+        // IBdoDbModel Implementation
         // ------------------------------------------
 
-        #region IIdentified
+        #region IBdoDbModel
 
         /// <summary>
         /// 
         /// </summary>
         public string Id { get; set; }
-
-        #endregion
-
-        // -----------------------------------------------
-        // IReferenced Implementation
-        // -----------------------------------------------
-
-        #region IReferenced
 
         /// <summary>
         /// 
@@ -58,7 +38,7 @@ namespace BindOpen.Databases.Models
         #endregion
 
         // -----------------------------------------------
-        // IBdoDbModel Implementation
+        // IBdoDbModelBuilder Implementation
         // -----------------------------------------------
 
         #region IBdoDbModel

@@ -15,7 +15,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
     public class QueriesUpdateTest
     {
         DbModelFake _model;
-        IBdoDbConnector _dbConnector;
+        IBdoDbRelationalConnector _dbConnector;
         EmployeeDtoFake _employee;
 
         [SetUp]
