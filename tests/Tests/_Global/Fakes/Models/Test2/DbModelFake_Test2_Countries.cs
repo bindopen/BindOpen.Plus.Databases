@@ -1,5 +1,5 @@
 ﻿using BindOpen.Data;
-using BindOpen.Databases.Models;
+using BindOpen.Databases.Relational;
 using BindOpen.Databases.Tests.Fakes.Test2;
 
 namespace BindOpen.Databases.Tests.Fakes
@@ -7,7 +7,7 @@ namespace BindOpen.Databases.Tests.Fakes
     /// <summary>
     /// This class represents a test database model.
     /// </summary>
-    public partial class DbModelFake : BdoDbModel
+    public partial class DbModelFake : BdoDbRelationalModel
     {
         /// <summary>
         /// 

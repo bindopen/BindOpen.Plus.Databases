@@ -1,7 +1,6 @@
 ﻿using BindOpen.Data.Assemblies;
 using BindOpen.Data.Stores;
 using BindOpen.Logging;
-using BindOpen.Databases.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -12,7 +12,7 @@ namespace BindOpen.Databases.PostgreSql.Queries
     public class QueriesDeleteTest
     {
         DbModelFake _model;
-        IBdoDbConnector _dbConnector;
+        IBdoDbRelationalConnector _dbConnector;
 
         [SetUp]
         public void Setup()

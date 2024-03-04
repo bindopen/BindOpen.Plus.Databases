@@ -1,5 +1,5 @@
 ﻿using BindOpen.Data;
-using BindOpen.Databases.Builders;
+using BindOpen.Databases.Relational.Builders;
 using BindOpen.Databases.Connectors;
 using BindOpen.Logging;
 using BindOpen.Plus.Databases.Tests;
@@ -11,7 +11,7 @@ namespace BindOpen.Databases.PostgreSql.Scripting
     [TestFixture, Order(12)]
     public class ScriptwordsTest
     {
-        IBdoDbConnector _dbConnector;
+        IBdoDbRelationalConnector _dbConnector;
 
         [SetUp]
         public void Setup()

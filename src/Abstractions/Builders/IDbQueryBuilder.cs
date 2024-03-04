@@ -2,9 +2,8 @@
 using BindOpen.Data.Meta;
 using BindOpen.Logging;
 using BindOpen.Scoping;
-using BindOpen.Databases.Models;
 
-namespace BindOpen.Databases.Builders
+namespace BindOpen.Databases.Relational.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.

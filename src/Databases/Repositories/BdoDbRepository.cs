@@ -1,13 +1,13 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Helpers;
 using BindOpen.Data.Repositories;
+using BindOpen.Databases.Connectors;
 using BindOpen.Logging;
 using BindOpen.Scoping;
 using BindOpen.Scoping.Connectors;
-using BindOpen.Databases.Connectors;
 using System;
 
-namespace BindOpen.Databases.Models
+namespace BindOpen.Databases
 {
     /// <summary>
     /// This class represents a master data repository.

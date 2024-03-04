@@ -1,17 +1,16 @@
 ﻿using BindOpen.Data;
 using BindOpen.Data.Helpers;
 using BindOpen.Data.Meta;
-using BindOpen.Databases.Models;
 using BindOpen.Logging;
 using System;
 using System.Linq;
 
-namespace BindOpen.Databases.Builders
+namespace BindOpen.Databases.Relational.Builders
 {
     /// <summary>
     /// This class represents a builder of database query.
     /// </summary>
-    public partial class DbQueryBuilder_PostgreSql : DbQueryBuilder
+    public partial class DbQueryBuilder_PostgreSql
     {
         // ------------------------------------------
         // FIELDS

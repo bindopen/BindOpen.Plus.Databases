@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BindOpen.Databases.Builders
+namespace BindOpen.Databases.Relational.Builders
 {
     /// <summary>
     /// This enumeration lists the possible modes of parameters.

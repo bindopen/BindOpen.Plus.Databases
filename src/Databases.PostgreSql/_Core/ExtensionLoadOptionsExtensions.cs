@@ -1,4 +1,4 @@
-﻿using BindOpen.Databases.Builders;
+﻿using BindOpen.Databases.Relational.Builders;
 using BindOpen.Scoping;
 
 namespace BindOpen.Databases

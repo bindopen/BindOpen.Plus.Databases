@@ -1,18 +1,22 @@
-﻿using BindOpen.Scoping;
+﻿using BindOpen.Databases.Connectors;
+using BindOpen.Scoping;
 
-namespace BindOpen.Databases.Models
+namespace BindOpen.Databases
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface ITBdoDbRepository<T> : IBdoDbRepository
-        where T : class, IBdoDbModel
+    public interface ITBdoDbRepository<TConnector, TModel> : IBdoDbRepository
+        where TConnector : class, IBdoDbConnector
+        where TModel : class, IBdoDbModel
     {
+        new TConnector Connector { get; set; }
+
         /// <summary>
         /// The model of this instance.
         /// </summary>
-        T Model { get; }
+        TModel Model { get; }
 
-        ITBdoDbRepository<T> WithScope(IBdoScope scope);
+        ITBdoDbRepository<TConnector, TModel> WithScope(IBdoScope scope);
     }
 }

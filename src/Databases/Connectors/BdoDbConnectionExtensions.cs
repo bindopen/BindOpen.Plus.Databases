@@ -1,6 +1,4 @@
-﻿using BindOpen.Data.Meta;
-using BindOpen.Data.Stores;
-using BindOpen.Databases.Models;
+﻿using BindOpen.Data.Stores;
 using BindOpen.Logging;
 using BindOpen.Scoping;
 using BindOpen.Scoping.Connectors;
@@ -60,91 +58,6 @@ namespace BindOpen.Databases.Connectors
             where T : class, IBdoConnection
         {
             return scope.Open<T>(null, dataSourceName, connectorDefinitionUniqueId, log);
-        }
-
-        // Commands ----------------------------------------------
-
-        /// <summary>
-        /// Gets the SQL text of the specified query.
-        /// </summary>
-        /// <param name="connection">The connection to consider.</param>
-        /// <param name="commandText">The command text to consider.</param>
-        /// <returns>Returns the SQL text of the specified query.</returns>
-        public static IDbCommand CreateCommand(
-            this IBdoDbConnection connection,
-            string commandText)
-        {
-            var command = connection?.Native?.CreateCommand();
-            command.CommandText = commandText;
-            return command;
-        }
-
-        /// <summary>
-        /// Gets the SQL text of the specified query.
-        /// </summary>
-        /// <param name="query">The query to consider.</param>
-        /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
-        /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="varSet">The script variable set to consider.</param>
-        /// <param name="log">The log to consider.</param>
-        /// <returns>Returns the SQL text of the specified query.</returns>
-        public static IDbCommand CreateCommand<T>(
-            this IDbQuery query,
-            DbQueryParameterMode parameterMode,
-            IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varSet = null,
-            IBdoLog log = null) where T : BdoDbConnector, new()
-        {
-            T connector = new();
-            return connector?.CreateCommand(query, parameterMode, parameterSet, varSet, log);
-        }
-
-        /// <summary>
-        /// Gets the SQL text of the specified query.
-        /// </summary>
-        /// <param name="connection">The connection to consider.</param>
-        /// <param name="query">The query to consider.</param>
-        /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
-        /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="varSet">The script variable set to consider.</param>
-        /// <param name="log">The log to consider.</param>
-        /// <returns>Returns the SQL text of the specified query.</returns>
-        public static IDbCommand CreateCommand<T>(
-            this IDbConnection connection,
-            IDbQuery query,
-            DbQueryParameterMode parameterMode,
-            IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varSet = null,
-            IBdoLog log = null) where T : BdoDbConnector, new()
-        {
-            T connector = new();
-            var command = connection.CreateCommand();
-            command.CommandText = connector?.CreateCommandText(query, parameterMode, parameterSet, varSet, log);
-            return command;
-        }
-
-        /// <summary>
-        /// Gets the SQL text of the specified query.
-        /// </summary>
-        /// <param name="transaction">The transaction to consider.</param>
-        /// <param name="query">The query to consider.</param>
-        /// <param name="parameterMode">Indicates whether parameters are replaced.</param>
-        /// <param name="parameterSet">The parameter elements to consider.</param>
-        /// <param name="varSet">The script variable set to consider.</param>
-        /// <param name="log">The log to consider.</param>
-        /// <returns>Returns the SQL text of the specified query.</returns>
-        public static IDbCommand CreateCommand<T>(
-            this IDbTransaction transaction,
-            IDbQuery query,
-            DbQueryParameterMode parameterMode,
-            IBdoMetaSet parameterSet = null,
-            IBdoMetaSet varSet = null,
-            IBdoLog log = null) where T : BdoDbConnector, new()
-        {
-            IDbCommand command = transaction?.Connection?.CreateCommand<T>(query, parameterMode, parameterSet, varSet, log);
-            command.Transaction = transaction;
-
-            return command;
         }
 
         // Transactions ----------------------------------------------
