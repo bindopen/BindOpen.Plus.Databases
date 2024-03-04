@@ -1,5 +1,4 @@
 ﻿using BindOpen.Data.Stores;
-using BindOpen.Databases.Models;
 using BindOpen.Logging;
 using BindOpen.Scoping;
 using System;

@@ -1,5 +1,5 @@
 ﻿using BindOpen.Databases.Connectors;
-using BindOpen.Databases.Models;
+using BindOpen.Databases.Relational;
 using BindOpen.Databases.Stores;
 using BindOpen.Databases.Tests.Fakes;
 using BindOpen.Plus.Databases.Tests;
@@ -11,7 +11,7 @@ namespace BindOpen.Databases.PostgreSql.Tuples
     public class TuplesTest
     {
         DbModelFake _model;
-        IBdoDbConnector _dbConnector;
+        IBdoDbRelationalConnector _dbConnector;
 
         [SetUp]
         public void Setup()
